@@ -1,0 +1,418 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{14.49998pt}
+\usepackage{fancyhdr}
+\usepackage{lipsum,graphicx}
+\usepackage{amsmath, amsfonts, amssymb, ragged2e}
+\usepackage{amsthm}
+\title{Summary of Math 220}
+\author{Tom Wang}
+\date{Fall, 2023}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{Tom Wang}
+    \fancyhead[R]{\thepage}
+}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plain}
+
+\section{Sets}
+
+Capitals for sets and lower cases for elements. Order and repetition do not matter. 
+
+Conventionally, \textit{i,j,k,l,m,n} to denote integers and \textit{x,y,z,w} to denote real numbers. Empty sets = \{\} = \O
+
+Set builder notation: S = \{expression : rule\}. For example, A = \{$n^2  | n \in \mathbb{Z} \} = \{0,1,4,9,36,...\} $
+
+Some other useful notations: $\mathbb{N} $ is a natural number.$ \mathbb{Q} $ is rational numbers (including fractions).$ \mathbb{R} $ is real numbers. 
+
+We write $|S|$ to denote the \textbf{cardinality} of S. For a finite set S, the cardinality is the number of elements in S. For example, $|$\O$|$=0.
+
+\subsection*{Subset}
+
+Let $A,B$ be sets
+\begin{itemize}
+    \item We say that $A$ is a \textbf{subset} of $B$ when every element of $A$ is also an element of $B$
+    \item We denote $A\subseteq B$ as \textbf{subset} and call $B$ a \textbf{superset} of $A$ written as $B\supseteq$ A.
+    \item $A$ is a \textbf{proper subset} of $B$ when $A\subset B$ and $B$ comtains at least one element that is not in $A$.
+    \item Finally, two sets are equal if they are subsets of each other:
+    
+    $A=B \iff ((A\subseteq B)\land (B\subseteq A))$
+\end{itemize}
+
+\subsection*{Power set}
+Let $A$ be a set. The \textbf{power set} of $A$, denoted as $\mathcal{P}(A)$, is the set of all subsets of $A$. 
+\begin{align*}
+    \mathcal{P}(\emptyset) &= \{\emptyset\} \\
+    \mathcal{P}(\{1\}) & = \{\emptyset, \{1\}\}\\
+    \mathcal{P}(\{0,1\}) & = \{\emptyset,\{0\}, \{1\},\{0,1\}\}
+\end{align*}
+Not hard to prove that $|A|=n \implies |\mathcal{P}(A)|=2^n$
+
+\subsection*{Set operations}
+\begin{itemize}
+    \item Let A,B be sets. The \textbf{union} of A and B is 
+    \[A\cup B = \{x:x\in A \lor x \in B\} \]
+    \item The \textbf{intersection} of sets A and B is
+    \[A\cup B = \{x:x\in A \land x \in B\} \]
+    If $A\cup B = \emptyset$, then we say that A and B are \textbf{disjoint}
+    \item The \textbf{difference}, $A - B$ is 
+    \[A-B=\{x\in A : x\not \in B\} \]
+
+    \includegraphics*{./Image/Set difference.jpg}
+
+    \item Given a \textbf{universal set} U and $A \subset U$, then the \textbf{complement} of A is 
+    \[\bar{A}=\{x\in U : x \not \in A\}  \quad \text{or} \quad x\in \bar{A} \iff x\not \in A   \]
+    $A-B$ also written as $A \slash  B$ is called the \textbf{relative complement} of B in A. $A-B=A\cap \bar{B}$
+
+    \item An \textbf{ordered pair} of elements is an ordered list of two elements. The ordered pair of two elements $a,b$ is written as $(a,b)$ and satisfies:
+    \begin{itemize}
+        \item $(a,b)=(c,d) \iff (a=c)\land (b=d)$
+        \item $(a,b)=(b,a) \iff (a=b)$
+    \end{itemize}
+    Warning: Do not mix the notations of ordered pair with sets.
+    
+    \item The \textbf{Cartesian product} of sets $A,B$ is 
+    \[A \times B = \{(a,b): a\in A, b\in B\}\]
+    Note that $\forall A,B \neq \emptyset, A \times B = B \times A \iff A = B$ 
+
+\end{itemize}
+\subsubsection*{Set proofs}
+Let A,B be sets:
+\begin{itemize}
+    \item Subset and equality:
+    \begin{itemize}
+        \item $(A\subseteq B) \equiv (\forall x \in A, x\in B)\equiv (x\in A \implies x\in B)$
+        \item $(A=B) \equiv ((A\subseteq B) \land (B\subseteq A))\equiv ((x\in A)\iff (x\in B))$
+    \end{itemize}
+    \item Intersection and union:
+    \begin{itemize}
+        \item $(x\in A\cap B)\equiv (x\in A \land x \in B)$
+        \item $(x\in A\cup B)\equiv (x\in A \lor x \in B)$
+    \end{itemize}
+    \item Complement and difference:
+    \begin{itemize}
+        \item $(x\in \bar{A})\equiv (x\not \in A) \equiv \neg (x\in A)$
+        \item $(x\in A - B)\equiv ((x\in A )\land (x\notin B))\equiv ((x\in A)\land \neg (x\in B))$
+    \end{itemize}
+\end{itemize}
+
+
+
+\subsection*{Set partitions}
+
+Equivalence classes either euqal or disjoint. There is no overlap.
+
+Corollary:
+
+Let $R$ be an equivalence class on A and $a,b\in A$. Then 
+\[[a]=[b]\quad \text{or} \quad [a]\cap[b]=\emptyset\]
+
+\begin{proof}
+    Let $a,b \in A$ and consider the intersection $C=[a]\cap[b]$. Now we know either $C=\emptyset$ or $C\neq \emptyset$
+    \begin{itemize}
+        \item If $ C = \emptyset$, the statement is natuarally true;
+        \item If $C \neq \emptyset$, then there is some $c\in C$. Hence $c\in [a],c\in[b]$. So c R a, c R b.
+        
+        By symmetry, we know that a R c, and by transitivity, we know a R b. So we can conclude $[a]=[b]$
+    \end{itemize}
+\end{proof}
+
+Now we can define paritioning:
+
+A \textbf{partition} of the set A is a set, $\mathcal{P}$, of non-empty subsets of A so that 
+\begin{itemize}
+    \item if $x\in A$, then there is $X\in \mathcal{P}$ with $x\in X$
+    \item if $X,Y\in \mathcal{P}$ then either $X\cap Y = \emptyset$ or $X=Y$
+\end{itemize}
+Elements of $\mathcal{P}$ are \textbf{parts or pieces} of the partition. 
+
+Theorem:
+
+Let R be an eqyuvalence relation on A. The set of equivalence classes of R forms a set parition of A. 
+
+Theorem: Let $\mathcal{P}$ be a set partition of A. Now define a relation by 
+\[x R y \iff \exists X \in \mathcal{P} s.t. x,y \in X\]
+then R is an equivalence relation. 
+
+
+
+\section{Logical Statements}
+A statement has exactly one of those truth values. Some might be Goldbach's conjecture $--$ truth value unknown, but it \textbf{must} be true or false.
+
+An open sentence is a sentence whose truth value depends on the variable it contains. Typically denote it by $P(x)$ and similar. 
+
+Axiom: Statements we accept as true without proof.
+
+Fact: Statements we accept as true, but we won't bother proving for this course.
+
+Theorem: An important true statement -- Pythagoras's theorem.
+
+Corollary: A true statement that follows from a previous theorem.
+
+Lemma: A true statement that helps us prove a more important result.
+
+Result/Proposition: True statements we prove. 
+
+Tautology: a statement that is always true.
+
+Contradiction: a statement that is always false.
+
+\section{Notations}
+The following are the notations you need to remember
+
+The \textbf{negation} of a statement P is denoted $\neg$ P.  
+
+The \textbf{disjunction} of P and Q is "P \textbf{or} Q" and is denoted P$\cup$ Q. 
+
+The \textbf{conjunction} of P and Q is "P \textbf{and} Q" and is denoted P$\cap$ Q.
+
+\section{Implication}
+Conditionals:
+
+Given P and Q, the \textbf{conditional} is the statement "if P then Q" and is denoted "P $\implies$ Q". Also called \textbf{implication} and the \textbf{hypothesis} is P, and the \textbf{conclusion} is Q. If P is false, the statement is \textbf{always} true.
+
+Modus Ponens: if (P $\implies$ Q) and P are true, then Q must be true.
+
+The chain of modus ponens can keep going until desired results are proven to be true.
+
+Given P $\implies$ Q, then the \textbf{converse}: Q $\implies$ P, and the \textbf{contrapositive}: ($\neg$ Q) $\implies$ ($\neg$ P).
+
+\textbf{Negation of and implication}: $\neg(P\implies Q)=P\implies \neg Q$
+
+Contrapositive holds the same truth table as the original implication but the converse does not. 
+
+In the scenarios where (P $\implies$ Q) and (Q $\implies$ P) are both true, we use (P $\iff$ Q). It is called \textbf{biconditional}.
+
+
+
+\section{Intro to proofs}
+
+Start with cases the hypothesis is true and neglect the cases the hypothesis is false. 
+
+When the hypothesis is true, the \textbf{conclusion} must be true if using a chain reaction of modus ponens, and so the \textbf{implication is true}!
+\begin{itemize}
+    \item Assumption/Hypothesis
+    \item A chain reaction of modus ponens
+    \item It follows/ Hence/ Since / ...
+    \item Come to the conclusion
+\end{itemize}
+
+Only skip the part that is obvious to the \textbf{READER} (not you). 
+
+Sometimes we might start from the conclusion and make our way backwards. 
+
+\section{Logic equivalency}
+
+Two statements R and S are \textbf{logically equivalent} when "R $\iff$ S" is a tautology. In this case, we write R $\equiv$ S. 
+
+Equivalent statements share \textbf{the same truth table}. So contrapositive is equivalent to the original implication. 
+
+DeMorgan's laws: $\neg (P\cup Q)\equiv (\neg P)\cap (\neg Q) \quad and\quad \neg (P\cap Q)\equiv (\neg P)\cup (\neg Q)$
+
+\section{Quantifiers and negations}
+
+\subsection*{Some basics}
+
+Adding quantifiers to an open sentence turns it into a statemet. Here the added quantifier is a scope.
+
+Def:
+\begin{itemize}
+    \item The \textbf{universa quantifier} is denoted $\forall$.
+    $``\forall x\in A,P(x)''$ is true provided that $P(x)$ is true for every $x\in A$ and otherwise false.
+
+    \item The \textbf{existential quantifier} is denoted $\exists$.
+    $``\exists x\in A,P(x)''$ is true provided that at least one $P(x)$ is true for $x\in A$ and otherwise false.
+
+\end{itemize}
+
+To show $\forall$ is true or $\exists$ is false, you have to show it generically. Otherwise, one example of the case is good enough.
+
+\subsection*{Negation theorem}
+
+Let P(x) be an open sentence over the domain A, then
+\[
+\lnot (\forall x\in A, P(x))\equiv \exists x \in A, \lnot(P(x))    
+\]
+\[
+  \lnot (\exists x\in A, P(x))\equiv \forall x \in A, \lnot (P(x))  
+\]
+
+Be cautious that the domain would not change!!!!!!!!!!!!!
+
+\subsection*{Nested Quantifiers}
+The order of quantifiers matter a lot! 
+\[
+\forall x, \exists y s.t. P(x,y)\not \equiv \exists y s.t. \forall, P(x,y)    
+\]
+
+\section{Limits if sequences and functions}
+
+Def:
+\begin{itemize}
+    \item Sequence: $f:\mathbb{N} \rightarrow \mathbb{R}$
+    Let $L\in\mathbb{R}$, A sequence $\{x_n\}$, $n\in\mathbb{N}$, converges to L.
+    Written as $x_n\rightarrow L$ or $\lim_{n\rightarrow infinity}x_n = L$ 
+    if $\forall \epsilon > 0, \exists N\in \mathbb{N}, \forall n > N$ implies $|x_n-L|<\epsilon$
+    
+    \item Function: $f:\mathbb{R} \rightarrow \mathbb{R}$. 
+    Let $L\in\mathbb{R}$, A function $\{f(x)\}$, $n\in\mathbb{R}$, $\lim_{x\rightarrow a}f(x)=L$
+    if $\forall \epsilon > 0, \exists \delta >0, 0<|x-a|<\delta$ implies $|f(x)-L|<\epsilon$
+
+\end{itemize}
+
+\section{Induction}
+
+Theorem: Mathematical induction:
+
+For all $n \in \mathbb{N}$ let $P(n)$ be a statement. Then if 
+\begin{itemize}
+    \item $P(1)$ is true and 
+    \item $P(k)\implies P(k+1)$ is true for all $k \in \mathbb{N}$
+\end{itemize}
+then $P(n)$ is true $\forall n \in \mathbb{N}$
+
+So we prove the base case is ture, then prove $P(k)\implies P(k+1)$
+
+\subsection*{The well ordering principle}
+Definition: (The well ordering principle)
+
+A set $A$ is well ordered if every non-empty subset $B \subseteq A$ has a smalleset element. 
+
+Notice that $\mathbb{N}$ is well ordered, but $\mathbb{Z,Q,R}$ are not. This is why induction only work on $\mathbb{N}$
+
+\subsection*{Generalize induction}
+
+Lay out two definition of induction here. 
+
+\textbf{Theorem: Mathematical Induction}
+
+Let $l\in \mathbb{Z}$ and $S=\{n\in\mathbb{Z}\text{s.t.}n\ge l\}$. Let $P(n)$ be a statement for all $n\in S$. Then if 
+\begin{itemize}
+    \item $P(l)$ is true and 
+    \item $P(k)\implies P(k+1)$ is true for all integer $k\in S$
+\end{itemize}
+then $P(n)$ is ture for all $n\in S$
+
+\textbf{Theorem: Strong Mathematical Induction}
+
+Let $l\in \mathbb{Z}$ and $S=\{n\in\mathbb{Z}\text{s.t.}n\ge l\}$. Let $P(n)$ be a statement for all $n\in S$. Then if 
+\begin{itemize}
+    \item $P(l)$ is true and 
+    \item $(P(l)\land P(l+1) \land P(l+2) \land \ldots \land P(k))\implies P(k+1)$ is true for all integer $k\in S$
+\end{itemize}
+then $P(n)$ is ture for all $n\in S$
+
+The two theorem is actually the same and equivalent. It is just to show that induction base case does not need to be starting at 1. Anything in the set can induct to the whole set.
+
+
+\section{Relations}
+
+Let $A$ be a set
+\begin{itemize}
+    \item Some \textbf{relation}, $R$ on $A$ is a subset $R\subseteq A\times A$
+    \item If $(x,y)\in R$, we write $xRy$, and otherwise $x\not R y$
+\end{itemize} 
+
+$R$ is 
+\begin{itemize}
+    \item \textbf{reflexive} when $\forall a \in A, a R a$
+    \item \textbf{symmetric} when $\forall a,b, \quad a R b \implies b R a$
+    \item \textbf{transitive} when $\forall a,b,c, \quad (a R b)\land (b R c)\implies a R c$
+\end{itemize}
+\includegraphics*{./Image/Relation property.png}
+
+
+If $R$ satisfies all the conditions above, then $R$ is an \textbf{equivalence relation}
+
+\subsection*{Equivalence class}
+
+Let R be an \textit{equivalence relation} on set A;
+
+The \textbf{equivalence class} of $x\in A$ with respect to R is 
+\[[x]=\{a\in A: a R x\}\]
+
+Note that if subsets are connected, then they are equivalence classes. 
+
+Lemma:
+
+Let R be an equivalence relation on A. For any $a\in A, a\in [a]$, which means no equivalence class is empty. 
+
+Theorem:
+
+Suppose R is an equivalence relation on A, and let $a,b\in A$. Then
+\[[a]=[b]\iff a R b\]
+
+\begin{proof}
+    We prove each implication in turn:
+    \begin{itemize}
+        \item Assume a R v. We prove that $[a]\subseteq[b]$ and leave the other inclusion to the reader. Let $x\in [a]$, so that x R a. Since R is transitive and a R b, we know that  x R b. Hence $x\in [b]$. The other inclusion is similar, but also uses symmetry of R.
+        \item Now assume $[a]=[b]$. By the lemma above, we know $a\in[a] \implies a\in [b]$. By definition of the equivalence class of b, this tells us that a R b.
+    \end{itemize}
+\end{proof}
+
+\subsection*{Congurence}
+Congurence is a equivalence relation. Meaning it is reflexive, symmetric and transitive. 
+
+Take modulo as an example:
+
+The equivalence relation ``$\equiv (\mod n)$'' gives a parition of $\mathbb{Z}$
+\[\{[0],[1],[2],\ldots,[n-1]\}\]
+
+These equivalence classes are called the \textbf{integers mod n}
+
+Theorem:
+
+Let $n\in\mathbb{N}$ and let $a,b\in \{0,1,\ldots,n-1\}$. If $x\in[a]\land y\in [b]$ then 
+\[x+y\in[a+b]\quad \text{and} \quad x\cdot y \in [a\cdot b]\]
+
+Let $n\in \mathbb{N}$ and consider the equivalence classes of congruence modulo $n$. The \textbf{integers modulo n} is the set 
+\[\mathbb{Z}_n=\{[0],[1],[2],\ldots,[n-1]\}\]
+The elements of $\mathbb{Z}_n$ can be added and multiplied by the rule
+\[[a]+[b]=[a+b]\quad [a]\cdot [b]=[a\cdot b]\]
+
+\section{Functions}
+
+Let $A.B$ be non\-empty sets
+
+A \textbf{function} from $A$ to $B$ is a non\-empty subset $f\subseteq A\times B$ so that
+\begin{itemize}
+    \item for every $a\in A$, there exists a $b\in B$ so that $(a,b)\in f$
+    \item if $(a,b)\in f$ and $(a,c) \in f$ then $b=c$
+\end{itemize}
+The \textbf{domain} of $f$ is $A$, and the \textbf{codomain} is $B$
+
+If $(a,b)\in f$ we write $f(a)=b$ and say that b is the $\textbf{image}$ of $a$
+
+Finally, the \textbf{range} of $f$ is 
+\[\text{range }f=\{b\in B\quad s.t.\exists a\in A \quad s.t. f(a)=b\}\]
+
+Note that the \textbf{range} is a subset of the \textbf{codomain}
+
+\subsection*{Images and Preimages}
+Let $f:A \to B$ be a function and let $C\subseteq A, D\subseteq B$
+\begin{itemize}
+    \item The \textbf{image} of $C$ in $B$ is $f(C)=\{f(x)s.t.x\in C\}$
+    \item The \textbf{preimage} of $D$ in $A$ is $f^{-1}(D)=\{x\in A s.t. f(x)\in D\}$
+\end{itemize}
+Note that:
+\begin{itemize}
+    \item $f(C)\subseteq B, f^{-1}(D)\subseteq A$
+    \item $f^{-1}\neq (f(x))^{-1}$ or $\frac{1}{f(x)}$
+    \item So the preimage is not the inverse fucntion which means:
+    \[C\subseteq f^{-1}(f(C))\quad \text{and} \quad f(f^{-1}(D))\subseteq D\]
+\end{itemize}
+
+Now let $C_1, C_2\subseteq A$ and $D_1,D_2\subseteq B$. Then:
+\begin{align}
+    f(C_1\cap C_2)&\subseteq f(C_1)\cap f(C_2) & f(C_1\cup C_2)&=f(C_1)\cup f(X_2)\\
+    f^{-1}(D_1\cap D_2)& =f^{-1}(D_1)\cap f^{-1}(D_2) & f^{-1}(D_1\cup D_2)& =f^{-1}(D_1)\cup f^{-1}(D_2)
+\end{align}
+
+Note that one of them is a subset relationship. 
+
+
+\end{document}
