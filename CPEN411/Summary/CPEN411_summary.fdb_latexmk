@@ -1,8 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1699595335 "g:/GitHub repositories/CPEN411/Summary/CPEN411_summary.tex" "CPEN411_summary.pdf" "CPEN411_summary" 1699595339 0
-  "CPEN411_summary.aux" 1699595339 857 189ee3a49ac89fd932a620bb37625445 "pdflatex"
-  "CPEN411_summary.out" 1699595339 827 b4dc4eeccf63ec9dddf521b84a7aa918 "pdflatex"
-  "CPEN411_summary.tex" 1699595334 49988 b68e7d2600c3b0677b7dca2f2ddc521a ""
+["pdflatex"] 1699948168 "g:/GitHub repositories/luckunately.github.io/CPEN411/Summary/CPEN411_summary.tex" "CPEN411_summary.pdf" "CPEN411_summary" 1699948172 0
+  "CPEN411_summary.aux" 1699948172 2474 22e412b26278a9280736783966e1b336 "pdflatex"
+  "CPEN411_summary.tex" 1699948141 50011 928201c88ed782862ad117be72bace14 ""
   "Image/2-Issue In-order Superscalar.jpg" 1699464953 34682 3c77845a9b3061dbca4419ffcaa8deae ""
   "Image/ALU differnt length.png" 1698901638 120806 fef7a2955c354d9c86c924d11d54af56 ""
   "Image/Amdahl's Law.png" 1698901638 52731 6d72ff4cd0beaea286795af93ec4d90d ""
@@ -114,6 +113,8 @@
   "c:/texlive/2023/texmf-dist/tex/latex/base/atbegshi-ltx.sty" 1698650661 3045 909ba7bc518ac6e8e7ef69971d52f389 ""
   "c:/texlive/2023/texmf-dist/tex/latex/base/atveryend-ltx.sty" 1698650661 2462 91a1cb69153367feea29040eef0c27f4 ""
   "c:/texlive/2023/texmf-dist/tex/latex/base/size12.clo" 1698650661 8449 9de778d73ba774a5f2bd601f23f8922e ""
+  "c:/texlive/2023/texmf-dist/tex/latex/bookmark/bkm-pdftex.def" 1698647696 8609 8ac7db65d9617618cf703bd16c1bd0b8 ""
+  "c:/texlive/2023/texmf-dist/tex/latex/bookmark/bookmark.sty" 1698647696 18237 5cbdfe9ef383a557f780a0a1f45cdb1c ""
   "c:/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1698649103 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "c:/texlive/2023/texmf-dist/tex/latex/etoolbox/etoolbox.sty" 1698649180 46845 3b58f70c6e861a13d927bff09d35ecbc ""
   "c:/texlive/2023/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty" 1698649296 18450 88279bf67c81e69f8e3f1c1bad1a26c5 ""
@@ -147,10 +148,9 @@
   "c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1698655159 4750288 f1f34006308c654e053d5a8459362656 ""
   "c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1698655415 8208552 b5c807892c40f58536fb25e871bed8c6 ""
   "c:/texlive/2023/texmf.cnf" 1698655117 713 e69b156964470283e0530f5060668171 ""
-  "g:/GitHub repositories/CPEN411/Summary/CPEN411_summary.tex" 1699595334 49988 b68e7d2600c3b0677b7dca2f2ddc521a ""
+  "g:/GitHub repositories/luckunately.github.io/CPEN411/Summary/CPEN411_summary.tex" 1699948141 50011 928201c88ed782862ad117be72bace14 ""
   (generated)
   "CPEN411_summary.aux"
   "CPEN411_summary.log"
-  "CPEN411_summary.out"
   "CPEN411_summary.pdf"
   (rewritten before read)

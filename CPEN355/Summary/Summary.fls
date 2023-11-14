@@ -1,8 +1,8 @@
-PWD g:/GitHub repositories/CPEN355/Summary
+PWD g:/GitHub repositories/luckunately.github.io/CPEN355/Summary
 INPUT c:/texlive/2023/texmf.cnf
 INPUT c:/texlive/2023/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT g:/GitHub repositories/CPEN355/Summary/Summary.tex
+INPUT g:/GitHub repositories/luckunately.github.io/CPEN355/Summary/Summary.tex
 OUTPUT Summary.log
 INPUT c:/texlive/2023/texmf-dist/tex/latex/base/article.cls
 INPUT c:/texlive/2023/texmf-dist/tex/latex/base/article.cls
@@ -41,22 +41,8 @@ INPUT c:/texlive/2023/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 INPUT c:/texlive/2023/texmf-dist/tex/latex/graphics-def/pdftex.def
 INPUT c:/texlive/2023/texmf-dist/tex/latex/graphics-def/pdftex.def
 INPUT c:/texlive/2023/texmf-dist/tex/latex/graphics-def/pdftex.def
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsmath.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsmath.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsopn.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amstext.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amstext.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsgen.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsgen.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsbsy.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsbsy.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsopn.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/ragged2e/ragged2e.sty
-INPUT c:/texlive/2023/texmf-dist/tex/latex/ragged2e/ragged2e.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/bookmark/bookmark.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/bookmark/bookmark.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/hyperref/hyperref.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/hyperref/hyperref.sty
 INPUT c:/texlive/2023/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
@@ -116,6 +102,25 @@ INPUT c:/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 INPUT c:/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 INPUT c:/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+INPUT c:/texlive/2023/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+INPUT c:/texlive/2023/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsmath.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsmath.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsopn.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amstext.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amstext.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsgen.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsgen.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsbsy.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsbsy.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsopn.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/ragged2e/ragged2e.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/ragged2e/ragged2e.sty
 INPUT ./Summary.aux
 INPUT ./Summary.aux
 INPUT Summary.aux
@@ -128,14 +133,7 @@ INPUT c:/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT c:/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT c:/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-INPUT ./Summary.out
-INPUT ./Summary.out
-INPUT Summary.out
-INPUT Summary.out
 OUTPUT Summary.pdf
-INPUT ./Summary.out
-INPUT ./Summary.out
-OUTPUT Summary.out
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
@@ -385,8 +383,6 @@ INPUT ./Image/Projection to reduce dimensionality example.jpg
 INPUT ./Image/Projection to reduce dimensionality example.jpg
 INPUT ./Image/Projection to reduce dimensionality example.jpg
 INPUT Summary.aux
-INPUT ./Summary.out
-INPUT ./Summary.out
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb

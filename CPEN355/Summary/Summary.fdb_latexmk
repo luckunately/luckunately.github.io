@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1699822337 "g:/GitHub repositories/CPEN355/Summary/Summary.tex" "Summary.pdf" "Summary" 1699822342 0
+["pdflatex"] 1699948156 "g:/GitHub repositories/luckunately.github.io/CPEN355/Summary/Summary.tex" "Summary.pdf" "Summary" 1699948162 0
   "Image/2-dim_feature_space_example.png" 1699029853 182497 2fd0d569406b1589f0fd444954d2ca29 ""
   "Image/2D to 3D example.png" 1699029853 89681 e2a722be06ca74a20a998840cb9900f6 ""
   "Image/Bagging and Boosting.png" 1699029853 191237 03aa95d30a2764d5a48209a1910160ba ""
@@ -39,9 +39,8 @@
   "Image/Support vector.png" 1699029853 51128 4f5f329edb1ae467ddf726c09f4ff4a5 ""
   "Image/cross entropy.png" 1699029853 59809 df63293def723fad592bcb1942381740 ""
   "Image/learning rate for gradient descent.png" 1699029853 29558 52c15210c1bd65e37d93141f1a69e271 ""
-  "Summary.aux" 1699822341 1738 f15e46440001670b7fd1c2ff0a40f0bb "pdflatex"
-  "Summary.out" 1699822341 2111 a3e5fb737c679b25467e3188085e734b "pdflatex"
-  "Summary.tex" 1699822330 73193 23e8d1fa8c3e5559b2e838eeff25403c ""
+  "Summary.aux" 1699948161 5848 a897c6bf2279e82131611027b3e5dfd8 "pdflatex"
+  "Summary.tex" 1699948141 73216 eaba805da7eb34cc599bfd0298831fd1 ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1698648136 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1698649535 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1698648931 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -113,6 +112,8 @@
   "c:/texlive/2023/texmf-dist/tex/latex/base/atveryend-ltx.sty" 1698650661 2462 91a1cb69153367feea29040eef0c27f4 ""
   "c:/texlive/2023/texmf-dist/tex/latex/base/omscmr.fd" 1698650661 2469 7cf25c0dd8ba984c37b877b83027725f ""
   "c:/texlive/2023/texmf-dist/tex/latex/base/size12.clo" 1698650661 8449 9de778d73ba774a5f2bd601f23f8922e ""
+  "c:/texlive/2023/texmf-dist/tex/latex/bookmark/bkm-pdftex.def" 1698647696 8609 8ac7db65d9617618cf703bd16c1bd0b8 ""
+  "c:/texlive/2023/texmf-dist/tex/latex/bookmark/bookmark.sty" 1698647696 18237 5cbdfe9ef383a557f780a0a1f45cdb1c ""
   "c:/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1698649103 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "c:/texlive/2023/texmf-dist/tex/latex/etoolbox/etoolbox.sty" 1698649180 46845 3b58f70c6e861a13d927bff09d35ecbc ""
   "c:/texlive/2023/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty" 1698649296 18450 88279bf67c81e69f8e3f1c1bad1a26c5 ""
@@ -146,10 +147,9 @@
   "c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1698655159 4750288 f1f34006308c654e053d5a8459362656 ""
   "c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1698655415 8208552 b5c807892c40f58536fb25e871bed8c6 ""
   "c:/texlive/2023/texmf.cnf" 1698655117 713 e69b156964470283e0530f5060668171 ""
-  "g:/GitHub repositories/CPEN355/Summary/Summary.tex" 1699822330 73193 23e8d1fa8c3e5559b2e838eeff25403c ""
+  "g:/GitHub repositories/luckunately.github.io/CPEN355/Summary/Summary.tex" 1699948141 73216 eaba805da7eb34cc599bfd0298831fd1 ""
   (generated)
   "Summary.aux"
   "Summary.log"
-  "Summary.out"
   "Summary.pdf"
   (rewritten before read)
