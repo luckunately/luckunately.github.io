@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1699948036 "g:/GitHub repositories/luckunately.github.io/MATH220/Summary/summary.tex" "summary.pdf" "summary" 1699948039 0
+["pdflatex"] 1700028106 "g:/GitHub repositories/luckunately.github.io/MATH220/Summary/summary.tex" "summary.pdf" "summary" 1700028108 0
   "Image/Relation property.png" 1699638839 31839 93ce7057d1fb878a9c21a9684df5b256 ""
   "Image/Set difference.jpg" 1699638839 6550 72087e0a882169424dd684b6cce7f626 ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1698648136 2900 1537cc8184ad1792082cd229ecc269f4 ""
@@ -101,9 +101,9 @@
   "c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1698655159 4750288 f1f34006308c654e053d5a8459362656 ""
   "c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1698655415 8208552 b5c807892c40f58536fb25e871bed8c6 ""
   "c:/texlive/2023/texmf.cnf" 1698655117 713 e69b156964470283e0530f5060668171 ""
-  "g:/GitHub repositories/luckunately.github.io/MATH220/Summary/summary.tex" 1699948032 15906 3580eae0fd22dca37d7ebd7a9a860e7e ""
-  "summary.aux" 1699948038 3905 432dd88cd149e7a57080e4d07d9329c3 "pdflatex"
-  "summary.tex" 1699948032 15906 3580eae0fd22dca37d7ebd7a9a860e7e ""
+  "g:/GitHub repositories/luckunately.github.io/MATH220/Summary/summary.tex" 1700028105 15907 2724f68ac7d6c30dfbbd8dfaa4ae90c7 ""
+  "summary.aux" 1700028108 3905 432dd88cd149e7a57080e4d07d9329c3 "pdflatex"
+  "summary.tex" 1700028105 15907 2724f68ac7d6c30dfbbd8dfaa4ae90c7 ""
   (generated)
   "summary.aux"
   "summary.log"
