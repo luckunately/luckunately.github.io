@@ -1010,13 +1010,40 @@ time and execution time are not uniform across the multiple partitions.
 
 In Java, the only first-class values are primitive values and object references. But objects can carry functions with the,m in the form of methods. 
 
-Do not want to continue here anymore!!!!!!!!!!!!!!!!!!!!!!!!!!!
+For example, ``Comparator<T>'' object is a form of using an object to pass functions. 
+
+\section{Grammar and Regular Expressions}
+\subsection*{Grammars}
+A grammar defines a set of sentences, where each sentence is a sequence of symbols called \textit{tokens/terminals}. A grammar is a set of productions, where each production defines a \textit{nonterminal}. 
 
 \section{Intro to Concurrency and Parallelism}
 
 \subsection*{Parallelism V.S. Concurrency}
 Parallel programming is about using additional computational resources to produce an answer faster. Concurrent programming is about correctly and efficiently controlling access by multiple threads to shared resources.
 
+\subsection*{Basic Threads and Shared Memory}
+
+Different threads can communicate by writing and reading fields of the same objects, in other words: share memory.
+
+There may be more threads than processors which means not all threads will be running at the same time. \textbf{Scheduling} decides which thread uses the core at each time. It is not under programmers' control. 
+
+A thread may be waiting for something to happen before it continues. We use join to indicate.
+
+Each thread has its own call stack and program counter, but all the threads share one collection of static fields and objects. 
+\begin{itemize}
+      \item When a new thread starts running, it will have its own new call stack. It will have one frame on it, which is like that thread's main, but not the actual main.
+      \item When a thread returns from its first method, it terminates.
+      \item Each thread has its own program counter and local variables, so there is no ``interference'' from other threads for these things. 
+      \item But! Static fields and objects will be unpredictable since you do not know the order of each thread accessing them.
+\end{itemize}
+
+\subsection*{Methods to communicate}
+\begin{itemize}
+      \item Shared\-memory communication relies on \textbf{Aliasing}.
+      \item Message\-passing: Threads do not share objects, instead, they send messages which is a copy of some data. 
+      \item Data flow: The programmer uses primitives to create a directed acyclic graph (DAG). A node in the graph performs some computation using inputs that arrive on its incoming edges. 
+      \item Data parallelism: does not have explicit threads or nodes running different parts of the program at different times. Instead, it has primitives for parallelism that involve applying the same operations to different pieces of data at the same time. For example, break down a large number operation into separate small numbers.  
+\end{itemize}
 
 
 \end{document}
