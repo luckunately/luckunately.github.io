@@ -117,6 +117,14 @@ INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty
 INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty
 INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/ragged2e/ragged2e.sty
 INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/ragged2e/ragged2e.sty
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/listings.sty
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/listings.sty
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/lstmisc.sty
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/lstmisc.sty
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/lstmisc.sty
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/listings.cfg
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/listings.cfg
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/listings.cfg
 INPUT ./Summary of CPEN 221.aux
 INPUT ./Summary of CPEN 221.aux
 INPUT Summary of CPEN 221.aux
@@ -248,6 +256,25 @@ INPUT ./summary_image/filter def.jpg
 INPUT ./summary_image/filter def.jpg
 INPUT ./summary_image/filter def.jpg
 INPUT ./summary_image/filter def.jpg
+INPUT ./summary_image/Divide and Conequer Parallelism.png
+INPUT ./summary_image/Divide and Conequer Parallelism.png
+INPUT ./summary_image/Divide and Conequer Parallelism.png
+INPUT ./summary_image/Divide and Conequer Parallelism.png
+INPUT ./summary_image/Divide and Conequer Parallelism.png
+INPUT ./summary_image/Divide and Conequer algorithm.png
+INPUT ./summary_image/Divide and Conequer algorithm.png
+INPUT ./summary_image/Divide and Conequer algorithm.png
+INPUT ./summary_image/Divide and Conequer algorithm.png
+INPUT ./summary_image/Divide and Conequer algorithm improved.png
+INPUT ./summary_image/Divide and Conequer algorithm improved.png
+INPUT ./summary_image/Divide and Conequer algorithm improved.png
+INPUT ./summary_image/Divide and Conequer algorithm improved.png
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/base/omlcmr.fd
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/base/omlcmr.fd
+INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/base/omlcmr.fd
 INPUT Summary of CPEN 221.aux
 INPUT e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb

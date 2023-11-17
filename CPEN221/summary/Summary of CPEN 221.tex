@@ -4,6 +4,7 @@
 \usepackage{lipsum,graphicx}
 \usepackage{bookmark}
 \usepackage{amsmath, amsfonts, amssymb, ragged2e}
+\usepackage{listings}
 \graphicspath{ {./images/} }
 \title{Summary of CPEN 221}
 \author{Tom Wang}
@@ -1045,6 +1046,83 @@ Each thread has its own call stack and program counter, but all the threads shar
       \item Data parallelism: does not have explicit threads or nodes running different parts of the program at different times. Instead, it has primitives for parallelism that involve applying the same operations to different pieces of data at the same time. For example, break down a large number operation into separate small numbers.  
 \end{itemize}
 
+\section{Fork-join Parallelism}
+Normal Threads procedure:
+\begin{enumerate}
+      \item Define a new thread class that either extends java.lang.Thread or the thread interface. (Make sure to override the run() program since that is the key implementation)
+      \item Split the task roughly to the equal size that corresponds to the number of threads you want to have. (It is not possible to be perfect)
+      
+      \item For each partition, new the specific thread and start it. (Might be a good idea to put threads into an array to be easily looked after.)
+      \item For each thread, wait for it to join, then collect the result. (This step is actually sequential. So while theoretically slicing the partition to be infinitely small can make sure work is balanced, adding up the result will take infinitely long since its sequential nature.)
+\end{enumerate}
 
+\subsection*{Divide and Conquer Parallelism}
+The key idea is to:
+\begin{enumerate}
+      \item If the range contains only one element, return that element as the sum. Else in parallel:
+      \item Recursively divide the task in half to left and right
+      \item Collect the results from nodes
+\end{enumerate}
+
+\includegraphics*{summary_image/Divide and Conequer Parallelism.png}
+
+\includegraphics*{summary_image/Divide and Conequer algorithm}
+
+Notice how the thread creates helper threads till the end. The normal calculation should not really only terminate at exactly 1 object. You can customarily design your own cutoff point as the base case. 
+
+A better improvement is that instead of starting the second thread at the right, you just directly run it. 
+
+\includegraphics*{summary_image/Divide and Conequer algorithm improved}
+
+This way you do not waste threads since threads will be waiting for the two nodes to return values. Instead of letting it wait, we would rather let it do work directly.
+
+Do notice that it takes time to create threads and work with threads. It might not be a good idea to do things that would not get too much help from threading.
+
+\subsection*{ForkJoin Framework}
+\begin{lstlisting}[language=Java]
+      import java.util.concurrent.ForkJoinPool;
+      import java.util.concurrent.RecursiveAction;
+      
+      class SumArray extends RecursiveAction {
+          static int SEQUENTIAL_THRESHOLD = 1000;
+      
+          int lo;
+          int hi;
+          int[] arr;
+          int ans = 0;
+          SumArray(int[] a, int l, int h) { lo=l; hi=h; arr=a; }
+      
+          protected void compute() {
+              if(hi - lo <= SEQUENTIAL_THRESHOLD) {
+                  for(int i=lo; i < hi; ++i)
+                  ans += arr[i];
+              } else {
+                  SumArray left  = new SumArray(arr,lo,(hi+lo)/2);
+                  SumArray right = new SumArray(arr,(hi+lo)/2,hi);
+                  left.fork();
+                  right.compute();
+                  left.join();
+                  ans = left.ans + right.ans;
+              }
+          }
+      }
+      class Main {
+          static int sumArray(int[] array) {
+              SumArray t = new SumArray(array,0,array.length);
+              ForkJoinPool.commonPool().invoke(t);
+              return t.ans;
+          }
+      }
+
+\end{lstlisting}
+
+Notice that the idea is similar, but we use different methods to achieve it. 
+
+\begin{itemize}
+      \item The entire program should have exactly one ForkJoinPool, so it makes sense to store it in a static field and use it for all the parallel algorithms in your program. The library's commonPool static method returns such an object for you.
+      \item To be countinued:
+\end{itemize}
+
+      
 \end{document}
 
