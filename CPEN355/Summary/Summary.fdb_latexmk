@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1699948156 "g:/GitHub repositories/luckunately.github.io/CPEN355/Summary/Summary.tex" "Summary.pdf" "Summary" 1699948162 0
+["pdflatex"] 1700261596 "g:/GitHub repositories/luckunately.github.io/CPEN355/Summary/Summary.tex" "Summary.pdf" "Summary" 1700261600 0
   "Image/2-dim_feature_space_example.png" 1699029853 182497 2fd0d569406b1589f0fd444954d2ca29 ""
   "Image/2D to 3D example.png" 1699029853 89681 e2a722be06ca74a20a998840cb9900f6 ""
   "Image/Bagging and Boosting.png" 1699029853 191237 03aa95d30a2764d5a48209a1910160ba ""
@@ -39,8 +39,8 @@
   "Image/Support vector.png" 1699029853 51128 4f5f329edb1ae467ddf726c09f4ff4a5 ""
   "Image/cross entropy.png" 1699029853 59809 df63293def723fad592bcb1942381740 ""
   "Image/learning rate for gradient descent.png" 1699029853 29558 52c15210c1bd65e37d93141f1a69e271 ""
-  "Summary.aux" 1699948161 5848 a897c6bf2279e82131611027b3e5dfd8 "pdflatex"
-  "Summary.tex" 1699948141 73216 eaba805da7eb34cc599bfd0298831fd1 ""
+  "Summary.aux" 1700261599 5848 d5923ca4145645475de96b9f27aaa2d5 "pdflatex"
+  "Summary.tex" 1700261595 77188 b8dc9549650ca74fd3cde1803a37d4ab ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1698648136 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1698649535 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1698648931 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -147,7 +147,7 @@
   "c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1698655159 4750288 f1f34006308c654e053d5a8459362656 ""
   "c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1698655415 8208552 b5c807892c40f58536fb25e871bed8c6 ""
   "c:/texlive/2023/texmf.cnf" 1698655117 713 e69b156964470283e0530f5060668171 ""
-  "g:/GitHub repositories/luckunately.github.io/CPEN355/Summary/Summary.tex" 1699948141 73216 eaba805da7eb34cc599bfd0298831fd1 ""
+  "g:/GitHub repositories/luckunately.github.io/CPEN355/Summary/Summary.tex" 1700261595 77188 b8dc9549650ca74fd3cde1803a37d4ab ""
   (generated)
   "Summary.aux"
   "Summary.log"
