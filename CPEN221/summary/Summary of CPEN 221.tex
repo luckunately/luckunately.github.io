@@ -1120,7 +1120,8 @@ Notice that the idea is similar, but we use different methods to achieve it.
 
 \begin{itemize}
       \item The entire program should have exactly one ForkJoinPool, so it makes sense to store it in a static field and use it for all the parallel algorithms in your program. The library's commonPool static method returns such an object for you.
-      \item To be countinued:
+      \item Note that inside the thread class, you use \textbf{fork, compute, and join} just like how we used \textbf{start, run and join} previously. 
+      \item But we use \textbf{invokei of the ForkJoinPool} outside of the class. 
 \end{itemize}
 
       
