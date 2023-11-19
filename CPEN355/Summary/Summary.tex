@@ -1721,6 +1721,89 @@ The figure below illustrates an orthogonal projection of $X$ on the subspace spa
 
 \includegraphics*{Image/Projection to reduce dimensionality example.jpg}
 
+\subsection*{PCA algorithm}
+
+One thing to note is that to correctly do PCA. It is important to normalize data. Otherwise, it is not going to produce the correct result. 
+
+\subsubsection*{Covariance}
+Variance and Covariance measure the ``spread'' of a set of points around their center of mass (mean).
+\begin{itemize}
+    \item Variance measures the deviation from the mean for points in one dimension
+    \item Covariance measures how much each of the dimensions varies from the mean with respect to each other. 
+    \begin{itemize}
+        \item Covariance is measured between two dimensions
+        \item Covariance sees if there is a relation between two dimensions
+        \item Covariance between one dimension is the variance
+    \end{itemize}
+\end{itemize}
+We get positive Covariance when two dimensions are positively related, meaning increase and decrease at the same time. Negative Covariance would require the opposite behavior. 
+
+We use it to find the relationships between two dimensions in high\-dimensional data sets:
+\[q_{jk}=\frac{1}{N}(X_{ij}-E(X_j))(X_{ik}-E(X_k))\]
+Note that the expected value is just the sample mean.
+
+\subsubsection*{Spectral theory}
+PCA is related to eigenvalues. Review eigenvalue:
+\[Av=\lambda v ,\forall A\in \mathbb{R}^{m\times n}\]
+Any $\lambda, v$ pairs that satisfy the above relationship and are not zero are the eigenvalue and eigenvector. 
+
+For symmetric $A, (m=n,A^T=A)$, it must have $n$ real eigenvalues and vectors. Here we replace $A$ with the data covariance matrix in PCA:
+
+Give an example below:
+
+    Want $X =  \begin{pmatrix}
+        -1 & -1 & 0 & 2 & 0\\
+        -2 & 0 & 0 & 1 & 1
+    \end{pmatrix}$ to be reduced to 1 dimension where the first row is feature 0 and the second row is feature 1.
+
+    \begin{enumerate}
+        \item Normalize it so that each row has a mean of 0 (which is done already in the matrix)
+        \item Find the Covariance matrix: (since the mean is 0, there is no subtraction)\[C = \frac{1}{N}XX^T=\frac{1}{5}\begin{pmatrix}
+            -1 & -1 & 0 & 2 & 0\\
+        -2 & 0 & 0 & 1 & 1
+        \end{pmatrix}\begin{pmatrix}
+            -1 & -2\\
+            -1 & 0\\
+            0 & 0\\
+            2 & 1\\
+            0 & 1
+        \end{pmatrix} = \begin{pmatrix}
+            \frac{6}{5} & \frac{4}{5}\\
+            \frac{4}{5} & \frac{6}{5}
+        \end{pmatrix}\]
+        With that we can find eigenvalue and vector: \[\lambda_1 = 2, c_1=\begin{pmatrix}
+            1\\1
+        \end{pmatrix}, \lambda_2 = \frac{2}{5}, c_2=\begin{pmatrix}
+            -1\\1
+        \end{pmatrix}\]
+        \item Now we standardize eigenvectors:\[\begin{pmatrix}
+            c_1\\c_2
+        \end{pmatrix}\implies P = \begin{pmatrix}
+            \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}\\
+            -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+        \end{pmatrix}\]
+
+        \item Now we choose 1 eigenvector to lower it since we want a 1 D representation.
+        \[Y = \begin{pmatrix}
+            \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+        \end{pmatrix} \begin{pmatrix}
+            -1 & -1 & 0 & 2 & 0\\
+        -2 & 0 & 0 & 1 & 1
+        \end{pmatrix} = \begin{pmatrix}
+            \frac{-3}{\sqrt{2}} & \frac{-1}{\sqrt{2}} & 0 & \frac{3}{\sqrt{2}} & \frac{-1}{\sqrt{2}}
+        \end{pmatrix} \]
+    \end{enumerate}
+    Summarize the algorithm in words:
+    \begin{enumerate}
+        \item Find the mean of each feature
+        \item Compute a $D\times D$ sample covariance.
+        \item Find the first $d$ eigen vector of covariance. Note that $d<<D$ since it is the lower dimension you are aiming for
+        \item Lastly, project it by timing the $d$ eigenvector matrix to the original data. 
+    \end{enumerate}
+
+\subsubsection*{Optimization}
+Choosing the larger eigenvalue would cause less loss of information. It can be found using the Variance percentage:
+\[p_i = \frac{\lambda_i}{\sum\lambda_i}\]
 
 \end{document}
 
