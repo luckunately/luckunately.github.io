@@ -6,7 +6,7 @@
 \usepackage{bookmark}
 \usepackage{amsmath, amsfonts, amssymb, ragged2e}
 \usepackage{hyperref} 
-\graphicspath{ {./images/} }
+\graphicspath{ {C:\Users\10054\OneDrive\luckunately.github.io\CPEN411\Summary\Image} }
 \title{Summary of CPEN 411}
 \author{Tom Wang}
 \date{Fall, 2023}
@@ -1025,10 +1025,55 @@ We can either run this at a higher clock speed or add logic to rename multiple i
 
 So here, we have two CDBs that can handle two outputs at once. Then we run the load buffer at two times the speed or two assigning per cycle to allow two instructions adding per cycle. 
 
-\section*{Branch Prediction}
+\section{Branch Prediction}
+In branch predictions, we either predict it to be taken or not taken. CPU does not need to execute out\-of\-order to benefit from branch prediction since you always assume your prediction is good. 
+
+The main reason for the branch penalty is that we do not know the branch target value when the branch instruction is read from memory. However, we know the historical PC if the branch has been called before, which could be used to predict. So it is possible to predict when the branch instruction is fetched. 
+
 When the pipeline is really long, there is a high branch miss penalty! 
 
+\subsection*{1\-Bit Branch Predictor}
+1\-bit branch predictor is a cache of $2^{n-1}$ bits and indexed accordingly. We use the n lower order bits of the PC of the branch to select the index inside the predictor where we store the last outcome. 1 for taken and 0 for not taken. 
 
+However, you only update the branch when it is an actual outcome meaning \textbf{when the branch is truly resolved}. This means that not only the current branch target is executed, but also the previous branches. If the previous branch is not resolved yet, it is possible that it is wrong even if the current branch target is executed.
 
+\subsection*{2\-Bit Branch Predictor}
+To solve the problem that it only keeps 1 previous prediction, 
+
+With two bits, we can store up to 4 previous outcomes and predict according to the MSB to reduce the influence of noise or extremes. 
+
+There are all kinds of FSM that could produce different results. 
+
+\includegraphics*{./Image/2 bit predictors.png}
+
+\subsection*{tradeoffs}
+Note that the size of the predictor is usually limited since it needs to sit very close to the CPU to reduce latency and you do not get much room there. 
+
+To get better performance, we could try to increase the bit size of each predictor, but in turn, it will reduce the number of branches you can keep inside the predictor. Also, increasing the size will not have a linear increase in accuracy anyway. 
+
+A good metric is \textbf{MPKI} (misses per kilo instructions). A good predictor is about 5 MPKI nowadays. It is better than the percentage of correct predictions because you get to know the frequency of branches in a sense. 
+
+\subsection*{Branch Target Buffer (BTB)}
+Now new problem arises since branch instruction and the target\-taken instruction do not have the same PC. So we need to have a lookup table to know where to jump to:
+
+\includegraphics*{./Image/BTB.png}
+
+\subsubsection*{Some special cases}
+
+If a function is called on multiple addresses, when you return, you do not have a constant PC to go to. So the BTB will never contain the correct PC address. 
+
+To solve it, we push return addresses into the stack instead of putting them into lookup tables. And then we pop it when we need it. But for this to work, we need a very carefully designed stack usage otherwise it will be contaminated and everything will fail.
+
+\subsection*{Terminologies}
+Terminologies are not standardized in the industry. Different companies mix up branch predictor and BTB. 
+
+In CPEN 411:
+\begin{itemize}
+    \item branch predictor predicts direction (Taken or Note Taken)
+    \item BTB returns target PC assuming predicted taken.
+\end{itemize}
+
+\subsection*{Corelated branch}
+If the previous branch outcome would influence the next branch prediction, then they are correlated. 
 \end{document}
 
