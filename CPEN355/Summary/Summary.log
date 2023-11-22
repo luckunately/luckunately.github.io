@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  20 NOV 2023 13:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  22 NOV 2023 12:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -567,25 +567,59 @@ File: Image/Projection to reduce dimensionality example.jpg Graphic file (type j
 <use Image/Projection to reduce dimensionality example.jpg>
 Package pdftex.def Info: Image/Projection to reduce dimensionality example.jpg  used on input line 1722.
 (pdftex.def)             Requested size: 374.8997pt x 277.03432pt.
- [49 <./Image/Projection to reduce dimensionality example.jpg>] [50] [51] [52] (./Summary.aux)
+ [49 <./Image/Projection to reduce dimensionality example.jpg>] [50] [51]
+<./Image/Sigmoid function.jpg, id=489, 222.8325pt x 164.11313pt>
+File: ./Image/Sigmoid function.jpg Graphic file (type jpg)
+<use ./Image/Sigmoid function.jpg>
+Package pdftex.def Info: ./Image/Sigmoid function.jpg  used on input line 1825.
+(pdftex.def)             Requested size: 222.83195pt x 164.11272pt.
+<./Image/Tanh funciton.jpg, id=491, 197.23688pt x 143.78719pt>
+File: ./Image/Tanh funciton.jpg Graphic file (type jpg)
+<use ./Image/Tanh funciton.jpg>
+Package pdftex.def Info: ./Image/Tanh funciton.jpg  used on input line 1838.
+(pdftex.def)             Requested size: 197.23637pt x 143.78683pt.
+ [52 <./Image/Sigmoid function.jpg>]
+<./Image/ReLU function.jpg, id=500, 220.57407pt x 145.29282pt>
+File: ./Image/ReLU function.jpg Graphic file (type jpg)
+<use ./Image/ReLU function.jpg>
+Package pdftex.def Info: ./Image/ReLU function.jpg  used on input line 1847.
+(pdftex.def)             Requested size: 220.57352pt x 145.29245pt.
+<./Image/Nueron Model.jpg, id=502, 335.75438pt x 237.13594pt>
+File: ./Image/Nueron Model.jpg Graphic file (type jpg)
+<use ./Image/Nueron Model.jpg>
+Package pdftex.def Info: ./Image/Nueron Model.jpg  used on input line 1857.
+(pdftex.def)             Requested size: 335.75356pt x 237.13535pt.
+ [53 <./Image/Tanh funciton.jpg> <./Image/ReLU function.jpg>]
+<./Image/Feed Forward Nonliearity.jpg, id=511, 269.50688pt x 128.73094pt>
+File: ./Image/Feed Forward Nonliearity.jpg Graphic file (type jpg)
+<use ./Image/Feed Forward Nonliearity.jpg>
+Package pdftex.def Info: ./Image/Feed Forward Nonliearity.jpg  used on input line 1869.
+(pdftex.def)             Requested size: 269.50621pt x 128.7306pt.
+ [54 <./Image/Nueron Model.jpg> <./Image/Feed Forward Nonliearity.jpg>]
+<./Image/Backpropagation example.jpg, id=520, 272.51813pt x 109.1578pt>
+File: ./Image/Backpropagation example.jpg Graphic file (type jpg)
+<use ./Image/Backpropagation example.jpg>
+Package pdftex.def Info: ./Image/Backpropagation example.jpg  used on input line 1917.
+(pdftex.def)             Requested size: 272.51746pt x 109.15753pt.
+ [55] [56 <./Image/Backpropagation example.jpg>] (./Summary.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-10-23>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 11092 strings out of 474397
- 177931 string characters out of 5754184
+ 11149 strings out of 474397
+ 179567 string characters out of 5754184
  1941036 words of memory out of 5000000
- 32836 multiletter control sequences out of 15000+600000
+ 32878 multiletter control sequences out of 15000+600000
  568423 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,11n,93p,704b,610s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Summary.pdf (52 pages, 2970945 bytes).
+Output written on Summary.pdf (56 pages, 3045252 bytes).
 PDF statistics:
- 652 PDF objects out of 1000 (max. 8388607)
- 465 compressed objects within 5 object streams
- 191 named destinations out of 1000 (max. 500000)
- 422 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 701 PDF objects out of 1000 (max. 8388607)
+ 498 compressed objects within 5 object streams
+ 206 named destinations out of 1000 (max. 500000)
+ 488 words of extra memory for PDF output out of 10000 (max. 10000000)
 

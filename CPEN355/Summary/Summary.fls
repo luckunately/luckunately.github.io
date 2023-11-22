@@ -382,6 +382,36 @@ INPUT ./Image/Projection to reduce dimensionality example.jpg
 INPUT ./Image/Projection to reduce dimensionality example.jpg
 INPUT ./Image/Projection to reduce dimensionality example.jpg
 INPUT ./Image/Projection to reduce dimensionality example.jpg
+INPUT ./Image/Sigmoid function.jpg
+INPUT ./Image/Sigmoid function.jpg
+INPUT ./Image/Sigmoid function.jpg
+INPUT ./Image/Sigmoid function.jpg
+INPUT ./Image/Sigmoid function.jpg
+INPUT ./Image/Tanh funciton.jpg
+INPUT ./Image/Tanh funciton.jpg
+INPUT ./Image/Tanh funciton.jpg
+INPUT ./Image/Tanh funciton.jpg
+INPUT ./Image/Tanh funciton.jpg
+INPUT ./Image/ReLU function.jpg
+INPUT ./Image/ReLU function.jpg
+INPUT ./Image/ReLU function.jpg
+INPUT ./Image/ReLU function.jpg
+INPUT ./Image/ReLU function.jpg
+INPUT ./Image/Nueron Model.jpg
+INPUT ./Image/Nueron Model.jpg
+INPUT ./Image/Nueron Model.jpg
+INPUT ./Image/Nueron Model.jpg
+INPUT ./Image/Nueron Model.jpg
+INPUT ./Image/Feed Forward Nonliearity.jpg
+INPUT ./Image/Feed Forward Nonliearity.jpg
+INPUT ./Image/Feed Forward Nonliearity.jpg
+INPUT ./Image/Feed Forward Nonliearity.jpg
+INPUT ./Image/Feed Forward Nonliearity.jpg
+INPUT ./Image/Backpropagation example.jpg
+INPUT ./Image/Backpropagation example.jpg
+INPUT ./Image/Backpropagation example.jpg
+INPUT ./Image/Backpropagation example.jpg
+INPUT ./Image/Backpropagation example.jpg
 INPUT Summary.aux
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb

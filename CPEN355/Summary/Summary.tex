@@ -1809,7 +1809,7 @@ Choosing the larger eigenvalue would cause less loss of information. It can be f
 
 Linear models need \textit{nonlinearities} to be able to extend work to greater areas. Thus call for neural networks:
 \subsection*{Nonlinearities}
-For linear regression, out loss function for example $(x,y)$ is:
+For linear regression, our loss function, for example, $(x,y)$ is:
 \[L=\frac{1}{2}(y-\beta^T x-\beta_0)^2=\frac{1}{2}(y-f)^2\] 
 where $f=\beta^T x+\beta_0$. Now consider $f=\beta^T h+\beta_0$:
 \begin{itemize}
@@ -1817,6 +1817,144 @@ where $f=\beta^T x+\beta_0$. Now consider $f=\beta^T h+\beta_0$:
     \item We have to add a non-linear function $\Phi$ to it. Let $h=\Phi(Wx+b)$. But note that the last layer $f=\beta^T h+\beta_0$ is still linear.
 \end{itemize}
 This way, we can add as much information as we want while keeping the output linear.
+
+\subsubsection*{Activation (non\-linear) functions}
+\begin{itemize}
+    \item Sigmoid squashes real number to range between 0 and 1
+    
+    \includegraphics*{./Image/Sigmoid function.jpg}
+
+    It is a non\-linear funciton:
+    \begin{itemize}
+        \item Countinuous which is easy to derivate. 
+        \item Limited output range, easy to optimize, can be used as output layer.
+    \end{itemize}
+
+    When $x\to \pm \infty$, the gradient approaches 0, A.K.A \textbf{gradient vanishing}. It might terminate gradient descent undesirably. 
+
+    Also, it is not centered at 0, making it slow in convergence.
+    \item Tanh squashes real numbers to range between (-1,1)
+    
+    \includegraphics*{./Image/Tanh funciton.jpg}
+    \[\text{Tanh}=2\times \text{Signmoid}-1=2\sigma(x)-1\]
+
+    It is centered at 0, making it converge fast. However, it still experiences \textbf{gradient vanishing}, when $x\to \pm \infty$. 
+
+    Also, the computational complexity is high since it involves too many exponentials. 
+
+    \item ReLU (Rectified Linear Unit) is a step function $f(x)=\max(0,x)$.
+    
+    \includegraphics*{./Image/ReLU function.jpg}
+
+    Compared to the previous two, it never experiences gradient disappearance since the gradient is never saturated and the convergence speed is fast. Also, no exponentials, so the calculation is fast and complexity is low.
+
+    However, when $x<0$, the gradient is 0. Thus, the parameter is not updated, A.K.A \textbf{neuron death}. At the same time, the output mean value is greater than 0, which affects the convergence of the network. 
+\end{itemize}
+
+\subsection*{Neruon meodel}
+Here we model a neuron as a logistic unit:
+
+\includegraphics*{./Image/Nueron Model.jpg}
+
+
+\[Z=f_\theta(\vec{x})=\theta_1 x_1 + \theta_2 x_2 + \theta_3 x_3 + \theta_4\]
+Here $\theta_4$ could be some constants introduced here. 
+
+Now output is an activation function where $\vec{x}=[x_1,x_2,x_3]^T$, $\Theta=[\theta_1,\theta_2, \theta_3]^T$:
+\[g_\Theta=\frac{1}{1+e^{-\Theta^T \vec{x}}}\]
+
+The activation function exists so that we can get an answer of either 1 or 0. 
+
+\subsection*{Feed Forward}
+\includegraphics*{./Image/Feed Forward Nonliearity.jpg}
+
+The first layer is called the input, final layer is the output. Everything between the input and output are hidden layers as they cannot be seen.
+
+Hidden layers are the ones to keep the training information by tuning the parameters. 
+
+Here we can get value for layer 2 by:
+\begin{itemize}
+    \item $a_1^{(2)} = g(\Theta_{11}^{(1)}x_1+\Theta_{12}^{(1)}x_2+\Theta_{13}^{(1)}x_3)$
+    \item $a_2^{(2)} = g(\Theta_{21}^{(1)}x_1+\Theta_{22}^{(1)}x_2+\Theta_{23}^{(1)}x_3)$
+    \item $a_3^{(2)} = g(\Theta_{31}^{(1)}x_1+\Theta_{32}^{(1)}x_2+\Theta_{33}^{(1)}x_3)$
+\end{itemize}
+
+Here, $\Theta^{(1)}$ is the coefficient/weight from layer 1 to layer 2. g is the activation function. Note that g(x) is not linear!!!
+
+Note that each calculation in a neural network only involves the data layer and the next layer. So a relationship can be extended to numerous layers without increasing the complexity of each calculation. 
+
+\subsubsection*{model complex function with non\-linearity}
+Each neuron calculation can be seen as a step function with a corrected coefficient/weight that could be used to represent a piece of function.
+
+Now if we cut a complex function infinitely small, then each small piece can be approximated using a step function with weights. This way, all functions can be modeled by a neural network. 
+
+\subsection*{Backpropagation}
+
+A neural network consists of two components:
+\begin{itemize}
+    \item The network architecture, which defines layer numbers, neuron numbers and connections.
+    \item The parameters, values of the connections and model weights.
+\end{itemize}
+
+\subsubsection*{Before starting}
+Before starting, we need to initialize the parameters:
+
+In Practice, randomly initialize the parameters to small values, usually normally distributed around 0; $\mathcal{N}(0,0.1)$
+
+\subsubsection*{backpropagation algorithm}
+
+\begin{enumerate}
+    \item Input sample to the network and calculate the output (forward pass)
+    \item Compare the output with the correct output to get the loss term.
+    \item For all layers (backward pass from output layer, to hidden, to input)\begin{itemize}
+        \item propagates the loss term back to the previous layer
+        \item updates the weight between the two layers until the earliest hidden layer is reached 
+    \end{itemize}
+\end{enumerate}
+
+Give a simple example:
+
+\includegraphics*{./Image/Backpropagation example.jpg}
+
+It is a simple illustration of $f(x,y,z)=(x+y)z$.
+
+Note that:
+\begin{align*}
+    \frac{\partial q}{\partial x} & = 1 & \frac{\partial q}{\partial x} & = 1\\
+    \frac{\partial f}{\partial q} & = z & \frac{\partial f}{\partial z} & = q
+\end{align*}
+\begin{align*}
+    \frac{\partial f}{\partial x}& = \frac{\partial f}{\partial q} \frac{\partial q}{\partial x} = z\\
+    \frac{\partial f}{\partial y}& = \frac{\partial f}{\partial q} \frac{\partial q}{\partial y} = z
+\end{align*}
+
+Because of Chain Rule, we can build a gradient connection between the output and input via propagation. 
+
+\subsection*{Training and Validation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

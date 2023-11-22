@@ -99,7 +99,7 @@ and are generally not caught.
 \begin{itemize}
     \item RuntimeException, Error, and their subclasses are unchecked exceptions. The
           compiler doesn't require these to be declared in the throws clause of a method
-          that throws them, and doesn't require these to be caught or declared by a
+          that throws them and doesn't require these to be caught or declared by a
           caller of such a method.
     \item All other throwables — Throwable, Exception, and all of their subclasses except
           for those of the RuntimeException and Error lineage — are checked exceptions.
@@ -116,51 +116,52 @@ When you define your own exceptions, you should either subclass RuntimeException
 \textbf{Refined rule: }
 You should use an unchecked exception only to signal an unexpected failure (typically, a bug), otherwise, you should use a checked exception.
 
+\section{Computing system}
+\subsection*{fetch\-and\-execute cycle}
+CPU fetches instruction from memory and then executes it. 
+
+Registers keep the values inside the CPU, program counter keeps track of the instruction address.
+
+\subsection*{Asynchronous Events}
+CPU checks data over and over again and executes when the desired data arrives. It is called polling. However, it wastes performance to keep waiting. 
+
+Instead, the CPU gets interrupts, which stalls the current task and handles interrupts. 
+
+Processes are individual tasks that the CPU is working on. Note that processes can have multiple streams of execution called threads. 
+
+\subsection*{Java Virtual Machine}
+Low level language can be translated directly to assembly and then machine language by the compliers. However high level languages like Java need an intermediate step. 
+
+JVM is an interpreter that translates instructions one by one. Compilers translate Java to Java Bytecode program, which is a machine language for JVM. Then Java interpreter translates Java Bytecode to the local machine language. So it can be used across platforms. 
+
+To solve the problem that it takes time to translate between JVM and local machine, Java introduced just\-in\-time compilers which translates from JVM to machine code while compiling to reduce time. 
 \section{Program}
 
-Computation and Memory:
+\subsection*{Computation and Memory}
 
-In the old days, the compiler explicitly decides the address of data. However, the
-challenge is that no other program can use it anymore.
+In the old days, the compiler explicitly decides the address of data. However, the challenge is that no other program can use it anymore.
 
-The modern approach is to indicate an offset of the base address. It allows multiple
-programs to run at the same time. Also, it allows the same data to be accessed by
-different programs giving different offsets.
+The modern approach is to indicate an offset of the base address. It allows multiple programs to run at the same time. Also, it allows the same data to be accessed by different programs giving different offsets.
 
-Compilers use offset from a stack pointer to track address. Stack is
-\textbf{Last-in-first-out}. So last function called will be the first function
-executed.
+Compilers use offset from a stack pointer to track address. Stack is \textbf{Last-in-first-out}. So the last function called will be the first function executed.
 
-Data whose sizes cannot be known ahead of time will be stored in a heap. In JAVA,
-objects are allocated on the heap. For example, ArrayLists and Sets that can
-grow in size. Note: In JAVA, the array is actually a reference or pointer to the
-array. So, the actual array is on the heap but the local variable array, which
-is a pointer and holds a memory address, is stored on the stack.
+Memory is therefore divided into a few regions, one of which is called the stack and this is where local variables declared in a function are stored. Another region of memory that is useful is called the heap, and data whose sizes cannot be known ahead of time (at compile time) are stored on the heap.
 
 CPU contains \textbf{Program Counter} (PC) to keep track of the memory address
 of the instruction being executed. Normally, pc is incremented by 1 unless
 conditional statements and function calls are given.
 
-When a function is called, a stack frame is created to support the function's
-execution. The stack frame contains the function's local variables and the
-arguments passed to the function by its caller. The frame also contains
-housekeeping information that allows the called function (the callee) to return
-to the caller safely.
+\subsection*{Call Stacks and Stack Frames}
+
+When a function is called, a \textbf{stack frame} is created to support the function's execution. The stack frame contains the function's local variables and the arguments passed to the function by its caller. The frame also contains housekeeping information that allows the called function (the callee) to return to the caller safely.
 
 \includegraphics*[scale = 0.3]{./summary_image/Stack_frame.png}
 
-The stack pointer, \textbf{esp}, specifically points to the first byte occupied by
-\textit{local buffer}, which is the loeser memory address in a stack containing
-live data.
+The stack pointer, \textbf{esp}, always points to the last item pushed in, which is the top of the stack. It specifically points to the first byte occupied by \textit{local buffer}, which is the lowest memory address in a stack containing live data.
 
-Base pointer or frame pointer, \textbf{ebp}, points to a fixed location within
-the stack frame of the function currently running and provides a stable
-reference point for accessing arguments and local variables. (Using offset)
-Unlike esp, sbp is mostly maintained by program code with little CPU
-interference.
+Base pointer or frame pointer, \textbf{ebp}, points to a fixed location within the stack frame of the function currently running and provides a stable reference point for \textbf{accessing arguments and local variables}. (Using offset) Unlike esp, ebp is mostly maintained by program code with little CPU interference.
 
-Finally, the \textbf{eax} register is used by convention to transfer return
-values back to the call for most C data types.
+Finally, the \textbf{eax} register is used by convention to transfer return values back to the call for most C data types.
 
 Check out CN5.3. For more details.
 
