@@ -1,6 +1,7 @@
 \documentclass[letterpaper,12pt]{article}
 \setlength{\headheight}{14.49998pt}
 \usepackage{a4wide}
+\usepackage{listings}
 \usepackage{fancyhdr}
 \usepackage{lipsum,graphicx}
 \usepackage{bookmark}
@@ -1074,6 +1075,84 @@ In CPEN 411:
 \end{itemize}
 
 \subsection*{Corelated branch}
-If the previous branch outcome would influence the next branch prediction, then they are correlated. 
+If the previous branch's outcome influences the next branch's prediction, then they are correlated. 
+
+Now the problem appears to be that some effector branch might be far away from the branch it influences, we need some way to collect the previous branch information to predict the next branch:
+
+\subsubsection*{1\-Bit Branch Predictor}
+Now we can have one table for ``previously taken'' and one for ``previously not taken'':
+
+\includegraphics*{./Image/one bit correlated branch example.jpg}
+
+Here we can clearly predict that if the last branch is not taken, then we should predict ``00'' to be true. 
+
+So for the two tables, the program counter would be used to index them into the same position in the table, and then we decide which table to choose based on the previous context. 
+
+Note that we should predict based on \textbf{Last actual outcome} instead of the last prediction. But that might not always be possible because of the pipelining nature. 
+
+\subsection*{Correlating against Multiple Branches}
+
+As mentioned before, it is possible that we may have an effector branch far away from the interested branch. The easiest way of solving it is to add more tables to track them down. 
+
+\subsubsection*{Shift registers to track the history}
+Recall a shift register:
+
+\includegraphics*{./Image/Shift Register.jpg}
+
+We can keep the m most recent taken history inside this m shift registers which updates every time a branch outcome is computed. Then the output of the series of registers can be used to enter a mux that chooses which table out of the $2^m$ tables we need to use to predict. With the same logic, we can find which one to update when the outcome is out. 
+
+These registers are call \textbf{(Global) Branch History Register} (G)BHR 
+
+\section*{Tradeoffs in design}
+It is nice to have as long as possible history so that we keep all useful history. However, the number of tables we need for each increased bit of history counter is exponential:
+\[m\text{ bit counter}\implies 2^m \text{ tables}\]
+
+At the same time, to get a better performance, we should also consider having more bits on each table to track more history of each branch on each table. 
+
+But the size of the branch predictor would always be limited! 
+
+\section{Load/Store Processing}
+Start with an example:
+\begin{lstlisting}
+    sw r2, 0(r9)
+    lw r2, 0(r8)
+    addi r4, r2, #0xf00
+\end{lstlisting}
+The above code stores the r2 value to to address r9, then loads the value at address r8 to r2. The add instruction is waiting for the load instruction to complete. In most cases, loads are on the critical path where stores are usually not. 
+
+It may look like there are no dependencies, but actually, since r9 and r8 are pointers, it is possible that r9 and r8 could contain the same value, thus loading after storing immediately. 
+
+\subsection*{Store buffer}
+Since stores can usually be delayed, we would like to use cache bandwidth for loads and send stores to the cache when it is free to improve performance. So we want something to delay stores until bandwidth is available. 
+\begin{itemize}
+    \item queue stores ina \textbf{store buffer}
+    \item allow loads to \textbf{bypass}
+    \item mark as non\-committed if the store is still in ROB (Not sure if the store is good to be returned)
+    \item mark as committed if retired from ROB
+\end{itemize}
+
+\includegraphics*{./Image/Store buffer.jpg}
+
+Note that if an \textbf{exception} appears, we just need to flush the \textbf{un\-committed} entries since committed entries are good to go.
+
+Also, we need to note that we still do not have a way to check for \textbf{dependencies}. Before executing the load instructions, we need to check the \textbf{entire store buffer} to make sure that they are updated. 
+
+\includegraphics*{./Image/Store Buffer Plus.jpg}
+
+If the address matches a store buffer entry, we need to stall the load since we need to update the value. 
+
+But when the value is actually ready, we should just get it anyway, which calls for forwarding.
+
+\subsection*{Load forwarding}
+
+
+
+
+
+
+
+
+
+
 \end{document}
 
