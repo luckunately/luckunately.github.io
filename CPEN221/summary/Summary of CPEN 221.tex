@@ -117,7 +117,7 @@ When you define your own exceptions, you should either subclass RuntimeException
 You should use an unchecked exception only to signal an unexpected failure (typically, a bug), otherwise, you should use a checked exception.
 
 \section{Computing system}
-\subsection*{fetch\-and\-execute cycle}
+\subsection*{fetch-and-execute cycle}
 CPU fetches instruction from memory and then executes it. 
 
 Registers keep the values inside the CPU, program counter keeps track of the instruction address.
@@ -130,7 +130,7 @@ Instead, the CPU gets interrupts, which stalls the current task and handles inte
 Processes are individual tasks that the CPU is working on. Note that processes can have multiple streams of execution called threads. 
 
 \subsection*{Java Virtual Machine}
-Low level language can be translated directly to assembly and then machine language by the compliers. However high level languages like Java need an intermediate step. 
+Low\-level language can be translated directly to assembly and then machine language by the compilers. However high\-level languages like Java need an intermediate step. 
 
 JVM is an interpreter that translates instructions one by one. Compilers translate Java to Java Bytecode program, which is a machine language for JVM. Then Java interpreter translates Java Bytecode to the local machine language. So it can be used across platforms. 
 
@@ -1026,12 +1026,12 @@ then combining the results.
 Since the partition is quite random, the behavior might be different all the
 time and execution time are not uniform across the multiple partitions.
 
-It could be seen as a concurrent implementation of streams. So it would carry all the problems that concurrent programs have. 
+It could be seen as a \textit{concurrent} implementation of streams. So it would carry all the problems that concurrent programs have. 
 \subsection*{First\-Class Functions in Java}
 
 In Java, the only first-class values are primitive values and object references. But objects can carry functions with the,m in the form of methods. 
 
-For example, the ``Comparator<T>'' object is a form of using an object to pass functions. 
+For example, the ``Comparator$<T>$'' object is a form of using an object to pass functions. 
 
 \section{Grammar and Regular Expressions}
 \subsection*{Grammars}

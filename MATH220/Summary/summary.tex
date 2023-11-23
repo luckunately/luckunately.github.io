@@ -418,7 +418,7 @@ Note that one of them is a subset relationship.
 \subsection*{Injection, Surjection and Bijection}
 Let $f:A\times B$ be a function:
 \begin{itemize}
-    \item The function is an \textbf{injective/one\-to\-one} function when $\forall a_1,a_2 \in A$
+    \item The function is an \textbf{injective/one-to-one} function when $\forall a_1,a_2 \in A$
     \[(a_1\neq a_2)\implies f(a_1)\neq f(a_2) \]
     Or the contrapositive:
     \[f(a_1)=f(a_2)\implies a_1=a_2\]
@@ -445,7 +445,24 @@ At the same time:
     \item If $g\circ f$ is surjective, then $g$ is surjective, $f$ is unknown.
 \end{itemize}
 
-
+\subsection*{Inverse functions}
+Let $f:A\to B, g:B\to A$ be functions:
+\begin{itemize}
+    \item If $g\circ f=i_A$, which is an identity function in A, then we say that $g$ is a \textbf{left\-inverse} of $f$.
+    \item If $f\circ g=i_B$, which is an identity function in B, then we say that $g$ is a \textbf{right\-inverse} of $f$.
+    \item If $g$ is \textit{both} a left\-inverse and right\-inverse, then it is an \textbf{inverse} of $f$. It can be written as $f^{-1}$
+    \item Note that one can prove that if an inverse exists, then it is unique. Inverse exists $\iff$ $f$ is bijective.
+\end{itemize}
+Lemma:
+\begin{itemize}
+    \item $f$ has a left\-inverse $\iff$ $f$ is injective.
+    \item $f$ has a right\-inverse $\iff$ $f$ is surjective.
+    \item If f has both left\-inverse and right\-inverse, then they are equal.\begin{proof}
+        left $f,g,h$ be functions in $A\to B$, $g$ is the left\-inverse and $h$ is the right\-inverse. Now we know $g\circ f = i_A, f\circ h=i_B$.
+        \[g=g\circ i_B=g\circ(f\circ h)=(g\circ f)\circ h=i_A\circ h =h\]
+        We used the associative property to prove it. 
+    \end{proof}
+\end{itemize}
 
 
 
