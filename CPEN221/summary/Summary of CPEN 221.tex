@@ -458,7 +458,7 @@ smaller or larger than the value we have picked.
 \includegraphics*[scale = 0.7]{./summary_image/Binary Search.png}
 
 Warnning!!!!!! The implementation is missing a termination situation where the
-the desired value is not in the data: if (startIndex >= endIndex) returns false;
+the desired value is not in the data: if (startIndex $>=$ endIndex) returns false;
 
 \subsection*{Memoriztion}
 
@@ -878,6 +878,25 @@ instantiated
 \section{Recursive Types}
 Recursive datatypes are those where an object of a type is defined in terms of the ``smaller object'' of the same type. Lists and trees can be an example of recursive datatypes.
 
+Generally, it can be described as:
+\begin{itemize}
+      \item Parent node holds child nodes. 
+      \item Child nodes can be representations of different nodes that all work as a recursive node. You can define as many types of nodes as possible and use methods and fields to rule each one's behavior. Usually, using all types of nodes to extend a Node type could save our lives.
+      \item Make sure there is an empty node meaning that the tree terminates here. 
+\end{itemize}
+\subsection*{Null V.S. Empty}
+Null might seem to be an easier way of expressing Empty, however, using an actual object to represent Empty can allow us to call some functions that could be more informative and are less likely to cause an error.
+
+Keep nulls out of your data structures, and your life will be happier.
+
+\subsection*{Delcared Type V.S. Actual Type}
+Note that type checking occurs at \textbf{compile time and run time}.
+
+\begin{lstlisting}
+      List<Integer> list = new ArrayList<>();
+\end{lstlisting}
+Here during the compile time, it is ``List'' and during run time it is ``ArrayList''. This is why an interface can be used to declare a type but cannot be used to new it. 
+
 \section{Lambdas and Streams}
 
 \subsection*{Lambda Calculus}
@@ -966,7 +985,7 @@ Any datatype that has an iterator can qualify as a sequence. We will have three 
 
       Java can do the same thing with a longer syntax. The crucial piece is how we pass the function we want to apply to each element of a stream when we invoke the map() operation. 
 
-      \includegraphics*{summary_image/Map java example.jpg}
+      \includegraphics*[scale=0.95]{summary_image/Map java example.jpg}
 
       Note that we are passing functions as values. The map function takes a reference to a function as its first argument, not the result of that function. 
 
@@ -1007,12 +1026,12 @@ then combining the results.
 Since the partition is quite random, the behavior might be different all the
 time and execution time are not uniform across the multiple partitions.
 
-
+It could be seen as a concurrent implementation of streams. So it would carry all the problems that concurrent programs have. 
 \subsection*{First\-Class Functions in Java}
 
 In Java, the only first-class values are primitive values and object references. But objects can carry functions with the,m in the form of methods. 
 
-For example, ``Comparator<T>'' object is a form of using an object to pass functions. 
+For example, the ``Comparator<T>'' object is a form of using an object to pass functions. 
 
 \section{Grammar and Regular Expressions}
 \subsection*{Grammars}
