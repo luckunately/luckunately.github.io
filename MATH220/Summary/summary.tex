@@ -464,8 +464,36 @@ Lemma:
     \end{proof}
 \end{itemize}
 
+\section{Contradiction}
+Proof by Contradiction relies on two things:
+\begin{itemize}
+    \item Fact: Law of the excluded middle: Let $P$ be a statement. Then either $P$ is true or its negation is true.
+    \item MODUS TOLLENS: If $(P\implies Q)$ and $Q$ is false, then $P$ is false. (Write out the truth table to check)
+\end{itemize}
+\subsection*{Structure of contradiction proofs}
+Imagine that we want to prove statement $P$ is true:
+\begin{enumerate}
+    \item State that we use contradiction and assume $\neg P$ is true
+    \item We establish a chain of implications that terminates at a contradiction that is false: \[\neg P\implies P_1\implies P_2 \implies \ldots \implies \textbf{contradiction}\]
+    \item By modus tollens, $\neg P$ must be false, thus $P$ is true.
+\end{enumerate}
+\subsection*{Irrational Numbers}
+With contradiction, we can define rational and irrational numbers:
+Let $q$ be a real number:
+\begin{itemize}
+    \item We say $q$ is \textbf{rational} if we can write it as $q=\frac{a}{b}$ with $a,b\in \mathbb{Z},b\neq 0$. \[\exists a\in \mathbb{Z}s.t.\exists b\in (\mathbb{Z}-\{0\})s.t.q=\frac{a}{b}\]
+    \item We say $q$ is \textbf{irrational} when it is \textbf{not rational}\[\forall a\in \mathbb,\forall b\in (\mathbb{Z}-\{0\}),q=\frac{a}{b}\]
+    \item Note that irrational and rational numbers make up the partition of real numbers. \[\mathbb{R}=\mathbb{Q}+\mathbb{I} \iff \mathbb{I}=\mathbb{R}-\mathbb{Q} \]
+\end{itemize}
+\subsection*{There are infinite primes}
+Lemma: Let $n\in\mathbb{N}$, if $n\ge 2$, then $n$ is divisible by a prime.
 
-
+Now we want to prove that there is an infinite number of primes:
+\begin{proof}
+    Assume, to the contrary, that there is a finite list of primes: $\{p_1,p_2,\ldots, p_n\}$ and let it be a set $N\in \mathbb{N}$.
+    
+    To be added.
+\end{proof}
 
 
 
