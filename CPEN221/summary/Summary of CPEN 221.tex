@@ -25,13 +25,13 @@
 
 Topics going to be covered in CPEN 221:
 \begin{itemize}
-    \item Specifications
-    \item typing and simple static analysis
-    \item testing
-    \item abstraction (procedural abstraction and data abstraction)
-    \item abstract data types
-    \item type hierarchies
-    \item concurrency
+      \item Specifications
+      \item typing and simple static analysis
+      \item testing
+      \item abstraction (procedural abstraction and data abstraction)
+      \item abstract data types
+      \item type hierarchies
+      \item concurrency
 \end{itemize}
 
 \section{Types}
@@ -57,9 +57,9 @@ Type safety refers to a programming language's support for detecting type
 errors.
 
 \begin{itemize}
-    \item Static analysis: Analysis performed during the compilation stage (or before a
-          program is executed)
-    \item Dynamic analysis: Runtime analysis
+      \item Static analysis: Analysis performed during the compilation stage (or before a
+            program is executed)
+      \item Dynamic analysis: Runtime analysis
 \end{itemize}
 Languages that can support stronger static analyses typically lead to stronger correctness guarantees.
 
@@ -76,12 +76,12 @@ method used.
 \subsection*{Type of exception}
 Java provides two exception types: \textbf{checked and unchecked}.
 \begin{itemize}
-    \item Checked exception means it is checked by the compiler. It must be handled or
-          declared the exception itself.
-    \item Unchecked exceptions are used to signal bugs. These exceptions are not expected
-          to be handled.
-    \item All exceptions may have a message associated with them. If not provided in the
-          constructor, the reference to the message string is null.
+      \item Checked exception means it is checked by the compiler. It must be handled or
+            declared the exception itself.
+      \item Unchecked exceptions are used to signal bugs. These exceptions are not expected
+            to be handled.
+      \item All exceptions may have a message associated with them. If not provided in the
+            constructor, the reference to the message string is null.
 \end{itemize}
 \subsection*{Throwable hierachy}
 \includegraphics{./summary_image/Throw_Hierarchy.png}
@@ -97,44 +97,44 @@ in user code, not in the runtime. Errors should be considered unrecoverable,
 and are generally not caught.
 
 \begin{itemize}
-    \item RuntimeException, Error, and their subclasses are unchecked exceptions. The
-          compiler doesn't require these to be declared in the throws clause of a method
-          that throws them and doesn't require these to be caught or declared by a
-          caller of such a method.
-    \item All other throwables — Throwable, Exception, and all of their subclasses except
-          for those of the RuntimeException and Error lineage — are checked exceptions.
-          The compiler requires these exceptions to be caught or declared when they can be thrown.
+      \item RuntimeException, Error, and their subclasses are unchecked exceptions. The
+            compiler doesn't require these to be declared in the throws clause of a method
+            that throws them and doesn't require these to be caught or declared by a
+            caller of such a method.
+      \item All other throwables — Throwable, Exception, and all of their subclasses except
+            for those of the RuntimeException and Error lineage — are checked exceptions.
+            The compiler requires these exceptions to be caught or declared when they can be thrown.
 \end{itemize}
 When you define your own exceptions, you should either subclass RuntimeException (to make it an unchecked exception) or Exception (to make it checked).
 \subsection*{Exception design considerations}
 \begin{itemize}
-    \item If you design a method to have its own (new) exception, you have to create a
-          new class for the exception.
-    \item If you call a method that can throw a checked exception, you have to wrap it in
-          a try-catch statement (even if you know the exception will never be thrown).
+      \item If you design a method to have its own (new) exception, you have to create a
+            new class for the exception.
+      \item If you call a method that can throw a checked exception, you have to wrap it in
+            a try-catch statement (even if you know the exception will never be thrown).
 \end{itemize}
 \textbf{Refined rule: }
 You should use an unchecked exception only to signal an unexpected failure (typically, a bug), otherwise, you should use a checked exception.
 
 \section{Computing system}
 \subsection*{fetch-and-execute cycle}
-CPU fetches instruction from memory and then executes it. 
+CPU fetches instruction from memory and then executes it.
 
 Registers keep the values inside the CPU, program counter keeps track of the instruction address.
 
 \subsection*{Asynchronous Events}
-CPU checks data over and over again and executes when the desired data arrives. It is called polling. However, it wastes performance to keep waiting. 
+CPU checks data over and over again and executes when the desired data arrives. It is called polling. However, it wastes performance to keep waiting.
 
-Instead, the CPU gets interrupts, which stalls the current task and handles interrupts. 
+Instead, the CPU gets interrupts, which stalls the current task and handles interrupts.
 
-Processes are individual tasks that the CPU is working on. Note that processes can have multiple streams of execution called threads. 
+Processes are individual tasks that the CPU is working on. Note that processes can have multiple streams of execution called threads.
 
 \subsection*{Java Virtual Machine}
-Low\-level language can be translated directly to assembly and then machine language by the compilers. However high\-level languages like Java need an intermediate step. 
+Low\-level language can be translated directly to assembly and then machine language by the compilers. However high\-level languages like Java need an intermediate step.
 
-JVM is an interpreter that translates instructions one by one. Compilers translate Java to Java Bytecode program, which is a machine language for JVM. Then Java interpreter translates Java Bytecode to the local machine language. So it can be used across platforms. 
+JVM is an interpreter that translates instructions one by one. Compilers translate Java to Java Bytecode program, which is a machine language for JVM. Then Java interpreter translates Java Bytecode to the local machine language. So it can be used across platforms.
 
-To solve the problem that it takes time to translate between JVM and local machine, Java introduced just\-in\-time compilers which translates from JVM to machine code while compiling to reduce time. 
+To solve the problem that it takes time to translate between JVM and local machine, Java introduced just\-in\-time compilers which translates from JVM to machine code while compiling to reduce time.
 \section{Program}
 
 \subsection*{Computation and Memory}
@@ -167,14 +167,14 @@ Check out CN5.3. For more details.
 
 Summarize the steps:
 \begin{enumerate}
-    \item ``call main'':push return address onto the stack, jump into main
-    \item ``push ebp'':save current ebp register values
-    \item ``mov esp, ebp'':copy esp to ebp
+      \item ``call main'':push return address onto the stack, jump into main
+      \item ``push ebp'':save current ebp register values
+      \item ``mov esp, ebp'':copy esp to ebp
 
-          These are function prologue. The current value of ebp is saved to the top of
-          the stack. esp is copied to ebp to establish a new frame.
+            These are function prologue. The current value of ebp is saved to the top of
+            the stack. esp is copied to ebp to establish a new frame.
 
-          After some function calls it will call back to the original position.
+            After some function calls it will call back to the original position.
 \end{enumerate}
 
 \section{Code testing and review}
@@ -185,12 +185,12 @@ increase one's confidence in the program's correctness.
 
 Validation includes:
 \begin{itemize}
-    \item Formal reasoning: usually called verification. Not so possible for large
-          programs.
-    \item Testing: Running the program on carefully selected inputs and checking the
-          results.
-    \item Code review: Having someone else carefully read your code and reason informally
-          about it.
+      \item Formal reasoning: usually called verification. Not so possible for large
+            programs.
+      \item Testing: Running the program on carefully selected inputs and checking the
+            results.
+      \item Code review: Having someone else carefully read your code and reason informally
+            about it.
 \end{itemize}
 
 As a tester, you want to make the program fail.
@@ -198,20 +198,20 @@ As a tester, you want to make the program fail.
 We should test early and often. You write tests before you even write any code.
 The development of a single function proceeds in this order:
 \begin{enumerate}
-    \item Specification for the function
-    \item Tests that exercise the function
-    \item Actual code. Once you pass the tests, you are done.
+      \item Specification for the function
+      \item Tests that exercise the function
+      \item Actual code. Once you pass the tests, you are done.
 \end{enumerate}
 
 \subsection*{Why software testing is hard}
 Here are some approaches that do not work well:
 \begin{itemize}
-    \item Exhaustive testing: Space of possibility is too large to cover.
-    \item Haphazard testing: (Just try it and see if it works) does not do anything. It
-          will not increase confidence in the program.
-    \item Random or statistical testing: Randomly testing a small portion of the software is
-          not working. Software behaves discontinuously and discretely across the space
-          of possible input.
+      \item Exhaustive testing: Space of possibility is too large to cover.
+      \item Haphazard testing: (Just try it and see if it works) does not do anything. It
+            will not increase confidence in the program.
+      \item Random or statistical testing: Randomly testing a small portion of the software is
+            not working. Software behaves discontinuously and discretely across the space
+            of possible input.
 \end{itemize}
 
 \subsection*{Partitioning}
@@ -227,20 +227,20 @@ each subdomain, and that is our test suite.
 
 Bugs often occur at the boundary between subdomains. There are a few reasons:
 \begin{itemize}
-    \item Programmers often make off-by-one mistakes. For example, mess up $>$ and $\ge$.
-    \item Some boundaries may need to be handled as special cases in the code.
-    \item Boundaries may be places of discontinuity in the code's behavior. For
-          example, \textbf{int} variable grows beyond its maximum positive value.
+      \item Programmers often make off-by-one mistakes. For example, mess up $>$ and $\ge$.
+      \item Some boundaries may need to be handled as special cases in the code.
+      \item Boundaries may be places of discontinuity in the code's behavior. For
+            example, \textbf{int} variable grows beyond its maximum positive value.
 \end{itemize}
 
 \subsection*{Two Extremes for Testing}
 After partitioning the input space, we can choose how exhaustive we want the
 test suite to be:
 \begin{itemize}
-    \item Full Cartesian product: Every legal combination of the partition dimensions is
-          covered by one test case.
-    \item Cover each part: Every part of each dimension is covered by at least one test
-          case, but not necessarily every combination.
+      \item Full Cartesian product: Every legal combination of the partition dimensions is
+            covered by one test case.
+      \item Cover each part: Every part of each dimension is covered by at least one test
+            case, but not necessarily every combination.
 \end{itemize}
 
 \subsection*{Blackbox and Whitebox Testing}
@@ -257,11 +257,11 @@ You must take care that your test cases don't require specific implementation be
 \subsection*{Coverage}
 
 \begin{itemize}
-    \item Statement coverage: is every statement run by some test case?
-    \item Branch coverage: For every if or while statement, are both the true or false
-          directions taken by some test case?
-    \item Path coverage: is every possible combination of branches --- every path through
-          the program --- taken by some test case?
+      \item Statement coverage: is every statement run by some test case?
+      \item Branch coverage: For every if or while statement, are both the true or false
+            directions taken by some test case?
+      \item Path coverage: is every possible combination of branches --- every path through
+            the program --- taken by some test case?
 \end{itemize}
 
 It is crucial to rerun your tests when you modify your code. It prevents the program
@@ -286,10 +286,10 @@ Use good names so that it is self-descriptive.
 
 Three Cs:
 \begin{itemize}
-    \item Correct: find bugs
-    \item Comprehensible: understandable
-    \item Changeable: Readiness for change was considered by writing tests that only
-          depend on behavior in the spec.
+      \item Correct: find bugs
+      \item Comprehensible: understandable
+      \item Changeable: Readiness for change was considered by writing tests that only
+            depend on behavior in the spec.
 \end{itemize}
 
 \section{Specifications}
@@ -311,11 +311,11 @@ unintended behavior.
 \subsection*{The role of a spec}
 With a spec:
 \begin{itemize}
-    \item the client (the user of a method or a class) agrees to rely only on information
-          in the description/specification of the method or class for their part, and
-    \item the implementer promises to support everything in the specification, and
-          outside of the specification has perfect liberty to make implementation
-          decisions.
+      \item the client (the user of a method or a class) agrees to rely only on information
+            in the description/specification of the method or class for their part, and
+      \item the implementer promises to support everything in the specification, and
+            outside of the specification has perfect liberty to make implementation
+            decisions.
 \end{itemize}
 
 A specification of a method can be concerned with the parameters and return
@@ -324,31 +324,31 @@ or private fields of the method's class.
 
 \subsection*{Designing specifications}
 \begin{itemize}
-    \item Deterministic: Does the spec define only a single possible output for a given
-          input or allow the implementor to choose from a set of legal outputs?
-          \begin{itemize}
-              \item Deterministic: when presented with a state satisfying the precondition, the
-                    the outcome is determined.
-              \item Non-Deterministic code is code that you expect to sometimes behave one way and
-                    sometimes another.
-          \end{itemize}
-    \item Declarative: Does the spec just characterize what the output should be or does
-          it explicitly says how to compute the output.
-          \begin{itemize}
-              \item Operational specs give a series of steps that the method performs; pseudocode
-                    descriptions are Operational
-              \item Declarative specs just give properties of the final outcome and how it is
-                    related to the initial state.
-          \end{itemize}
-    \item Strong: Does the spec have a small set of legal implementations or a large set?
+      \item Deterministic: Does the spec define only a single possible output for a given
+            input or allow the implementor to choose from a set of legal outputs?
+            \begin{itemize}
+                  \item Deterministic: when presented with a state satisfying the precondition, the
+                        the outcome is determined.
+                  \item Non-Deterministic code is code that you expect to sometimes behave one way and
+                        sometimes another.
+            \end{itemize}
+      \item Declarative: Does the spec just characterize what the output should be or does
+            it explicitly says how to compute the output.
+            \begin{itemize}
+                  \item Operational specs give a series of steps that the method performs; pseudocode
+                        descriptions are Operational
+                  \item Declarative specs just give properties of the final outcome and how it is
+                        related to the initial state.
+            \end{itemize}
+      \item Strong: Does the spec have a small set of legal implementations or a large set?
 \end{itemize}
 
 A specification A is stronger than or equal to a specification B if:
 \begin{itemize}
-    \item A's precondition is weaker than or equal to B's. (More or equal amount of
-          allowed input)
-    \item A's postcondition is stronger than or equal to B's, for the states that satisfy
-          B's precondition. (Know more about the return value and outcome)
+      \item A's precondition is weaker than or equal to B's. (More or equal amount of
+            allowed input)
+      \item A's postcondition is stronger than or equal to B's, for the states that satisfy
+            B's precondition. (Know more about the return value and outcome)
 \end{itemize}
 
 \section{Debugging}
@@ -366,11 +366,11 @@ pointers final only keeps the address unchanged but not the thing it points to.
 Fail fast to localize bugs. Use ``assert\(variable\)'' to check for errors.
 Following are a few things you should assert:
 \begin{itemize}
-    \item method argument requirements
-    \item method return value requirements
-    \item Covering all cases: if a conditional statement or switch does not cover all the
-          possible cases, it is good practice to use an assertion to block the illegal
-          cases.
+      \item method argument requirements
+      \item method return value requirements
+      \item Covering all cases: if a conditional statement or switch does not cover all the
+            possible cases, it is good practice to use an assertion to block the illegal
+            cases.
 \end{itemize}
 
 Many assertion mechanisms are designed so that assertions are executed only
@@ -381,20 +381,20 @@ the assertion line.
 \subsection*{Modularity and Encapsulation}
 Bettter software design:
 \begin{itemize}
-    \item Modularity: Dividing up a system into components or modules. Each can be
-          designed, implemented, tested, reasoned about and reused separately from the
-          rest of the program.
-    \item Encapsulation: Building walls around a module so that the module is responsible for
-          its own internal behavior and bugs in other parts of the system cannot damage
-          its integrity.
-          \begin{itemize}
-              \item Access control: use `public' and `private' to control the visibility and
-                    accessibility of variables and methods.
-              \item Variable scope: The scope of a variable is the portion of the program text over
-                    which that variable is defined, in the sense that expressions and statements
-                    can refer to the variable. Keeping variable scopes as small as possible makes
-                    it much easier to reason about where a bug might be in the program.
-          \end{itemize}
+      \item Modularity: Dividing up a system into components or modules. Each can be
+            designed, implemented, tested, reasoned about and reused separately from the
+            rest of the program.
+      \item Encapsulation: Building walls around a module so that the module is responsible for
+            its own internal behavior and bugs in other parts of the system cannot damage
+            its integrity.
+            \begin{itemize}
+                  \item Access control: use `public' and `private' to control the visibility and
+                        accessibility of variables and methods.
+                  \item Variable scope: The scope of a variable is the portion of the program text over
+                        which that variable is defined, in the sense that expressions and statements
+                        can refer to the variable. Keeping variable scopes as small as possible makes
+                        it much easier to reason about where a bug might be in the program.
+            \end{itemize}
 \end{itemize}
 
 \section{Mutability}
@@ -431,8 +431,8 @@ We can define a recursive process (or a recursive object) as having two
 properties:
 
 \begin{itemize}
-    \item \textbf{a set of base cases}, that do not rely on recursion and indicate terminal steps (these are also called termination conditions);
-    \item \textbf{a recursive step}, that reduces an instance of the process to other instances of the same process, in the direction of one of the base cases.
+      \item \textbf{a set of base cases}, that do not rely on recursion and indicate terminal steps (these are also called termination conditions);
+      \item \textbf{a recursive step}, that reduces an instance of the process to other instances of the same process, in the direction of one of the base cases.
 \end{itemize}
 
 \subsection*{Recursion and Induction}
@@ -442,8 +442,8 @@ this statement is true for all $n\ge 0$
 
 The idea of induction:
 \begin{itemize}
-    \item Show $P(0)$ is true. (Base case)
-    \item Establish that if $P(1),\ldots,P(m)$ were true, then $P(m+1)$ is true.
+      \item Show $P(0)$ is true. (Base case)
+      \item Establish that if $P(1),\ldots,P(m)$ were true, then $P(m+1)$ is true.
 \end{itemize}
 
 \subsection*{Binary Search}
@@ -465,11 +465,11 @@ the desired value is not in the data: if (startIndex $>=$ endIndex) returns fals
 We can cache the results to prevent repetitive executions.
 
 \begin{itemize}
-    \item Use a hashmap to store the results calculated already.
-    \item Then check if the map contains the key to see if the calculation was done
-          before.
-    \item If contained, directly return the calculated value.
-    \item It will save a lot of time!
+      \item Use a hashmap to store the results calculated already.
+      \item Then check if the map contains the key to see if the calculation was done
+            before.
+      \item If contained, directly return the calculated value.
+      \item It will save a lot of time!
 \end{itemize}
 
 \section{Abstract Data Type}
@@ -484,9 +484,9 @@ Access level modifiers determine whether other classes can use a particular
 field or invoke a particular method. There are two levels of access control:
 
 \begin{itemize}
-    \item At the top level—public, or package-private (no explicit modifier).
-    \item At the member level—public, private, protected, or package-private (no explicit
-          modifier).
+      \item At the top level—public, or package-private (no explicit modifier).
+      \item At the member level—public, private, protected, or package-private (no explicit
+            modifier).
 \end{itemize}
 
 A class may be declared with the modifier public, in which case that class is
@@ -505,28 +505,28 @@ subclass of its class in another package.
 \subsection*{What Abstration Means}
 
 \begin{itemize}
-    \item Abstraction.
+      \item Abstraction.
 
-          Omitting or hiding low-level details with a simpler, higher-level idea.
-    \item Modularity.
+            Omitting or hiding low-level details with a simpler, higher-level idea.
+      \item Modularity.
 
-          Dividing a system into components or modules, each of which can be designed,
-          implemented, tested, reasoned about, and reused separately from the rest of the
-          system.
-    \item Encapsulation.
+            Dividing a system into components or modules, each of which can be designed,
+            implemented, tested, reasoned about, and reused separately from the rest of the
+            system.
+      \item Encapsulation.
 
-          Building walls around a module (a hard shell or capsule) so that the module is
-          responsible for its own internal behavior, and bugs in other parts of the
-          system cannot damage its integrity.
-    \item Information hiding.
+            Building walls around a module (a hard shell or capsule) so that the module is
+            responsible for its own internal behavior, and bugs in other parts of the
+            system cannot damage its integrity.
+      \item Information hiding.
 
-          Hiding details of a module's implementation from the rest of the system, so
-          that those details can be changed later without changing the rest of the
-          system.
-    \item Separation of concerns.
+            Hiding details of a module's implementation from the rest of the system, so
+            that those details can be changed later without changing the rest of the
+            system.
+      \item Separation of concerns.
 
-          Making a feature (or ``concern'') the responsibility of a single module, rather
-          than spreading it across multiple modules.
+            Making a feature (or ``concern'') the responsibility of a single module, rather
+            than spreading it across multiple modules.
 \end{itemize}
 
 The key idea of data abstraction is that a type is characterized by the
@@ -541,15 +541,15 @@ immutable form. StringBuilder, for example, is a mutable version of String
 The operations of an abstract type can be classified as follows:
 
 \begin{itemize}
-    \item Creators create \textbf{new objects} of the type. A creator may take an object
-          as an argument, but not an object of the type being constructed. In many
-          programming languages, constructor methods are creators although there are
-          other creator operations too.
-    \item Producers create new objects from old objects of the type.
-    \item Observers take objects of the abstract type and return objects of a different
-          type.
-    \item Mutators change objects. The add\(\) method of List, for example, mutates a
-          list by adding an element to the end.
+      \item Creators create \textbf{new objects} of the type. A creator may take an object
+            as an argument, but not an object of the type being constructed. In many
+            programming languages, constructor methods are creators although there are
+            other creator operations too.
+      \item Producers create new objects from old objects of the type.
+      \item Observers take objects of the abstract type and return objects of a different
+            type.
+      \item Mutators change objects. The add\(\) method of List, for example, mutates a
+            list by adding an element to the end.
 \end{itemize}
 
 \subsection*{Designing an Abstract Type}
@@ -566,7 +566,7 @@ to do the kinds of computations clients are likely to want to do.
 Should not mix generic and domain-specific features.
 
 Critically, a good abstract data type should be \textbf{representation
-    independent}. This means that the use of an abstract type is independent of its
+      independent}. This means that the use of an abstract type is independent of its
 representation (the actual data structure or data fields used to implement it),
 so that changes in representation have no effect on code outside the abstract
 type itself.
@@ -586,17 +586,17 @@ data type can co-exist in the same program, as different classes implementing
 the interface.
 
 \begin{itemize}
-    \item Defining an interface:
+      \item Defining an interface:
 
-          An interface can extend any number of interfaces. Example below:
+            An interface can extend any number of interfaces. Example below:
 
-          public interface GroupedInterface extends Interface1, Interface2, Interface3 \{
+            public interface GroupedInterface extends Interface1, Interface2, Interface3 \{
 
-          //interface body.
+            //interface body.
 
-          \}
+            \}
 
-    \item Implementing an interface:
+      \item Implementing an interface:
 
 \end{itemize}
 
@@ -622,19 +622,19 @@ the original mutable list), and get an immutable list.
 
 Establishing invariants:
 \begin{itemize}
-    \item makes the invariant true in the initial state of the object.
-    \item ensures that all changes to the object keep the invariant true.
-    \item Define this ADT by available operations on it.
-          \begin{itemize}
-              \item creators and producers must establish the invariant for new object instances
-              \item mutators and observers must preserve the invariant.
-          \end{itemize}
+      \item makes the invariant true in the initial state of the object.
+      \item ensures that all changes to the object keep the invariant true.
+      \item Define this ADT by available operations on it.
+            \begin{itemize}
+                  \item creators and producers must establish the invariant for new object instances
+                  \item mutators and observers must preserve the invariant.
+            \end{itemize}
 \end{itemize}
 Structural induction: if an invariant of an ADT obeys:
 \begin{itemize}
-    \item established by creators and producers
-    \item preserved by mutators and observers
-    \item no representation exposure occurs
+      \item established by creators and producers
+      \item preserved by mutators and observers
+      \item no representation exposure occurs
 \end{itemize}
 Then the invariant is true of all instances of the ADT.
 \section{RI and AF}
@@ -645,18 +645,18 @@ and should be checked at runtime with checkRep().
 
 \subsection*{Connecting specs and implementations}
 \begin{itemize}
-    \item Representation invariant: Obejct $\to$ boolean.
-          \begin{itemize}
-              \item Indicates whether a data structure is well-formed.
-              \item Only well-formed representations are meaningful.
-              \item Defines the set of valid values of the data structure.
-          \end{itemize}
-    \item Abstraction function: Object $\to$ abstract values
-          \begin{itemize}
-              \item What the data structure means (as an abstract value)
-              \item How the data structure is to be interpreted.
-              \item How do you compute the inverse, abstract value $to$ Object?
-          \end{itemize}
+      \item Representation invariant: Obejct $\to$ boolean.
+            \begin{itemize}
+                  \item Indicates whether a data structure is well-formed.
+                  \item Only well-formed representations are meaningful.
+                  \item Defines the set of valid values of the data structure.
+            \end{itemize}
+      \item Abstraction function: Object $\to$ abstract values
+            \begin{itemize}
+                  \item What the data structure means (as an abstract value)
+                  \item How the data structure is to be interpreted.
+                  \item How do you compute the inverse, abstract value $to$ Object?
+            \end{itemize}
 \end{itemize}
 
 %In short, an abstraction function maps rep values to the abstract values they represent.
@@ -670,17 +670,17 @@ serves as a consistency check to ensure that the object remains in a valid
 state throughout its lifecycle.
 
 \begin{itemize}
-    \item Every abstract value is mapped to by some rep value.
-    \item Some abstract values are mapped to by more than one rep value. (because
-          representation is not a tight encoding. there is more than one way to
-          represent)
-    \item Not all rep values are mapped. (If not satisfying the precondition, it may
-          cause some trouble. So not mapping them)
+      \item Every abstract value is mapped to by some rep value.
+      \item Some abstract values are mapped to by more than one rep value. (because
+            representation is not a tight encoding. there is more than one way to
+            represent)
+      \item Not all rep values are mapped. (If not satisfying the precondition, it may
+            cause some trouble. So not mapping them)
 \end{itemize}
 
 Have a method to check for rep invariant:
 \[
-    \text{private void checkRep()\{\ldots\}}
+      \text{private void checkRep()\{\ldots\}}
 \]
 
 Make sure to check for null.
@@ -696,11 +696,11 @@ an object in terms of its intended use.
 \includegraphics*[scale=0.8]{./summary_image/Abstract Function Illustration.png}
 \subsection*{Relationship between the two}
 \begin{itemize}
-    \item Rep invariant ensures that the internal state of an object remains consistent
-          and valid.
-    \item The abstract function provides a way to view the object in terms of its
-          intended abstraction, allowing clients to interact with the object based on
-          its conceptual model rather than its internal details.
+      \item Rep invariant ensures that the internal state of an object remains consistent
+            and valid.
+      \item The abstract function provides a way to view the object in terms of its
+            intended abstraction, allowing clients to interact with the object based on
+            its conceptual model rather than its internal details.
 \end{itemize}
 
 \subsection*{How to write?}
@@ -710,23 +710,23 @@ an object in terms of its intended use.
 
 \subsection*{Three ways to regard equality}
 \begin{enumerate}
-    \item Using an abstraction function: recall $f:R\rightarrow A$ maps concrete
-          instances of a data type to their corresponding abstract values.
+      \item Using an abstraction function: recall $f:R\rightarrow A$ maps concrete
+            instances of a data type to their corresponding abstract values.
 
-          We say that a equals b if and only if $f(a)=f(b)$.
-    \item Using a relation: An equivalence is a relation $E \subseteq T\times T$ that is:
-          \begin{itemize}
-              \item reflexive: $E(t,t)\forall t \in T$
-              \item symmetric: $E(t,u)\implies E(u,t)$
-              \item transitive: $E(t,u)\land E(u,v)\implies E(t,v)$
-          \end{itemize}
-          To use E as a definition for equality, we would say that a equals b if and only if $E(a,b)$
+            We say that a equals b if and only if $f(a)=f(b)$.
+      \item Using a relation: An equivalence is a relation $E \subseteq T\times T$ that is:
+            \begin{itemize}
+                  \item reflexive: $E(t,t)\forall t \in T$
+                  \item symmetric: $E(t,u)\implies E(u,t)$
+                  \item transitive: $E(t,u)\land E(u,v)\implies E(t,v)$
+            \end{itemize}
+            To use E as a definition for equality, we would say that a equals b if and only if $E(a,b)$
 
-          Not quite know what this is.
+            Not quite know what this is.
 
-    \item How an outsider (a client) can observe about them: Observation means calling
-          operations on the objects. So two objects are equal if and only if they cannot
-          be distinguished by calling any operations of the abstract data type.
+      \item How an outsider (a client) can observe about them: Observation means calling
+            operations on the objects. So two objects are equal if and only if they cannot
+            be distinguished by calling any operations of the abstract data type.
 
 \end{enumerate}
 \subsection*{Comparing in programming}
@@ -740,26 +740,26 @@ The spec of \textbf{Object} class is so important that it is often referred to
 as the \textbf{Object Contract}. When you override the equals method, you must
 adhere to its general contract:
 \begin{itemize}
-    \item equals must define an equivalence relation. (reflexive, symmetric, transitive)
-    \item equals must be consistent.
-    \item for a non-null reference, it should return false compared to null.
-    \item hashcode must produce the same result for two objects that should return true. \end{itemize}
+      \item equals must define an equivalence relation. (reflexive, symmetric, transitive)
+      \item equals must be consistent.
+      \item for a non-null reference, it should return false compared to null.
+      \item hashcode must produce the same result for two objects that should return true. \end{itemize}
 
 Always override hashCode when you override equals!!!!!!!!!
 
 \subsection*{Equality of Mutable/Immutable Types}
 For immutable types:
 \begin{itemize}
-    \item equals() should compare abstract values. This is the same as saying equals()
-          should provide behavioral equality.
-    \item hasCode() should map the abstract value to an integer.
+      \item equals() should compare abstract values. This is the same as saying equals()
+            should provide behavioral equality.
+      \item hasCode() should map the abstract value to an integer.
 \end{itemize}
 So immutable types must override both equals() and hashCode().
 
 For mutable types:
 \begin{itemize}
-    \item equals() should compare references, just like ==.(behavioral equality)
-    \item hashCode should map the reference into an integer.
+      \item equals() should compare references, just like ==.(behavioral equality)
+      \item hashCode should map the reference into an integer.
 \end{itemize}
 So mutable types should not override equals() and hashCode() at all!
 
@@ -844,9 +844,9 @@ declarations.
 
 In a Java subtype, each corresponding method has:
 \begin{itemize}
-    \item Same argument types. (If different, overloading: unrelated methods)
-    \item Compatible (covariant) return types
-    \item No additional declared exceptions
+      \item Same argument types. (If different, overloading: unrelated methods)
+      \item Compatible (covariant) return types
+      \item No additional declared exceptions
 \end{itemize}
 
 Java subtyping guarantees that: A variable's run-time type (= the class of its
@@ -858,21 +858,21 @@ If a variable of declared (compile-time) type T holds a reference to an object o
 
 Corollaries:
 \begin{itemize}
-    \item Objects always have implementations of the methods specified by their declared
-          type
-    \item If all subtypes are true subtypes, then all objects meet the specification of
-          their declared type
+      \item Objects always have implementations of the methods specified by their declared
+            type
+      \item If all subtypes are true subtypes, then all objects meet the specification of
+            their declared type
 \end{itemize}
 
 \subsection*{Interfaces and Abstract Classes}
 An abstract class is a class that can only be subclassed, it cannot be
 instantiated
 \begin{itemize}
-    \item Abstract classes can provide implementations for some instance methods, while
-          interfaces cannot.
-    \item To implement the type defined by abstract class A, class B must be a subclass
-          of abstract class A (declared with extends). But any class that defines all of
-          the required methods and follows the specification of the interface I can be a subtype of I (declared with implements).
+      \item Abstract classes can provide implementations for some instance methods, while
+            interfaces cannot.
+      \item To implement the type defined by abstract class A, class B must be a subclass
+            of abstract class A (declared with extends). But any class that defines all of
+            the required methods and follows the specification of the interface I can be a subtype of I (declared with implements).
 \end{itemize}
 
 \section{Recursive Types}
@@ -880,9 +880,9 @@ Recursive datatypes are those where an object of a type is defined in terms of t
 
 Generally, it can be described as:
 \begin{itemize}
-      \item Parent node holds child nodes. 
+      \item Parent node holds child nodes.
       \item Child nodes can be representations of different nodes that all work as a recursive node. You can define as many types of nodes as possible and use methods and fields to rule each one's behavior. Usually, using all types of nodes to extend a Node type could save our lives.
-      \item Make sure there is an empty node meaning that the tree terminates here. 
+      \item Make sure there is an empty node meaning that the tree terminates here.
 \end{itemize}
 \subsection*{Null V.S. Empty}
 Null might seem to be an easier way of expressing Empty, however, using an actual object to represent Empty can allow us to call some functions that could be more informative and are less likely to cause an error.
@@ -895,7 +895,7 @@ Note that type checking occurs at \textbf{compile time and run time}.
 \begin{lstlisting}
       List<Integer> list = new ArrayList<>();
 \end{lstlisting}
-Here during the compile time, it is ``List'' and during run time it is ``ArrayList''. This is why an interface can be used to declare a type but cannot be used to new it. 
+Here during the compile time, it is ``List'' and during run time it is ``ArrayList''. This is why an interface can be used to declare a type but cannot be used to new it.
 
 \section{Lambdas and Streams}
 
@@ -905,7 +905,7 @@ Lambdas Calculus is an expression generated by the following grammar which can
 denote a function definition, function application, variable, or parenthesized
 expression:
 \[
-    expr \to \lambda var. expr|expr\quad expr|var|(expr)
+      expr \to \lambda var. expr|expr\quad expr|var|(expr)
 \]
 
 For example: $\lambda$ x. (+ x 1)2 represents the application of a function
@@ -919,7 +919,7 @@ In java, we represent it as x $->$ x + 1
 A Java Lambda is basically a \textbf{method without a declaration}, usually
 written as
 \[
-    \text{\{parameters\}}->\text{\{body\}}
+      \text{\{parameters\}}->\text{\{body\}}
 \]
 
 A lambda can have zero or more parameters separated by commas, and their type
@@ -948,70 +948,70 @@ not mutate the original list. Instead, these operations return new streams.
 There are a few ideas regarding streams that are good to indicate upfront:
 
 \begin{itemize}
-    \item Sequence of elements: A stream provides an interface to a sequenced set of
-          values of a specific element type. However, streams do not actually store
-          elements; they are computed on demand.
-    \item Source: Streams consume from a data-providing source such as collections,
-          arrays, or I/O resources.
-    \item Aggregate operations: Streams support SQL-like operations and common operations
-          from functional programming languages, such as filter, map, reduce, find, match,
-          sorted, and so on.
+      \item Sequence of elements: A stream provides an interface to a sequenced set of
+            values of a specific element type. However, streams do not actually store
+            elements; they are computed on demand.
+      \item Source: Streams consume from a data-providing source such as collections,
+            arrays, or I/O resources.
+      \item Aggregate operations: Streams support SQL-like operations and common operations
+            from functional programming languages, such as filter, map, reduce, find, match,
+            sorted, and so on.
 
-          Furthermore, stream operations have two fundamental characteristics that make
-          them very different from collection operations.
+            Furthermore, stream operations have two fundamental characteristics that make
+            them very different from collection operations.
 
-          \begin{itemize}
-              \item Pipelining: Many stream operations return a stream themselves. This allows
-                    operations to be chained to form a larger pipeline. This enables certain
-                    optimizations, such as laziness and short-circuiting, which we explore later.
-              \item Internal iteration: In contrast to collections, which are iterated explicitly
-                    (external iteration), stream operations do the iteration behind the scenes for
-                    you.
+            \begin{itemize}
+                  \item Pipelining: Many stream operations return a stream themselves. This allows
+                        operations to be chained to form a larger pipeline. This enables certain
+                        optimizations, such as laziness and short-circuiting, which we explore later.
+                  \item Internal iteration: In contrast to collections, which are iterated explicitly
+                        (external iteration), stream operations do the iteration behind the scenes for
+                        you.
 
-                    Lastly, we may be able to perform certain sub-operations in parallel if there
-                    is no dependency as regards the sequence of those operations. To do so in Java,
-                    we would create a parallel stream using the parallelStream() method.
-          \end{itemize}
+                        Lastly, we may be able to perform certain sub-operations in parallel if there
+                        is no dependency as regards the sequence of those operations. To do so in Java,
+                        we would create a parallel stream using the parallelStream() method.
+            \end{itemize}
 \end{itemize}
 
 \subsubsection*{Sequence: map, filter and reduce}
-Any datatype that has an iterator can qualify as a sequence. We will have three operations for sequences: map, filter and reduce. 
+Any datatype that has an iterator can qualify as a sequence. We will have three operations for sequences: map, filter and reduce.
 \begin{itemize}
       \item map \textbf{applies a unary function} to each element and returns a new list containing the results, in the same order.
-      \[\text{map : }(E->F)\times \textbf{Seq}<E>->\text{Seq}<F>\]
-      To express it directly and visually, define it using Python:
+            \[\text{map : }(E->F)\times \textbf{Seq}<E>->\text{Seq}<F>\]
+            To express it directly and visually, define it using Python:
 
-      \includegraphics*{summary_image/Map def.jpg}
+            \includegraphics*{summary_image/Map def.jpg}
 
-      Java can do the same thing with a longer syntax. The crucial piece is how we pass the function we want to apply to each element of a stream when we invoke the map() operation. 
+            Java can do the same thing with a longer syntax. The crucial piece is how we pass the function we want to apply to each element of a stream when we invoke the map() operation.
 
-      \includegraphics*[scale=0.95]{summary_image/Map java example.jpg}
+            \includegraphics*[scale=0.95]{summary_image/Map java example.jpg}
 
-      Note that we are passing functions as values. The map function takes a reference to a function as its first argument, not the result of that function. 
+            Note that we are passing functions as values. The map function takes a reference to a function as its first argument, not the result of that function.
 
       \item filter is used to \textbf{select elements} from a stream based on a specified condition. It returns a new stream containing only the elements that satisfy the condition. Not that it does not modify its input list.
-      
-      Condition is defined by a predicate, which is a function that returns a boolean value indicating whether an element should be included in the new stream.
 
-      \[\text{filter: } (E->\text{boolean}) \times \text{Seq}<E> -> \text{Seq}<E>\]
+            Condition is defined by a predicate, which is a function that returns a boolean value indicating whether an element should be included in the new stream.
 
-      If we define a filter in Python:
+            \[\text{filter: } (E->\text{boolean}) \times \text{Seq}<E> -> \text{Seq}<E>\]
 
-      \includegraphics*{summary_image/filter def.jpg}
+            If we define a filter in Python:
 
-      \item reduce is used to \textbf{aggregate} the elements of a stream into a single value. It applies a \textbf{binary} operator to elements in the stream, accumulating the result as it processes the elements. 
-      
-      So one should define two lambda variables in the lambda function and apply a binary operator on them.
+            \includegraphics*{summary_image/filter def.jpg}
 
-      \[\text{reduce: }(F\times E -> F)\times \text{Seq}<E> \times F -> F\]
+      \item reduce is used to \textbf{aggregate} the elements of a stream into a single value. It applies a \textbf{binary} operator to elements in the stream, accumulating the result as it processes the elements.
 
-      reduce(f, list, init) combines the elements of the list from left to right, by starting with init=f(init, list[i]) $\forall 0\le i <$list.size() in ascending order. 
+            So one should define two lambda variables in the lambda function and apply a binary operator on them.
 
-      If you omit the init, then it will throw an exception if the list is empty otherwise choose list[0] as init and start from list[1].
+            \[\text{reduce: }(F\times E -> F)\times \text{Seq}<E> \times F -> F\]
 
-      If you really want to do it in a different order, we can use fold-right(f, list, int). It is exactly the same as reduction other than it starts from the end to the start.
+            reduce(f, list, init) combines the elements of the list from left to right, by starting with init=f(init, list[i]) $\forall 0\le i <$list.size() in ascending order.
 
-      Note that the return type does not necessarily have to be the same. 
+            If you omit the init, then it will throw an exception if the list is empty otherwise choose list[0] as init and start from list[1].
+
+            If you really want to do it in a different order, we can use fold-right(f, list, int). It is exactly the same as reduction other than it starts from the end to the start.
+
+            Note that the return type does not necessarily have to be the same.
 \end{itemize}
 
 
@@ -1026,16 +1026,16 @@ then combining the results.
 Since the partition is quite random, the behavior might be different all the
 time and execution time are not uniform across the multiple partitions.
 
-It could be seen as a \textit{concurrent} implementation of streams. So it would carry all the problems that concurrent programs have. 
+It could be seen as a \textit{concurrent} implementation of streams. So it would carry all the problems that concurrent programs have.
 \subsection*{First\-Class Functions in Java}
 
-In Java, the only first-class values are primitive values and object references. But objects can carry functions with the,m in the form of methods. 
+In Java, the only first-class values are primitive values and object references. But objects can carry functions with the,m in the form of methods.
 
-For example, the ``Comparator$<T>$'' object is a form of using an object to pass functions. 
+For example, the ``Comparator$<T>$'' object is a form of using an object to pass functions.
 
 \section{Grammar and Regular Expressions}
 \subsection*{Grammars}
-A grammar defines a set of sentences, where each sentence is a sequence of symbols called \textit{tokens/terminals}. A grammar is a set of productions, where each production defines a \textit{nonterminal}. 
+A grammar defines a set of sentences, where each sentence is a sequence of symbols called \textit{tokens/terminals}. A grammar is a set of productions, where each production defines a \textit{nonterminal}.
 
 \section{Intro to Concurrency and Parallelism}
 
@@ -1046,24 +1046,24 @@ Parallel programming is about using additional computational resources to produc
 
 Different threads can communicate by writing and reading fields of the same objects, in other words: share memory.
 
-There may be more threads than processors which means not all threads will be running at the same time. \textbf{Scheduling} decides which thread uses the core at each time. It is not under programmers' control. 
+There may be more threads than processors which means not all threads will be running at the same time. \textbf{Scheduling} decides which thread uses the core at each time. It is not under programmers' control.
 
 A thread may be waiting for something to happen before it continues. We use join to indicate.
 
-Each thread has its own call stack and program counter, but all the threads share one collection of static fields and objects. 
+Each thread has its own call stack and program counter, but all the threads share one collection of static fields and objects.
 \begin{itemize}
       \item When a new thread starts running, it will have its own new call stack. It will have one frame on it, which is like that thread's main, but not the actual main.
       \item When a thread returns from its first method, it terminates.
-      \item Each thread has its own program counter and local variables, so there is no ``interference'' from other threads for these things. 
+      \item Each thread has its own program counter and local variables, so there is no ``interference'' from other threads for these things.
       \item But! Static fields and objects will be unpredictable since you do not know the order of each thread accessing them.
 \end{itemize}
 
 \subsection*{Methods to communicate}
 \begin{itemize}
       \item Shared\-memory communication relies on \textbf{Aliasing}.
-      \item Message\-passing: Threads do not share objects, instead, they send messages which is a copy of some data. 
-      \item Data flow: The programmer uses primitives to create a directed acyclic graph (DAG). A node in the graph performs some computation using inputs that arrive on its incoming edges. 
-      \item Data parallelism: does not have explicit threads or nodes running different parts of the program at different times. Instead, it has primitives for parallelism that involve applying the same operations to different pieces of data at the same time. For example, break down a large number operation into separate small numbers.  
+      \item Message\-passing: Threads do not share objects, instead, they send messages which is a copy of some data.
+      \item Data flow: The programmer uses primitives to create a directed acyclic graph (DAG). A node in the graph performs some computation using inputs that arrive on its incoming edges.
+      \item Data parallelism: does not have explicit threads or nodes running different parts of the program at different times. Instead, it has primitives for parallelism that involve applying the same operations to different pieces of data at the same time. For example, break down a large number operation into separate small numbers.
 \end{itemize}
 
 \section{Fork-join Parallelism}
@@ -1071,7 +1071,7 @@ Normal Threads procedure:
 \begin{enumerate}
       \item Define a new thread class that either extends java.lang.Thread or the thread interface. (Make sure to override the run() program since that is the key implementation)
       \item Split the task roughly to the equal size that corresponds to the number of threads you want to have. (It is not possible to be perfect)
-      
+
       \item For each partition, new the specific thread and start it. (Might be a good idea to put threads into an array to be easily looked after.)
       \item For each thread, wait for it to join, then collect the result. (This step is actually sequential. So while theoretically slicing the partition to be infinitely small can make sure work is balanced, adding up the result will take infinitely long since its sequential nature.)
 \end{enumerate}
@@ -1088,9 +1088,9 @@ The key idea is to:
 
 \includegraphics*{summary_image/Divide and Conequer algorithm}
 
-Notice how the thread creates helper threads till the end. The normal calculation should not really only terminate at exactly 1 object. You can customarily design your own cutoff point as the base case. 
+Notice how the thread creates helper threads till the end. The normal calculation should not really only terminate at exactly 1 object. You can customarily design your own cutoff point as the base case.
 
-A better improvement is that instead of starting the second thread at the right, you just directly run it. 
+A better improvement is that instead of starting the second thread at the right, you just directly run it.
 
 \includegraphics*{summary_image/Divide and Conequer algorithm improved}
 
@@ -1136,14 +1136,92 @@ Do notice that it takes time to create threads and work with threads. It might n
 
 \end{lstlisting}
 
-Notice that the idea is similar, but we use different methods to achieve it. 
+Notice that the idea is similar, but we use different methods to achieve it.
 
 \begin{itemize}
       \item The entire program should have exactly one ForkJoinPool, so it makes sense to store it in a static field and use it for all the parallel algorithms in your program. The library's commonPool static method returns such an object for you.
-      \item Note that inside the thread class, you use \textbf{fork, compute, and join} just like how we used \textbf{start, run and join} previously. 
-      \item But we use \textbf{invokei of the ForkJoinPool} outside of the class. 
+      \item Note that inside the thread class, you use \textbf{fork, compute, and join} just like how we used \textbf{start, run and join} previously.
+      \item But we use \textbf{invoke of the ForkJoinPool} outside of the class.
 \end{itemize}
 
-      
+\section{Network Programming}
+\subsection*{Client-Server Design Pattern}
+We have two processes:\begin{itemize}
+      \item clients:
+      \item servers:
+\end{itemize}
+Procedure: \begin{enumerate}
+      \item A client initiates the communication by connecting to a server.
+      \item Then the client sends requests to the server, and the server sends replies back.
+      \item Finally, the client disconnects.
+\end{enumerate}
+A server might handle connections from many clients concurrently and clients might also connect to multiple servers.
+
+\subsection*{Network Sockets}
+\subsubsection*{IP address}
+A network interface is identified by an IP address. IPv4 address is a 32\-bit number with four 8\-bit parts. For example:\begin{itemize}
+      \item 137.82.130.49 is the IP address of a UBC web server. Every address whose first octet is 137 is on the UBC network.
+      \item 173.194.123.40 is the address of a Google web server.
+      \item 127.0.0.1 is the loopback or localhost address: it always refers to the local machine. Technically, any address whose first octet is 127 is a loopback address, but 127.0.0.1 is standard.
+\end{itemize}
+\subsubsection*{Hostnames}
+Hostnames are names that can be translated into IP addresses. A single hostname can map to different IP addresses at different times, and multiple hostnames can map to the same IP address. For example\begin{itemize}
+      \item www.ubc.ca is the name of UBC's web server. You can translate this name to an IP address yourself using dig, host, or nslookup on the command line, e.g.:\begin{lstlisting}
+            $ dig +short www.ubc.ca
+            137.82.130.49
+      \end{lstlisting}
+      \item localhost is a name for 127.0.0.1. When you want to talk to a server running on your own machine, talk to localhost.
+\end{itemize}
+Translation from hostnames to IP addresses is the job of the Domain Name System (DNS).
+\subsubsection*{Port Numbers}
+A single machine might have multiple server applications that clients wish to connect to, so we need a way to direct traffic on the same network interface to different processes.
+
+Network interfaces have multiple ports identified by a 16-bit number from 0 (which is reserved, so we effectively start at 1) to 65535.
+
+A server process binds to a particular port — it is now \textbf{listening} on that port. Clients have to know which port number the server is listening on.
+
+There are some reserved ports, for example:\begin{itemize}
+      \item Port 22 is the standard SSH port.
+      \item Port 25 is the standard email server port.
+      \item Port 80 is the standard web server port. When you connect to the URL http://www.ubc.ca in your web browser, it connects to 137.82.130.49 on port 80.
+\end{itemize}
+When the port is not a standard port, it is specified as part of the address. For example, the URL http://130.2.39.10:9000 refers to port 9000 on the machine at 130.2.39.10.
+
+When a client connects to a server, that outgoing connection also uses a port number on the client's network interface, usually chosen at random from the available non-well-known ports.
+
+\subsubsection*{Sockets}
+A socket represents one end of the connection between the client and server.
+\begin{itemize}
+      \item A \textbf{listening socket} is used by a server process to wait for connections from remote clients. In Java, use ServerSocket to make a listening socket, and use its accept method to listen to it.
+      \item A \textbf{connected socket} can send and receive messages to and from the process on the other end of the connection. It is identified by both the local IP address and port number plus the remote address and port, which allows a server to differentiate between concurrent connections from different IPs, or from the same IP on different remote ports.
+
+            In Java, clients use a Socket constructor to establish a socket connection to a server. Servers obtain a connected socket as a Socket object returned from ServerSocket.accept.
+\end{itemize}
+
+\subsection*{Buffers}
+The size of data communication is unknown and not stable. So we just put them into buffers when data arrives. 
+
+The data going into or coming out of a socket is a stream of bytes.
+
+In Java, InputStream objects represent sources of data flowing into your program: reading from a file on disk with a FileInputStream, taking user input from System.in, or input from a network socket.
+
+OutputStream objects represent data sinks, places we can write data to: FileOutputStreams for saving to files, System.out is a PrintStream or the output to a network socket.
+
+\subsection*{Blocking}
+To be added!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
 
