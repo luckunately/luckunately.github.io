@@ -1210,15 +1210,121 @@ OutputStream objects represent data sinks, places we can write data to: FileOutp
 \subsection*{Blocking}
 To be added!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+\section{Shared Memory Programming}
+Reasons for using multithreading:
+\begin{itemize}
+      \item Parallelism: a parallel algorithm needs to have different threads accessing the same data structures in an unpredictable way.
+      \item Responsiveness: Many programs, including operating systems and programs with user interfaces, want/need to respond to external events quickly. One way to do this is to have threads doing the program's expensive computations while other threads are responsible for ``listening to'' events like buttons being clicked or typing occurring. The listening threads can then (quickly) write to fields that the computation threads later read.
+      \item Processor utilization: It takes a long time for data to be fetched either from disk or outer source. Instead of stalling and waiting, it might be better to allow a different thread to operate. y having other threads, the program can do useful work while waiting for I/O. This use of multithreading is called masking (or hiding) I/O latency.
+      \item Failure/performance isolation: Other threads can continue executing if one thread throws exceptions or errors due to some problems.
+\end{itemize}
 
+\subsection*{Synchroniztion}
+To make sure that threads do not cause data exposure (accessing data at the same time which breaks the operation), we need to enforce \textbf{mutual exclusion}
 
+We can do so by:\begin{itemize}
+      \item have operations to be done ``at-at-once'' or \textbf{atomically} so that we ensure operations are all independent and not interruptable. 
+      \item To get out of this conundrum, we rely on \textbf{synchronization primitives} provided by the programming language. These rely on special hardware instructions that can do more all at once: these instructions allow us to do more than read or write to a memory address. 
+      \item That is, they give us the \textbf{atomic} check-for-no-sign-and-hang-a-sign that we want. This is enough to implement mutual exclusion properly. The particular synchronization mechanism we will use is \textbf{locking}, and the special hardware instructions involved are "compare-and-set" or "compare-and-swap" instructions.
+\end{itemize}
 
+\subsection*{Locks}
+We can define a mutual-exclusion lock, also known as a lock (or sometimes called a mutex), as an abstract datatype designed for concurrent programming and supporting three operations:
+\begin{itemize}
+      \item new: establish a new instance of lock, unheld
+      \item acquire: takes a lock and blocks until ``not held''
+      \item release: takes a lock and sets it to be ``not held''
+\end{itemize}
+Held locks would only allow the thread that owns the lock to access the data until the lock is released. However, we should implement a lock in a way that could handle multiple ``acquire'' operations on one ``unheld'' lock at the same time. One should win and others should be blocked. 
 
+Analyze the following code:
+\begin{lstlisting}[language=Java]
+      class BankAccount {
+            private int balance = 0;
+            private Lock lk = new Lock();
+            ...
+            void withdraw(int amount) {
+            lk.acquire(); /* may block */
+            int b = getBalance();
+            if(amount > b)
+                throw new WithdrawTooLargeException();
+            setBalance(b - amount);
+            lk.release();
+            }
+            // deposit would also acquire/release lk
+        }  
+\end{lstlisting}
 
+There are a few problems with the code:\begin{enumerate}
+      \item if amount $>$ b, an exception is thrown without releasing the lock, making other threads not able to access.
+      \item Notice that the method calls other methods while holding the lock. These methods might also be used from other places which could be locked elsewhere. This way everything will stall! There are two possible solutions:\begin{itemize}
+            \item There are two solutions to this problem. The first solution is more difficult for programmers: we can define two versions of getBalance and setBalance. One would acquire the lock and one would assume the caller holds it. The latter could be private, though there are any number of ways to manually keep track in the programmer's head (and through documentation!) of what locks the program holds where.
+            \item The second solution is to change our definition of the acquire and release operations so that it is okay for a thread to (re)acquire a lock it holds. Locks that support this are called reentrant locks. (The name fits with our do-not-disturb analogy.) To define reentrant locks, we need to adjust the definitions for the three operations by adding a count to track how many times the current holder has reacquired the lock (and to maintain the identity of the current holder):\begin{itemize}
+                  \item new creates a new lock with no current holder and a count of 0
+                  \item acquire blocks if there is a current holder different from the thread calling it. Else if the current holder is the thread calling it, do not block and increment the counter. Else there is no current holder, so set the current holder to the calling thread.
+                  \item release only releases the lock (sets the current holder to ``none'') if the count is 0. Otherwise, it decrements the count.
+            \end{itemize}
+            In other words, a lock is released when the number of release operations by the holding thread equals the number of acquire operations.
+      \end{itemize}
+\end{enumerate}
 
+\subsubsection*{synchronized keyword}
+\begin{lstlisting}[language=Java]
+      synchronized (expression) {
+            statements
+    } 
+\end{lstlisting}
+\begin{itemize}
+      \item The expression is evaluated. It must produce a reference to an object — not null or a number. This object is treated as a lock. All objects in Java can be locked.
+      \item The synchronized statement acquires the lock
+      \item After the lock is successfully acquired, the statements are executed.
+      \item When control leaves the statements, the lock is released. This happens either when the final `\}' is reached or when the program "jumps out of the statement" via an exception, a return, a break, or a continue.
+\end{itemize}
+Now this way, it handles nearly all scenarios for you. 
 
+Although we can pass any object to synchronized, it might be better to just directly call on the object that holds the whole field like:\begin{lstlisting}
+      void withdraw(int amount) {
+        synchronized (this) {
+            int b = getBalance();
+            if (amount > b) {
+                throw new WithdrawTooLargeException();
+            }
+            setBalance(b - amount);
+        }
+    }
 
+    void doubleBalance(BankAccount acct) {
+    synchronized(acct) {
+        acct.setBalance(acct.getBalance()*2);
+    }
+}
+\end{lstlisting}
 
+Java also holds another feature that allows you to directly synchronize the method:\begin{lstlisting}
+      class BankAccount {
+    private int balance = 0;
+ 
+    synchronized int getBalance() {
+       return balance;
+    }
+    
+    synchronized void setBalance(int x) {
+        balance = x;
+    }
+    
+    synchronized void withdraw(int amount) {
+        int b = getBalance();
+        if(amount > b) {
+            throw new WithdrawTooLargeException();
+        }
+        setBalance(b - amount);
+    }
+    // deposit and other operations would also be declared synchronized
+}
+\end{lstlisting}
+It is the same as synchronizing `this' object. But might be easier to read and use.
+
+Warning: locks work on objects instead of the pointer. So if we change the pointer of a synchronized object to a new object, then the new object is not synchronized!!!!!!!!!!!!!!!!!
 
 
 
