@@ -1141,9 +1141,92 @@ Also, we need to note that we still do not have a way to check for \textbf{depen
 
 If the address matches a store buffer entry, we need to stall the load since we need to update the value. 
 
-But when the value is actually ready, we should just get it anyway, which calls for forwarding.
+But when the value is actually in speculating, we should just get it anyway, which calls for forwarding.
 
 \subsection*{Load forwarding}
+methodology behind forwarding:
+\begin{itemize}
+    \item if the stored value is marked committed in the store buffer, we should get the value since it is correct.
+    \item if the stored value is marked uncommitted in the store buffer, we can get the value anyway since ROB would flush the value when the branch is wrongly predicted so no influence.
+\end{itemize}
+
+So we cases:\
+\begin{itemize}
+    \item \textbf{load bypassing} $\iff$ no memory dependencies
+    \item \textbf{load forwarding} $iff$ a memory dependency exists
+\end{itemize}
+
+\subsection*{memory dependency prediction}
+We must wait until \textbf{addresses resolved} to determine if there is a dependency. What if we can speculate no dependency and cancel if wrong? 
+
+So we predict memory dependency:
+
+\includegraphics*{./Image/load dependency predictor.png}
+
+We load the value based on prediction. This way we can have the value loaded to cache earlier and proceed. However, we need to cancel it when the stored address matches the load address and it is committed. This means that the memory value should be updated at that instance and we should not use the previous value. Here we flush the ROB.
+
+ROB makes sure that only the correct values can be retired from CPU to memory. You can add more and more predictions based on this.
+
+\subsubsection*{wiki explain to elaborate}
+Memory dependence prediction executes memory access operations out of program order to predict true dependencies between loads and stores at instruction execution time. 
+
+Selective memory dependence prediction stalls specific loads until it is certain that no violation may occur. It does not explicitly predict dependencies. This predictor may delay loads longer than necessary and hence result in suboptimal performance. In fact, in some cases it performs worse than naively speculating all loads as early as possible. This is because often its faster to mispeculate and recover than to wait for all preceding stores to execute. Exact memory dependence prediction was developed at the University of Wisconsin\-Madison. 
+
+Specifically, Dynamic Speculation and Synchronization delays loads only as long as it is necessary by predicting the exact store a load should wait for. This predictor predicts exact dependences (store and load pair). 
+
+The synonym predictor groups together all dependences that share a common load or store instruction. The store sets predictor represents multiple potential dependences efficiently by grouping together all possible stores a load may depend upon. 
+
+The store barrier predictor treats certain store instructions as barriers. That is, all subsequent load or store operations are not allowed to bypass the specific store. The store barrier predictor does not explicitly predict dependencies. This predictor may unnecessarily delay subsequent, yet independent loads. 
+
+Memory dependence prediction has other applications beyond the scheduling of loads and stores. For example, speculative memory cloaking and speculative memory bypassing use memory dependence prediction to streamline the communication of values through memory.
+\section{Memory Consistency} 
+Cores are executing in parallel. We need to make sure that core 0 finishes writing before core 1 reads the same data. 
+\subsection*{Ordering accesses to shared memory}
+\begin{flalign*}
+    &\text{thread A} &\text{thread B}\\
+    &\text{S1: store data = New} & \quad&\quad\\
+    &\text{S2: store flag = SET} & \text{L1 : load x1 $<-$ flag}\\
+    &\quad &\text{B1 : if x1 is not SET: jump to L1}\\
+    &\quad &\text{L2: load x2 $<-$ data}
+\end{flalign*}
+Here for each store operation on data, we have a flag that indicates if it is done or not. S1 is the actual storage and S2 is the flag. L1 and B1 loops if not set, and only loads when it is set. To obtain the correct answer, we must have\begin{itemize}
+    \item S1 before S2 (Should not claim it is done when it is not done)and 
+    \item L1 before L2 (Should not read data before write finishes)
+\end{itemize}
+Flag communicates that all data has been written. 
+
+memory ordering restrictions are needed for both multi\-core and single\-core since it is a concurrent thread problem. Only single\-thread operations can follow the natural program order. 
+\subsubsection*{Where memory access reordering can happen}
+\begin{itemize}
+    \item programmer optimization;
+    \item compiler optimization (e.g., reg alloc, reordering, etc.);
+    \item inside each CPU core (store buffer/LSQ, prefetching, speculating,\ldots);
+    \item interconnect (e.g., some paths are faster);
+    \item in RAM (e.g., FR-FCFS scheduling, many channels)
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
