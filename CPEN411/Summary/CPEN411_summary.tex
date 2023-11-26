@@ -1204,7 +1204,11 @@ memory ordering restrictions are needed for both multi\-core and single\-core si
     \item interconnect (e.g., some paths are faster);
     \item in RAM (e.g., FR-FCFS scheduling, many channels)
 \end{itemize}
-
+\subsubsection*{Sequential Consistency}
+a multiprocessor system is sequentially consistent if:\begin{itemize}
+    \item the result of \textbf{any execution} is the same as if the operations of all the processors were executed in \textbf{some sequential order}, and 
+    \item the operations of \textbf{each individual processor} appear in this sequence in the \textbf{order specified by its program}
+\end{itemize}
 
 
 
