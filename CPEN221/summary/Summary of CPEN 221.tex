@@ -1038,9 +1038,17 @@ For example, the ``Comparator$<T>$'' object is a form of using an object to pass
 A grammar defines a set of sentences, where each sentence is a sequence of symbols called \textit{tokens/terminals}. A grammar is a set of productions, where each production defines a \textit{nonterminal}.
 
 \section{Intro to Concurrency and Parallelism}
-
+\subsection*{Process vs. Thread}
+\begin{itemize}
+      \item Process is an executing program. It contains its own memory space, file handles and other system resources allocated by the OS.
+      \item One or more threads run in the context of one or more processes. Threads within the same process share the same memory space and resources allocated to that process. 
+\end{itemize}
 \subsection*{Parallelism V.S. Concurrency}
-Parallel programming is about using additional computational resources to produce an answer faster. Concurrent programming is about correctly and efficiently controlling access by multiple threads to shared resources.
+\includegraphics*{./summary_image/parallelsim vs. concurrency.jpg}
+
+Parallel programming is about using additional computational resources to produce an answer faster. 
+
+Concurrent programming is about correctly and efficiently controlling access by multiple threads to shared resources.
 
 \subsection*{Basic Threads and Shared Memory}
 
@@ -1069,7 +1077,7 @@ Each thread has its own call stack and program counter, but all the threads shar
 \section{Fork-join Parallelism}
 Normal Threads procedure:
 \begin{enumerate}
-      \item Define a new thread class that either extends java.lang.Thread or the thread interface. (Make sure to override the run() program since that is the key implementation)
+      \item Define a new thread class that either \textbf{extends} java.lang.Thread or \textbf{implement} the thread interface, `Runnable'. (Make sure to override the run() program since that is the key implementation)
       \item Split the task roughly to the equal size that corresponds to the number of threads you want to have. (It is not possible to be perfect)
 
       \item For each partition, new the specific thread and start it. (Might be a good idea to put threads into an array to be easily looked after.)
@@ -1090,7 +1098,7 @@ The key idea is to:
 
 Notice how the thread creates helper threads till the end. The normal calculation should not really only terminate at exactly 1 object. You can customarily design your own cutoff point as the base case.
 
-A better improvement is that instead of starting the second thread at the right, you just directly run it.
+A better improvement is that instead of starting the second thread at the right, you just directly run it. Creating a new thread at the right would result in an idle main thread waiting for joining, doing nothing!
 
 \includegraphics*{summary_image/Divide and Conequer algorithm improved}
 
@@ -1165,7 +1173,7 @@ A network interface is identified by an IP address. IPv4 address is a 32\-bit nu
       \item 127.0.0.1 is the loopback or localhost address: it always refers to the local machine. Technically, any address whose first octet is 127 is a loopback address, but 127.0.0.1 is standard.
 \end{itemize}
 \subsubsection*{Hostnames}
-Hostnames are names that can be translated into IP addresses. A single hostname can map to different IP addresses at different times, and multiple hostnames can map to the same IP address. For example\begin{itemize}
+Host names are names that can be translated into IP addresses. A single hostname can map to different IP addresses at different times, and multiple hostnames can map to the same IP address. For example\begin{itemize}
       \item www.ubc.ca is the name of UBC's web server. You can translate this name to an IP address yourself using dig, host, or nslookup on the command line, e.g.:\begin{lstlisting}
             $ dig +short www.ubc.ca
             137.82.130.49
@@ -1278,7 +1286,7 @@ There are a few problems with the code:\begin{enumerate}
       \item The expression is evaluated. It must produce a reference to an object — not null or a number. This object is treated as a lock. All objects in Java can be locked.
       \item The synchronized statement acquires the lock
       \item After the lock is successfully acquired, the statements are executed.
-      \item When control leaves the statements, the lock is released. This happens either when the final `\}' is reached or when the program "jumps out of the statement" via an exception, a return, a break, or a continue.
+      \item When control leaves the statements, the lock is released. This happens either when the final `\}' is reached or when the program "jumps out of the statement" via an `exception', a `return', a `break', or a `continue'.
 \end{itemize}
 Now this way, it handles nearly all scenarios for you. 
 
@@ -1325,6 +1333,113 @@ Java also holds another feature that allows you to directly synchronize the meth
 It is the same as synchronizing `this' object. But might be easier to read and use.
 
 Warning: locks work on objects instead of the pointer. So if we change the pointer of a synchronized object to a new object, then the new object is not synchronized!!!!!!!!!!!!!!!!!
+
+\subsection*{General Guidence}
+Lack of synchronization is usually caused by two:\begin{itemize}
+      \item Data races: simultaneous read/write or write/write of the same memory location. 
+      \item Bad interleavings: exposing bad intermediate state, which can be easily interrupted by another thread
+\end{itemize}
+\subsubsection*{Three choices to fix it}
+For every memory location in the program, at least one of the following must be obbeyed:\begin{enumerate}
+      \item Thread-local: Do not use the location in more than 1 thread.
+      \item Immutable: Do not write to the memory location.
+      \item Synchronized: Use synchronization to control access to the location.
+\end{enumerate}
+\subsubsection*{Guidence on locking mechanism}
+\begin{enumerate}
+      \item Eliminate data races: Never allow two threads to read/write or write/write the same location at the same time.
+      \item Consistent Locking: For each location needing synchronization, have a lock that is always held when reading or writing the location. This could avoid data racing but can not solve bad interleaving. 
+      \item 
+\end{enumerate}
+\subsubsection*{Lock Granularity}
+Two styles of using locks:\begin{enumerate}
+      \item Coarse-grained: fewer locks, more objects per lock.\begin{itemize}
+            \item simpler to implement
+            \item faster access to multiple locations
+      \end{itemize}
+      \item Fine-grained: more locks, fewer objects per lock.\begin{itemize}
+            \item More simultaneous access. May be facing less unnecessary blocking.
+      \end{itemize}
+\end{enumerate}
+General advice is to start with coarse-grained (simpler) and move to fine-grained (performance) only if contention on the coarser locks becomes an issue.  Alas, often leads to bugs.
+\subsubsection*{Atomicity}
+An operation is atomic if no other thread can see it partly executed.
+
+Make critical sections just long enough to preserve atomicity. Then design the locking protocol to implement the critical sections correctly. 
+
+Atomic Variables are available in Java: ``AtomicInteger, AtomicLong, AtomicBoolean, and AtomicReference'' with methods:\begin{itemize}
+      \item get() gets the value from the memory, so that changes made by other threads are visible; equivalent to reading a volatile variable
+      \item set() writes the value to memory so that the change is visible to other threads; equivalent to writing a volatile variable
+      \item lazySet() eventually writes the value to memory, which may be reordered with subsequent relevant memory operations. One use case is nullifying references, for the sake of garbage collection, which is never going to be accessed again. In this case, better performance is achieved by delaying the null volatile write
+      \item compareAndSet() returns true when it succeeds, else false
+      \item weakCompareAndSet() weaker in the sense, that it does not create happens-before orderings. This means that it may not necessarily see updates made to other variables
+\end{itemize}
+\section{Data Races}
+A \textit{race condition} is a mistake in your program such that whether the program behaves correctly or not depends on the order in which the threads execute. 
+
+\subsection*{Bad Interleaving}
+One kind of race condition is a bad interleaving, sometimes called a higher-level race. If doing something at the same time as doing another thing causes dependency, then it is bad interleaving. 
+
+A data race is a specific kind of race condition that is better described as a \textit{simultaneous access error}. There are two kinds of data races:\begin{itemize}
+      \item When one thread might read an object field at the same moment that another thread writes the same field.
+      \item When one thread might write an object field at the same moment that another thread also writes the same field.
+\end{itemize}
+Reading at the same time is ok. 
+
+\subsection*{volatile}
+Instead of using locks, we can declare fields to be volatile. By definition, accesses to volatile fields do not count as data races, so programmers using volatiles are still upholding their end of the grand compromise.
+
+Reading/writing a volatile field is less efficient than reading/writing a regular field, but more efficient than acquiring and releasing a lock.
+
+Volatile fields are typically used only by concurrency experts. They can be convenient when concurrent code is sharing only a single field. Usually with more than one field, you need critical sections longer than a single memory access, in which case the right tool is a lock, not a volatile field.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

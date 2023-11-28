@@ -495,6 +495,57 @@ Now we want to prove that there is an infinite number of primes:
     To be added.
 \end{proof}
 
+\section{Cardinality}
+Define: Let $A, B$ be sets. They have the same \textbf{cardinality} if $A=B=\emptyset$ or if there is a \textit{bijection} from A to B. In this case, we write $|A|=|B|$ and say the sets are \textbf{equinumerous}. 
+
+Note that the special case exists because there is no bijection between empty sets. 
+\subsection*{Pigeonhole Principle (PHP)}
+If $n$ objects are placed in $k$ boxes then\begin{itemize}
+    \item if $n<k$, at least one box has zero objects in it.
+    \item if $n>k$, at least one box has at least two objects in it.
+\end{itemize}
+Can refine $n>k$ case: at least one box has at least $\lceil n/k \rceil$ objects in it. 
+
+With PHP we can get a Corollary:
+
+Let $A,B$ be \textbf{finite} sets and let $f:A\to V$. Then\begin{align*}
+&\text{statement} &\text{contrapositive}\\
+&\text{if } |A|>|B|,f\text{ is not an injection} & \text{if } f \text{ is an injection then }|A|\le |B|\\
+&\text{if } |A|<|B|,f\text{ is not a surjection} & \text{if } f \text{ is a surjection then }|A|\ge |B|
+\end{align*}
+
+
+\subsection*{Infinite Sets}
+Let $A, B ,C$ be sets, then ``being equininumerous'' is an equivalence relation:\begin{itemize}
+    \item reflexive: $|A|=|A|$
+    \item symmetric: $|A|=|B|\implies |B|=|A|$
+    \item transitive: $|A|=|B|\land |B|=|C|\implies |A|=|C|$
+\end{itemize}
+
+Now we elaborate this relationship onto infinite sets. Have an example first:
+
+Let $A=\{n\in\mathbb{N}s.t.n \text{ is even}\}$ and $B=\{n\in\mathbb{N}s.t.n \text{ is odd}\}$. Then $|A|=|B|=|\mathbb{N}$ \begin{proof}
+    The function $f: A \to B$ defined by $f(n)=n+1$ is a bijection.
+
+    The function $g: \mathbb{M} \to A$ defined by $g(n)=2n$ is a bijection.
+\end{proof}
+Note that $A\subset \mathbb{N}$ but we can still map all the elements and find the bijection. This is different from a finite set. 
+
+So for finite sets, if one set is a proper subset of the other, their cardinality is definitely different. But for infinite sets, things might be different. We might still be able to find a bijection. 
+
+Now we can define infinite set:\begin{itemize}
+    \item \textit{informal definition}: an infinite set keeps going.
+    \item \textit{formal definition}: a set $A$ is infinite if there is a bijection from $A$ to a proper subset of $A$. (not itself)
+\end{itemize}
+
+\subsection*{denumerable}
+The first infinite set we meet is the natural numbers.
+\begin{itemize}
+    \item A set $A$ is called \textbf{denumerable} if there is a bijection $f : \mathbb{N} \to A$
+    \item We denote the cardinality of any denumerable set by $\aleph_0$ ``aleph-null''
+    \item When a set $A$ is finite or denumerable we say that it is \textbf{countable}. The negation is \textbf{uncountable}
+\end{itemize}
+
 
 
 
