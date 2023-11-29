@@ -412,6 +412,11 @@ INPUT ./Image/Backpropagation example.jpg
 INPUT ./Image/Backpropagation example.jpg
 INPUT ./Image/Backpropagation example.jpg
 INPUT ./Image/Backpropagation example.jpg
+INPUT ./Image/SGD.jpg
+INPUT ./Image/SGD.jpg
+INPUT ./Image/SGD.jpg
+INPUT ./Image/SGD.jpg
+INPUT ./Image/SGD.jpg
 INPUT Summary.aux
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb

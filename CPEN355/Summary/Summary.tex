@@ -1928,21 +1928,59 @@ Note that:
     \frac{\partial f}{\partial y}& = \frac{\partial f}{\partial q} \frac{\partial q}{\partial y} = z
 \end{align*}
 
-Because of Chain Rule, we can build a gradient connection between the output and input via propagation. 
+Because of the Chain Rule, we can build a gradient connection between the output and input via propagation. 
 
 \subsection*{Training and Validation}
 
+General formulation:\begin{itemize}
+    \item Given an input dataset $X=\{x_1,x_2,\ldots,x_n\}$ with corresponding label $Y=\{y_1,y_2,\ldots,y_m\}$
+    \item Build a neural network with parameter $\Theta$
+    \item Get prediction $\Hat{Y}=\{\hat{y_1},\hat{y_2},\ldots,\hat{y_m}\}$, where $\hat{y_i}=f(x_i,\Theta)$
+    \item Total loss $\mathcal{L}=\sum_{i=1}^{n}l(y_i,\hat{y_i})$
+\end{itemize}
+\subsubsection*{MSE}
+We can use the mean square error as the loss:\begin{itemize}
+    \item Mean square error (MSE) is the average squared difference between the estimated values and the actual value. MSE can be expressed by\[l_{MSE}=(y_i-\hat{y_i})^2=(y_i-f(c_i,\Theta))^2\]
+    \item Further, we can compute the gradient of MSE by\[\frac{\partial l_{MSE}}{\partial \Theta}=-2(y_i-f(x_i,\Theta))\frac{\partial f(x_i,\Theta)}{\partial \Theta}\]
+\end{itemize}
+See the slides for an example
+\subsection*{Cross entropy error}
+Cross entropy error (CE) is the cross\-entropy between two probability distributions over the same underlying set of events. \begin{itemize}
+    \item CE can be expressed by \[l_{CE}=-y_i\log(\hat{y_i})=-y_i\log(f(x_i,\Theta))\]
+    \item Further we can compute the gradient of CE by\[\frac{\partial l_{CE}}{\partial \Theta}=-\frac{y_i}{f(x_i,\Theta)}\frac{\partial (x_i,\Theta)}{\partial\Theta}\]
+\end{itemize}
+See the slides for an example
+\subsubsection*{Stochastic Gradient Descent (SGD)}
 
+We use SGD be there is more than 1 optimal point or local minimum. We would aim for the global minimum:
+\begin{align*}
+    \theta_{t=1}&=\theta_t-\eta g(\theta_t)&\eta\text{ is the learning rate}\\
+    g(\theta_t)&=\frac{1}{b}\sum_{i\in B_t}\nabla_\theta l(x_i;\theta_t)& b\text{ is the Batch size}
+\end{align*}
+\includegraphics*{./Image/SGD.jpg}
+\subsubsection*{Training}
+\begin{itemize}
+    \item One Epoch is completed when a complete data set is cycled forward and backward through the neural network.
+    \item Batch size is a parameter that defines the number of samples to work through before updating the neural network weights.
+    \item Iterations are the number of batches needed to complete on epoch
+\end{itemize}
+\subsubsection*{Learning rate decay}
+We should reduce the learning rate as we complete more Epoch. Since we do not want oscillations when getting to the correct gradient. There are lots of ways to decay:\begin{enumerate}
+    \item Step decay: reduce the rate at a few fixed points, making it as stairs.
+    \item Linear decay: linearly decay proportional to the number of Epoch
+    \item Cosine decay
+    \item Inverse square root decay
+\end{enumerate}
 
-
-
-
-
-
-
-
-
-
+\section{NN advance}
+There are lots of variants if neural network:\begin{itemize}
+    \item Convolutional Neural Networks (CNN): Popular for Image Data, directly applicable for 2D representations
+    \item Recurrent Neural Networks (RNN): Contains self-loop, Good for Sequential data.
+    \item Generative Adversarial Network (GAN):
+    \item Transformer: 
+    \item Graph Neural Networks (GNN): deal with graph inputs. 
+    \item 
+\end{itemize}
 
 
 
