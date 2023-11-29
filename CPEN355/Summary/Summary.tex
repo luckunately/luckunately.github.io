@@ -1323,6 +1323,7 @@ Bagging reduces the variance of the model and helps prevent overfitting. It is p
 \begin{itemize}
     \item Parallel Execution: Each tree in the ensemble can be trained independently, making bagging suitable for parallel processing.
     \item Examples: Random Forest is a popular ensemble method that uses bagging with decision trees.
+    \item Reduce variance, increase bias
 \end{itemize}
 
 \subsubsection*{Boosting}
@@ -1339,6 +1340,7 @@ Boosting is effective at improving both bias and variance, and it can lead to hi
 \begin{itemize}
     \item Sequential Execution: Learners are trained sequentially, and each one tries to correct the mistakes made by the previous learners.
     \item Examples: AdaBoost, Gradient Boosting and XGBoost are popular boosting algorithms used with decision trees.
+    \item Reduce bias, increase variance
 \end{itemize}
 
 \subsubsection*{Differences}
@@ -1486,6 +1488,7 @@ In essence, KNN performs a voting mechanism to determine the class of an unseen 
 
 So no training is needed. Classification time is linear in the training set size for each test case. 
 
+KNN can do both regression and classification. Fore regression, we just average it, for classification, we group it. 
 \subsection*{KNN intuition}
 To classify a test instance $d$, define $K-$neighborhood $P$ as $k$ nearest neighbors of $d$. 
 
@@ -1544,7 +1547,7 @@ There is a high intra\-cluster similarity and low inter\-cluster similarity.
     \item Inter\-cluster separation (isolation): Separation means that different cluster centroids should be far away from one another. 
 \end{itemize}
 
-\section{K\-Means}
+\section{K-Means}
 The K\-Means algorithm partitions the given data into K clusters:
 \begin{itemize}
     \item Each cluster has a cluster center (a.k.a centroid)
@@ -1605,13 +1608,13 @@ No understanding for now. Check the slides
     \includegraphics{Image/K means comparison unglobular shape.png}
 \end{enumerate}
 
-\section{Density\-based clustering}
+\section{Density-based clustering}
 
 Different from K\-Menas:
 \begin{itemize}
     \item Clusters are dense regions in the data space
-    \item A cluster is defined as a maximal set of density\-connected points 
-    \item Noise points lie in regions of low\-density
+    \item A cluster is defined as a maximal set of density-connected points 
+    \item Noise points lie in regions of low-density
     \item Discover clusters of arbitrary shape and size.
 \end{itemize}
 
@@ -1642,7 +1645,7 @@ Given $\epsilon$ and MinPts, categorize the data points into three:
 
 As the name suggests, core points are in the center of a cluster, and border points form the border of the cluster and then enclose each cluster. 
 
-\subsubsection*{Density\-reachable}
+\subsubsection*{Density-reachable}
 An object q is directly density\-reachable from object p if p is a core object and q is in p's $\epsilon-$neighborhood. 
 
 Note that it is not symmetric, reflexive or transitive. 
@@ -1677,7 +1680,7 @@ DBSCAN relies on a density\-based notion of the cluster: A cluster is defined as
     \item Sensitive to parameters: hard to determine the optimal parameters.
     \item Has problem identifying clusters of varying densities.
     \item DBSCAN may not work well in high\-dimensional data. (one dimension might dominate)
-    \item Density estimation is kind of simplistic (e.g., does not create a real density function, but rather a graph of density\-connected points)
+    \item Density estimation is kind of simplistic (e.g., does not create a real density function, but rather a graph of density-connected points)
 \end{itemize}
 
 \section{Principal Component Analysis (PCA)}
