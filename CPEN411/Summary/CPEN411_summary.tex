@@ -1144,7 +1144,7 @@ If the address matches a store buffer entry, we need to stall the load since we 
 But when the value is actually in speculating, we should just get it anyway, which calls for forwarding.
 
 \subsection*{Load forwarding}
-methodology behind forwarding:
+the methodology behind forwarding:
 \begin{itemize}
     \item if the stored value is marked committed in the store buffer, we should get the value since it is correct.
     \item if the stored value is marked uncommitted in the store buffer, we can get the value anyway since ROB would flush the value when the branch is wrongly predicted so no influence.
@@ -1153,7 +1153,7 @@ methodology behind forwarding:
 So we cases:\
 \begin{itemize}
     \item \textbf{load bypassing} $\iff$ no memory dependencies
-    \item \textbf{load forwarding} $iff$ a memory dependency exists
+    \item \textbf{load forwarding} $\iff$ a memory dependency exists
 \end{itemize}
 
 \subsection*{memory dependency prediction}
@@ -1170,11 +1170,11 @@ ROB makes sure that only the correct values can be retired from CPU to memory. Y
 \subsubsection*{wiki explain to elaborate}
 Memory dependence prediction executes memory access operations out of program order to predict true dependencies between loads and stores at instruction execution time. 
 
-Selective memory dependence prediction stalls specific loads until it is certain that no violation may occur. It does not explicitly predict dependencies. This predictor may delay loads longer than necessary and hence result in suboptimal performance. In fact, in some cases it performs worse than naively speculating all loads as early as possible. This is because often its faster to mispeculate and recover than to wait for all preceding stores to execute. Exact memory dependence prediction was developed at the University of Wisconsin\-Madison. 
+Selective memory dependence prediction stalls specific loads until it is certain that no violation may occur. It does not explicitly predict dependencies. This predictor may delay loads longer than necessary and hence result in suboptimal performance. In fact, in some cases, it performs worse than naively speculating all loads as early as possible. This is because often it's faster to mispeculate and recover than to wait for all preceding stores to execute. Exact memory dependence prediction was developed at the University of Wisconsin\-Madison. 
 
-Specifically, Dynamic Speculation and Synchronization delays loads only as long as it is necessary by predicting the exact store a load should wait for. This predictor predicts exact dependences (store and load pair). 
+Specifically, Dynamic Speculation and Synchronization delay load only as long as it is necessary by predicting the exact store a load should wait for. This predictor predicts exact dependencies (store and load pair). 
 
-The synonym predictor groups together all dependences that share a common load or store instruction. The store sets predictor represents multiple potential dependences efficiently by grouping together all possible stores a load may depend upon. 
+The synonym predictor groups together all dependencies that share a common load or store instruction. The store sets predictor represents multiple potential dependences efficiently by grouping together all possible stores a load may depend upon. 
 
 The store barrier predictor treats certain store instructions as barriers. That is, all subsequent load or store operations are not allowed to bypass the specific store. The store barrier predictor does not explicitly predict dependencies. This predictor may unnecessarily delay subsequent, yet independent loads. 
 
@@ -1210,18 +1210,88 @@ a multiprocessor system is sequentially consistent if:\begin{itemize}
     \item the operations of \textbf{each individual processor} appear in this sequence in the \textbf{order specified by its program}
 \end{itemize}
 
+\subsubsection*{Example of ordering}
+Imagine that at $t_0$, mem[X]=mem[Y]=0. Then we have two cores executing different instructions:\begin{align*}
+    &\text{core A:} &\text{core B}\\
+    &A1:\text{ store }X<-1 &B1: \text{ store }Y<-1\\
+    &A2:\text{ load}x_1<-Y &B2: \text{ load }x_2<-x
+\end{align*}
+Multiple possible results could occur:\begin{align*}
+    &x_1&x_2&\text{SC ordering}\\
+    &1 &1 & A1,B1,A2,B2\\
+    &1 &0 & B1,B2,A1,A2\\
+    &0 &1 & A1,A2,B1,B2\\
+    &0 &0 & \text{not possible} 
+\end{align*}
+However, if we have a store buffer (allows loads to bypass stores), then A2 can be Scheduled to execute before A1 since there is no dependency between A1 and A2. 
 
+Now it is possible to get the fourth possibility:\begin{align*}
+    &x_1&x_2&\text{SC ordering}\\
+    &1 &1 & A1,B1,A2,B2\\
+    &1 &0 & B1,B2,A1,A2\\
+    &0 &1 & A1,A2,B1,B2\\
+    &0 &0 & A2,B1,B2,A1 
+\end{align*}
+But note that the last one is not in sequential order. 
+\subsubsection*{Implications for reordering load/stores}
+A sequentially consistent system must maintain:\begin{itemize}
+    \item load $<$ load ordering
+    \item load $<$ store ordering
+    \item store $<$ store ordering
+    \item store $<$ load ordering
+\end{itemize}
+for access to all addresses within each core.
 
+\subsection*{Concurrent solutions}
+\subsubsection*{True Logical Constraints}
+\includegraphics*{./Image/True Logical Constraints.png}
 
+\begin{itemize}
+    \item Green write accesses can be out-of-order if all finish before the blue reads start
+    \item Blue read accesses can be out-of-order if none start before the green writes finish
+    \item IDEA: allow arbitrary reordering, except for \textbf{Synchronization ops} (A programmer driven approach)
+\end{itemize}
+\subsubsection*{Weak Ordering (WO)}
+\includegraphics*[scale=0.8]{./Image/Weak Ordering.png}
+\begin{itemize}
+    \item before synchronization ops: finish all prior ld/stack
+    \item before any ld/st: finish all prior synchronization ops.
+    \item synchronization ops are \textbf{sequentially consistent}
+\end{itemize}
+So instructions before and after synchronization can be out\-of\-order. 
+\subsubsection*{Memory fences}
+\includegraphics*{./Image/Fences Example.png}
 
+Special \textbf{memory fence} (memory barrier) instructions occur in most of the computer architectures. All instructions can be out\-of\-order between fences but not crossing them. 
 
+\includegraphics*{./Image/Ilustrating WO.png}
 
+Note that we have to make sure that the fences are SC. 
+\subsubsection*{Acquire and Release}
+Fences might be too strong, some could pass the fences that would not cause an issue. 
 
+\includegraphics*{./Image/Acquire and Release.png}
 
+\begin{itemize}
+    \item make sure no ld/st leak past Release
+    \item make sure no ld/st leak before acquire 
+\end{itemize}
 
+\subsubsection*{Store atomicity}
+Recall that SC requires that all processor cores observe the same memory operation order. 
 
+Store atomicity:\begin{itemize}
+    \item if one processor observed our write
+    \item then everyone else observed it too
+\end{itemize}
+relaxing this compromises causality!!
 
-
+\subsubsection*{SC for data-race-free programs}
+Most modern languages like C, C++, and Java support the DRF memory model: programs guaranteed to be SC only if \begin{itemize}
+    \item Have no data races, and 
+    \item properly synchronized (e.g. with acquire/release)
+\end{itemize}
+Worst case, we can fence around every memory operation but it hurts performance. In practice, insert fences sparingly or performance tanks. 
 
 
 
