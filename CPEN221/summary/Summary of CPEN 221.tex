@@ -1334,6 +1334,77 @@ It is the same as synchronizing `this' object. But might be easier to read and u
 
 Warning: locks work on objects instead of the pointer. So if we change the pointer of a synchronized object to a new object, then the new object is not synchronized!!!!!!!!!!!!!!!!!
 
+\section{Data Races}
+A \textit{race condition} is a mistake in your program such that whether the program behaves correctly or not depends on the order in which the threads execute. 
+
+\subsection*{Bad Interleaving}
+One kind of race condition is a bad interleaving, sometimes called a higher-level race. If doing something at the same time as doing another thing causes dependency, then it is bad interleaving. 
+
+A data race is a specific kind of race condition that is better described as a \textit{simultaneous access error}. There are two kinds of data races:\begin{itemize}
+      \item When one thread might read an object field at the same moment that another thread writes the same field.
+      \item When one thread might write an object field at the same moment that another thread also writes the same field.
+\end{itemize}
+Reading at the same time is ok. 
+
+\subsection*{volatile}
+Instead of using locks, we can declare fields to be volatile. By definition, accesses to volatile fields do not count as data races, so programmers using volatiles are still upholding their end of the grand compromise.
+
+Reading/writing a volatile field is less efficient than reading/writing a regular field, but more efficient than acquiring and releasing a lock.
+
+Volatile fields are typically used only by concurrency experts. They can be convenient when concurrent code is sharing only a single field. Usually with more than one field, you need critical sections longer than a single memory access, in which case the right tool is a lock, not a volatile field.
+
+\section{Thread Safety}
+Recall race conditions: multiple threads sharing the same mutable variable without coordinating what they're doing. This is unsafe, because the correctness of the program may depend on accidents of timing of their low-level operations.
+
+There are basically four ways to make variable access safe in shared-memory concurrency:\begin{itemize}
+      \item Confinement. Don't share the variable between threads. This idea is called confinement.
+      \item Immutability. Make the shared data immutable. Some additional constraints for concurrent programming are different from previous sections.
+      \item Thread-safe data types. Encapsulate the shared data in an existing thread-safe data type that does the coordination for you.
+      \item Synchronization. Use synchronization to keep the threads from accessing the variable at the same time. Synchronization is what you need to build your own thread-safe data type.
+\end{itemize}
+
+A data type or static method is thread-safe if it behaves correctly when used from multiple threads, regardless of how those threads are executed, and without demanding additional coordination from the calling code.
+
+\subsection*{Confinement}
+You avoid races on mutable data by keeping that data confined to a single thread. Do not give any other threads the ability to read or write the data directly. Since shared mutable data is the root cause of a race condition, confinement solves it by not sharing the mutable data.
+
+Pay attention to static/global variables and references! Maybe they will be exposed to other threads without even noticing.
+
+\subsection*{Immutability}
+An immutable type is generally safe. 
+
+An immutable data type that uses beneficent mutation will have to make itself thread-safe using locks 
+
+So in order to be confident that an immutable data type is thread-safe without locks, we need a stronger definition of immutability:\begin{itemize}
+      \item no mutator methods;
+      \item all fields are private and final;
+      \item no mutation whatsoever of mutable objects in the rep, not even beneficent mutation;
+      \item no rep exposure (see the ADT reading to review what rep exposure is).
+\end{itemize}
+\subsection*{Thread-safe Data Types}
+When a data type in the Java library is Thread-safe, its documentation will explicitly state that fact. 
+
+Note that StringBuffer is a thread\-safe data type where StringBuilder is not. Can be found in their specs. 
+
+Collections.synchronizedMap(new HashMap<>()) is another example of synchronized wrapper. Now the operations are safe but iterators or for loops are still not safe. 
+
+The solution to this problem will be to acquire the collection's lock when you need to iterate over it, which we'll talk about in a subsequent reading.
+
+However, it is still not enough:\begin{lstlisting}
+      if ( ! lst.isEmpty()) { String s = lst.get(0); ... }
+\end{lstlisting}
+It is not safe since another thread may have removed an element between the if statement and the line of execution, even if the data type of `lst' might be safe. 
+
+\subsection*{Thread Safety Argument}
+A safety argument needs to catalog all the threads that exist in your module or program, and the data that they use, and argue which of the four techniques you are using to protect against races for each data object or variable: confinement, immutability, Thread-safe data types, or synchronization. When you use the last two, you also need to argue that all accesses to the data are appropriately atomic that is, that the invariants you depend on are not threatened by interleaving. 
+\section{Guidence for Safe Concurrent Programming}
+Every memory location in your program should meet at least one of the following:\begin{itemize}
+      \item Thread-local: Only one thread ever accesses it.
+      \item Immutable: After initialization, only read not written. 
+      \item Synchronized: Locks are used to ensure there are no race conditions.
+\end{itemize}
+Synchronization is hard, so try to use the other two as much as possible. 
+
 \subsection*{General Guidence}
 Lack of synchronization is usually caused by two:\begin{itemize}
       \item Data races: simultaneous read/write or write/write of the same memory location. 
@@ -1374,46 +1445,6 @@ Atomic Variables are available in Java: ``AtomicInteger, AtomicLong, AtomicBoole
       \item compareAndSet() returns true when it succeeds, else false
       \item weakCompareAndSet() weaker in the sense, that it does not create happens-before orderings. This means that it may not necessarily see updates made to other variables
 \end{itemize}
-\section{Data Races}
-A \textit{race condition} is a mistake in your program such that whether the program behaves correctly or not depends on the order in which the threads execute. 
-
-\subsection*{Bad Interleaving}
-One kind of race condition is a bad interleaving, sometimes called a higher-level race. If doing something at the same time as doing another thing causes dependency, then it is bad interleaving. 
-
-A data race is a specific kind of race condition that is better described as a \textit{simultaneous access error}. There are two kinds of data races:\begin{itemize}
-      \item When one thread might read an object field at the same moment that another thread writes the same field.
-      \item When one thread might write an object field at the same moment that another thread also writes the same field.
-\end{itemize}
-Reading at the same time is ok. 
-
-\subsection*{volatile}
-Instead of using locks, we can declare fields to be volatile. By definition, accesses to volatile fields do not count as data races, so programmers using volatiles are still upholding their end of the grand compromise.
-
-Reading/writing a volatile field is less efficient than reading/writing a regular field, but more efficient than acquiring and releasing a lock.
-
-Volatile fields are typically used only by concurrency experts. They can be convenient when concurrent code is sharing only a single field. Usually with more than one field, you need critical sections longer than a single memory access, in which case the right tool is a lock, not a volatile field.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

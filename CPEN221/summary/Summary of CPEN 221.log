@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  28 NOV 2023 13:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  30 NOV 2023 16:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -492,30 +492,35 @@ Overfull \hbox (110.54913pt too wide) in paragraph at lines 1330--1331
 [][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[45]
-Overfull \hbox (14.35275pt too wide) in paragraph at lines 1350--1351
+[45] [46] [47]
+Overfull \hbox (18.89929pt too wide) in paragraph at lines 1394--1395
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[48]
+Overfull \hbox (14.35275pt too wide) in paragraph at lines 1421--1422
 []\OT1/cmr/m/n/12 Eliminate data races: Never al-low two threads to read-/write or write/write
  []
 
-[46] [47] [48] (./Summary of CPEN 221.aux)
+[49] [50] [51] (./Summary of CPEN 221.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 12775 strings out of 474934
- 198640 string characters out of 5759289
+ 12793 strings out of 474934
+ 198809 string characters out of 5759289
  1948801 words of memory out of 5000000
- 33890 multiletter control sequences out of 15000+600000
+ 33897 multiletter control sequences out of 15000+600000
  568514 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,12n,93p,624b,1979s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,12n,93p,625b,1979s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on "Summary of CPEN 221.pdf" (48 pages, 1160066 bytes).
+Output written on "Summary of CPEN 221.pdf" (51 pages, 1165011 bytes).
 PDF statistics:
- 683 PDF objects out of 1000 (max. 8388607)
- 560 compressed objects within 6 object streams
- 279 named destinations out of 1000 (max. 500000)
- 369 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 713 PDF objects out of 1000 (max. 8388607)
+ 587 compressed objects within 6 object streams
+ 290 named destinations out of 1000 (max. 500000)
+ 385 words of extra memory for PDF output out of 10000 (max. 10000000)
 
