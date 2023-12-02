@@ -281,4 +281,246 @@ Package: ragged2e 2023/06/22 v3.6 ragged2e Package
 \lst@width=\dimen158
 \lst@newlines=\count293
 \lst@lineno=\count294
-\lst@maxwidth=\
+\lst@maxwidth=\dimen159
+ (c:/texlive/2023/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+\c@lstnumber=\count295
+\lst@skipnumbers=\count296
+\lst@framebox=\box55
+) (c:/texlive/2023/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2023/02/27 1.9 listings configuration
+))
+Package: listings 2023/02/27 1.9 (Carsten Heinz)
+ (./Summary of CPEN 221.aux)
+\openout1 = `"Summary of CPEN 221.aux"'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+ (c:/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count297
+\scratchdimen=\dimen160
+\scratchbox=\box56
+\nofMPsegments=\count298
+\nofMParguments=\count299
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count300
+\MPscratchDim=\dimen161
+\MPnumerator=\count301
+\makeMPintoPDFobject=\count302
+\everyMPtoPDFconversion=\toks25
+) (c:/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (c:/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+Package hyperref Info: Link coloring OFF on input line 19.
+\c@lstlisting=\count303
+LaTeX Font Info:    Trying to load font information for U+msa on input line 22.
+ (c:/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 22.
+ (c:/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1{c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+{c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [2]
+<./summary_image/Throw_Hierarchy.png, id=25, 343.2825pt x 221.02576pt>
+File: ./summary_image/Throw_Hierarchy.png Graphic file (type png)
+<use ./summary_image/Throw_Hierarchy.png>
+Package pdftex.def Info: ./summary_image/Throw_Hierarchy.png  used on input line 87.
+(pdftex.def)             Requested size: 343.28165pt x 221.0252pt.
+ [3 <./summary_image/Throw_Hierarchy.png>] [4] [5]
+<./summary_image/Stack_frame.png, id=49, 1197.47375pt x 828.09375pt>
+File: ./summary_image/Stack_frame.png Graphic file (type png)
+<use ./summary_image/Stack_frame.png>
+Package pdftex.def Info: ./summary_image/Stack_frame.png  used on input line 158.
+(pdftex.def)             Requested size: 359.24489pt x 248.43004pt.
+ [6 <./summary_image/Stack_frame.png>] [7]
+<./summary_image/Partitioning example.png, id=72, 328.8285pt x 352.9185pt>
+File: ./summary_image/Partitioning example.png Graphic file (type png)
+<use ./summary_image/Partitioning example.png>
+Package pdftex.def Info: ./summary_image/Partitioning example.png  used on input line 226.
+(pdftex.def)             Requested size: 328.8277pt x 352.91763pt.
+ [8 <./summary_image/Partitioning example.png>] [9] [10] [11] [12] [13]
+<./summary_image/Binary Search.png, id=117, 514.92375pt x 355.3275pt>
+File: ./summary_image/Binary Search.png Graphic file (type png)
+<use ./summary_image/Binary Search.png>
+Package pdftex.def Info: ./summary_image/Binary Search.png  used on input line 458.
+(pdftex.def)             Requested size: 360.44417pt x 248.72754pt.
+ [14] [15 <./summary_image/Binary Search.png>]
+<./summary_image/Access level control.png, id=135, 210.18526pt x 107.80275pt>
+File: ./summary_image/Access level control.png Graphic file (type png)
+<use ./summary_image/Access level control.png>
+Package pdftex.def Info: ./summary_image/Access level control.png  used on input line 503.
+(pdftex.def)             Requested size: 210.18474pt x 107.80247pt.
+ [16 <./summary_image/Access level control.png>] [17]
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 593.
+ (c:/texlive/2023/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 593.
+ [18] [19] [20]
+<./summary_image/Abstract Function Illustration.png, id=170, 401.70074pt x 287.27325pt>
+File: ./summary_image/Abstract Function Illustration.png Graphic file (type png)
+<use ./summary_image/Abstract Function Illustration.png>
+Package pdftex.def Info: ./summary_image/Abstract Function Illustration.png  used on input line 696.
+(pdftex.def)             Requested size: 321.36102pt x 229.81891pt.
+<./summary_image/RI and AF example.png, id=172, 397.485pt x 474.573pt>
+File: ./summary_image/RI and AF example.png Graphic file (type png)
+<use ./summary_image/RI and AF example.png>
+Package pdftex.def Info: ./summary_image/RI and AF example.png  used on input line 707.
+(pdftex.def)             Requested size: 357.73318pt x 427.11176pt.
+ [21 <./summary_image/Abstract Function Illustration.png>] [22 <./summary_image/RI and AF example.png>] [23] [24] [25]
+<./summary_image/Java Subtpying Ganruntee.png, id=217, 320.397pt x 34.32825pt>
+File: ./summary_image/Java Subtpying Ganruntee.png Graphic file (type png)
+<use ./summary_image/Java Subtpying Ganruntee.png>
+Package pdftex.def Info: ./summary_image/Java Subtpying Ganruntee.png  used on input line 855.
+(pdftex.def)             Requested size: 320.39621pt x 34.32814pt.
+ [26 <./summary_image/Java Subtpying Ganruntee.png>]
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 896.
+ (c:/texlive/2023/texmf-dist/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 896.
+ [27]
+<./summary_image/Lambda Calculus Example.png, id=233, 257.16075pt x 60.82726pt>
+File: ./summary_image/Lambda Calculus Example.png Graphic file (type png)
+<use ./summary_image/Lambda Calculus Example.png>
+Package pdftex.def Info: ./summary_image/Lambda Calculus Example.png  used on input line 914.
+(pdftex.def)             Requested size: 257.16011pt x 60.8271pt.
+ [28 <./summary_image/Lambda Calculus Example.png>]
+<./summary_image/Streams example.png, id=247, 452.892pt x 157.7895pt>
+File: ./summary_image/Streams example.png Graphic file (type png)
+<use ./summary_image/Streams example.png>
+Package pdftex.def Info: ./summary_image/Streams example.png  used on input line 934.
+(pdftex.def)             Requested size: 317.02223pt x 110.45189pt.
+<./summary_image/Streams Reading example.png, id=249, 558.28575pt x 357.7365pt>
+File: ./summary_image/Streams Reading example.png Graphic file (type png)
+<use ./summary_image/Streams Reading example.png>
+Package pdftex.def Info: ./summary_image/Streams Reading example.png  used on input line 942.
+(pdftex.def)             Requested size: 334.97403pt x 214.64354pt.
+ [29 <./summary_image/Streams example.png> <./summary_image/Streams Reading example.png>]
+<summary_image/Map def.jpg, id=260, 240.9pt x 39.14626pt>
+File: summary_image/Map def.jpg Graphic file (type jpg)
+<use summary_image/Map def.jpg>
+Package pdftex.def Info: summary_image/Map def.jpg  used on input line 984.
+(pdftex.def)             Requested size: 240.8994pt x 39.14615pt.
+<summary_image/Map java example.jpg, id=262, 362.10281pt x 103.13531pt>
+File: summary_image/Map java example.jpg Graphic file (type jpg)
+<use summary_image/Map java example.jpg>
+Package pdftex.def Info: summary_image/Map java example.jpg  used on input line 988.
+(pdftex.def)             Requested size: 343.99571pt x 97.97797pt.
+ [30 <./summary_image/Map def.jpg>]
+<summary_image/filter def.jpg, id=270, 357.58594pt x 97.11281pt>
+File: summary_image/filter def.jpg Graphic file (type jpg)
+<use summary_image/filter def.jpg>
+Package pdftex.def Info: summary_image/filter def.jpg  used on input line 1000.
+(pdftex.def)             Requested size: 357.58505pt x 97.11256pt.
+ [31 <./summary_image/Map java example.jpg> <./summary_image/filter def.jpg>] [32]
+<./summary_image/parallelsim vs. concurrency.jpg, id=287, 182.18062pt x 109.91063pt>
+File: ./summary_image/parallelsim vs. concurrency.jpg Graphic file (type jpg)
+<use ./summary_image/parallelsim vs. concurrency.jpg>
+Package pdftex.def Info: ./summary_image/parallelsim vs. concurrency.jpg  used on input line 1047.
+(pdftex.def)             Requested size: 182.18016pt x 109.91034pt.
+ [33 <./summary_image/parallelsim vs. concurrency.jpg>] [34]
+<summary_image/Divide and Conequer Parallelism.png, id=307, 325.215pt x 257.763pt>
+File: summary_image/Divide and Conequer Parallelism.png Graphic file (type png)
+<use summary_image/Divide and Conequer Parallelism.png>
+Package pdftex.def Info: summary_image/Divide and Conequer Parallelism.png  used on input line 1095.
+(pdftex.def)             Requested size: 325.2142pt x 257.76237pt.
+<summary_image/Divide and Conequer algorithm.png, id=309, 355.3275pt x 373.99725pt>
+File: summary_image/Divide and Conequer algorithm.png Graphic file (type png)
+<use summary_image/Divide and Conequer algorithm.png>
+Package pdftex.def Info: summary_image/Divide and Conequer algorithm.png  used on input line 1097.
+(pdftex.def)             Requested size: 355.32661pt x 373.99632pt.
+ [35 <./summary_image/Divide and Conequer Parallelism.png>]
+<summary_image/Divide and Conequer algorithm improved.png, id=323, 314.3745pt x 84.91725pt>
+File: summary_image/Divide and Conequer algorithm improved.png Graphic file (type png)
+<use summary_image/Divide and Conequer algorithm improved.png>
+Package pdftex.def Info: summary_image/Divide and Conequer algorithm improved.png  used on input line 1103.
+(pdftex.def)             Requested size: 314.37372pt x 84.91704pt.
+ [36 <./summary_image/Divide and Conequer algorithm.png>] (c:/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+)
+Overfull \hbox (61.19922pt too wide) in paragraph at lines 1121--1123
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (75.2992pt too wide) in paragraph at lines 1128--1129
+[][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (75.2992pt too wide) in paragraph at lines 1129--1130
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[37 <./summary_image/Divide and Conequer algorithm improved.png>]
+Overfull \hbox (47.09924pt too wide) in paragraph at lines 1139--1140
+[][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[38] [39] [40] [41] [42] [43]
+Overfull \hbox (4.4433pt too wide) in paragraph at lines 1287--1288
+[]\OT1/cmr/m/n/12 release only re-leases the lock (sets the cur-rent holder to ``none'')
+ []
+
+[44] [45]
+Overfull \hbox (110.54913pt too wide) in paragraph at lines 1344--1345
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[46] [47] [48]
+Overfull \hbox (18.89929pt too wide) in paragraph at lines 1408--1409
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[49]
+Overfull \hbox (14.35275pt too wide) in paragraph at lines 1435--1436
+[]\OT1/cmr/m/n/12 Eliminate data races: Never al-low two threads to read-/write or write/write
+ []
+
+[50] [51] (./Summary of CPEN 221.aux)
+ ***********
+LaTeX2e <2023-06-01> patch level 1
+L3 programming layer <2023-10-23>
+ ***********
+ ) 
+Here is how much of TeX's memory you used:
+ 12795 strings out of 474397
+ 197336 string characters out of 5754184
+ 1953036 words of memory out of 5000000
+ 34431 multiletter control sequences out of 15000+600000
+ 568514 words of font info for 75 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 89i,12n,93p,624b,1983s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
+Output written on "Summary of CPEN 221.pdf" (51 pages, 1166209 bytes).
+PDF statistics:
+ 714 PDF objects out of 1000 (max. 8388607)
+ 588 compressed objects within 6 object streams
+ 291 named destinations out of 1000 (max. 500000)
+ 385 words of extra memory for PDF output out of 10000 (max. 10000000)
+
