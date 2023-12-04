@@ -1216,7 +1216,21 @@ In Java, InputStream objects represent sources of data flowing into your program
 OutputStream objects represent data sinks, places we can write data to: FileOutputStreams for saving to files, System.out is a PrintStream or the output to a network socket.
 
 \subsection*{Blocking}
-To be added!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Blocking means that a thread waits (without doing further work) until an event occurs.
+
+Socket input/output streams exhibit blocking behavior:\begin{itemize}
+      \item When an incoming socket's buffer is empty, calling read blocks until data are available.
+      \item When the destination socket's buffer is full, call write blocks until space is available.
+\end{itemize}
+
+Concurrent modules don't work in lockstep like sequential programs do, so they typically have to wait for each other to catch up when coordinated action is required.
+
+Deadlock can be caused because of it: modules are waiting for each other to do something, so none of them can make any progress.
+
+Notice how both ServerSocket.accept() and in.readLine() are blocking. This means that the server will need a new thread to handle I/O with each new client. While the client-specific thread is working with that client (perhaps blocked in a read or a write), another thread (perhaps the main thread) is blocked waiting to accept a new connection.
+\subsection*{protocol}
+A protocol is a set of messages that can be exchanged by two communicating parties. A wire protocol in particular is a set of messages represented as byte sequences, like hello world and bye
+
 
 \section{Shared Memory Programming}
 Reasons for using multithreading:
