@@ -1503,6 +1503,7 @@ For each data point in the test data:
     \item Store the distance on an ordered list and sort It
     \item Choose the top K entries from the sorted list
     \item Label the test point based on the majority of classes present in the selected points.
+    \item If it is a regression task, just take the average of the K neighbors
 \end{enumerate}
 \subsubsection*{Measure of similarity/distance}
 Imagine for the two points $\vec{a}=(a_1,a_2,\ldots,a_n),\vec{b}=(b_1,b_2,\ldots,b_n)$
@@ -1807,6 +1808,7 @@ Give an example below:
 \subsubsection*{Optimization}
 Choosing the larger eigenvalue would cause less loss of information. It can be found using the Variance percentage:
 \[p_i = \frac{\lambda_i}{\sum\lambda_i}\]
+So $\lambda_i>\lambda_j \implies$ $i^{th}$ eigenvector explains more variance.
 
 \section{Nural Network basis}
 
