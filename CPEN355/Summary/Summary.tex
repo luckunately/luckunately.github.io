@@ -979,7 +979,7 @@ SVM finds a linear function of the form (w: weight vector)
 
 \begin{align*}
     y_i & = 1  & \text{if }<w\cdot x_i> + b \ge 0 \\
-    y_i & = -1 & \text{ig} <w\cdot x_i> + b < 0
+    y_i & = -1 & \text{if } <w\cdot x_i> + b < 0
 \end{align*}
 
 Then the hyperplane that separates positive and negative training data is
@@ -1389,7 +1389,7 @@ Bagging is short for \textbf{Bootstrap Aggregating}
 
 The idea of Bagging is to eliminate the influence of some very strong attributes so that the trees do not look similar to each other since there is a dominant attribute. 
 
-For the portion that we did not use, we call them out\-of\-bag samples(OOB), which we can use to calculate OOB MSE or classification error. 
+For the portion that we did not use, we call them out-of-bag samples(OOB), which we can use to calculate OOB MSE or classification error. 
 
 \includegraphics*{./Image/Out of bag estimate.png}
 
@@ -1445,7 +1445,7 @@ For b=1 to B:
 
  RF increases the diversity of trees by perturbating samples (bootstrapping). RF adds another level of perturbation to attributes and usually achieves better generalization. 
 
- Like with Bagging, we can use OOV and therefore RF can be fit in one sequence, with cross\-validation being performed along the way. Once the OOB stabilizes, the training can be terminated. 
+ Like with Bagging, we can use OOB and therefore RF can be fit into one sequence, with cross-validation being performed along the way. Once the OOB stabilizes, the training can be terminated. 
 
  \subsection*{Comparing Bagging, Boosting with RF}
  \begin{itemize}
