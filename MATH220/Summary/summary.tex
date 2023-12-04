@@ -524,7 +524,7 @@ Let $A, B ,C$ be sets, then ``being equininumerous'' is an equivalence relation:
 
 Now we elaborate this relationship onto infinite sets. Have an example first:
 
-Let $A=\{n\in\mathbb{N}s.t.n \text{ is even}\}$ and $B=\{n\in\mathbb{N}s.t.n \text{ is odd}\}$. Then $|A|=|B|=|\mathbb{N}$ \begin{proof}
+Let $A=\{n\in\mathbb{N}s.t.n \text{ is even}\}$ and $B=\{n\in\mathbb{N}s.t.n \text{ is odd}\}$. Then $|A|=|B|=|\mathbb{N}|$ \begin{proof}
     The function $f: A \to B$ defined by $f(n)=n+1$ is a bijection.
 
     The function $g: \mathbb{M} \to A$ defined by $g(n)=2n$ is a bijection.
@@ -546,8 +546,74 @@ The first infinite set we meet is the natural numbers.
     \item When a set $A$ is finite or denumerable we say that it is \textbf{countable}. The negation is \textbf{uncountable}
 \end{itemize}
 
+When a set $B$ is denumerable, we can ``list out'' its elements.\begin{itemize}
+    \item Since denumerable, there is a bijective $f:\mathbb{N}\to B$
+    \item We can write it as:\begin{align*}
+        B&=\{f(1),f(2),f(3),\ldots\} &\\
+        &=\{b_1,b_2,b_3,\ldots\}&b_n=f(n)
+    \end{align*}
+\end{itemize}
+This list has two nice properties:\begin{itemize}
+    \item Since $f$ is injective, the list does not repeat:\[k\neq b\implies b_k=f(k)\neq f(n)=b_n\]
+    \item Since $f$ is surjective, any given $y\in B$ appears at some \textbf{finite} position:\[\forall y\in B, \exists n\in \mathbb{N}s.t.y=f(x)=b_n\]
+\end{itemize}
+In the same way, if there is a bijection from $\mathbb{N}$ to $B$, then $B$ is denumerable. 
+\subsubsection*{Example}
+The idea of this kind of proof is to find a list that could be written as a bijection to natural numbers.
 
+For example, prove that the set of all integers is denumerable.\begin{proof}
+    We first know that we want to prove a bijective in $\mathbb{Z}\to \mathbb{N}$
 
+    We can write as $\mathbb{Z}=\{0,1,-1,2,-2,3,-3,\ldots\}$ which a bijection can be found:
+
+    Let  $z\in \mathbb{Z}$ so that
+    \begin{equation*}
+        z\text{ appears at position }\begin{cases}
+            2z\text{ if }z\ge 1\\
+            1-2z\text{ if }z\le 0
+        \end{cases}        
+    \end{equation*}
+    Now the list \begin{itemize}
+        \item does not repeat
+        \item any given $z\in\mathbb{Z}$ appears at some finite position
+    \end{itemize}
+    Thus there is a bijection
+\end{proof}
+\subsection*{Countable}
+Theorem:
+
+Let $A,B$ be sets with $A\subseteq B$. If $B$ is denumerable then $A$ is countable.
+\begin{itemize}
+    \item $A$ can be either finite of an infinite set but a subset of $B$
+    \item Finite sets are definitely countable
+    \item If $A$ is an infinite set, since $B$ is denumerable, $A$ is injective, also all elements in it appear in a finite position. So it is countable. 
+    \item Note that countable does not mean surjective.
+\end{itemize}
+We can also prove that $A, B$ is countable sets $\implies A\times B$ is countable.
+
+This can be extended to prove that all rational numbers $\mathbb{Q}$ is denumerable.\begin{proof}
+    Note that any $q\in \mathbb{Q}$ can be uniquely written as $q=\frac{a}{b}$ with $a\in \mathbb{Z},b\in \mathbb{N}$ and $gcd(a,b)=1$.
+
+    Then we can rewrite $\mathbb{Q}$ as $P=\{(a,b)\in \mathbb{Z}\times \mathbb{N} s.t. gcd(a,b)=1\}$ Here $\mathbb{Q}$ and $P$ has a bijection $f\to \mathbb{Q}\to P$ given by $f(a/b)=(a,b)$ So $P$ is use a pair to represent the fraction relationship. 
+
+    Note that $P\subseteq \mathbb{Z}\times \mathbb{N}$, we know it is denumerable and so as $\mathbb{Q}$
+\end{proof}
+\subsection*{Uncountable}
+Fact: Every irrational number has a unique non\-repeating decimal expansion. 
+
+Corollary: The set of all real numbers is uncountable. Additionally $|(0,1)|=|\mathbb{R}|=c$. 
+
+\subsection*{Infinities}
+Comparing different infinities:
+
+Let $A, B$ be sets.\begin{itemize}
+    \item We write $|A|\le|B|$ when there is an injection from $A$ to $B$
+    \item Further, we write $|A|<|B|$ where there is an injection from $A$ to $B$ but no bijection.
+\end{itemize}
+
+Cantor's theorem:
+
+Let $A$ be a set. Then $|A|<|\mathcal{P}(A)|$
 
 
 
