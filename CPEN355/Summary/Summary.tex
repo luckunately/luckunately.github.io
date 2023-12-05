@@ -1110,7 +1110,7 @@ condition:
 \subsubsection*{Penalty function}
 To minimize the number of noisy samples, we can use a new \textbf{penalty} item and our objective is transformed to:
 \[
-    \min_{w,b}\frac{1}{2}||W||^2+C\sum_{m}^{i=1}l_{0/1}(y_i(w^T x_i+b)-1)
+    \min_{w,b}\frac{1}{2}||W||^2+C\sum_{i=1}^{m}l_{0/1}(y_i(w^T x_i+b)-1)
 \]
 
 Here, C is a constant and $l_{0/1}(z)=1$ if $z<0$, otherwise, it is 0. $z =
