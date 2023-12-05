@@ -1488,7 +1488,7 @@ In essence, KNN performs a voting mechanism to determine the class of an unseen 
 
 So no training is needed. Classification time is linear in the training set size for each test case. 
 
-KNN can do both regression and classification. Fore regression, we just average it, for classification, we group it. 
+KNN can do both regression and classification. For regression, we just average it, for classification, we group it. 
 \subsection*{KNN intuition}
 To classify a test instance $d$, define $K-$neighborhood $P$ as $k$ nearest neighbors of $d$. 
 
@@ -1503,6 +1503,7 @@ For each data point in the test data:
     \item Store the distance on an ordered list and sort It
     \item Choose the top K entries from the sorted list
     \item Label the test point based on the majority of classes present in the selected points.
+    \item If it is a regression task, just take the average of the K neighbors
 \end{enumerate}
 \subsubsection*{Measure of similarity/distance}
 Imagine for the two points $\vec{a}=(a_1,a_2,\ldots,a_n),\vec{b}=(b_1,b_2,\ldots,b_n)$
@@ -1807,6 +1808,7 @@ Give an example below:
 \subsubsection*{Optimization}
 Choosing the larger eigenvalue would cause less loss of information. It can be found using the Variance percentage:
 \[p_i = \frac{\lambda_i}{\sum\lambda_i}\]
+So $\lambda_i>\lambda_j \implies$ $i^{th}$ eigenvector explains more variance.
 
 \section{Nural Network basis}
 

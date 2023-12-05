@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  5 DEC 2023 15:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  5 DEC 2023 15:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -533,87 +533,87 @@ File: ./Image/Out of bag estimate.png Graphic file (type png)
 Package pdftex.def Info: ./Image/Out of bag estimate.png  used on input line 1394.
 (pdftex.def)             Requested size: 299.31752pt x 149.35762pt.
  [38 <./Image/Boosting example.png>] [39 <./Image/Out of bag estimate.png>] [40] [41] [42]
-<Image/KNN tunning K.jpg, id=382, 552.56438pt x 255.95625pt>
+<Image/KNN tunning K.jpg, id=383, 552.56438pt x 255.95625pt>
 File: Image/KNN tunning K.jpg Graphic file (type jpg)
 <use Image/KNN tunning K.jpg>
-Package pdftex.def Info: Image/KNN tunning K.jpg  used on input line 1525.
+Package pdftex.def Info: Image/KNN tunning K.jpg  used on input line 1526.
 (pdftex.def)             Requested size: 386.79242pt x 179.16814pt.
-<Image/Clustering basics example.png, id=384, 494.44725pt x 74.679pt>
+<Image/Clustering basics example.png, id=385, 494.44725pt x 74.679pt>
 File: Image/Clustering basics example.png Graphic file (type png)
 <use Image/Clustering basics example.png>
-Package pdftex.def Info: Image/Clustering basics example.png  used on input line 1541.
+Package pdftex.def Info: Image/Clustering basics example.png  used on input line 1542.
 (pdftex.def)             Requested size: 395.55833pt x 59.74326pt.
  [43 <./Image/Clustering basics example.png> <./Image/KNN tunning K.jpg>] [44]
-<Image/K means comparison unglobular shape.png, id=409, 238.491pt x 141.52875pt>
+<Image/K means comparison unglobular shape.png, id=410, 238.491pt x 141.52875pt>
 File: Image/K means comparison unglobular shape.png Graphic file (type png)
 <use Image/K means comparison unglobular shape.png>
-Package pdftex.def Info: Image/K means comparison unglobular shape.png  used on input line 1608.
+Package pdftex.def Info: Image/K means comparison unglobular shape.png  used on input line 1609.
 (pdftex.def)             Requested size: 238.4904pt x 141.5284pt.
  [45 <./Image/K means comparison unglobular shape.png>]
-<Image/DBSCAN V.S. K-Means.png, id=420, 502.87875pt x 60.82726pt>
+<Image/DBSCAN V.S. K-Means.png, id=421, 502.87875pt x 60.82726pt>
 File: Image/DBSCAN V.S. K-Means.png Graphic file (type png)
 <use Image/DBSCAN V.S. K-Means.png>
-Package pdftex.def Info: Image/DBSCAN V.S. K-Means.png  used on input line 1621.
+Package pdftex.def Info: Image/DBSCAN V.S. K-Means.png  used on input line 1622.
 (pdftex.def)             Requested size: 402.30354pt x 48.66187pt.
  [46 <./Image/DBSCAN V.S. K-Means.png>] [47]
-<Image/Classifier performance V.S. Dimensionality.jpg, id=447, 421.575pt x 273.27094pt>
+<Image/Classifier performance V.S. Dimensionality.jpg, id=448, 421.575pt x 273.27094pt>
 File: Image/Classifier performance V.S. Dimensionality.jpg Graphic file (type jpg)
 <use Image/Classifier performance V.S. Dimensionality.jpg>
-Package pdftex.def Info: Image/Classifier performance V.S. Dimensionality.jpg  used on input line 1690.
+Package pdftex.def Info: Image/Classifier performance V.S. Dimensionality.jpg  used on input line 1691.
 (pdftex.def)             Requested size: 421.57396pt x 273.27025pt.
  [48 <./Image/Classifier performance V.S. Dimensionality.jpg>]
-<Image/Projection to reduce dimensionality example.jpg, id=458, 374.90062pt x 277.035pt>
+<Image/Projection to reduce dimensionality example.jpg, id=459, 374.90062pt x 277.035pt>
 File: Image/Projection to reduce dimensionality example.jpg Graphic file (type jpg)
 <use Image/Projection to reduce dimensionality example.jpg>
-Package pdftex.def Info: Image/Projection to reduce dimensionality example.jpg  used on input line 1725.
+Package pdftex.def Info: Image/Projection to reduce dimensionality example.jpg  used on input line 1726.
 (pdftex.def)             Requested size: 374.8997pt x 277.03432pt.
  [49] [50 <./Image/Projection to reduce dimensionality example.jpg>] [51]
-<./Image/Sigmoid function.jpg, id=487, 222.8325pt x 164.11313pt>
+<./Image/Sigmoid function.jpg, id=488, 222.8325pt x 164.11313pt>
 File: ./Image/Sigmoid function.jpg Graphic file (type jpg)
 <use ./Image/Sigmoid function.jpg>
-Package pdftex.def Info: ./Image/Sigmoid function.jpg  used on input line 1828.
+Package pdftex.def Info: ./Image/Sigmoid function.jpg  used on input line 1830.
 (pdftex.def)             Requested size: 222.83195pt x 164.11272pt.
  [52 <./Image/Sigmoid function.jpg>]
-<./Image/Tanh funciton.jpg, id=498, 197.23688pt x 143.78719pt>
+<./Image/Tanh funciton.jpg, id=499, 197.23688pt x 143.78719pt>
 File: ./Image/Tanh funciton.jpg Graphic file (type jpg)
 <use ./Image/Tanh funciton.jpg>
-Package pdftex.def Info: ./Image/Tanh funciton.jpg  used on input line 1841.
+Package pdftex.def Info: ./Image/Tanh funciton.jpg  used on input line 1843.
 (pdftex.def)             Requested size: 197.23637pt x 143.78683pt.
-<./Image/ReLU function.jpg, id=500, 220.57407pt x 145.29282pt>
+<./Image/ReLU function.jpg, id=501, 220.57407pt x 145.29282pt>
 File: ./Image/ReLU function.jpg Graphic file (type jpg)
 <use ./Image/ReLU function.jpg>
-Package pdftex.def Info: ./Image/ReLU function.jpg  used on input line 1850.
+Package pdftex.def Info: ./Image/ReLU function.jpg  used on input line 1852.
 (pdftex.def)             Requested size: 220.57352pt x 145.29245pt.
  [53 <./Image/Tanh funciton.jpg> <./Image/ReLU function.jpg>]
-<./Image/Nueron Model.jpg, id=508, 335.75438pt x 237.13594pt>
+<./Image/Nueron Model.jpg, id=509, 335.75438pt x 237.13594pt>
 File: ./Image/Nueron Model.jpg Graphic file (type jpg)
 <use ./Image/Nueron Model.jpg>
-Package pdftex.def Info: ./Image/Nueron Model.jpg  used on input line 1860.
+Package pdftex.def Info: ./Image/Nueron Model.jpg  used on input line 1862.
 (pdftex.def)             Requested size: 335.75356pt x 237.13535pt.
-<./Image/Feed Forward Nonliearity.jpg, id=510, 269.50688pt x 128.73094pt>
+<./Image/Feed Forward Nonliearity.jpg, id=511, 269.50688pt x 128.73094pt>
 File: ./Image/Feed Forward Nonliearity.jpg Graphic file (type jpg)
 <use ./Image/Feed Forward Nonliearity.jpg>
-Package pdftex.def Info: ./Image/Feed Forward Nonliearity.jpg  used on input line 1872.
+Package pdftex.def Info: ./Image/Feed Forward Nonliearity.jpg  used on input line 1874.
 (pdftex.def)             Requested size: 269.50621pt x 128.7306pt.
  [54 <./Image/Nueron Model.jpg> <./Image/Feed Forward Nonliearity.jpg>]
-<./Image/Backpropagation example.jpg, id=520, 272.51813pt x 109.1578pt>
+<./Image/Backpropagation example.jpg, id=521, 272.51813pt x 109.1578pt>
 File: ./Image/Backpropagation example.jpg Graphic file (type jpg)
 <use ./Image/Backpropagation example.jpg>
-Package pdftex.def Info: ./Image/Backpropagation example.jpg  used on input line 1920.
+Package pdftex.def Info: ./Image/Backpropagation example.jpg  used on input line 1922.
 (pdftex.def)             Requested size: 272.51746pt x 109.15753pt.
  [55]
-Overfull \hbox (24.40683pt too wide) in paragraph at lines 1939--1940
+Overfull \hbox (24.40683pt too wide) in paragraph at lines 1941--1942
 []\OT1/cmr/m/n/12 Given an in-put dataset $\OML/cmm/m/it/12 X \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 x[]; x[]; [] ; x[]\OMS/cmsy/m/n/12 g$ \OT1/cmr/m/n/12 with cor-re-spond-ing la-bel $\OML/cmm/m/it/12 Y \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 y[]; y[]; [] ; y[]\OMS/cmsy/m/n/12 g$ 
  []
 
 [56 <./Image/Backpropagation example.jpg>]
-<./Image/SGD.jpg, id=541, 552.56438pt x 208.52907pt>
+<./Image/SGD.jpg, id=542, 552.56438pt x 208.52907pt>
 File: ./Image/SGD.jpg Graphic file (type jpg)
 <use ./Image/SGD.jpg>
-Package pdftex.def Info: ./Image/SGD.jpg  used on input line 1963.
+Package pdftex.def Info: ./Image/SGD.jpg  used on input line 1965.
 (pdftex.def)             Requested size: 552.56302pt x 208.52855pt.
 
-Overfull \hbox (91.84178pt too wide) in paragraph at lines 1962--1964
+Overfull \hbox (91.84178pt too wide) in paragraph at lines 1964--1966
 [] 
  []
 
@@ -624,18 +624,18 @@ L3 programming layer <2023-10-23>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 11173 strings out of 474397
- 179867 string characters out of 5754184
+ 11174 strings out of 474397
+ 179874 string characters out of 5754184
  1943036 words of memory out of 5000000
  32887 multiletter control sequences out of 15000+600000
  568423 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,11n,93p,1006b,575s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,11n,93p,1006b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Summary.pdf (59 pages, 3094228 bytes).
+Output written on Summary.pdf (59 pages, 3094730 bytes).
 PDF statistics:
- 740 PDF objects out of 1000 (max. 8388607)
- 531 compressed objects within 6 object streams
- 221 named destinations out of 1000 (max. 500000)
+ 741 PDF objects out of 1000 (max. 8388607)
+ 532 compressed objects within 6 object streams
+ 222 named destinations out of 1000 (max. 500000)
  515 words of extra memory for PDF output out of 10000 (max. 10000000)
 
