@@ -1133,14 +1133,14 @@ To allow errors in data, we relax the margin constraints by introducing \textbf{
 
 Now we need to penalize the errors in the objective function. A natural way of doing it is to assign an extra cost for errors to change the objective function to minimize:
 \[
-\frac{<w\cdot w}{2} + C(\sum_{i=1}^{r}\xi_i)^k    
+\frac{<w\cdot w>}{2} + C(\sum_{i=1}^{r}\xi_i)^k    
 \]
 
 k=1 is commonly used, which could make sure that neither $\xi_i$ nor its Lagrangian multipliers appear in the dual formulation. Increasing k may allow more penalization for farther apart data points.
 
 Summarize Lagrange multipliers:
 \[
-L_p=\frac{<w\cdot w}{2}+C    (\sum_{i=1}^{r}\xi_i)-\sum_{i=1}^{r}\alpha_i[y_i(<w\cdot x>+b)-1+\xi_i]-\sum_{i=1}^{r}\mu_i \xi_i
+L_p=\frac{<w\cdot w>}{2}+C    (\sum_{i=1}^{r}\xi_i)-\sum_{i=1}^{r}\alpha_i[y_i(<w\cdot x>+b)-1+\xi_i]-\sum_{i=1}^{r}\mu_i \xi_i
 \]
 
 \subsection*{Kernel SVM for non-linear datasets}
@@ -1270,6 +1270,8 @@ $A_i$ and calculate the next partition $D$
 \[
     \text{entropy}_{A_i}(D)=H(D|A_i)=\sum_{j}^{|A_i|} P(A_i=a_j)H(D|A_i=a_j)
 \]
+Here it is the sum of probabilities of $a_j$ times the entropy of $D$ given $A_i=a_j$. This way we get the entropy after splitting over $A_i$. We considered all the probabilities of $A_i$ here. 
+
 The information gained by selecting attribute $A_i$ to brach or to partition the
 data instance
 \[

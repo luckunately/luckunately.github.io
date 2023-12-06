@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  5 DEC 2023 15:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  5 DEC 2023 16:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -503,106 +503,105 @@ File: ./Image/Kernel space in SVM.png Graphic file (type png)
 <use ./Image/Kernel space in SVM.png>
 Package pdftex.def Info: ./Image/Kernel space in SVM.png  used on input line 1173.
 (pdftex.def)             Requested size: 398.68852pt x 170.43631pt.
- [31 <./Image/2D to 3D example.png> <./Image/Polynomial Kernel.png>] [32 <./Image/Kernel space in SVM.png>] [33]
-<./Image/Impurity measuring equations.png, id=290, 307.1475pt x 190.311pt>
+ [31 <./Image/2D to 3D example.png> <./Image/Polynomial Kernel.png>] [32 <./Image/Kernel space in SVM.png>] [33] [34]
+<./Image/Impurity measuring equations.png, id=295, 307.1475pt x 190.311pt>
 File: ./Image/Impurity measuring equations.png Graphic file (type png)
 <use ./Image/Impurity measuring equations.png>
-Package pdftex.def Info: ./Image/Impurity measuring equations.png  used on input line 1306.
+Package pdftex.def Info: ./Image/Impurity measuring equations.png  used on input line 1308.
 (pdftex.def)             Requested size: 307.14674pt x 190.31052pt.
- [34]
 <./Image/Impurity Measure Graph.png, id=297, 301.72725pt x 168.63pt>
 File: ./Image/Impurity Measure Graph.png Graphic file (type png)
 <use ./Image/Impurity Measure Graph.png>
-Package pdftex.def Info: ./Image/Impurity Measure Graph.png  used on input line 1308.
+Package pdftex.def Info: ./Image/Impurity Measure Graph.png  used on input line 1310.
 (pdftex.def)             Requested size: 301.7265pt x 168.62958pt.
 <./Image/Bagging and Boosting.png, id=299, 351.714pt x 207.77625pt>
 File: ./Image/Bagging and Boosting.png Graphic file (type png)
 <use ./Image/Bagging and Boosting.png>
-Package pdftex.def Info: ./Image/Bagging and Boosting.png  used on input line 1311.
+Package pdftex.def Info: ./Image/Bagging and Boosting.png  used on input line 1313.
 (pdftex.def)             Requested size: 351.71315pt x 207.77573pt.
  [35 <./Image/Impurity measuring equations.png> <./Image/Impurity Measure Graph.png>] [36 <./Image/Bagging and Boosting.png>]
 <./Image/Boosting example.png, id=319, 320.99925pt x 189.70876pt>
 File: ./Image/Boosting example.png Graphic file (type png)
 <use ./Image/Boosting example.png>
-Package pdftex.def Info: ./Image/Boosting example.png  used on input line 1374.
+Package pdftex.def Info: ./Image/Boosting example.png  used on input line 1376.
 (pdftex.def)             Requested size: 320.99846pt x 189.70828pt.
  [37]
 <./Image/Out of bag estimate.png, id=332, 299.31825pt x 149.358pt>
 File: ./Image/Out of bag estimate.png Graphic file (type png)
 <use ./Image/Out of bag estimate.png>
-Package pdftex.def Info: ./Image/Out of bag estimate.png  used on input line 1394.
+Package pdftex.def Info: ./Image/Out of bag estimate.png  used on input line 1396.
 (pdftex.def)             Requested size: 299.31752pt x 149.35762pt.
  [38 <./Image/Boosting example.png>] [39 <./Image/Out of bag estimate.png>] [40] [41] [42]
 <Image/KNN tunning K.jpg, id=383, 552.56438pt x 255.95625pt>
 File: Image/KNN tunning K.jpg Graphic file (type jpg)
 <use Image/KNN tunning K.jpg>
-Package pdftex.def Info: Image/KNN tunning K.jpg  used on input line 1526.
+Package pdftex.def Info: Image/KNN tunning K.jpg  used on input line 1528.
 (pdftex.def)             Requested size: 386.79242pt x 179.16814pt.
 <Image/Clustering basics example.png, id=385, 494.44725pt x 74.679pt>
 File: Image/Clustering basics example.png Graphic file (type png)
 <use Image/Clustering basics example.png>
-Package pdftex.def Info: Image/Clustering basics example.png  used on input line 1542.
+Package pdftex.def Info: Image/Clustering basics example.png  used on input line 1544.
 (pdftex.def)             Requested size: 395.55833pt x 59.74326pt.
  [43 <./Image/Clustering basics example.png> <./Image/KNN tunning K.jpg>] [44]
 <Image/K means comparison unglobular shape.png, id=410, 238.491pt x 141.52875pt>
 File: Image/K means comparison unglobular shape.png Graphic file (type png)
 <use Image/K means comparison unglobular shape.png>
-Package pdftex.def Info: Image/K means comparison unglobular shape.png  used on input line 1609.
+Package pdftex.def Info: Image/K means comparison unglobular shape.png  used on input line 1611.
 (pdftex.def)             Requested size: 238.4904pt x 141.5284pt.
  [45 <./Image/K means comparison unglobular shape.png>]
 <Image/DBSCAN V.S. K-Means.png, id=421, 502.87875pt x 60.82726pt>
 File: Image/DBSCAN V.S. K-Means.png Graphic file (type png)
 <use Image/DBSCAN V.S. K-Means.png>
-Package pdftex.def Info: Image/DBSCAN V.S. K-Means.png  used on input line 1622.
+Package pdftex.def Info: Image/DBSCAN V.S. K-Means.png  used on input line 1624.
 (pdftex.def)             Requested size: 402.30354pt x 48.66187pt.
  [46 <./Image/DBSCAN V.S. K-Means.png>] [47]
 <Image/Classifier performance V.S. Dimensionality.jpg, id=448, 421.575pt x 273.27094pt>
 File: Image/Classifier performance V.S. Dimensionality.jpg Graphic file (type jpg)
 <use Image/Classifier performance V.S. Dimensionality.jpg>
-Package pdftex.def Info: Image/Classifier performance V.S. Dimensionality.jpg  used on input line 1691.
+Package pdftex.def Info: Image/Classifier performance V.S. Dimensionality.jpg  used on input line 1693.
 (pdftex.def)             Requested size: 421.57396pt x 273.27025pt.
  [48 <./Image/Classifier performance V.S. Dimensionality.jpg>]
 <Image/Projection to reduce dimensionality example.jpg, id=459, 374.90062pt x 277.035pt>
 File: Image/Projection to reduce dimensionality example.jpg Graphic file (type jpg)
 <use Image/Projection to reduce dimensionality example.jpg>
-Package pdftex.def Info: Image/Projection to reduce dimensionality example.jpg  used on input line 1726.
+Package pdftex.def Info: Image/Projection to reduce dimensionality example.jpg  used on input line 1728.
 (pdftex.def)             Requested size: 374.8997pt x 277.03432pt.
  [49] [50 <./Image/Projection to reduce dimensionality example.jpg>] [51]
 <./Image/Sigmoid function.jpg, id=488, 222.8325pt x 164.11313pt>
 File: ./Image/Sigmoid function.jpg Graphic file (type jpg)
 <use ./Image/Sigmoid function.jpg>
-Package pdftex.def Info: ./Image/Sigmoid function.jpg  used on input line 1830.
+Package pdftex.def Info: ./Image/Sigmoid function.jpg  used on input line 1832.
 (pdftex.def)             Requested size: 222.83195pt x 164.11272pt.
  [52 <./Image/Sigmoid function.jpg>]
 <./Image/Tanh funciton.jpg, id=499, 197.23688pt x 143.78719pt>
 File: ./Image/Tanh funciton.jpg Graphic file (type jpg)
 <use ./Image/Tanh funciton.jpg>
-Package pdftex.def Info: ./Image/Tanh funciton.jpg  used on input line 1843.
+Package pdftex.def Info: ./Image/Tanh funciton.jpg  used on input line 1845.
 (pdftex.def)             Requested size: 197.23637pt x 143.78683pt.
 <./Image/ReLU function.jpg, id=501, 220.57407pt x 145.29282pt>
 File: ./Image/ReLU function.jpg Graphic file (type jpg)
 <use ./Image/ReLU function.jpg>
-Package pdftex.def Info: ./Image/ReLU function.jpg  used on input line 1852.
+Package pdftex.def Info: ./Image/ReLU function.jpg  used on input line 1854.
 (pdftex.def)             Requested size: 220.57352pt x 145.29245pt.
  [53 <./Image/Tanh funciton.jpg> <./Image/ReLU function.jpg>]
 <./Image/Nueron Model.jpg, id=509, 335.75438pt x 237.13594pt>
 File: ./Image/Nueron Model.jpg Graphic file (type jpg)
 <use ./Image/Nueron Model.jpg>
-Package pdftex.def Info: ./Image/Nueron Model.jpg  used on input line 1862.
+Package pdftex.def Info: ./Image/Nueron Model.jpg  used on input line 1864.
 (pdftex.def)             Requested size: 335.75356pt x 237.13535pt.
 <./Image/Feed Forward Nonliearity.jpg, id=511, 269.50688pt x 128.73094pt>
 File: ./Image/Feed Forward Nonliearity.jpg Graphic file (type jpg)
 <use ./Image/Feed Forward Nonliearity.jpg>
-Package pdftex.def Info: ./Image/Feed Forward Nonliearity.jpg  used on input line 1874.
+Package pdftex.def Info: ./Image/Feed Forward Nonliearity.jpg  used on input line 1876.
 (pdftex.def)             Requested size: 269.50621pt x 128.7306pt.
  [54 <./Image/Nueron Model.jpg> <./Image/Feed Forward Nonliearity.jpg>]
 <./Image/Backpropagation example.jpg, id=521, 272.51813pt x 109.1578pt>
 File: ./Image/Backpropagation example.jpg Graphic file (type jpg)
 <use ./Image/Backpropagation example.jpg>
-Package pdftex.def Info: ./Image/Backpropagation example.jpg  used on input line 1922.
+Package pdftex.def Info: ./Image/Backpropagation example.jpg  used on input line 1924.
 (pdftex.def)             Requested size: 272.51746pt x 109.15753pt.
  [55]
-Overfull \hbox (24.40683pt too wide) in paragraph at lines 1941--1942
+Overfull \hbox (24.40683pt too wide) in paragraph at lines 1943--1944
 []\OT1/cmr/m/n/12 Given an in-put dataset $\OML/cmm/m/it/12 X \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 x[]; x[]; [] ; x[]\OMS/cmsy/m/n/12 g$ \OT1/cmr/m/n/12 with cor-re-spond-ing la-bel $\OML/cmm/m/it/12 Y \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 y[]; y[]; [] ; y[]\OMS/cmsy/m/n/12 g$ 
  []
 
@@ -610,10 +609,10 @@ Overfull \hbox (24.40683pt too wide) in paragraph at lines 1941--1942
 <./Image/SGD.jpg, id=542, 552.56438pt x 208.52907pt>
 File: ./Image/SGD.jpg Graphic file (type jpg)
 <use ./Image/SGD.jpg>
-Package pdftex.def Info: ./Image/SGD.jpg  used on input line 1965.
+Package pdftex.def Info: ./Image/SGD.jpg  used on input line 1967.
 (pdftex.def)             Requested size: 552.56302pt x 208.52855pt.
 
-Overfull \hbox (91.84178pt too wide) in paragraph at lines 1964--1966
+Overfull \hbox (91.84178pt too wide) in paragraph at lines 1966--1968
 [] 
  []
 
@@ -632,7 +631,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  89i,11n,93p,1006b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Summary.pdf (59 pages, 3094730 bytes).
+Output written on Summary.pdf (59 pages, 3094963 bytes).
 PDF statistics:
  741 PDF objects out of 1000 (max. 8388607)
  532 compressed objects within 6 object streams
