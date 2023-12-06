@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1701297098 "c:/Users/10054/OneDrive/luckunately.github.io/CPEN411/Summary/CPEN411_summary.tex" "CPEN411_summary.pdf" "CPEN411_summary" 1701297101 0
-  "CPEN411_summary.aux" 1701297101 4022 08a1a12c5dc37caa5bd4526a809349ea "pdflatex"
-  "CPEN411_summary.tex" 1701297097 66177 c67f9cea38c3d603319a6906502305cd ""
+["pdflatex"] 1701901880 "c:/Users/10054/OneDrive/luckunately.github.io/CPEN411/Summary/CPEN411_summary.tex" "CPEN411_summary.pdf" "CPEN411_summary" 1701901884 0
+  "CPEN411_summary.aux" 1701901883 4372 0badc48e00ac5b2e488f9c1f5b8a78f1 "pdflatex"
+  "CPEN411_summary.tex" 1701901876 69645 1366d9ba5970ca08628fa850f24e1ca8 ""
   "Image/2 bit predictors.png" 1700434705 78354 0be379b4edb09b3bb7817970defe68b0 ""
   "Image/2-Issue In-order Superscalar.jpg" 1700092796 34682 3c77845a9b3061dbca4419ffcaa8deae ""
   "Image/ALU differnt length.png" 1700092796 120806 fef7a2955c354d9c86c924d11d54af56 ""
@@ -10,8 +10,10 @@
   "Image/Anti-dependency example.png" 1700092796 11355 d0f4c5d872785c517cad2d29f94b3b8d ""
   "Image/BTB.png" 1700435399 59933 3b4819f386f48b531b76518e560a33bf ""
   "Image/CPU_mem_hierarchy.png" 1700092796 56137 02b7d080828863e44c16ee850b5b22ae ""
+  "Image/Cache Controller.png" 1701900152 9288 81594036ec872e0741c9e630a413eb1a ""
   "Image/Cache Performance Impact.png" 1700092796 115700 dbaaa4ada4fae260be260975174df70f ""
   "Image/Cache block design.png" 1700092796 34632 beb9e4d519b447cbc24eb6328cd1ba2f ""
+  "Image/Coherence Invariants.png" 1701899817 15025 de1a2bbf1e338bcb756eac674925e30d ""
   "Image/DIP-SD.png" 1700092796 53187 84f10779ebca41fb3c72058ef6ea4f18 ""
   "Image/DIP.png" 1700092796 66174 4e9697b997804285696b5420853f44ab ""
   "Image/DRAM_cells.png" 1700092796 43600 5f6e0f629b6f6190cb5a247d7f4bf1ed ""
@@ -62,7 +64,7 @@
   "Image/pipeline control signal.png" 1700092796 56976 c6ce3d0831793b57f0871e1386866e44 ""
   "Image/precise exception.jpg" 1700092796 14495 64bd1294500052666758b10994986b20 ""
   "Image/true dependency example.png" 1700092796 12387 b0077dd56d845ad2bfe67ac2ae9b68cb ""
-  "c:/Users/10054/OneDrive/luckunately.github.io/CPEN411/Summary/CPEN411_summary.tex" 1701297097 66177 c67f9cea38c3d603319a6906502305cd ""
+  "c:/Users/10054/OneDrive/luckunately.github.io/CPEN411/Summary/CPEN411_summary.tex" 1701901876 69645 1366d9ba5970ca08628fa850f24e1ca8 ""
   "e:/TeX live/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1694992909 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "e:/TeX live/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1694995317 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "e:/TeX live/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1694993906 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""

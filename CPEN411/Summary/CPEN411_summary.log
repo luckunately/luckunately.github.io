@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  29 NOV 2023 14:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  6 DEC 2023 14:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -692,17 +692,29 @@ File: ./Image/Acquire and Release.png Graphic file (type png)
 <use ./Image/Acquire and Release.png>
 Package pdftex.def Info: ./Image/Acquire and Release.png  used on input line 1273.
 (pdftex.def)             Requested size: 248.12637pt x 205.36674pt.
- [51 <./Image/Acquire and Release.png>] (./CPEN411_summary.aux)
+ [51 <./Image/Acquire and Release.png>]
+<./Image/Coherence Invariants.png, id=566, 389.65575pt x 128.27925pt>
+File: ./Image/Coherence Invariants.png Graphic file (type png)
+<use ./Image/Coherence Invariants.png>
+Package pdftex.def Info: ./Image/Coherence Invariants.png  used on input line 1306.
+(pdftex.def)             Requested size: 389.65479pt x 128.27893pt.
+ [52 <./Image/Coherence Invariants.png>]
+<./Image/Cache Controller.png, id=577, 158.39175pt x 136.1085pt>
+File: ./Image/Cache Controller.png Graphic file (type png)
+<use ./Image/Cache Controller.png>
+Package pdftex.def Info: ./Image/Cache Controller.png  used on input line 1323.
+(pdftex.def)             Requested size: 158.39136pt x 136.10815pt.
+ [53 <./Image/Cache Controller.png>] [54] (./CPEN411_summary.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 12803 strings out of 474934
- 205044 string characters out of 5759289
+ 12830 strings out of 474934
+ 205685 string characters out of 5759289
  1930801 words of memory out of 5000000
- 34037 multiletter control sequences out of 15000+600000
+ 34052 multiletter control sequences out of 15000+600000
  568330 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,13n,93p,849b,997s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -710,10 +722,10 @@ Here is how much of TeX's memory you used:
 pdfTeX warning (dest): name{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.217.3594&rep=rep1&type=pdf} has been referenced but does not exist, replaced by a fixed one
 
 <e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on CPEN411_summary.pdf (51 pages, 2823306 bytes).
+Output written on CPEN411_summary.pdf (54 pages, 2843892 bytes).
 PDF statistics:
- 679 PDF objects out of 1000 (max. 8388607)
- 435 compressed objects within 5 object streams
- 161 named destinations out of 1000 (max. 500000)
- 697 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 713 PDF objects out of 1000 (max. 8388607)
+ 460 compressed objects within 5 object streams
+ 173 named destinations out of 1000 (max. 500000)
+ 727 words of extra memory for PDF output out of 10000 (max. 10000000)
 

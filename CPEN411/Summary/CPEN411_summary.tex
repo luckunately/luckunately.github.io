@@ -1292,16 +1292,79 @@ Most modern languages like C, C++, and Java support the DRF memory model: progra
     \item properly synchronized (e.g. with acquire/release)
 \end{itemize}
 Worst case, we can fence around every memory operation but it hurts performance. In practice, insert fences sparingly or performance tanks. 
+\section{Cache Coherence}
+The problem arises when each core has its own cache. Each cache may keep a copy of the same line of memory, but updating in one of the caches does not show the update in another core's cache. 
 
+The idea is that loading the data (read-only) could allow multiple sharers. However, only one single owner can store data in that memory.
 
+\subsection*{Coherence Invariants}
+Two invariants that each cache block must hold separately: 
+\begin{itemize}
+    \item \textbf{Single Writer Multiple Reader Invariant} (SWMR): if \textbf{multiple} copies of a cache block exist, all are \textbf{read-only}. A \textbf{read-write} copy of a block must be the \textbf{only} copy
+    \item \textbf{Data Value Invariants}: the value of memory location A at the start of an epoch n equals the value of A at the end of epoch n-1
+\end{itemize}
+\includegraphics*{./Image/Coherence Invariants.png}
+\subsection*{Coherence states in the MSI protocol}
+From memory's perspective:
+\begin{itemize}
+    \item INVALID (I): the block may not be read or written
+    \item SHARED (S): the block may be read but not written
+    \item MODIFIED (M): the block may be read or written
+\end{itemize}
+From cache's perspective:\begin{itemize}
+    \item I: block not cached
+    \item S: block cached, read permissions only
+    \item M: block cached, read/write permissions
+\end{itemize}
+Multiple S copies are okay, but only one copy in M at a time. 
+\subsection*{Cache Controller}
+All caches connect to their own cache controller which serves as the bridge to the core and cache bus:
 
+\includegraphics*{./Image/Cache Controller.png}
 
+Cache controller can 
+\begin{itemize}
+    \item receive load/store from the core
+    \item update state of blocks
+    \item issue coherence request
+    \item receive responses
+    \item update state of blocks
+    \item reply to the core
+\end{itemize}
+from the CPU
 
+Cache controller can also\begin{itemize}
+    \item receive coherence requests
+    \item update state of blocks
+    \item issue coherence responses
+\end{itemize}
+from the bus. Note that all requests from the bus come from other cache controllers.
 
+\subsection*{Behaviour}
+\subsubsection*{Read hits}
+Read hit $\implies$ block in S or M $\implies$ have a valid copy, just use it. 
 
-
-
-
+No bus messages are required (We know nobody else has another M copy)
+\subsection*{Read miss}
+We do not have a copy $\implies$ send \textbf{read} request on the bus. \begin{itemize}
+    \item If another cache has a block in the M state, it will downgrade to S and send us the latest value.
+    \item If no cache has a block in M, memory is up-to-date and will respond
+\end{itemize}
+\subsubsection*{Write hits}
+Write hit (block in M): update cached data. No bus messages are required since we know nobody else has a copy
+\subsubsection*{Write misses}
+So we do not have a block in M:
+\begin{itemize}
+    \item Block in I:\begin{itemize}
+        \item Send request on the bus
+        \item If another cache has the block in M state, it will \textbf{invalidate} block and send us the latest value.
+        \item If no cache has a block in M, memory up-to-date, will respond.
+    \end{itemize}
+    \item Block in S:\begin{itemize}
+        \item Send invalidate request on bus. (Invalidate all S blocks)
+        \item If another cache has a block, it must be in the S state (Since if they have M, then there shall be no other S). 
+    \end{itemize}
+\end{itemize}
 
 
 
