@@ -129,6 +129,8 @@ A \textbf{partition} of the set A is a set, $\mathcal{P}$, of non-empty subsets 
     \item if $x\in A$, then there is $X\in \mathcal{P}$ with $x\in X$
     \item if $X,Y\in \mathcal{P}$ then either $X\cap Y = \emptyset$ or $X=Y$
 \end{itemize}
+In words: A \textbf{partition} of a set A is a set of non-empty subsets of A such that the union of all subsets equals A and the intersection of any two different subsets is $\emptyset$
+
 Elements of $\mathcal{P}$ are \textbf{parts or pieces} of the partition. 
 
 Theorem:
@@ -336,7 +338,9 @@ Let R be an \textit{equivalence relation} on set A;
 The \textbf{equivalence class} of $x\in A$ with respect to R is 
 \[[x]=\{a\in A: a R x\}\]
 
-Note that if subsets are connected, then they are equivalence classes. 
+Note that if subsets are connected, then they are equivalence classes.
+
+Also, a reminder that equivalence relationships are reflexive, symmetric and transitive.
 
 Lemma:
 
@@ -377,9 +381,9 @@ The elements of $\mathbb{Z}_n$ can be added and multiplied by the rule
 
 \section{Functions}
 
-Let $A.B$ be non\-empty sets
+Let $A.B$ be non-empty sets
 
-A \textbf{function} from $A$ to $B$ is a non\-empty subset $f\subseteq A\times B$ so that
+A \textbf{function} from $A$ to $B$ is a non-empty subset $f\subseteq A\times B$ so that
 \begin{itemize}
     \item for every $a\in A$, there exists a $b\in B$ so that $(a,b)\in f$
     \item if $(a,b)\in f$ and $(a,c) \in f$ then $b=c$
@@ -424,7 +428,7 @@ Let $f:A\times B$ be a function:
     \[f(a_1)=f(a_2)\implies a_1=a_2\]
 
     \item The function is a \textbf{surjective/onto} functions when \[\forall b\in B, \exists a\in A s.t.g(a)=b\] So all b in B are mapped to. 
-    \item \textbf{Bijective} functions are \textbf{BOTH} \textit{injective and surjective}. Bijection AKA \textbf{one\-to\-one correspondences}
+    \item \textbf{Bijective} functions are \textbf{BOTH} \textit{injective and surjective}. Bijection AKA \textbf{one-to-one correspondences}
 \end{itemize}
 
 \subsection*{Composition}
@@ -446,6 +450,8 @@ At the same time:
 \end{itemize}
 
 \subsection*{Inverse functions}
+For a set $A$, the \textbf{identity function} on $A$ is the function $i_A:A\to A$ defined as $i_A(x)=x,\forall x \in A$.  
+
 Let $f:A\to B, g:B\to A$ be functions:
 \begin{itemize}
     \item If $g\circ f=i_A$, which is an identity function in A, then we say that $g$ is a \textbf{left\-inverse} of $f$.
@@ -504,7 +510,7 @@ If $n$ objects are placed in $k$ boxes then\begin{itemize}
     \item if $n<k$, at least one box has zero objects in it.
     \item if $n>k$, at least one box has at least two objects in it.
 \end{itemize}
-Can refine $n>k$ case: at least one box has at least $\lceil n/k \rceil$ objects in it. 
+Can refine $n>k$ case: at least one box has at least $\lceil \frac{n}{k} \rceil$ objects in it. 
 
 With PHP we can get a Corollary:
 
@@ -527,7 +533,7 @@ Now we elaborate this relationship onto infinite sets. Have an example first:
 Let $A=\{n\in\mathbb{N}s.t.n \text{ is even}\}$ and $B=\{n\in\mathbb{N}s.t.n \text{ is odd}\}$. Then $|A|=|B|=|\mathbb{N}|$ \begin{proof}
     The function $f: A \to B$ defined by $f(n)=n+1$ is a bijection.
 
-    The function $g: \mathbb{M} \to A$ defined by $g(n)=2n$ is a bijection.
+    The function $g: \mathbb{N} \to A$ defined by $g(n)=2n$ is a bijection.
 \end{proof}
 Note that $A\subset \mathbb{N}$ but we can still map all the elements and find the bijection. This is different from a finite set. 
 
@@ -598,8 +604,23 @@ This can be extended to prove that all rational numbers $\mathbb{Q}$ is denumera
 
     Note that $P\subseteq \mathbb{Z}\times \mathbb{N}$, we know it is denumerable and so as $\mathbb{Q}$
 \end{proof}
+
+Following is the chart way of proving it: 
+\begin{proof}
+    We list out a chart where the columns are all integers in absolute value ascending order and the rows are numbers that have gcd = 1 with the column number excluding the column number itself. 
+    
+    \includegraphics*{./Image/Cardinality Chart proof.jpg}
+
+    Now we should be convinced that this includes all the rational numbers without repetitions
+
+    Next, we can draw an infinite path in this array that could include all numbers in this char and number them correctly:
+
+    \includegraphics*{./Image/Cardinality chart path.jpg}
+
+    So we showed that we can get an infinite list of all rational numbers. Thus $|\mathbb{Q}=\mathbb{N}$ and that could be extended to the Cartesian product of two countably infinite sets. E.g., $|\mathbb{Q}=\mathbb{N}=\mathbb{Z}\times \mathbb{Z}$
+\end{proof}
 \subsection*{Uncountable}
-Fact: Every irrational number has a unique non\-repeating decimal expansion. 
+Fact: Every irrational number has a unique non-repeating decimal expansion. 
 
 Corollary: The set of all real numbers is uncountable. Additionally $|(0,1)|=|\mathbb{R}|=c$. 
 
@@ -611,9 +632,22 @@ Let $A, B$ be sets.\begin{itemize}
     \item Further, we write $|A|<|B|$ where there is an injection from $A$ to $B$ but no bijection.
 \end{itemize}
 
-Cantor's theorem:
+Theorem: If $A$ is any set, then $|A|<|\mathcal{P}(A)|$
+\begin{proof}
+    It is easy to find an injection to power set so we skip that part, we need to show that there is no surjection:
 
-Let $A$ be a set. Then $|A|<|\mathcal{P}(A)|$
+    To show $f$ is not surjective we will produce a set $B\in\mathcal{P}(A)$ for which $f(a)\neq B\forall a\in A$. Notice that for any element $x\in A$ we have $f(x)\in \mathcal{P}(A)$, that is $f(x)\subseteq A$. Thus $f$ is a function sending elements of $A$ to a subset of $A$. Use this idea, define:\[B=\{x\in A: x\not\in f(x)\}\subseteq A\]
+    \begin{itemize}
+        \item If $a\not \in f(a)$, then the definition of $B$ implies $a\in B$ but 
+        \item Do not understand this !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    \end{itemize}
+\end{proof}
+
+Cantor-Schroeder-Bernstein Theorem: \[|A|\le |B| \land |B|\le |A| \implies |A|=|B|\]
+\begin{itemize}
+    \item We know $|A|\le|B|\implies$ there is an injection from A to B.
+    \item Now we want to show that if there is an injection from A to B and B to A, then there is a bijection. 
+\end{itemize}
 
 
 
