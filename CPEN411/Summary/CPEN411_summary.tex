@@ -1347,17 +1347,17 @@ Read hit $\implies$ block in S or M $\implies$ have a valid copy, just use it.
 No bus messages are required (We know nobody else has another M copy)
 \subsection*{Read miss}
 We do not have a copy $\implies$ send \textbf{read} request on the bus. \begin{itemize}
-    \item If another cache has a block in the M state, it will downgrade to S and send us the latest value.
+    \item If another cache has a block in the M state, it will downgrade to S and send us the latest value to the requesting cache and to the memory.
     \item If no cache has a block in M, memory is up-to-date and will respond
 \end{itemize}
 \subsubsection*{Write hits}
-Write hit (block in M): update cached data. No bus messages are required since we know nobody else has a copy
+Write hit (block in M): update cached data. No bus messages are required since we know nobody else has a copy.
 \subsubsection*{Write misses}
 So we do not have a block in M:
 \begin{itemize}
     \item Block in I:\begin{itemize}
         \item Send request on the bus
-        \item If another cache has the block in M state, it will \textbf{invalidate} block and send us the latest value.
+        \item If another cache has the block in M state, it will \textbf{invalidate} block and send us the latest value to the requesting cache and memory.
         \item If no cache has a block in M, memory up-to-date, will respond.
     \end{itemize}
     \item Block in S:\begin{itemize}

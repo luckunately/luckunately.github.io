@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  14 DEC 2023 14:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  14 DEC 2023 15:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -344,35 +344,47 @@ File: ./Image/Set difference.jpg Graphic file (type jpg)
 Package pdftex.def Info: ./Image/Set difference.jpg  used on input line 66.
 (pdftex.def)             Requested size: 167.12395pt x 120.44969pt.
  [2 <./Image/Set difference.jpg>] [3] [4] [5] [6] [7] [8]
-<./Image/Relation property.png, id=72, 383.031pt x 355.92975pt>
+<./Image/Relation property.png, id=71, 383.031pt x 355.92975pt>
 File: ./Image/Relation property.png Graphic file (type png)
 <use ./Image/Relation property.png>
-Package pdftex.def Info: ./Image/Relation property.png  used on input line 327.
+Package pdftex.def Info: ./Image/Relation property.png  used on input line 329.
 (pdftex.def)             Requested size: 383.03006pt x 355.92888pt.
- [9 <./Image/Relation property.png>] [10] [11] [12] [13]
-Overfull \hbox (22.05283pt too wide) in paragraph at lines 493--494
+ [9 <./Image/Relation property.png>] [10] [11] [12] [13] [14]
+Overfull \hbox (22.05283pt too wide) in paragraph at lines 499--500
 []\OT1/cmr/m/n/12 Assume, to the con-trary, that there is a fi-nite list of primes: $\OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 p[]; p[]; [] ; p[]\OMS/cmsy/m/n/12 g$
  []
 
-[14] [15] [16] [17] [18] (./summary.aux)
+[15] [16] [17]
+<./Image/Cardinality Chart proof.jpg, id=135, 274.77657pt x 219.82124pt>
+File: ./Image/Cardinality Chart proof.jpg Graphic file (type jpg)
+<use ./Image/Cardinality Chart proof.jpg>
+Package pdftex.def Info: ./Image/Cardinality Chart proof.jpg  used on input line 612.
+(pdftex.def)             Requested size: 274.77588pt x 219.8207pt.
+ [18 <./Image/Cardinality Chart proof.jpg>]
+<./Image/Cardinality chart path.jpg, id=142, 268.00125pt x 279.29344pt>
+File: ./Image/Cardinality chart path.jpg Graphic file (type jpg)
+<use ./Image/Cardinality chart path.jpg>
+Package pdftex.def Info: ./Image/Cardinality chart path.jpg  used on input line 618.
+(pdftex.def)             Requested size: 268.00058pt x 279.29276pt.
+ [19 <./Image/Cardinality chart path.jpg>] [20] (./summary.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 10731 strings out of 474934
- 167516 string characters out of 5759289
+ 10747 strings out of 474934
+ 168109 string characters out of 5759289
  1929801 words of memory out of 5000000
- 32076 multiletter control sequences out of 15000+600000
+ 32090 multiletter control sequences out of 15000+600000
  568137 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,12n,93p,606b,569s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on summary.pdf (18 pages, 215112 bytes).
+Output written on summary.pdf (20 pages, 277277 bytes).
 PDF statistics:
- 249 PDF objects out of 1000 (max. 8388607)
- 198 compressed objects within 2 object streams
- 61 named destinations out of 1000 (max. 500000)
- 127 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 265 PDF objects out of 1000 (max. 8388607)
+ 207 compressed objects within 3 object streams
+ 63 named destinations out of 1000 (max. 500000)
+ 149 words of extra memory for PDF output out of 10000 (max. 10000000)
 
