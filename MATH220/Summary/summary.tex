@@ -182,7 +182,7 @@ The chain of modus ponens can keep going until the desired results are proven to
 
 Given P $\implies$ Q, then the \textbf{converse}: Q $\implies$ P, and the \textbf{contrapositive}: ($\neg$ Q) $\implies$ ($\neg$ P).
 
-\textbf{Negation of and implication}: $\neg(P\implies Q)=P\implies \neg Q$
+\textbf{Negation of and implication}: $\neg(P\implies Q)=P\land \neg Q$
 
 Contrapositive holds the same truth table as the original implication but the converse does not. 
 
@@ -222,7 +222,7 @@ Adding quantifiers to an open sentence turns it into a statement. Here the added
 
 Def:
 \begin{itemize}
-    \item The \textbf{universa quantifier} is denoted $\forall$.
+    \item The \textbf{universal quantifier} is denoted $\forall$.
     $``\forall x\in A,P(x)''$ is true provided that $P(x)$ is true for every $x\in A$ and otherwise false.
 
     \item The \textbf{existential quantifier} is denoted $\exists$.
@@ -350,7 +350,7 @@ Suppose R is an equivalence relation on A, and let $a, b\in A$. Then
 \begin{proof}
     We prove each implication in turn:
     \begin{itemize}
-        \item Assume a R v. We prove that $[a]\subseteq[b]$ and leave the other inclusion to the reader. Let $x\in [a]$, so that x R a. Since R is transitive and a R b, we know that x R b. Hence $x\in [b]$. The other inclusion is similar but also uses the symmetry of R.
+        \item Assume a R b. We prove that $[a]\subseteq[b]$ and leave the other inclusion to the reader. Let $x\in [a]$, so that x R a. Since R is transitive and a R b, we know that x R b. Hence $x\in [b]$. The other inclusion is similar but also uses the symmetry of R.
         \item Now assume $[a]=[b]$. By the lemma above, we know $a\in[a] \implies a\in [b]$. By definition of the equivalence class of b, this tells us that a R b.
     \end{itemize}
 \end{proof}
@@ -408,10 +408,10 @@ Note that:
 \end{itemize}
 
 Now let $C_1, C_2\subseteq A$ and $D_1,D_2\subseteq B$. Then:
-\begin{align}
-    f(C_1\cap C_2)&\subseteq f(C_1)\cap f(C_2) & f(C_1\cup C_2)&=f(C_1)\cup f(X_2)\\
+\begin{align*}
+    f(C_1\cap C_2)&\subseteq f(C_1)\cap f(C_2) & f(C_1\cup C_2)&=f(C_1)\cup f(C_2)\\
     f^{-1}(D_1\cap D_2)& =f^{-1}(D_1)\cap f^{-1}(D_2) & f^{-1}(D_1\cup D_2)& =f^{-1}(D_1)\cup f^{-1}(D_2)
-\end{align}
+\end{align*}
 
 Note that one of them is a subset relationship. 
 
@@ -527,7 +527,7 @@ Now we elaborate this relationship onto infinite sets. Have an example first:
 Let $A=\{n\in\mathbb{N}s.t.n \text{ is even}\}$ and $B=\{n\in\mathbb{N}s.t.n \text{ is odd}\}$. Then $|A|=|B|=|\mathbb{N}|$ \begin{proof}
     The function $f: A \to B$ defined by $f(n)=n+1$ is a bijection.
 
-    The function $g: \mathbb{M} \to A$ defined by $g(n)=2n$ is a bijection.
+    The function $g: \mathbb{N} \to A$ defined by $g(n)=2n$ is a bijection.
 \end{proof}
 Note that $A\subset \mathbb{N}$ but we can still map all the elements and find the bijection. This is different from a finite set. 
 
@@ -599,7 +599,7 @@ This can be extended to prove that all rational numbers $\mathbb{Q}$ is denumera
     Note that $P\subseteq \mathbb{Z}\times \mathbb{N}$, we know it is denumerable and so as $\mathbb{Q}$
 \end{proof}
 \subsection*{Uncountable}
-Fact: Every irrational number has a unique non\-repeating decimal expansion. 
+Fact: Every irrational number has a unique non-repeating decimal expansion. 
 
 Corollary: The set of all real numbers is uncountable. Additionally $|(0,1)|=|\mathbb{R}|=c$. 
 
