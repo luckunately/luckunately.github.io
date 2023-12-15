@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  6 DEC 2023 15:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  15 DEC 2023 14:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -704,17 +704,46 @@ File: ./Image/Cache Controller.png Graphic file (type png)
 <use ./Image/Cache Controller.png>
 Package pdftex.def Info: ./Image/Cache Controller.png  used on input line 1323.
 (pdftex.def)             Requested size: 158.39136pt x 136.10815pt.
- [53 <./Image/Cache Controller.png>] [54] (./CPEN411_summary.aux)
+ [53 <./Image/Cache Controller.png>]
+<./Image/Directory-based cache coherence.jpg, id=588, 216.81pt x 140.02313pt>
+File: ./Image/Directory-based cache coherence.jpg Graphic file (type jpg)
+<use ./Image/Directory-based cache coherence.jpg>
+Package pdftex.def Info: ./Image/Directory-based cache coherence.jpg  used on input line 1374.
+(pdftex.def)             Requested size: 216.80946pt x 140.02278pt.
+ [54] [55 <./Image/Directory-based cache coherence.jpg>]
+<./Image/Coherence miss and cache size.jpg, id=610, 324.46219pt x 232.61906pt>
+File: ./Image/Coherence miss and cache size.jpg Graphic file (type jpg)
+<use ./Image/Coherence miss and cache size.jpg>
+Package pdftex.def Info: ./Image/Coherence miss and cache size.jpg  used on input line 1417.
+(pdftex.def)             Requested size: 324.46138pt x 232.61848pt.
+<./Image/Coherence misses and core number.jpg, id=612, 283.0575pt x 232.61906pt>
+File: ./Image/Coherence misses and core number.jpg Graphic file (type jpg)
+<use ./Image/Coherence misses and core number.jpg>
+Package pdftex.def Info: ./Image/Coherence misses and core number.jpg  used on input line 1424.
+(pdftex.def)             Requested size: 283.0568pt x 232.61848pt.
+ [56 <./Image/Coherence miss and cache size.jpg>]
+<./Image/Coherence miss and block size.jpg, id=621, 346.29375pt x 322.95656pt>
+File: ./Image/Coherence miss and block size.jpg Graphic file (type jpg)
+<use ./Image/Coherence miss and block size.jpg>
+Package pdftex.def Info: ./Image/Coherence miss and block size.jpg  used on input line 1432.
+(pdftex.def)             Requested size: 346.2929pt x 322.95576pt.
+ [57 <./Image/Coherence misses and core number.jpg>] [58 <./Image/Coherence miss and block size.jpg>]
+<./Image/MSI non-automic.jpg, id=634, 493.0922pt x 158.84344pt>
+File: ./Image/MSI non-automic.jpg Graphic file (type jpg)
+<use ./Image/MSI non-automic.jpg>
+Package pdftex.def Info: ./Image/MSI non-automic.jpg  used on input line 1452.
+(pdftex.def)             Requested size: 394.47429pt x 127.07492pt.
+ [59 <./Image/MSI non-automic.jpg>] (./CPEN411_summary.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-10-23>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 12831 strings out of 474397
- 204197 string characters out of 5754184
+ 12882 strings out of 474397
+ 205949 string characters out of 5754184
  1936036 words of memory out of 5000000
- 34586 multiletter control sequences out of 15000+600000
+ 34621 multiletter control sequences out of 15000+600000
  568330 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,13n,93p,850b,997s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -722,10 +751,10 @@ Here is how much of TeX's memory you used:
 pdfTeX warning (dest): name{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.217.3594&rep=rep1&type=pdf} has been referenced but does not exist, replaced by a fixed one
 
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on CPEN411_summary.pdf (54 pages, 2843926 bytes).
+Output written on CPEN411_summary.pdf (59 pages, 2980560 bytes).
 PDF statistics:
- 713 PDF objects out of 1000 (max. 8388607)
- 460 compressed objects within 5 object streams
- 173 named destinations out of 1000 (max. 500000)
- 727 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 764 PDF objects out of 1000 (max. 8388607)
+ 496 compressed objects within 5 object streams
+ 189 named destinations out of 1000 (max. 500000)
+ 782 words of extra memory for PDF output out of 10000 (max. 10000000)
 

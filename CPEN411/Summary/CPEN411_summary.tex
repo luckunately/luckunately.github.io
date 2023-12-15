@@ -889,22 +889,22 @@ Results broadcast on \textbf{common data bus} (CDB). Each result carries the tag
 
 \begin{itemize}
     \item issue
-    \begin{itemize}
-        \item If have a free RS (no structural hazard), allocate RS entry
-        \item lookup source operand registers in RF: get either values or tags. (Get value if available, otherwise, need tags since waiting for value)
-        \item Rename destination register to allocated RS entry tag.
-    \end{itemize}
+          \begin{itemize}
+              \item If have a free RS (no structural hazard), allocate RS entry
+              \item lookup source operand registers in RF: get either values or tags. (Get value if available, otherwise, need tags since waiting for value)
+              \item Rename destination register to allocated RS entry tag.
+          \end{itemize}
     \item execute
-    \begin{itemize}
-        \item Listen for unready operand tags on the CDB, pickup values.
-        \item Once all operands are ready, commence execution.
-    \end{itemize}
+          \begin{itemize}
+              \item Listen for unready operand tags on the CDB, pickup values.
+              \item Once all operands are ready, commence execution.
+          \end{itemize}
     \item write result
-    \begin{itemize}
-        \item Broadcast $<$dst tag, result$>$ on the CDB
-        \item Interested RSs and RF will see the tag and update the value
-        \item Mark reservation station available 
-    \end{itemize}
+          \begin{itemize}
+              \item Broadcast $<$dst tag, result$>$ on the CDB
+              \item Interested RSs and RF will see the tag and update the value
+              \item Mark reservation station available
+          \end{itemize}
 \end{itemize}
 
 
@@ -932,7 +932,7 @@ All above are called exceptions. For each exception that we detected at \textbf{
 
 \subsubsection*{Precise exceptions}
 
-If an architectural state is updated by \textbf{all instructions before faulting instruction} and \textbf{none} after (and including) faulting instruction, then the pipeline supports \textbf{precise exceptions}. Note that not all architectures do. 
+If an architectural state is updated by \textbf{all instructions before faulting instruction} and \textbf{none} after (and including) faulting instruction, then the pipeline supports \textbf{precise exceptions}. Note that not all architectures do.
 
 \includegraphics*{Image/precise exception.jpg}
 
@@ -948,15 +948,15 @@ When exception strikes:
 
 \subsubsection*{Speculative Execution}
 
-The goal of speculative execution is to support the exception of instructions fetched following a branch prediction \underbar{before} we know if the prediction is correct. 
+The goal of speculative execution is to support the exception of instructions fetched following a branch prediction \underbar{before} we know if the prediction is correct.
 
-However, the problem is that instructions after the branch should not update the register file before confirming that the branch is correct. Make sure the control/branch hazard is resolved before proceeding. 
+However, the problem is that instructions after the branch should not update the register file before confirming that the branch is correct. Make sure the control/branch hazard is resolved before proceeding.
 
 Speculative execution describes the capacity of the way to \textbf{cancel mispredicted path}.
 
 \subsubsection*{Completion and commit}
 \begin{itemize}
-    \item Insight: the problem arises in writing to RF, not finishing the computation early. 
+    \item Insight: the problem arises in writing to RF, not finishing the computation early.
     \item Idea: compute and buffer the result but \textbf{delay the RF write} until prior instructions \underbar{guaranteed} to retire (not speculative, no exceptions)
 \end{itemize}
 
@@ -1024,35 +1024,35 @@ We can either run this at a higher clock speed or add logic to rename multiple i
 
 \includegraphics*[scale=0.8]{Image/Tomasulo with too wide issue.jpg}
 
-So here, we have two CDBs that can handle two outputs at once. Then we run the load buffer at two times the speed or two assigning per cycle to allow two instructions adding per cycle. 
+So here, we have two CDBs that can handle two outputs at once. Then we run the load buffer at two times the speed or two assigning per cycle to allow two instructions adding per cycle.
 
 \section{Branch Prediction}
-In branch predictions, we either predict it to be taken or not taken. CPU does not need to execute out\-of\-order to benefit from branch prediction since you always assume your prediction is good. 
+In branch predictions, we either predict it to be taken or not taken. CPU does not need to execute out\-of\-order to benefit from branch prediction since you always assume your prediction is good.
 
-The main reason for the branch penalty is that we do not know the branch target value when the branch instruction is read from memory. However, we know the historical PC if the branch has been called before, which could be used to predict. So it is possible to predict when the branch instruction is fetched. 
+The main reason for the branch penalty is that we do not know the branch target value when the branch instruction is read from memory. However, we know the historical PC if the branch has been called before, which could be used to predict. So it is possible to predict when the branch instruction is fetched.
 
-When the pipeline is really long, there is a high branch miss penalty! 
+When the pipeline is really long, there is a high branch miss penalty!
 
 \subsection*{1\-Bit Branch Predictor}
-1\-bit branch predictor is a cache of $2^{n-1}$ bits and indexed accordingly. We use the n lower order bits of the PC of the branch to select the index inside the predictor where we store the last outcome. 1 for taken and 0 for not taken. 
+1\-bit branch predictor is a cache of $2^{n-1}$ bits and indexed accordingly. We use the n lower order bits of the PC of the branch to select the index inside the predictor where we store the last outcome. 1 for taken and 0 for not taken.
 
 However, you only update the branch when it is an actual outcome meaning \textbf{when the branch is truly resolved}. This means that not only the current branch target is executed, but also the previous branches. If the previous branch is not resolved yet, it is possible that it is wrong even if the current branch target is executed.
 
 \subsection*{2\-Bit Branch Predictor}
-To solve the problem that it only keeps 1 previous prediction, 
+To solve the problem that it only keeps 1 previous prediction,
 
-With two bits, we can store up to 4 previous outcomes and predict according to the MSB to reduce the influence of noise or extremes. 
+With two bits, we can store up to 4 previous outcomes and predict according to the MSB to reduce the influence of noise or extremes.
 
-There are all kinds of FSM that could produce different results. 
+There are all kinds of FSM that could produce different results.
 
 \includegraphics*{./Image/2 bit predictors.png}
 
 \subsection*{tradeoffs}
-Note that the size of the predictor is usually limited since it needs to sit very close to the CPU to reduce latency and you do not get much room there. 
+Note that the size of the predictor is usually limited since it needs to sit very close to the CPU to reduce latency and you do not get much room there.
 
-To get better performance, we could try to increase the bit size of each predictor, but in turn, it will reduce the number of branches you can keep inside the predictor. Also, increasing the size will not have a linear increase in accuracy anyway. 
+To get better performance, we could try to increase the bit size of each predictor, but in turn, it will reduce the number of branches you can keep inside the predictor. Also, increasing the size will not have a linear increase in accuracy anyway.
 
-A good metric is \textbf{MPKI} (misses per kilo instructions). A good predictor is about 5 MPKI nowadays. It is better than the percentage of correct predictions because you get to know the frequency of branches in a sense. 
+A good metric is \textbf{MPKI} (misses per kilo instructions). A good predictor is about 5 MPKI nowadays. It is better than the percentage of correct predictions because you get to know the frequency of branches in a sense.
 
 \subsection*{Branch Target Buffer (BTB)}
 Now new problem arises since branch instruction and the target\-taken instruction do not have the same PC. So we need to have a lookup table to know where to jump to:
@@ -1061,12 +1061,12 @@ Now new problem arises since branch instruction and the target\-taken instructio
 
 \subsubsection*{Some special cases}
 
-If a function is called on multiple addresses, when you return, you do not have a constant PC to go to. So the BTB will never contain the correct PC address. 
+If a function is called on multiple addresses, when you return, you do not have a constant PC to go to. So the BTB will never contain the correct PC address.
 
 To solve it, we push return addresses into the stack instead of putting them into lookup tables. And then we pop it when we need it. But for this to work, we need a very carefully designed stack usage otherwise it will be contaminated and everything will fail.
 
 \subsection*{Terminologies}
-Terminologies are not standardized in the industry. Different companies mix up branch predictor and BTB. 
+Terminologies are not standardized in the industry. Different companies mix up branch predictor and BTB.
 
 In CPEN 411:
 \begin{itemize}
@@ -1075,7 +1075,7 @@ In CPEN 411:
 \end{itemize}
 
 \subsection*{Corelated branch}
-If the previous branch's outcome influences the next branch's prediction, then they are correlated. 
+If the previous branch's outcome influences the next branch's prediction, then they are correlated.
 
 Now the problem appears to be that some effector branch might be far away from the branch it influences, we need some way to collect the previous branch information to predict the next branch:
 
@@ -1084,32 +1084,32 @@ Now we can have one table for ``previously taken'' and one for ``previously not 
 
 \includegraphics*{./Image/one bit correlated branch example.jpg}
 
-Here we can clearly predict that if the last branch is not taken, then we should predict ``00'' to be true. 
+Here we can clearly predict that if the last branch is not taken, then we should predict ``00'' to be true.
 
-So for the two tables, the program counter would be used to index them into the same position in the table, and then we decide which table to choose based on the previous context. 
+So for the two tables, the program counter would be used to index them into the same position in the table, and then we decide which table to choose based on the previous context.
 
-Note that we should predict based on \textbf{Last actual outcome} instead of the last prediction. But that might not always be possible because of the pipelining nature. 
+Note that we should predict based on \textbf{Last actual outcome} instead of the last prediction. But that might not always be possible because of the pipelining nature.
 
 \subsection*{Correlating against Multiple Branches}
 
-As mentioned before, it is possible that we may have an effector branch far away from the interested branch. The easiest way of solving it is to add more tables to track them down. 
+As mentioned before, it is possible that we may have an effector branch far away from the interested branch. The easiest way of solving it is to add more tables to track them down.
 
 \subsubsection*{Shift registers to track the history}
 Recall a shift register:
 
 \includegraphics*{./Image/Shift Register.jpg}
 
-We can keep the m most recent taken history inside this m shift registers which updates every time a branch outcome is computed. Then the output of the series of registers can be used to enter a mux that chooses which table out of the $2^m$ tables we need to use to predict. With the same logic, we can find which one to update when the outcome is out. 
+We can keep the m most recent taken history inside this m shift registers which updates every time a branch outcome is computed. Then the output of the series of registers can be used to enter a mux that chooses which table out of the $2^m$ tables we need to use to predict. With the same logic, we can find which one to update when the outcome is out.
 
-These registers are call \textbf{(Global) Branch History Register} (G)BHR 
+These registers are call \textbf{(Global) Branch History Register} (G)BHR
 
 \section*{Tradeoffs in design}
 It is nice to have as long as possible history so that we keep all useful history. However, the number of tables we need for each increased bit of history counter is exponential:
 \[m\text{ bit counter}\implies 2^m \text{ tables}\]
 
-At the same time, to get a better performance, we should also consider having more bits on each table to track more history of each branch on each table. 
+At the same time, to get a better performance, we should also consider having more bits on each table to track more history of each branch on each table.
 
-But the size of the branch predictor would always be limited! 
+But the size of the branch predictor would always be limited!
 
 \section{Load/Store Processing}
 Start with an example:
@@ -1118,12 +1118,12 @@ Start with an example:
     lw r2, 0(r8)
     addi r4, r2, #0xf00
 \end{lstlisting}
-The above code stores the r2 value to to address r9, then loads the value at address r8 to r2. The add instruction is waiting for the load instruction to complete. In most cases, loads are on the critical path where stores are usually not. 
+The above code stores the r2 value to to address r9, then loads the value at address r8 to r2. The add instruction is waiting for the load instruction to complete. In most cases, loads are on the critical path where stores are usually not.
 
-It may look like there are no dependencies, but actually, since r9 and r8 are pointers, it is possible that r9 and r8 could contain the same value, thus loading after storing immediately. 
+It may look like there are no dependencies, but actually, since r9 and r8 are pointers, it is possible that r9 and r8 could contain the same value, thus loading after storing immediately.
 
 \subsection*{Store buffer}
-Since stores can usually be delayed, we would like to use cache bandwidth for loads and send stores to the cache when it is free to improve performance. So we want something to delay stores until bandwidth is available. 
+Since stores can usually be delayed, we would like to use cache bandwidth for loads and send stores to the cache when it is free to improve performance. So we want something to delay stores until bandwidth is available.
 \begin{itemize}
     \item queue stores ina \textbf{store buffer}
     \item allow loads to \textbf{bypass}
@@ -1135,11 +1135,11 @@ Since stores can usually be delayed, we would like to use cache bandwidth for lo
 
 Note that if an \textbf{exception} appears, we just need to flush the \textbf{un\-committed} entries since committed entries are good to go.
 
-Also, we need to note that we still do not have a way to check for \textbf{dependencies}. Before executing the load instructions, we need to check the \textbf{entire store buffer} to make sure that they are updated. 
+Also, we need to note that we still do not have a way to check for \textbf{dependencies}. Before executing the load instructions, we need to check the \textbf{entire store buffer} to make sure that they are updated.
 
 \includegraphics*{./Image/Store Buffer Plus.jpg}
 
-If the address matches a store buffer entry, we need to stall the load since we need to update the value. 
+If the address matches a store buffer entry, we need to stall the load since we need to update the value.
 
 But when the value is actually in speculating, we should just get it anyway, which calls for forwarding.
 
@@ -1157,7 +1157,7 @@ So we cases:\
 \end{itemize}
 
 \subsection*{memory dependency prediction}
-We must wait until \textbf{addresses resolved} to determine if there is a dependency. What if we can speculate no dependency and cancel if wrong? 
+We must wait until \textbf{addresses resolved} to determine if there is a dependency. What if we can speculate no dependency and cancel if wrong?
 
 So we predict memory dependency:
 
@@ -1168,34 +1168,34 @@ We load the value based on prediction. This way we can have the value loaded to 
 ROB makes sure that only the correct values can be retired from CPU to memory. You can add more and more predictions based on this.
 
 \subsubsection*{wiki explain to elaborate}
-Memory dependence prediction executes memory access operations out of program order to predict true dependencies between loads and stores at instruction execution time. 
+Memory dependence prediction executes memory access operations out of program order to predict true dependencies between loads and stores at instruction execution time.
 
-Selective memory dependence prediction stalls specific loads until it is certain that no violation may occur. It does not explicitly predict dependencies. This predictor may delay loads longer than necessary and hence result in suboptimal performance. In fact, in some cases, it performs worse than naively speculating all loads as early as possible. This is because often it's faster to mispeculate and recover than to wait for all preceding stores to execute. Exact memory dependence prediction was developed at the University of Wisconsin\-Madison. 
+Selective memory dependence prediction stalls specific loads until it is certain that no violation may occur. It does not explicitly predict dependencies. This predictor may delay loads longer than necessary and hence result in suboptimal performance. In fact, in some cases, it performs worse than naively speculating all loads as early as possible. This is because often it's faster to mispeculate and recover than to wait for all preceding stores to execute. Exact memory dependence prediction was developed at the University of Wisconsin\-Madison.
 
-Specifically, Dynamic Speculation and Synchronization delay load only as long as it is necessary by predicting the exact store a load should wait for. This predictor predicts exact dependencies (store and load pair). 
+Specifically, Dynamic Speculation and Synchronization delay load only as long as it is necessary by predicting the exact store a load should wait for. This predictor predicts exact dependencies (store and load pair).
 
-The synonym predictor groups together all dependencies that share a common load or store instruction. The store sets predictor represents multiple potential dependences efficiently by grouping together all possible stores a load may depend upon. 
+The synonym predictor groups together all dependencies that share a common load or store instruction. The store sets predictor represents multiple potential dependences efficiently by grouping together all possible stores a load may depend upon.
 
-The store barrier predictor treats certain store instructions as barriers. That is, all subsequent load or store operations are not allowed to bypass the specific store. The store barrier predictor does not explicitly predict dependencies. This predictor may unnecessarily delay subsequent, yet independent loads. 
+The store barrier predictor treats certain store instructions as barriers. That is, all subsequent load or store operations are not allowed to bypass the specific store. The store barrier predictor does not explicitly predict dependencies. This predictor may unnecessarily delay subsequent, yet independent loads.
 
 Memory dependence prediction has other applications beyond the scheduling of loads and stores. For example, speculative memory cloaking and speculative memory bypassing use memory dependence prediction to streamline the communication of values through memory.
-\section{Memory Consistency} 
-Cores are executing in parallel. We need to make sure that core 0 finishes writing before core 1 reads the same data. 
+\section{Memory Consistency}
+Cores are executing in parallel. We need to make sure that core 0 finishes writing before core 1 reads the same data.
 \subsection*{Ordering accesses to shared memory}
 \begin{flalign*}
-    &\text{thread A} &\text{thread B}\\
-    &\text{S1: store data = New} & \quad&\quad\\
-    &\text{S2: store flag = SET} & \text{L1 : load x1 $<-$ flag}\\
-    &\quad &\text{B1 : if x1 is not SET: jump to L1}\\
-    &\quad &\text{L2: load x2 $<-$ data}
+     & \text{thread A}             & \text{thread B}                                  \\
+     & \text{S1: store data = New} & \quad                                    & \quad \\
+     & \text{S2: store flag = SET} & \text{L1 : load x1 $<-$ flag}                    \\
+     & \quad                       & \text{B1 : if x1 is not SET: jump to L1}         \\
+     & \quad                       & \text{L2: load x2 $<-$ data}
 \end{flalign*}
 Here for each store operation on data, we have a flag that indicates if it is done or not. S1 is the actual storage and S2 is the flag. L1 and B1 loops if not set, and only loads when it is set. To obtain the correct answer, we must have\begin{itemize}
-    \item S1 before S2 (Should not claim it is done when it is not done)and 
+    \item S1 before S2 (Should not claim it is done when it is not done)and
     \item L1 before L2 (Should not read data before write finishes)
 \end{itemize}
-Flag communicates that all data has been written. 
+Flag communicates that all data has been written.
 
-memory ordering restrictions are needed for both multi\-core and single\-core since it is a concurrent thread problem. Only single\-thread operations can follow the natural program order. 
+memory ordering restrictions are needed for both multi\-core and single\-core since it is a concurrent thread problem. Only single\-thread operations can follow the natural program order.
 \subsubsection*{Where memory access reordering can happen}
 \begin{itemize}
     \item programmer optimization;
@@ -1206,33 +1206,33 @@ memory ordering restrictions are needed for both multi\-core and single\-core si
 \end{itemize}
 \subsubsection*{Sequential Consistency}
 a multiprocessor system is sequentially consistent if:\begin{itemize}
-    \item the result of \textbf{any execution} is the same as if the operations of all the processors were executed in \textbf{some sequential order}, and 
+    \item the result of \textbf{any execution} is the same as if the operations of all the processors were executed in \textbf{some sequential order}, and
     \item the operations of \textbf{each individual processor} appear in this sequence in the \textbf{order specified by its program}
 \end{itemize}
 
 \subsubsection*{Example of ordering}
 Imagine that at $t_0$, mem[X]=mem[Y]=0. Then we have two cores executing different instructions:\begin{align*}
-    &\text{core A:} &\text{core B}\\
-    &A1:\text{ store }X<-1 &B1: \text{ store }Y<-1\\
-    &A2:\text{ load}x_1<-Y &B2: \text{ load }x_2<-x
+     & \text{core A:}        & \text{core B}           \\
+     & A1:\text{ store }X<-1 & B1: \text{ store }Y<-1  \\
+     & A2:\text{ load}x_1<-Y & B2: \text{ load }x_2<-x
 \end{align*}
 Multiple possible results could occur:\begin{align*}
-    &x_1&x_2&\text{SC ordering}\\
-    &1 &1 & A1,B1,A2,B2\\
-    &1 &0 & B1,B2,A1,A2\\
-    &0 &1 & A1,A2,B1,B2\\
-    &0 &0 & \text{not possible} 
+     & x_1 & x_2 & \text{SC ordering}  \\
+     & 1   & 1   & A1,B1,A2,B2         \\
+     & 1   & 0   & B1,B2,A1,A2         \\
+     & 0   & 1   & A1,A2,B1,B2         \\
+     & 0   & 0   & \text{not possible}
 \end{align*}
-However, if we have a store buffer (allows loads to bypass stores), then A2 can be Scheduled to execute before A1 since there is no dependency between A1 and A2. 
+However, if we have a store buffer (allows loads to bypass stores), then A2 can be Scheduled to execute before A1 since there is no dependency between A1 and A2.
 
 Now it is possible to get the fourth possibility:\begin{align*}
-    &x_1&x_2&\text{SC ordering}\\
-    &1 &1 & A1,B1,A2,B2\\
-    &1 &0 & B1,B2,A1,A2\\
-    &0 &1 & A1,A2,B1,B2\\
-    &0 &0 & A2,B1,B2,A1 
+     & x_1 & x_2 & \text{SC ordering} \\
+     & 1   & 1   & A1,B1,A2,B2        \\
+     & 1   & 0   & B1,B2,A1,A2        \\
+     & 0   & 1   & A1,A2,B1,B2        \\
+     & 0   & 0   & A2,B1,B2,A1
 \end{align*}
-But note that the last one is not in sequential order. 
+But note that the last one is not in sequential order.
 \subsubsection*{Implications for reordering load/stores}
 A sequentially consistent system must maintain:\begin{itemize}
     \item load $<$ load ordering
@@ -1258,27 +1258,27 @@ for access to all addresses within each core.
     \item before any ld/st: finish all prior synchronization ops.
     \item synchronization ops are \textbf{sequentially consistent}
 \end{itemize}
-So instructions before and after synchronization can be out\-of\-order. 
+So instructions before and after synchronization can be out\-of\-order.
 \subsubsection*{Memory fences}
 \includegraphics*{./Image/Fences Example.png}
 
-Special \textbf{memory fence} (memory barrier) instructions occur in most of the computer architectures. All instructions can be out\-of\-order between fences but not crossing them. 
+Special \textbf{memory fence} (memory barrier) instructions occur in most of the computer architectures. All instructions can be out\-of\-order between fences but not crossing them.
 
 \includegraphics*{./Image/Ilustrating WO.png}
 
-Note that we have to make sure that the fences are SC. 
+Note that we have to make sure that the fences are SC.
 \subsubsection*{Acquire and Release}
-Fences might be too strong, some could pass the fences that would not cause an issue. 
+Fences might be too strong, some could pass the fences that would not cause an issue.
 
 \includegraphics*{./Image/Acquire and Release.png}
 
 \begin{itemize}
     \item make sure no ld/st leak past Release
-    \item make sure no ld/st leak before acquire 
+    \item make sure no ld/st leak before acquire
 \end{itemize}
 
 \subsubsection*{Store atomicity}
-Recall that SC requires that all processor cores observe the same memory operation order. 
+Recall that SC requires that all processor cores observe the same memory operation order.
 
 Store atomicity:\begin{itemize}
     \item if one processor observed our write
@@ -1288,17 +1288,17 @@ relaxing this compromises causality!!
 
 \subsubsection*{SC for data-race-free programs}
 Most modern languages like C, C++, and Java support the DRF memory model: programs guaranteed to be SC only if \begin{itemize}
-    \item Have no data races, and 
+    \item Have no data races, and
     \item properly synchronized (e.g. with acquire/release)
 \end{itemize}
-Worst case, we can fence around every memory operation but it hurts performance. In practice, insert fences sparingly or performance tanks. 
+Worst case, we can fence around every memory operation but it hurts performance. In practice, insert fences sparingly or performance tanks.
 \section{Cache Coherence}
-The problem arises when each core has its own cache. Each cache may keep a copy of the same line of memory, but updating in one of the caches does not show the update in another core's cache. 
+The problem arises when each core has its own cache. Each cache may keep a copy of the same line of memory, but updating in one of the caches does not show the update in another core's cache.
 
 The idea is that loading the data (read-only) could allow multiple sharers. However, only one single owner can store data in that memory.
 
 \subsection*{Coherence Invariants}
-Two invariants that each cache block must hold separately: 
+Two invariants that each cache block must hold separately:
 \begin{itemize}
     \item \textbf{Single Writer Multiple Reader Invariant} (SWMR): if \textbf{multiple} copies of a cache block exist, all are \textbf{read-only}. A \textbf{read-write} copy of a block must be the \textbf{only} copy
     \item \textbf{Data Value Invariants}: the value of memory location A at the start of an epoch n equals the value of A at the end of epoch n-1
@@ -1316,13 +1316,13 @@ From cache's perspective:\begin{itemize}
     \item S: block cached, read permissions only
     \item M: block cached, read/write permissions
 \end{itemize}
-Multiple S copies are okay, but only one copy in M at a time. 
+Multiple S copies are okay, but only one copy in M at a time.
 \subsection*{Cache Controller}
 All caches connect to their own cache controller which serves as the bridge to the core and cache bus:
 
 \includegraphics*{./Image/Cache Controller.png}
 
-Cache controller can 
+Cache controller can
 \begin{itemize}
     \item receive load/store from the core
     \item update state of blocks
@@ -1340,9 +1340,9 @@ Cache controller can also\begin{itemize}
 \end{itemize}
 from the bus. Note that all requests from the bus come from other cache controllers.
 
-\subsection*{Behaviour}
+\subsection*{Behavior}
 \subsubsection*{Read hits}
-Read hit $\implies$ block in S or M $\implies$ have a valid copy, just use it. 
+Read hit $\implies$ block in S or M $\implies$ have a valid copy, just use it.
 
 No bus messages are required (We know nobody else has another M copy)
 \subsection*{Read miss}
@@ -1356,23 +1356,102 @@ Write hit (block in M): update cached data. No bus messages are required since w
 So we do not have a block in M:
 \begin{itemize}
     \item Block in I:\begin{itemize}
-        \item Send request on the bus
-        \item If another cache has the block in M state, it will \textbf{invalidate} block and send us the latest value to the requesting cache and memory.
-        \item If no cache has a block in M, memory up-to-date, will respond.
-    \end{itemize}
+              \item Send request on the bus
+              \item If another cache has the block in M state, it will \textbf{invalidate} block and send us the latest value to the requesting cache and memory.
+              \item If no cache has a block in M, memory up-to-date, will respond.
+          \end{itemize}
     \item Block in S:\begin{itemize}
-        \item Send invalidate request on bus. (Invalidate all S blocks)
-        \item If another cache has a block, it must be in the S state (Since if they have M, then there shall be no other S). 
-    \end{itemize}
+              \item Send invalidate request on bus. (Invalidate all S blocks)
+              \item If another cache has a block, it must be in the S state (Since if they have M, then there shall be no other S).
+          \end{itemize}
+\end{itemize}
+\subsection*{Directory-based coherence}
+Idea: send all messages via a \textbf{centralized directory} (a piece of hardware that keeps track of which cache has a copy of which block).
+\begin{itemize}
+    \item directory knows all \textbf{sharers and states} of each block
+    \item usually implemented as a \textbf{cache/memory} itself
+\end{itemize}
+\includegraphics*{./Image/Directory-based cache coherence.jpg}
+
+Directory entry for each block: \begin{itemize}
+    \item presence bit-vector (sharer set)
+    \item dirty bit (indicates M state)
+    \item other reps possible
+    \item tracked \textbf{explicitly} in directory
+\end{itemize}
+\subsubsection*{Directory protocol}
+There are locations defined for each cache controller and the memory.\begin{itemize}
+    \item \textbf{local} node: the cache controller that is requesting the data
+    \item \textbf{remote} node: the cache controller that has the copies of the data
+    \item \textbf{home} node: the cache controller that is connected to the memory (where the data lives)
 \end{itemize}
 
+Here is an example of a directory protocol:\begin{enumerate}
+    \item local node sends a request to the home node (read or write)
+    \item home node sends a request to the remote node (invalidate or read)
+    \item remote node sends the data to the home node (acknowledge invalidate or read)
+    \item home node sends the data to the local node (acknowledge read or write)
+\end{enumerate}
 
+\subsection*{Coherence miss}
+We have already seen three types of cache misses in uniprocessors (3 Cs): \begin{itemize}
+    \item compulsory/cold miss: first access to a block
+    \item capacity miss: cache is full
+    \item conflict miss: conflict in cache
+\end{itemize}
+The fourth C in multiprocessor/multi-core systems: \textbf{coherence miss} (Not enough coherence permissions).
+\subsubsection*{Types of sharing}
+The problem arises here because each cache line is 64 bytes, but each operation only needs 4 bytes. So it is possible that two cores are sharing the same cache line but not the same data.
+\begin{itemize}
+    \item true sharing: real communication between cores. (e.g., shared variable)\begin{itemize}
+              \item Core 0 reads cache block to access word 3
+              \item Core 1 writes to word 3, invalidates Core 0's copy
+          \end{itemize}
+    \item false sharing: no real communication between cores. (e.g., different variables on the same cache block)\begin{itemize}
+              \item Core 0 reads cache block to access word 3
+              \item Core 1 writes to word 7, invalidates Core 0's copy
+          \end{itemize}
+          Note that here the state is shared for the whole cache line, not just the word that is being accessed. So word 3 is still true but word 7 is false.
+\end{itemize}
+\subsubsection*{Influences on coherence misses}
+\includegraphics*{./Image/Coherence miss and cache size.jpg}
 
+\begin{itemize}
+    \item Capacity/conflict misses \textbf{decrese} as cache size increases
+    \item Coherence misses \textbf{stay the same} as cache size increases
+\end{itemize}
 
+\includegraphics*{./Image/Coherence misses and core number.jpg}
 
+\begin{itemize}
+    \item Coherence misses \textbf{increase} as core number increases
+    \item Mainly due to \textbf{true sharing} (Amdahl's law)
+    \item False sharing is more of a tradeoff problem
+\end{itemize}
 
+\includegraphics*{./Image/Coherence miss and block size.jpg}
+\begin{itemize}
+    \item true sharing: \textbf{decreases} as block size increases (spatial locality)
+    \item false sharing: \textbf{increases} as block size increases (more words in a block)
+\end{itemize}
+\subsection*{Other coherence states}
+\begin{itemize}
+    \item Observations: read-write private data is very common\begin{itemize}
+              \item exclusive (E) state: read-write private data, silent upgrade to M
+              \item MSI $\implies$ MESI
+          \end{itemize}
+    \item Observations: off-chip memory is slow\begin{itemize}
+              \item owner state (O): last writer supplies value: MESI $\implies$ MOESI
+              \item forward state (F): last reader supplies value: MESI $\implies$ MESIF
+          \end{itemize}
+\end{itemize}
+In the industry right now, Intel uses MESIF and AMD uses MOESI.
+\subsection*{Coherence complexity}
+In the ideal case, the state transition is instantaneous. However, in reality, it takes time to transition between states. So we need to handle non-atomic state transitions (interconnect) thus we need to handle \textbf{transient states}.
 
+\includegraphics*[scale=0.8]{./Image/MSI non-automic.jpg}
 
+It gets crazy enough with just MSI, three states. When we have more states, it gets even more complicated. Thus hard to verify correctness.
 
 \end{document}
 
