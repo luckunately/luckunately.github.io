@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  15 DEC 2023 14:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  15 DEC 2023 23:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -357,392 +357,379 @@ Package pdftex.def Info: ./Image/Amdahl's Law.png  used on input line 42.
 (pdftex.def)             Requested size: 421.57396pt x 180.67455pt.
  [1{c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
- <./Image/The Iron law.png> <./Image/Amdahl's Law.png>]
-<./Image/DRAM_cells.png, id=24, 400.49625pt x 193.9245pt>
+ <./Image/The Iron law.png> <./Image/Amdahl's Law.png>] [2{c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+<./Image/DRAM_cells.png, id=37, 400.49625pt x 193.9245pt>
 File: ./Image/DRAM_cells.png Graphic file (type png)
 <use ./Image/DRAM_cells.png>
-Package pdftex.def Info: ./Image/DRAM_cells.png  used on input line 94.
+Package pdftex.def Info: ./Image/DRAM_cells.png  used on input line 95.
 (pdftex.def)             Requested size: 400.49527pt x 193.92401pt.
- [2{c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 <Image/SRAM_cell.png, id=38, 413.1435pt x 165.61874pt>
 File: Image/SRAM_cell.png Graphic file (type png)
 <use Image/SRAM_cell.png>
-Package pdftex.def Info: Image/SRAM_cell.png  used on input line 100.
+Package pdftex.def Info: Image/SRAM_cell.png  used on input line 101.
 (pdftex.def)             Requested size: 413.14247pt x 165.61833pt.
 <./Image/Memory_hierarchy.png, id=39, 265.59225pt x 136.71075pt>
 File: ./Image/Memory_hierarchy.png Graphic file (type png)
 <use ./Image/Memory_hierarchy.png>
-Package pdftex.def Info: ./Image/Memory_hierarchy.png  used on input line 104.
+Package pdftex.def Info: ./Image/Memory_hierarchy.png  used on input line 105.
 (pdftex.def)             Requested size: 265.59158pt x 136.7104pt.
 <./Image/Memory_addressing_patterns.png, id=40, 401.70074pt x 215.6055pt>
 File: ./Image/Memory_addressing_patterns.png Graphic file (type png)
 <use ./Image/Memory_addressing_patterns.png>
-Package pdftex.def Info: ./Image/Memory_addressing_patterns.png  used on input line 106.
+Package pdftex.def Info: ./Image/Memory_addressing_patterns.png  used on input line 107.
 (pdftex.def)             Requested size: 401.69975pt x 215.60497pt.
  [3 <./Image/DRAM_cells.png> <./Image/SRAM_cell.png> <./Image/Memory_hierarchy.png>]
 <./Image/RAM_addressing.png, id=48, 416.15475pt x 179.4705pt>
 File: ./Image/RAM_addressing.png Graphic file (type png)
 <use ./Image/RAM_addressing.png>
-Package pdftex.def Info: ./Image/RAM_addressing.png  used on input line 110.
+Package pdftex.def Info: ./Image/RAM_addressing.png  used on input line 111.
 (pdftex.def)             Requested size: 416.15373pt x 179.47005pt.
  [4 <./Image/Memory_addressing_patterns.png> <./Image/RAM_addressing.png>]
 <Image/DRAM_structure.png, id=56, 414.348pt x 221.628pt>
 File: Image/DRAM_structure.png Graphic file (type png)
 <use Image/DRAM_structure.png>
-Package pdftex.def Info: Image/DRAM_structure.png  used on input line 129.
+Package pdftex.def Info: Image/DRAM_structure.png  used on input line 130.
 (pdftex.def)             Requested size: 414.34698pt x 221.62746pt.
 <./Image/CPU_mem_hierarchy.png, id=57, 478.78876pt x 337.26pt>
 File: ./Image/CPU_mem_hierarchy.png Graphic file (type png)
 <use ./Image/CPU_mem_hierarchy.png>
-Package pdftex.def Info: ./Image/CPU_mem_hierarchy.png  used on input line 150.
+Package pdftex.def Info: ./Image/CPU_mem_hierarchy.png  used on input line 151.
 (pdftex.def)             Requested size: 383.03152pt x 269.80836pt.
  [5 <./Image/DRAM_structure.png>]
 <./Image/Exploiting temporal locality.png, id=67, 264.38776pt x 111.41624pt>
 File: ./Image/Exploiting temporal locality.png Graphic file (type png)
 <use ./Image/Exploiting temporal locality.png>
-Package pdftex.def Info: ./Image/Exploiting temporal locality.png  used on input line 163.
+Package pdftex.def Info: ./Image/Exploiting temporal locality.png  used on input line 164.
 (pdftex.def)             Requested size: 264.3871pt x 111.41597pt.
  [6 <./Image/CPU_mem_hierarchy.png> <./Image/Exploiting temporal locality.png>] [7]
 <./Image/Spatial locality idea.png, id=83, 143.93774pt x 112.62074pt>
 File: ./Image/Spatial locality idea.png Graphic file (type png)
 <use ./Image/Spatial locality idea.png>
-Package pdftex.def Info: ./Image/Spatial locality idea.png  used on input line 211.
+Package pdftex.def Info: ./Image/Spatial locality idea.png  used on input line 212.
 (pdftex.def)             Requested size: 143.93738pt x 112.62045pt.
 <./Image/Memory block illustration.png, id=85, 397.485pt x 170.43675pt>
 File: ./Image/Memory block illustration.png Graphic file (type png)
 <use ./Image/Memory block illustration.png>
-Package pdftex.def Info: ./Image/Memory block illustration.png  used on input line 217.
+Package pdftex.def Info: ./Image/Memory block illustration.png  used on input line 218.
 (pdftex.def)             Requested size: 397.48402pt x 170.43631pt.
 <./Image/Cache block design.png, id=87, 326.4195pt x 119.84775pt>
 File: ./Image/Cache block design.png Graphic file (type png)
 <use ./Image/Cache block design.png>
-Package pdftex.def Info: ./Image/Cache block design.png  used on input line 221.
+Package pdftex.def Info: ./Image/Cache block design.png  used on input line 222.
 (pdftex.def)             Requested size: 326.41869pt x 119.84744pt.
  [8 <./Image/Spatial locality idea.png> <./Image/Memory block illustration.png> <./Image/Cache block design.png>]
 <./Image/Direct mapped.png, id=99, 657.05475pt x 362.5545pt>
 File: ./Image/Direct mapped.png Graphic file (type png)
 <use ./Image/Direct mapped.png>
-Package pdftex.def Info: ./Image/Direct mapped.png  used on input line 240.
+Package pdftex.def Info: ./Image/Direct mapped.png  used on input line 241.
 (pdftex.def)             Requested size: 361.38123pt x 199.4056pt.
  [9 <./Image/Direct mapped.png>]
 <./Image/Cache Performance Impact.png, id=112, 418.56375pt x 336.0555pt>
 File: ./Image/Cache Performance Impact.png Graphic file (type png)
 <use ./Image/Cache Performance Impact.png>
-Package pdftex.def Info: ./Image/Cache Performance Impact.png  used on input line 303.
+Package pdftex.def Info: ./Image/Cache Performance Impact.png  used on input line 304.
 (pdftex.def)             Requested size: 418.56271pt x 336.05467pt.
  [10] [11 <./Image/Cache Performance Impact.png>]
 <./Image/Writes that hits.png, id=129, 497.4585pt x 312.56775pt>
 File: ./Image/Writes that hits.png Graphic file (type png)
 <use ./Image/Writes that hits.png>
-Package pdftex.def Info: ./Image/Writes that hits.png  used on input line 336.
+Package pdftex.def Info: ./Image/Writes that hits.png  used on input line 337.
 (pdftex.def)             Requested size: 397.96733pt x 250.05452pt.
  [12 <./Image/Writes that hits.png>]
 <./Image/Write that miss.png, id=138, 328.22626pt x 293.898pt>
 File: ./Image/Write that miss.png Graphic file (type png)
 <use ./Image/Write that miss.png>
-Package pdftex.def Info: ./Image/Write that miss.png  used on input line 355.
+Package pdftex.def Info: ./Image/Write that miss.png  used on input line 356.
 (pdftex.def)             Requested size: 328.22545pt x 293.89726pt.
  [13 <./Image/Write that miss.png>]
 <./Image/Eviction in a cache hierarchy.png, id=148, 458.9145pt x 249.93375pt>
 File: ./Image/Eviction in a cache hierarchy.png Graphic file (type png)
 <use ./Image/Eviction in a cache hierarchy.png>
-Package pdftex.def Info: ./Image/Eviction in a cache hierarchy.png  used on input line 381.
+Package pdftex.def Info: ./Image/Eviction in a cache hierarchy.png  used on input line 382.
 (pdftex.def)             Requested size: 413.01923pt x 224.9383pt.
 <./Image/Instruction and Data separation.png, id=150, 455.90324pt x 318.59026pt>
 File: ./Image/Instruction and Data separation.png Graphic file (type png)
 <use ./Image/Instruction and Data separation.png>
-Package pdftex.def Info: ./Image/Instruction and Data separation.png  used on input line 396.
+Package pdftex.def Info: ./Image/Instruction and Data separation.png  used on input line 397.
 (pdftex.def)             Requested size: 455.90211pt x 318.58948pt.
  [14 <./Image/Eviction in a cache hierarchy.png>] [15 <./Image/Instruction and Data separation.png>] [16]
 <./Image/Stride FSM.png, id=173, 245.11575pt x 177.0615pt>
 File: ./Image/Stride FSM.png Graphic file (type png)
 <use ./Image/Stride FSM.png>
-Package pdftex.def Info: ./Image/Stride FSM.png  used on input line 440.
+Package pdftex.def Info: ./Image/Stride FSM.png  used on input line 442.
 (pdftex.def)             Requested size: 245.11514pt x 177.06104pt.
 <./Image/Stride example.png, id=175, 359.54324pt x 235.47975pt>
 File: ./Image/Stride example.png Graphic file (type png)
 <use ./Image/Stride example.png>
-Package pdftex.def Info: ./Image/Stride example.png  used on input line 442.
+Package pdftex.def Info: ./Image/Stride example.png  used on input line 445.
 (pdftex.def)             Requested size: 359.54236pt x 235.47917pt.
  [17 <./Image/Stride FSM.png> <./Image/Stride example.png>] [18]
 <./Image/DIP.png, id=202, 259.56975pt x 300.52275pt>
 File: ./Image/DIP.png Graphic file (type png)
 <use ./Image/DIP.png>
-Package pdftex.def Info: ./Image/DIP.png  used on input line 512.
-(pdftex.def)             Requested size: 259.5691pt x 300.522pt.
+Package pdftex.def Info: ./Image/DIP.png  used on input line 515.
+(pdftex.def)             Requested size: 181.69757pt x 210.36447pt.
  [19]
 <./Image/DIP-SD.png, id=211, 263.18324pt x 284.86424pt>
 File: ./Image/DIP-SD.png Graphic file (type png)
 <use ./Image/DIP-SD.png>
-Package pdftex.def Info: ./Image/DIP-SD.png  used on input line 520.
-(pdftex.def)             Requested size: 263.1826pt x 284.86354pt.
- [20 <./Image/DIP.png>]
-<./Image/paged virtual memory.png, id=219, 403.5075pt x 262.581pt>
+Package pdftex.def Info: ./Image/DIP-SD.png  used on input line 523.
+(pdftex.def)             Requested size: 184.227pt x 199.4036pt.
+ [20 <./Image/DIP.png> <./Image/DIP-SD.png>]
+<./Image/paged virtual memory.png, id=221, 403.5075pt x 262.581pt>
 File: ./Image/paged virtual memory.png Graphic file (type png)
 <use ./Image/paged virtual memory.png>
-Package pdftex.def Info: ./Image/paged virtual memory.png  used on input line 545.
+Package pdftex.def Info: ./Image/paged virtual memory.png  used on input line 548.
 (pdftex.def)             Requested size: 403.50652pt x 262.58034pt.
- [21 <./Image/DIP-SD.png>]
-<./Image/Page table register.png, id=228, 386.04225pt x 257.763pt>
+<./Image/Page table register.png, id=223, 386.04225pt x 257.763pt>
 File: ./Image/Page table register.png Graphic file (type png)
 <use ./Image/Page table register.png>
-Package pdftex.def Info: ./Image/Page table register.png  used on input line 551.
+Package pdftex.def Info: ./Image/Page table register.png  used on input line 554.
 (pdftex.def)             Requested size: 386.0413pt x 257.76237pt.
- [22 <./Image/paged virtual memory.png> <./Image/Page table register.png>]
-<./Image/Multi-level PT.png, id=239, 449.2785pt x 228.855pt>
+ [21 <./Image/paged virtual memory.png>] [22 <./Image/Page table register.png>]
+<./Image/Multi-level PT.png, id=241, 449.2785pt x 228.855pt>
 File: ./Image/Multi-level PT.png Graphic file (type png)
 <use ./Image/Multi-level PT.png>
-Package pdftex.def Info: ./Image/Multi-level PT.png  used on input line 600.
+Package pdftex.def Info: ./Image/Multi-level PT.png  used on input line 603.
 (pdftex.def)             Requested size: 359.42328pt x 183.08423pt.
- [23] [24 <./Image/Multi-level PT.png>]
-<./Image/Types of address translation.png, id=255, 427.5975pt x 257.16075pt>
+ [23 <./Image/Multi-level PT.png>]
+<./Image/Types of address translation.png, id=250, 427.5975pt x 257.16075pt>
 File: ./Image/Types of address translation.png Graphic file (type png)
 <use ./Image/Types of address translation.png>
-Package pdftex.def Info: ./Image/Types of address translation.png  used on input line 634.
+Package pdftex.def Info: ./Image/Types of address translation.png  used on input line 637.
 (pdftex.def)             Requested size: 427.59645pt x 257.16011pt.
-<./Image/VA cache miss.png, id=257, 304.13625pt x 241.50224pt>
+ [24 <./Image/Types of address translation.png>]
+<./Image/VA cache miss.png, id=260, 304.13625pt x 241.50224pt>
 File: ./Image/VA cache miss.png Graphic file (type png)
 <use ./Image/VA cache miss.png>
-Package pdftex.def Info: ./Image/VA cache miss.png  used on input line 645.
-(pdftex.def)             Requested size: 304.1355pt x 241.50163pt.
- [25 <./Image/Types of address translation.png>]
-<./Image/Overlapping TLB and L1 cache accesses.png, id=267, 394.47375pt x 313.77225pt>
+Package pdftex.def Info: ./Image/VA cache miss.png  used on input line 648.
+(pdftex.def)             Requested size: 212.8939pt x 169.0504pt.
+<./Image/Overlapping TLB and L1 cache accesses.png, id=262, 394.47375pt x 313.77225pt>
 File: ./Image/Overlapping TLB and L1 cache accesses.png Graphic file (type png)
 <use ./Image/Overlapping TLB and L1 cache accesses.png>
-Package pdftex.def Info: ./Image/Overlapping TLB and L1 cache accesses.png  used on input line 649.
-(pdftex.def)             Requested size: 394.47278pt x 313.77147pt.
- [26 <./Image/VA cache miss.png> <./Image/Overlapping TLB and L1 cache accesses.png>]
-<./Image/Simple pipeline.png, id=278, 370.986pt x 208.98074pt>
+Package pdftex.def Info: ./Image/Overlapping TLB and L1 cache accesses.png  used on input line 652.
+(pdftex.def)             Requested size: 276.12973pt x 219.63907pt.
+ [25 <./Image/VA cache miss.png> <./Image/Overlapping TLB and L1 cache accesses.png>]
+<./Image/Simple pipeline.png, id=274, 370.986pt x 208.98074pt>
 File: ./Image/Simple pipeline.png Graphic file (type png)
 <use ./Image/Simple pipeline.png>
-Package pdftex.def Info: ./Image/Simple pipeline.png  used on input line 687.
-(pdftex.def)             Requested size: 370.98508pt x 208.98022pt.
- [27]
-<./Image/Problematic pipeline.png, id=286, 389.65575pt x 241.50224pt>
+Package pdftex.def Info: ./Image/Simple pipeline.png  used on input line 689.
+(pdftex.def)             Requested size: 259.68842pt x 146.2855pt.
+ [26 <./Image/Simple pipeline.png>]
+<./Image/Problematic pipeline.png, id=284, 389.65575pt x 241.50224pt>
 File: ./Image/Problematic pipeline.png Graphic file (type png)
 <use ./Image/Problematic pipeline.png>
-Package pdftex.def Info: ./Image/Problematic pipeline.png  used on input line 704.
-(pdftex.def)             Requested size: 389.65479pt x 241.50163pt.
- [28 <./Image/Simple pipeline.png>]
-<./Image/pipeline control signal.png, id=295, 370.38374pt x 202.95825pt>
+Package pdftex.def Info: ./Image/Problematic pipeline.png  used on input line 706.
+(pdftex.def)             Requested size: 272.75716pt x 169.0504pt.
+<./Image/pipeline control signal.png, id=286, 370.38374pt x 202.95825pt>
 File: ./Image/pipeline control signal.png Graphic file (type png)
 <use ./Image/pipeline control signal.png>
-Package pdftex.def Info: ./Image/pipeline control signal.png  used on input line 710.
-(pdftex.def)             Requested size: 370.38283pt x 202.95775pt.
-<./Image/Pipeline Hazards.png, id=297, 434.8245pt x 136.1085pt>
+Package pdftex.def Info: ./Image/pipeline control signal.png  used on input line 712.
+(pdftex.def)             Requested size: 259.26685pt x 142.0698pt.
+<./Image/Pipeline Hazards.png, id=288, 434.8245pt x 136.1085pt>
 File: ./Image/Pipeline Hazards.png Graphic file (type png)
 <use ./Image/Pipeline Hazards.png>
-Package pdftex.def Info: ./Image/Pipeline Hazards.png  used on input line 716.
-(pdftex.def)             Requested size: 434.82341pt x 136.10815pt.
- [29 <./Image/Problematic pipeline.png> <./Image/pipeline control signal.png>]
-<./Image/Structural Hazard example.png, id=307, 348.70274pt x 243.309pt>
+Package pdftex.def Info: ./Image/Pipeline Hazards.png  used on input line 718.
+(pdftex.def)             Requested size: 304.37505pt x 95.27528pt.
+ [27 <./Image/Problematic pipeline.png> <./Image/pipeline control signal.png>]
+<./Image/Structural Hazard example.png, id=299, 348.70274pt x 243.309pt>
 File: ./Image/Structural Hazard example.png Graphic file (type png)
 <use ./Image/Structural Hazard example.png>
-Package pdftex.def Info: ./Image/Structural Hazard example.png  used on input line 742.
-(pdftex.def)             Requested size: 348.70187pt x 243.30841pt.
- [30 <./Image/Pipeline Hazards.png>]
-<./Image/Structural Hazard solution.png, id=317, 386.6445pt x 240.9pt>
+Package pdftex.def Info: ./Image/Structural Hazard example.png  used on input line 744.
+(pdftex.def)             Requested size: 244.09024pt x 170.31514pt.
+ [28 <./Image/Pipeline Hazards.png>]
+<./Image/Structural Hazard solution.png, id=309, 386.6445pt x 240.9pt>
 File: ./Image/Structural Hazard solution.png Graphic file (type png)
 <use ./Image/Structural Hazard solution.png>
-Package pdftex.def Info: ./Image/Structural Hazard solution.png  used on input line 746.
-(pdftex.def)             Requested size: 386.64355pt x 240.8994pt.
-<./Image/RAW instructions.png, id=319, 108.405pt x 79.497pt>
+Package pdftex.def Info: ./Image/Structural Hazard solution.png  used on input line 748.
+(pdftex.def)             Requested size: 270.6493pt x 168.62883pt.
+<./Image/RAW instructions.png, id=311, 108.405pt x 79.497pt>
 File: ./Image/RAW instructions.png Graphic file (type png)
 <use ./Image/RAW instructions.png>
-Package pdftex.def Info: ./Image/RAW instructions.png  used on input line 754.
-(pdftex.def)             Requested size: 108.40472pt x 79.4968pt.
- [31 <./Image/Structural Hazard example.png> <./Image/Structural Hazard solution.png>]
-<./Image/Forwarding.png, id=332, 451.08525pt x 240.29774pt>
+Package pdftex.def Info: ./Image/RAW instructions.png  used on input line 756.
+(pdftex.def)             Requested size: 75.88297pt x 55.6475pt.
+<./Image/Forwarding.png, id=313, 451.08525pt x 240.29774pt>
 File: ./Image/Forwarding.png Graphic file (type png)
 <use ./Image/Forwarding.png>
-Package pdftex.def Info: ./Image/Forwarding.png  used on input line 758.
+Package pdftex.def Info: ./Image/Forwarding.png  used on input line 760.
 (pdftex.def)             Requested size: 360.8687pt x 192.23845pt.
- [32 <./Image/RAW instructions.png> <./Image/Forwarding.png>]
-<./Image/true dependency example.png, id=345, 286.671pt x 60.225pt>
+ [29 <./Image/Structural Hazard example.png> <./Image/Structural Hazard solution.png> <./Image/RAW instructions.png>] [30 <./Image/Forwarding.png>]
+<./Image/true dependency example.png, id=336, 286.671pt x 60.225pt>
 File: ./Image/true dependency example.png Graphic file (type png)
 <use ./Image/true dependency example.png>
-Package pdftex.def Info: ./Image/true dependency example.png  used on input line 810.
+Package pdftex.def Info: ./Image/true dependency example.png  used on input line 812.
 (pdftex.def)             Requested size: 286.67029pt x 60.22484pt.
-<./Image/Anti-dependency example.png, id=347, 163.812pt x 54.80475pt>
+<./Image/Anti-dependency example.png, id=338, 163.812pt x 54.80475pt>
 File: ./Image/Anti-dependency example.png Graphic file (type png)
 <use ./Image/Anti-dependency example.png>
-Package pdftex.def Info: ./Image/Anti-dependency example.png  used on input line 813.
+Package pdftex.def Info: ./Image/Anti-dependency example.png  used on input line 816.
 (pdftex.def)             Requested size: 163.81158pt x 54.8046pt.
-<./Image/output dependency example.png, id=349, 160.80075pt x 54.80475pt>
+<./Image/output dependency example.png, id=340, 160.80075pt x 54.80475pt>
 File: ./Image/output dependency example.png Graphic file (type png)
 <use ./Image/output dependency example.png>
-Package pdftex.def Info: ./Image/output dependency example.png  used on input line 820.
+Package pdftex.def Info: ./Image/output dependency example.png  used on input line 824.
 (pdftex.def)             Requested size: 160.80034pt x 54.8046pt.
- [33 <./Image/true dependency example.png> <./Image/Anti-dependency example.png>]
-<./Image/ALU differnt length.png, id=362, 609.477pt x 314.3745pt>
+ [31 <./Image/true dependency example.png> <./Image/Anti-dependency example.png> <./Image/output dependency example.png>]
+<./Image/ALU differnt length.png, id=357, 609.477pt x 314.3745pt>
 File: ./Image/ALU differnt length.png Graphic file (type png)
 <use ./Image/ALU differnt length.png>
-Package pdftex.def Info: ./Image/ALU differnt length.png  used on input line 831.
-(pdftex.def)             Requested size: 426.631pt x 220.06064pt.
-<./Image/Score board.png, id=364, 139.722pt x 68.6565pt>
+Package pdftex.def Info: ./Image/ALU differnt length.png  used on input line 835.
+(pdftex.def)             Requested size: 304.73776pt x 157.18686pt.
+<./Image/Score board.png, id=359, 139.722pt x 68.6565pt>
 File: ./Image/Score board.png Graphic file (type png)
 <use ./Image/Score board.png>
-Package pdftex.def Info: ./Image/Score board.png  used on input line 841.
+Package pdftex.def Info: ./Image/Score board.png  used on input line 845.
 (pdftex.def)             Requested size: 139.72165pt x 68.65631pt.
- [34 <./Image/output dependency example.png> <./Image/ALU differnt length.png> <./Image/Score board.png>] [35] [36]
-<Image/precise exception.jpg, id=394, 230.36063pt x 125.71968pt>
+ [32 <./Image/ALU differnt length.png> <./Image/Score board.png>] [33] [34]
+<Image/precise exception.jpg, id=386, 230.36063pt x 125.71968pt>
 File: Image/precise exception.jpg Graphic file (type jpg)
 <use Image/precise exception.jpg>
-Package pdftex.def Info: Image/precise exception.jpg  used on input line 937.
+Package pdftex.def Info: Image/precise exception.jpg  used on input line 941.
 (pdftex.def)             Requested size: 230.36005pt x 125.71936pt.
- [37 <./Image/precise exception.jpg>]
-<Image/ROB figure.jpg, id=409, 399.74344pt x 233.37187pt>
+ [35 <./Image/precise exception.jpg>]
+<Image/ROB figure.jpg, id=401, 399.74344pt x 233.37187pt>
 File: Image/ROB figure.jpg Graphic file (type jpg)
 <use Image/ROB figure.jpg>
-Package pdftex.def Info: Image/ROB figure.jpg  used on input line 973.
-(pdftex.def)             Requested size: 399.74245pt x 233.37129pt.
-<Image/ROB execution stage.jpg, id=411, 443.40656pt x 25.59563pt>
+Package pdftex.def Info: Image/ROB figure.jpg  used on input line 977.
+(pdftex.def)             Requested size: 279.81848pt x 163.35919pt.
+<Image/ROB execution stage.jpg, id=403, 443.40656pt x 25.59563pt>
 File: Image/ROB execution stage.jpg Graphic file (type jpg)
 <use Image/ROB execution stage.jpg>
-Package pdftex.def Info: Image/ROB execution stage.jpg  used on input line 983.
+Package pdftex.def Info: Image/ROB execution stage.jpg  used on input line 987.
 (pdftex.def)             Requested size: 399.06221pt x 23.03583pt.
- [38 <./Image/ROB figure.jpg> <./Image/ROB execution stage.jpg>]
-<Image/Stactically Scheduled Superscalar.jpg, id=421, 209.28188pt x 116.68594pt>
+ [36 <./Image/ROB figure.jpg> <./Image/ROB execution stage.jpg>]
+<Image/Stactically Scheduled Superscalar.jpg, id=413, 209.28188pt x 116.68594pt>
 File: Image/Stactically Scheduled Superscalar.jpg Graphic file (type jpg)
 <use Image/Stactically Scheduled Superscalar.jpg>
-Package pdftex.def Info: Image/Stactically Scheduled Superscalar.jpg  used on input line 1009.
+Package pdftex.def Info: Image/Stactically Scheduled Superscalar.jpg  used on input line 1013.
 (pdftex.def)             Requested size: 209.28134pt x 116.68564pt.
-<Image/2-Issue In-order Superscalar.jpg, id=423, 441.14813pt x 142.28156pt>
+<Image/2-Issue In-order Superscalar.jpg, id=415, 441.14813pt x 142.28156pt>
 File: Image/2-Issue In-order Superscalar.jpg Graphic file (type jpg)
 <use Image/2-Issue In-order Superscalar.jpg>
-Package pdftex.def Info: Image/2-Issue In-order Superscalar.jpg  used on input line 1016.
+Package pdftex.def Info: Image/2-Issue In-order Superscalar.jpg  used on input line 1020.
 (pdftex.def)             Requested size: 441.14705pt x 142.2812pt.
- [39 <./Image/Stactically Scheduled Superscalar.jpg> <./Image/2-Issue In-order Superscalar.jpg>]
-<Image/Tomasulo with too wide issue.jpg, id=434, 484.81125pt x 290.58563pt>
+<Image/Tomasulo with too wide issue.jpg, id=417, 484.81125pt x 290.58563pt>
 File: Image/Tomasulo with too wide issue.jpg Graphic file (type jpg)
 <use Image/Tomasulo with too wide issue.jpg>
-Package pdftex.def Info: Image/Tomasulo with too wide issue.jpg  used on input line 1025.
+Package pdftex.def Info: Image/Tomasulo with too wide issue.jpg  used on input line 1029.
 (pdftex.def)             Requested size: 387.84952pt x 232.46881pt.
- [40 <./Image/Tomasulo with too wide issue.jpg>]
-<./Image/2 bit predictors.png, id=443, 322.806pt x 227.04825pt>
+ [37 <./Image/Stactically Scheduled Superscalar.jpg> <./Image/2-Issue In-order Superscalar.jpg>] [38 <./Image/Tomasulo with too wide issue.jpg>]
+<./Image/2 bit predictors.png, id=435, 322.806pt x 227.04825pt>
 File: ./Image/2 bit predictors.png Graphic file (type png)
 <use ./Image/2 bit predictors.png>
-Package pdftex.def Info: ./Image/2 bit predictors.png  used on input line 1048.
-(pdftex.def)             Requested size: 322.8052pt x 227.04768pt.
-<./Image/BTB.png, id=445, 355.3275pt x 213.1965pt>
+Package pdftex.def Info: ./Image/2 bit predictors.png  used on input line 1052.
+(pdftex.def)             Requested size: 225.96265pt x 158.93268pt.
+<./Image/BTB.png, id=437, 355.3275pt x 213.1965pt>
 File: ./Image/BTB.png Graphic file (type png)
 <use ./Image/BTB.png>
-Package pdftex.def Info: ./Image/BTB.png  used on input line 1060.
-(pdftex.def)             Requested size: 355.32661pt x 213.19597pt.
- [41 <./Image/2 bit predictors.png>]
-<./Image/one bit correlated branch example.jpg, id=456, 370.38374pt x 247.67531pt>
+Package pdftex.def Info: ./Image/BTB.png  used on input line 1064.
+(pdftex.def)             Requested size: 248.72754pt x 149.23653pt.
+ [39 <./Image/2 bit predictors.png> <./Image/BTB.png>]
+<./Image/one bit correlated branch example.jpg, id=450, 370.38374pt x 247.67531pt>
 File: ./Image/one bit correlated branch example.jpg Graphic file (type jpg)
 <use ./Image/one bit correlated branch example.jpg>
-Package pdftex.def Info: ./Image/one bit correlated branch example.jpg  used on input line 1085.
-(pdftex.def)             Requested size: 370.38283pt x 247.6747pt.
- [42 <./Image/BTB.png>]
-<./Image/Shift Register.jpg, id=467, 497.60907pt x 97.86563pt>
+Package pdftex.def Info: ./Image/one bit correlated branch example.jpg  used on input line 1089.
+(pdftex.def)             Requested size: 259.26685pt x 173.37152pt.
+ [40 <./Image/one bit correlated branch example.jpg>]
+<./Image/Shift Register.jpg, id=461, 497.60907pt x 97.86563pt>
 File: ./Image/Shift Register.jpg Graphic file (type jpg)
 <use ./Image/Shift Register.jpg>
-Package pdftex.def Info: ./Image/Shift Register.jpg  used on input line 1100.
-(pdftex.def)             Requested size: 497.60785pt x 97.86537pt.
-
-Overfull \hbox (54.51143pt too wide) in paragraph at lines 1100--1101
-[][] 
- []
-
-[43 <./Image/one bit correlated branch example.jpg> <./Image/Shift Register.jpg>]
-<./Image/Store buffer.jpg, id=479, 325.215pt x 228.855pt>
+Package pdftex.def Info: ./Image/Shift Register.jpg  used on input line 1104.
+(pdftex.def)             Requested size: 348.32397pt x 68.50545pt.
+ [41 <./Image/Shift Register.jpg>]
+<./Image/Store buffer.jpg, id=476, 325.215pt x 228.855pt>
 File: ./Image/Store buffer.jpg Graphic file (type jpg)
 <use ./Image/Store buffer.jpg>
-Package pdftex.def Info: ./Image/Store buffer.jpg  used on input line 1134.
-(pdftex.def)             Requested size: 325.2142pt x 228.85443pt.
- [44]
-<./Image/Store Buffer Plus.jpg, id=492, 395.22656pt x 255.95625pt>
+Package pdftex.def Info: ./Image/Store buffer.jpg  used on input line 1138.
+(pdftex.def)             Requested size: 227.64894pt x 160.1974pt.
+<./Image/Store Buffer Plus.jpg, id=478, 395.22656pt x 255.95625pt>
 File: ./Image/Store Buffer Plus.jpg Graphic file (type jpg)
 <use ./Image/Store Buffer Plus.jpg>
-Package pdftex.def Info: ./Image/Store Buffer Plus.jpg  used on input line 1140.
-(pdftex.def)             Requested size: 395.22559pt x 255.95561pt.
- [45 <./Image/Store buffer.jpg> <./Image/Store Buffer Plus.jpg>]
-<./Image/load dependency predictor.png, id=500, 379.4175pt x 225.2415pt>
+Package pdftex.def Info: ./Image/Store Buffer Plus.jpg  used on input line 1144.
+(pdftex.def)             Requested size: 276.6567pt x 179.16814pt.
+ [42 <./Image/Store buffer.jpg>]
+<./Image/load dependency predictor.png, id=486, 379.4175pt x 225.2415pt>
 File: ./Image/load dependency predictor.png Graphic file (type png)
 <use ./Image/load dependency predictor.png>
-Package pdftex.def Info: ./Image/load dependency predictor.png  used on input line 1164.
-(pdftex.def)             Requested size: 379.41656pt x 225.24094pt.
- [46 <./Image/load dependency predictor.png>] [47] [48]
-<./Image/True Logical Constraints.png, id=525, 159.59625pt x 175.25475pt>
+Package pdftex.def Info: ./Image/load dependency predictor.png  used on input line 1168.
+(pdftex.def)             Requested size: 265.59042pt x 157.66795pt.
+ [43 <./Image/Store Buffer Plus.jpg>] [44 <./Image/load dependency predictor.png>] [45] [46]
+<./Image/True Logical Constraints.png, id=517, 159.59625pt x 175.25475pt>
 File: ./Image/True Logical Constraints.png Graphic file (type png)
 <use ./Image/True Logical Constraints.png>
-Package pdftex.def Info: ./Image/True Logical Constraints.png  used on input line 1247.
+Package pdftex.def Info: ./Image/True Logical Constraints.png  used on input line 1252.
 (pdftex.def)             Requested size: 159.59584pt x 175.2543pt.
- [49 <./Image/True Logical Constraints.png>]
-<./Image/Weak Ordering.png, id=537, 479.99326pt x 92.14426pt>
+<./Image/Weak Ordering.png, id=519, 479.99326pt x 92.14426pt>
 File: ./Image/Weak Ordering.png Graphic file (type png)
 <use ./Image/Weak Ordering.png>
-Package pdftex.def Info: ./Image/Weak Ordering.png  used on input line 1255.
+Package pdftex.def Info: ./Image/Weak Ordering.png  used on input line 1260.
 (pdftex.def)             Requested size: 383.99512pt x 73.71548pt.
-<./Image/Fences Example.png, id=539, 409.53pt x 87.9285pt>
+<./Image/Fences Example.png, id=521, 409.53pt x 87.9285pt>
 File: ./Image/Fences Example.png Graphic file (type png)
 <use ./Image/Fences Example.png>
-Package pdftex.def Info: ./Image/Fences Example.png  used on input line 1263.
+Package pdftex.def Info: ./Image/Fences Example.png  used on input line 1268.
 (pdftex.def)             Requested size: 409.52899pt x 87.92827pt.
-<./Image/Ilustrating WO.png, id=541, 251.13824pt x 205.36725pt>
+ [47 <./Image/True Logical Constraints.png> <./Image/Weak Ordering.png>]
+<./Image/Ilustrating WO.png, id=535, 251.13824pt x 205.36725pt>
 File: ./Image/Ilustrating WO.png Graphic file (type png)
 <use ./Image/Ilustrating WO.png>
-Package pdftex.def Info: ./Image/Ilustrating WO.png  used on input line 1267.
-(pdftex.def)             Requested size: 251.13763pt x 205.36674pt.
- [50 <./Image/Weak Ordering.png> <./Image/Fences Example.png> <./Image/Ilustrating WO.png>]
-<./Image/Acquire and Release.png, id=555, 248.127pt x 205.36725pt>
+Package pdftex.def Info: ./Image/Ilustrating WO.png  used on input line 1272.
+(pdftex.def)             Requested size: 175.79556pt x 143.75609pt.
+<./Image/Acquire and Release.png, id=537, 248.127pt x 205.36725pt>
 File: ./Image/Acquire and Release.png Graphic file (type png)
 <use ./Image/Acquire and Release.png>
-Package pdftex.def Info: ./Image/Acquire and Release.png  used on input line 1273.
-(pdftex.def)             Requested size: 248.12637pt x 205.36674pt.
- [51 <./Image/Acquire and Release.png>]
-<./Image/Coherence Invariants.png, id=566, 389.65575pt x 128.27925pt>
+Package pdftex.def Info: ./Image/Acquire and Release.png  used on input line 1278.
+(pdftex.def)             Requested size: 173.6877pt x 143.75609pt.
+ [48 <./Image/Fences Example.png> <./Image/Ilustrating WO.png> <./Image/Acquire and Release.png>]
+<./Image/Coherence Invariants.png, id=551, 389.65575pt x 128.27925pt>
 File: ./Image/Coherence Invariants.png Graphic file (type png)
 <use ./Image/Coherence Invariants.png>
-Package pdftex.def Info: ./Image/Coherence Invariants.png  used on input line 1306.
+Package pdftex.def Info: ./Image/Coherence Invariants.png  used on input line 1311.
 (pdftex.def)             Requested size: 389.65479pt x 128.27893pt.
- [52 <./Image/Coherence Invariants.png>]
-<./Image/Cache Controller.png, id=577, 158.39175pt x 136.1085pt>
+ [49]
+<./Image/Cache Controller.png, id=562, 158.39175pt x 136.1085pt>
 File: ./Image/Cache Controller.png Graphic file (type png)
 <use ./Image/Cache Controller.png>
-Package pdftex.def Info: ./Image/Cache Controller.png  used on input line 1323.
+Package pdftex.def Info: ./Image/Cache Controller.png  used on input line 1328.
 (pdftex.def)             Requested size: 158.39136pt x 136.10815pt.
- [53 <./Image/Cache Controller.png>]
-<./Image/Directory-based cache coherence.jpg, id=588, 216.81pt x 140.02313pt>
+ [50 <./Image/Coherence Invariants.png> <./Image/Cache Controller.png>] [51]
+<./Image/Directory-based cache coherence.jpg, id=582, 216.81pt x 140.02313pt>
 File: ./Image/Directory-based cache coherence.jpg Graphic file (type jpg)
 <use ./Image/Directory-based cache coherence.jpg>
-Package pdftex.def Info: ./Image/Directory-based cache coherence.jpg  used on input line 1374.
+Package pdftex.def Info: ./Image/Directory-based cache coherence.jpg  used on input line 1381.
 (pdftex.def)             Requested size: 216.80946pt x 140.02278pt.
- [54] [55 <./Image/Directory-based cache coherence.jpg>]
-<./Image/Coherence miss and cache size.jpg, id=610, 324.46219pt x 232.61906pt>
+ [52 <./Image/Directory-based cache coherence.jpg>] [53]
+<./Image/Coherence miss and cache size.jpg, id=602, 324.46219pt x 232.61906pt>
 File: ./Image/Coherence miss and cache size.jpg Graphic file (type jpg)
 <use ./Image/Coherence miss and cache size.jpg>
-Package pdftex.def Info: ./Image/Coherence miss and cache size.jpg  used on input line 1417.
-(pdftex.def)             Requested size: 324.46138pt x 232.61848pt.
-<./Image/Coherence misses and core number.jpg, id=612, 283.0575pt x 232.61906pt>
+Package pdftex.def Info: ./Image/Coherence miss and cache size.jpg  used on input line 1424.
+(pdftex.def)             Requested size: 227.12196pt x 162.83221pt.
+<./Image/Coherence misses and core number.jpg, id=604, 283.0575pt x 232.61906pt>
 File: ./Image/Coherence misses and core number.jpg Graphic file (type jpg)
 <use ./Image/Coherence misses and core number.jpg>
-Package pdftex.def Info: ./Image/Coherence misses and core number.jpg  used on input line 1424.
-(pdftex.def)             Requested size: 283.0568pt x 232.61848pt.
- [56 <./Image/Coherence miss and cache size.jpg>]
-<./Image/Coherence miss and block size.jpg, id=621, 346.29375pt x 322.95656pt>
+Package pdftex.def Info: ./Image/Coherence misses and core number.jpg  used on input line 1431.
+(pdftex.def)             Requested size: 198.13889pt x 162.83221pt.
+<./Image/Coherence miss and block size.jpg, id=606, 346.29375pt x 322.95656pt>
 File: ./Image/Coherence miss and block size.jpg Graphic file (type jpg)
 <use ./Image/Coherence miss and block size.jpg>
-Package pdftex.def Info: ./Image/Coherence miss and block size.jpg  used on input line 1432.
-(pdftex.def)             Requested size: 346.2929pt x 322.95576pt.
- [57 <./Image/Coherence misses and core number.jpg>] [58 <./Image/Coherence miss and block size.jpg>]
-<./Image/MSI non-automic.jpg, id=634, 493.0922pt x 158.84344pt>
+Package pdftex.def Info: ./Image/Coherence miss and block size.jpg  used on input line 1439.
+(pdftex.def)             Requested size: 242.40396pt x 226.06804pt.
+ [54 <./Image/Coherence miss and cache size.jpg> <./Image/Coherence misses and core number.jpg>]
+<./Image/MSI non-automic.jpg, id=615, 493.0922pt x 158.84344pt>
 File: ./Image/MSI non-automic.jpg Graphic file (type jpg)
 <use ./Image/MSI non-automic.jpg>
-Package pdftex.def Info: ./Image/MSI non-automic.jpg  used on input line 1452.
+Package pdftex.def Info: ./Image/MSI non-automic.jpg  used on input line 1459.
 (pdftex.def)             Requested size: 394.47429pt x 127.07492pt.
- [59 <./Image/MSI non-automic.jpg>] (./CPEN411_summary.aux)
+ [55 <./Image/Coherence miss and block size.jpg>] [56 <./Image/MSI non-automic.jpg>] (./CPEN411_summary.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-10-23>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 12882 strings out of 474397
- 205949 string characters out of 5754184
- 1936036 words of memory out of 5000000
+ 12879 strings out of 474397
+ 205928 string characters out of 5754184
+ 1938036 words of memory out of 5000000
  34621 multiletter control sequences out of 15000+600000
  568330 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -751,10 +738,10 @@ Here is how much of TeX's memory you used:
 pdfTeX warning (dest): name{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.217.3594&rep=rep1&type=pdf} has been referenced but does not exist, replaced by a fixed one
 
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on CPEN411_summary.pdf (59 pages, 2980560 bytes).
+Output written on CPEN411_summary.pdf (56 pages, 2980790 bytes).
 PDF statistics:
- 764 PDF objects out of 1000 (max. 8388607)
- 496 compressed objects within 5 object streams
- 189 named destinations out of 1000 (max. 500000)
+ 751 PDF objects out of 1000 (max. 8388607)
+ 486 compressed objects within 5 object streams
+ 186 named destinations out of 1000 (max. 500000)
  782 words of extra memory for PDF output out of 10000 (max. 10000000)
 

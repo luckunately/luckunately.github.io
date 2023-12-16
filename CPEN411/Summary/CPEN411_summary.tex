@@ -87,10 +87,11 @@ First of all, some definitions:
 
 Storage: SSD or HDD
 
-DARM: random-access semiconductor memory. Usually consisting of a tiny \textbf{capacitor} and a \textbf{transistor}.
+DRAM: random-access semiconductor memory. Usually consisting of a tiny \textbf{capacitor} and a \textbf{transistor}.
 DRAM requires an external memory refresh because of slow leakage on the capacitor.
 
 One trick to not block any code: rewrite a certain portion of it at once, and split it averagely into the refresh cycle. This way DRAM does not block any code for every refresh cycle.
+
 \includegraphics{./Image/DRAM_cells.png}
 
 SRAM: A type of random access memory. Unlike DRAM, it does not need to refresh.
@@ -293,7 +294,7 @@ Some ideas for choosing \textbf{replacement victim}
           \end{itemize}
     \item Conflict misses
           \begin{itemize}
-              \item set size < number of accesses that map to given set
+              \item set size $<$ number of accesses that map to given set
               \item access would not be a miss if the cache were fully associative
           \end{itemize}
 \end{itemize}
@@ -347,7 +348,7 @@ Victim cache is a small fully associative cache that stores \textbf{recently evi
           \begin{itemize}
               \item Write is performed directly to the main memory without loading to the cache. So no read.
               \item Reduces cache pollution by avoiding unnecessary reads.
-              \item More suitable for write\-intensive workloads where reads of recently written data are less likely.
+              \item More suitable for write-intensive workloads where reads of recently written data are less likely.
               \item Not able to take advantage of spatial locality
               \item Inefficient use of cache when read is following write
           \end{itemize}
@@ -358,7 +359,7 @@ Victim cache is a small fully associative cache that stores \textbf{recently evi
 \begin{itemize}
     \item inclusive
           \begin{itemize}
-              \item Lower-level caches contain a superset of the data present in higher\-level caches.
+              \item Lower-level caches contain a superset of the data present in higher-level caches.
               \item E.g., if present in L1, present in L2
               \item Increased storage requirements since stored in multiple cache.
               \item Fetching is simple since only need to check one level.
@@ -437,7 +438,9 @@ Prefetching is a technique used in computer systems to improve memory access per
               \item Track previous address, stride, correctness.
               \item if predictions confirmed, keep prefetching:
               \item An FSM approach:
-              \item \includegraphics*{./Image/Stride FSM.png}
+
+                    \includegraphics*{./Image/Stride FSM.png}
+
               \item An example flow chart:
               \item \includegraphics*{./Image/Stride example.png}
           \end{itemize}
@@ -445,7 +448,7 @@ Prefetching is a technique used in computer systems to improve memory access per
     \item Prefetching pros and cons:
           \begin{itemize}
               \item Reduced memory latency.
-              \item Imrove memory subsystem throughput, allowing the processor to continue executing instructions without waiting for memory accesses.
+              \item Improve memory subsystem throughput, allowing the processor to continue executing instructions without waiting for memory accesses.
               \item Enhance cache utilization: Prefetching helps make more efficient use of the cache space by populating it with data that is likely to be accessed soon.
               \item However not always Beneficial, incorrect prefetching decisions can lead to wasted bandwidth and can cause pollution. If the miss rate is too high, the CPU will turn the predictor off.
           \end{itemize}
@@ -509,7 +512,7 @@ The Wikipedia page gives you a high-level overview:
 
           The figure below demonstrates the working of DIP. Let MTD be the main tag directory of the cache, The two competing policies LRU and BIP are each implemented in a separate Auxiliary Tag Directory (ATD). Both ATD-LRU and ATD-BIP have the same associativity as the MTD. The access stream visible to MTD is also applied to both of them. A saturating counter, which we call \textit{Policy Selector} (PSEL), keeps track of which of the two incurs a few misses. All operations on PSEL are done using saturating arithmetic. A miss in LRU increments PSEL and a miss in BIP decrements PSEL. The most significant Bit (MSB) of OSEL is an indicator of which of the two policies incurs fewer misses. If MSB od PSEL is 1, MTD uses BIP, otherwise LRU.
 
-          \includegraphics*{./Image/DIP.png}
+          \includegraphics*[scale=0.7]{./Image/DIP.png}
 
           However, it does require two more ATDs which can be troublesome. So instead, we introduce \textbf{Set Dueling:}
 
@@ -517,7 +520,7 @@ The Wikipedia page gives you a high-level overview:
 
           This kind of DIP is called \textit{DIP-SD}
 
-          \includegraphics*{./Image/DIP-SD.png}
+          \includegraphics*[scale=0.7]{./Image/DIP-SD.png}
 
           A miss in LRU sets increments PSEL whereas a miss in BIP decrements PSEL. If the MSB of PSEL is 0, the follower sets use the LRU policy. Otherwise, the follower uses BIP.
 \end{enumerate}
@@ -556,7 +559,7 @@ The address of the virtual page number in the page table register holds the phys
 
 The size of the table depends on the bit number of the virtual page number since the page table should cover all of the virtual pages.
 
-For example, for a n\-bit virtual address and m\-bit page offset, the virtual page number is (n-m) bit. So the number of entries for the table is $2^{n-m}$
+For example, for a n-bit virtual address and m-bit page offset, the virtual page number is (n-m) bit. So the number of entries for the table is $2^{n-m}$
 
 For programs that use virtual memory, address translation is required for every data mem access and every instruction fetch since it does not have the actual address of data.
 
@@ -613,7 +616,7 @@ Benefits:
               \item page is not user-accessible
               \item page is R/O (read-only) but it tries to write/execute.
               \item program terminated (unless caught)
-              \item Meltdown avoided this by misspeculating.
+              \item Meltdown avoided this by mis-speculating.
           \end{itemize}
 \end{itemize}
 
@@ -642,15 +645,15 @@ Upon page fault, we evict the old page and bring in the new page. When switching
 
 Increasing the size of the L1 cache would also increase the misses due to flushing VA L1 caches:
 
-\includegraphics*{./Image/VA cache miss.png}
+\includegraphics*[scale = 0.7]{./Image/VA cache miss.png}
 
 \subsection*{Overlapping TLB and L1 cache accesses}
 
-\includegraphics*{./Image/Overlapping TLB and L1 cache accesses.png}
+\includegraphics*[scale = 0.7]{./Image/Overlapping TLB and L1 cache accesses.png}
 
 Example problem:
 
-Suppose pages are 4KB. D cache is 2\-way set-associative maximum cache size?
+Suppose pages are 4KB. D cache is a 2-way set-associative maximum cache size?
 
 Page = 4kb = $2^{12}\implies$ set = 6bit = $2^6$ and byte = 6 bit = $2^6$.
 
@@ -664,7 +667,6 @@ Possible solutions:
     \item bigger page sizes. (Increase the page offset to be 13)
     \item more associativity. (Allow a 2\-way associativity)
     \item Make sure the VA keeps the extra index bit the same as before. So maybe there is only half of VA that it is allowed to get in. (Hard to do when there are more bits needed to keep the same)
-    \item synonym problem
 \end{itemize}
 
 Synonym problem example:
@@ -684,7 +686,7 @@ So 16 synonym locations for every physical address.
 
 Let's look at a simple pipelining structure.
 
-\includegraphics*{./Image/Simple pipeline.png}
+\includegraphics*[scale = 0.7]{./Image/Simple pipeline.png}
 
 Each stage is a pipeline register. We do one thing at one stage.
 
@@ -692,7 +694,7 @@ However, flip-flops have latency. So we cannot divide too many stages since the 
 
 Ideal pipeline:
 \begin{itemize}
-    \item Uniform sub\-computations: each stage has the same delay, achieved by balancing pipeline stages.
+    \item Uniform sub-computations: each stage has the same delay, achieved by balancing pipeline stages.
     \item Identical computations: each computation uses the same number of stages.
     \item Independent computations: start a new computation each cycle.
 \end{itemize}
@@ -701,19 +703,19 @@ Ideal pipeline:
 
 A problematic pipeline:
 
-\includegraphics*{./Image/Problematic pipeline.png}
+\includegraphics*[scale = 0.7]{./Image/Problematic pipeline.png}
 
 If we are supposed to read the written R1 before decoding it, then the R1 value read before it is a ``stale value''.
 
 So reading the value depends on the previous instructions. Need to make sure you can access the meaningful value after the previous instruction stores it.
 
-\includegraphics*{./Image/pipeline control signal.png}
+\includegraphics*[scale = 0.7]{./Image/pipeline control signal.png}
 
 We use the signals that go along with the instructions. The signal can stall the pipeline so that we can make sure the value is meaningful.
 
 \subsection*{Hazards}
 
-\includegraphics*{./Image/Pipeline Hazards.png}
+\includegraphics*[scale = 0.7]{./Image/Pipeline Hazards.png}
 
 \begin{itemize}
     \item R1 is the destination of the ADD instruction.
@@ -739,11 +741,11 @@ Caused by resource conflicts:
 \end{itemize}
 
 Example:
-\includegraphics*{./Image/Structural Hazard example.png}
+\includegraphics*[scale = 0.7]{./Image/Structural Hazard example.png}
 
 So in this example, both instructions want to access the memory at the same time. The solution is to stall the later instructions.
 
-\includegraphics*{./Image/Structural Hazard solution.png}
+\includegraphics*[scale = 0.7]{./Image/Structural Hazard solution.png}
 
 \subsubsection*{Data Hazards}
 
@@ -751,7 +753,7 @@ So in this example, both instructions want to access the memory at the same time
     \item Read after write (RAW) hazards:
           Note the data dependencies of the following instructions:
 
-          \includegraphics*{./Image/RAW instructions.png}
+          \includegraphics*[scale = 0.7]{./Image/RAW instructions.png}
 
           The solution to it is \textbf{Forwarding}: Sending the data to the next execute stage as it is in CPU before writing back.
 
@@ -810,6 +812,7 @@ Define dependency: Two instructions use the same register or memory location but
           \includegraphics*{./Image/true dependency example.png}
 
     \item Anti-dependencies and WAR hazards:
+
           \includegraphics*{./Image/Anti-dependency example.png}
 
           Instructions I and J cannot be reordered, otherwise value will be changed.
@@ -817,18 +820,19 @@ Define dependency: Two instructions use the same register or memory location but
           So anti-dependency reuses the names. If anti-dependency causes a hazard in the pipeline, it is called a WAR hazard.
 
     \item Output dependency and WAW hazards:
+
           \includegraphics*{./Image/output dependency example.png}
 
           Instructions I and J cannot be reordered, otherwise value will be changed.
 
-          So it also results from the reuse of the name. If an output dependency causes a hazard in the pipeline, it is a WAW hazard.
+          So it also resolves from the reuse of the name. If an output dependency causes a hazard in the pipeline, it is a WAW hazard.
 \end{enumerate}
 
-\subsection*{pipelined function units}
+\subsection*{Pipelined function units}
 
 So the ALU or the execution unit might not always be the same length.
 
-\includegraphics*[scale = 0.7]{./Image/ALU differnt length.png}
+\includegraphics*[scale = 0.5]{./Image/ALU differnt length.png}
 
 So it brings up more challenges:
 \begin{itemize}
@@ -836,7 +840,7 @@ So it brings up more challenges:
     \item Structural hazard for MEM, WB. (might have multiple requests to access them at the same time.)
 \end{itemize}
 
-\subsubsection*{scoreboard: tracking register accesses}
+\subsubsection*{Scoreboard: tracking register accesses}
 
 \includegraphics*{./Image/Score board.png}
 
@@ -856,15 +860,15 @@ So for a ``in-order'' scoreboard execution:
     \item issue in\-order:
           For example: (SB stands for scoreboard)
 
-          RD $\leftarrow$ Fn(RS,RT)
+          RD $\leftarrow$ Fn(RS, RT) // An operation that reads RS and RT and writes RD somehow.
           \begin{itemize}
-              \item if (RS.SB()$||$RT.SB()) RAW.stall();
-              \item else if (RD.SB()) WAW.stall();
+              \item if (RS.SB()$||$RT.SB()) RAW.stall(); // stall if either RS or RT has stale data
+              \item else if (RD.SB()) WAW.stall(); // stall if RD has stale data
               \item else, dispatch to function Fn and set RD.SB to 1;
           \end{itemize}
 \end{itemize}
 
-For compelte out-of-order: Update GPR[RD], clear RD.SB();
+After completion out-of-order: Update GPR[RD], clear RD.SB();
 
 \section*{Register Renaming}
 
@@ -879,7 +883,7 @@ There is a reservation station in front of each functional unit(FU). FU is a buf
 \begin{itemize}
     \item Registers in instructions renamed to tags.
     \item Destination register gets fresh tag: mapping to reg. alias table (RAT)
-    \item Spirce register gets corresponding tags from RAT
+    \item Source register gets corresponding tags from RAT
     \item Track data dependencies directly: no WAW or WAR hazards
 \end{itemize}
 
@@ -970,10 +974,10 @@ Now we can split writeback into \textbf{completion and commit}.
 
 ROB is a process between completion and commit:
 
-\includegraphics*{Image/ROB figure.jpg}
+\includegraphics*[scale = 0.7]{Image/ROB figure.jpg}
 
 \begin{itemize}
-    \item sores instructions in \textbf{program order} (a FIFO)
+    \item stores instructions in \textbf{program order} (a FIFO)
     \item \textbf{buffers} computed results before RF write
     \item commits in \textbf{program order}
 \end{itemize}
@@ -992,7 +996,7 @@ Depending on if there is a branch it is waiting for, the issue stage allocates R
 
 Pipeline CPI = Ideal CPI + Structural stalls + Data hazard stalls + Control hazard stalls.
 
-We know how to remove/reduce stalls: pipelining, forwarding, out\-of\-order execution, speculative execution\ldots
+We know how to remove/reduce stalls: pipelining, forwarding, out-of-order execution, speculative execution\ldots
 
 So we also want to reduce the ideal CPI:
 \begin{itemize}
@@ -1003,16 +1007,16 @@ So we also want to reduce the ideal CPI:
 \subsubsection*{Stactically Scheduled Superscalar}
 Issue up to N instructions per cycle. At issue:
 \begin{itemize}
-    \item check each instruction for hazards with co\-issued instructions that are \textbf{earlier in program order}
+    \item check each instruction for hazards with co-issued instructions that are \textbf{earlier in program order}
     \item also against all earlier \textbf{instrctions still in execution}
 \end{itemize}
 \includegraphics*{Image/Stactically Scheduled Superscalar.jpg}
 
-above: comparisons to avoid RAW, WAR, and WAW hazards in a 3\-wide in\-order superscalar.
+above: comparisons to avoid RAW, WAR, and WAW hazards in a 3-wide in-order superscalar.
 
 Red and blue checks for WAW and WAR. Green checks for RAW.
 
-\subsubsection*{2\-Issue In\-order Superscalar}
+\subsubsection*{2-Issue In-order Superscalar}
 \includegraphics*{Image/2-Issue In-order Superscalar.jpg}
 
 So here we have a pipeline for Integer and FP. There are multiple issues with Dynamic Scheduling:
@@ -1024,30 +1028,30 @@ We can either run this at a higher clock speed or add logic to rename multiple i
 
 \includegraphics*[scale=0.8]{Image/Tomasulo with too wide issue.jpg}
 
-So here, we have two CDBs that can handle two outputs at once. Then we run the load buffer at two times the speed or two assigning per cycle to allow two instructions adding per cycle.
+So here, we have two CDBs that can handle two outputs at once. Then we run the load buffer at two times the speed or two assigning per cycle to allow two instructions to be added per cycle.
 
 \section{Branch Prediction}
-In branch predictions, we either predict it to be taken or not taken. CPU does not need to execute out\-of\-order to benefit from branch prediction since you always assume your prediction is good.
+In branch predictions, we either predict it to be taken or not taken. CPU does not need to execute out-of-order to benefit from branch prediction since you always assume your prediction is good.
 
 The main reason for the branch penalty is that we do not know the branch target value when the branch instruction is read from memory. However, we know the historical PC if the branch has been called before, which could be used to predict. So it is possible to predict when the branch instruction is fetched.
 
 When the pipeline is really long, there is a high branch miss penalty!
 
-\subsection*{1\-Bit Branch Predictor}
-1\-bit branch predictor is a cache of $2^{n-1}$ bits and indexed accordingly. We use the n lower order bits of the PC of the branch to select the index inside the predictor where we store the last outcome. 1 for taken and 0 for not taken.
+\subsection*{1-Bit Branch Predictor}
+1-bit branch predictor is a cache of $2^{n-1}$ bits and indexed accordingly. We use the n lower order bits of the PC of the branch to select the index inside the predictor where we store the last outcome. 1 for taken and 0 for not taken.
 
 However, you only update the branch when it is an actual outcome meaning \textbf{when the branch is truly resolved}. This means that not only the current branch target is executed, but also the previous branches. If the previous branch is not resolved yet, it is possible that it is wrong even if the current branch target is executed.
 
-\subsection*{2\-Bit Branch Predictor}
+\subsection*{2-Bit Branch Predictor}
 To solve the problem that it only keeps 1 previous prediction,
 
 With two bits, we can store up to 4 previous outcomes and predict according to the MSB to reduce the influence of noise or extremes.
 
 There are all kinds of FSM that could produce different results.
 
-\includegraphics*{./Image/2 bit predictors.png}
+\includegraphics*[scale = 0.7]{./Image/2 bit predictors.png}
 
-\subsection*{tradeoffs}
+\subsection*{Tradeoffs}
 Note that the size of the predictor is usually limited since it needs to sit very close to the CPU to reduce latency and you do not get much room there.
 
 To get better performance, we could try to increase the bit size of each predictor, but in turn, it will reduce the number of branches you can keep inside the predictor. Also, increasing the size will not have a linear increase in accuracy anyway.
@@ -1055,9 +1059,9 @@ To get better performance, we could try to increase the bit size of each predict
 A good metric is \textbf{MPKI} (misses per kilo instructions). A good predictor is about 5 MPKI nowadays. It is better than the percentage of correct predictions because you get to know the frequency of branches in a sense.
 
 \subsection*{Branch Target Buffer (BTB)}
-Now new problem arises since branch instruction and the target\-taken instruction do not have the same PC. So we need to have a lookup table to know where to jump to:
+Now new problem arises since branch instruction and the target-taken instruction do not have the same PC. So we need to have a lookup table to know where to jump to:
 
-\includegraphics*{./Image/BTB.png}
+\includegraphics*[scale = 0.7]{./Image/BTB.png}
 
 \subsubsection*{Some special cases}
 
@@ -1079,10 +1083,10 @@ If the previous branch's outcome influences the next branch's prediction, then t
 
 Now the problem appears to be that some effector branch might be far away from the branch it influences, we need some way to collect the previous branch information to predict the next branch:
 
-\subsubsection*{1\-Bit Branch Predictor}
+\subsubsection*{Branch Predictor with 1-bit history}
 Now we can have one table for ``previously taken'' and one for ``previously not taken'':
 
-\includegraphics*{./Image/one bit correlated branch example.jpg}
+\includegraphics*[scale = 0.7]{./Image/one bit correlated branch example.jpg}
 
 Here we can clearly predict that if the last branch is not taken, then we should predict ``00'' to be true.
 
@@ -1097,9 +1101,9 @@ As mentioned before, it is possible that we may have an effector branch far away
 \subsubsection*{Shift registers to track the history}
 Recall a shift register:
 
-\includegraphics*{./Image/Shift Register.jpg}
+\includegraphics*[scale = 0.7]{./Image/Shift Register.jpg}
 
-We can keep the m most recent taken history inside this m shift registers which updates every time a branch outcome is computed. Then the output of the series of registers can be used to enter a mux that chooses which table out of the $2^m$ tables we need to use to predict. With the same logic, we can find which one to update when the outcome is out.
+We can keep the $2^m$ most recent taken history inside this m-bit shift register which updates every time a branch outcome is computed. Then the output of the series of registers can be used to enter a mux that chooses which table out of the $2^m$ tables we need to use to predict. With the same logic, we can find which one to update when the outcome is out.
 
 These registers are call \textbf{(Global) Branch History Register} (G)BHR
 
@@ -1125,23 +1129,23 @@ It may look like there are no dependencies, but actually, since r9 and r8 are po
 \subsection*{Store buffer}
 Since stores can usually be delayed, we would like to use cache bandwidth for loads and send stores to the cache when it is free to improve performance. So we want something to delay stores until bandwidth is available.
 \begin{itemize}
-    \item queue stores ina \textbf{store buffer}
+    \item queue stores in a \textbf{store buffer}
     \item allow loads to \textbf{bypass}
-    \item mark as non\-committed if the store is still in ROB (Not sure if the store is good to be returned)
+    \item mark as non-committed if the store is still in ROB (Not sure if the store is good to be returned)
     \item mark as committed if retired from ROB
 \end{itemize}
 
-\includegraphics*{./Image/Store buffer.jpg}
+\includegraphics*[scale = 0.7]{./Image/Store buffer.jpg}
 
-Note that if an \textbf{exception} appears, we just need to flush the \textbf{un\-committed} entries since committed entries are good to go.
+Note that if an \textbf{exception} appears, we just need to flush the \textbf{un-committed} entries since committed entries are good to go.
 
-Also, we need to note that we still do not have a way to check for \textbf{dependencies}. Before executing the load instructions, we need to check the \textbf{entire store buffer} to make sure that they are updated.
+Also, we need to note that we still do not have a way to check for \textbf{dependencies}. \underbar{Before} executing the load instructions, we need to check the \textbf{entire store buffer} to make sure that they are updated.
 
-\includegraphics*{./Image/Store Buffer Plus.jpg}
+\includegraphics*[scale = 0.7]{./Image/Store Buffer Plus.jpg}
 
 If the address matches a store buffer entry, we need to stall the load since we need to update the value.
 
-But when the value is actually in speculating, we should just get it anyway, which calls for forwarding.
+Note that even if the value is actually in speculation, we should just get it anyway (forwarding). ROB is handling the speculation. So we should not worry about it. If the speculation is wrong, we just flush the ROB.
 
 \subsection*{Load forwarding}
 the methodology behind forwarding:
@@ -1150,27 +1154,28 @@ the methodology behind forwarding:
     \item if the stored value is marked uncommitted in the store buffer, we can get the value anyway since ROB would flush the value when the branch is wrongly predicted so no influence.
 \end{itemize}
 
-So we cases:\
+So we have two cases:
 \begin{itemize}
     \item \textbf{load bypassing} $\iff$ no memory dependencies
     \item \textbf{load forwarding} $\iff$ a memory dependency exists
 \end{itemize}
 
-\subsection*{memory dependency prediction}
+\subsection*{Memory dependency prediction}
 We must wait until \textbf{addresses resolved} to determine if there is a dependency. What if we can speculate no dependency and cancel if wrong?
 
 So we predict memory dependency:
 
-\includegraphics*{./Image/load dependency predictor.png}
+\includegraphics*[scale = 0.7]{./Image/load dependency predictor.png}
 
 We load the value based on prediction. This way we can have the value loaded to cache earlier and proceed. However, we need to cancel it when the stored address matches the load address and it is committed. This means that the memory value should be updated at that instance and we should not use the previous value. Here we flush the ROB.
 
 ROB makes sure that only the correct values can be retired from CPU to memory. You can add more and more predictions based on this.
 
-\subsubsection*{wiki explain to elaborate}
+Specific memory dependence prediction is different in all chip companies. The algorithm is not standardized and is hidden by them. Some secret sauce.
+\subsubsection*{Wiki explain to elaborate}
 Memory dependence prediction executes memory access operations out of program order to predict true dependencies between loads and stores at instruction execution time.
 
-Selective memory dependence prediction stalls specific loads until it is certain that no violation may occur. It does not explicitly predict dependencies. This predictor may delay loads longer than necessary and hence result in suboptimal performance. In fact, in some cases, it performs worse than naively speculating all loads as early as possible. This is because often it's faster to mispeculate and recover than to wait for all preceding stores to execute. Exact memory dependence prediction was developed at the University of Wisconsin\-Madison.
+Selective memory dependence prediction stalls specific loads until it is certain that no violation may occur. It does not explicitly predict dependencies. This predictor may delay loads longer than necessary and hence result in suboptimal performance. In fact, in some cases, it performs worse than naively speculating all loads as early as possible. This is because often it's faster to misspeculate and recover than to wait for all preceding stores to execute. Exact memory dependence prediction was developed at the University of Wisconsin\-Madison.
 
 Specifically, Dynamic Speculation and Synchronization delay load only as long as it is necessary by predicting the exact store a load should wait for. This predictor predicts exact dependencies (store and load pair).
 
@@ -1195,7 +1200,7 @@ Here for each store operation on data, we have a flag that indicates if it is do
 \end{itemize}
 Flag communicates that all data has been written.
 
-memory ordering restrictions are needed for both multi\-core and single\-core since it is a concurrent thread problem. Only single\-thread operations can follow the natural program order.
+memory ordering restrictions are needed for both multi-core and single-core since it is a concurrent thread problem. Only single-thread operations can follow the natural program order.
 \subsubsection*{Where memory access reordering can happen}
 \begin{itemize}
     \item programmer optimization;
@@ -1214,23 +1219,23 @@ a multiprocessor system is sequentially consistent if:\begin{itemize}
 Imagine that at $t_0$, mem[X]=mem[Y]=0. Then we have two cores executing different instructions:\begin{align*}
      & \text{core A:}        & \text{core B}           \\
      & A1:\text{ store }X<-1 & B1: \text{ store }Y<-1  \\
-     & A2:\text{ load}x_1<-Y & B2: \text{ load }x_2<-x
+     & A2:\text{ load }x_1<-Y & B2: \text{ load }x_2<-x
 \end{align*}
 Multiple possible results could occur:\begin{align*}
-     & x_1 & x_2 & \text{SC ordering}  \\
-     & 1   & 1   & A1,B1,A2,B2         \\
-     & 1   & 0   & B1,B2,A1,A2         \\
-     & 0   & 1   & A1,A2,B1,B2         \\
-     & 0   & 0   & \text{not possible}
+     & x_1 & x_2 \quad & \text{SC ordering}  \\
+     & 1   & 1 \quad  & A1,B1,A2,B2         \\
+     & 1   & 0 \quad  & B1,B2,A1,A2         \\
+     & 0   & 1 \quad  & A1,A2,B1,B2         \\
+     & 0   & 0 \quad  & \text{Not possible}
 \end{align*}
 However, if we have a store buffer (allows loads to bypass stores), then A2 can be Scheduled to execute before A1 since there is no dependency between A1 and A2.
 
 Now it is possible to get the fourth possibility:\begin{align*}
-     & x_1 & x_2 & \text{SC ordering} \\
-     & 1   & 1   & A1,B1,A2,B2        \\
-     & 1   & 0   & B1,B2,A1,A2        \\
-     & 0   & 1   & A1,A2,B1,B2        \\
-     & 0   & 0   & A2,B1,B2,A1
+     & x_1 & x_2 \quad & \text{SC ordering} \\
+     & 1   & 1 \quad  & A1,B1,A2,B2        \\
+     & 1   & 0 \quad  & B1,B2,A1,A2        \\
+     & 0   & 1 \quad  & A1,A2,B1,B2        \\
+     & 0   & 0 \quad  & A2,B1,B2,A1
 \end{align*}
 But note that the last one is not in sequential order.
 \subsubsection*{Implications for reordering load/stores}
@@ -1262,19 +1267,19 @@ So instructions before and after synchronization can be out\-of\-order.
 \subsubsection*{Memory fences}
 \includegraphics*{./Image/Fences Example.png}
 
-Special \textbf{memory fence} (memory barrier) instructions occur in most of the computer architectures. All instructions can be out\-of\-order between fences but not crossing them.
+Special \textbf{memory fence} (memory barrier) instructions occur in most of the computer architectures. All instructions can be out-of-order between fences but not crossing them.
 
-\includegraphics*{./Image/Ilustrating WO.png}
+\includegraphics*[scale=0.7]{./Image/Ilustrating WO.png}
 
 Note that we have to make sure that the fences are SC.
 \subsubsection*{Acquire and Release}
 Fences might be too strong, some could pass the fences that would not cause an issue.
 
-\includegraphics*{./Image/Acquire and Release.png}
+\includegraphics*[scale=0.7]{./Image/Acquire and Release.png}
 
 \begin{itemize}
-    \item make sure no ld/st leak past Release
-    \item make sure no ld/st leak before acquire
+    \item make sure no ld/st leak past Release (Finish all work before you release the lock, you can do other irrelevant following things before you release the lock)
+    \item make sure no ld/st leak before acquire (Do not start any work before you acquire the lock, can still try to complete previous work while holding following work lock)
 \end{itemize}
 
 \subsubsection*{Store atomicity}
@@ -1331,16 +1336,18 @@ Cache controller can
     \item update state of blocks
     \item reply to the core
 \end{itemize}
-from the CPU
+from the CPU.
 
 Cache controller can also\begin{itemize}
     \item receive coherence requests
     \item update state of blocks
     \item issue coherence responses
 \end{itemize}
-from the bus. Note that all requests from the bus come from other cache controllers.
+from the bus. 
 
-\subsection*{Behavior}
+Note that all requests from the bus come from other cache controllers.
+
+\subsection*{Behaviors}
 \subsubsection*{Read hits}
 Read hit $\implies$ block in S or M $\implies$ have a valid copy, just use it.
 
@@ -1414,14 +1421,14 @@ The problem arises here because each cache line is 64 bytes, but each operation 
           Note that here the state is shared for the whole cache line, not just the word that is being accessed. So word 3 is still true but word 7 is false.
 \end{itemize}
 \subsubsection*{Influences on coherence misses}
-\includegraphics*{./Image/Coherence miss and cache size.jpg}
+\includegraphics*[scale=0.7]{./Image/Coherence miss and cache size.jpg}
 
 \begin{itemize}
     \item Capacity/conflict misses \textbf{decrese} as cache size increases
     \item Coherence misses \textbf{stay the same} as cache size increases
 \end{itemize}
 
-\includegraphics*{./Image/Coherence misses and core number.jpg}
+\includegraphics*[scale=0.7]{./Image/Coherence misses and core number.jpg}
 
 \begin{itemize}
     \item Coherence misses \textbf{increase} as core number increases
@@ -1429,7 +1436,7 @@ The problem arises here because each cache line is 64 bytes, but each operation 
     \item False sharing is more of a tradeoff problem
 \end{itemize}
 
-\includegraphics*{./Image/Coherence miss and block size.jpg}
+\includegraphics*[scale=0.7]{./Image/Coherence miss and block size.jpg}
 \begin{itemize}
     \item true sharing: \textbf{decreases} as block size increases (spatial locality)
     \item false sharing: \textbf{increases} as block size increases (more words in a block)
