@@ -258,7 +258,12 @@ So SVM performance is still very constant. But NN is still very random. I rerun 
     \item I think the most important thing is to find a way to make NN more stable. I think it is because of the random initialization of the weights. But I am not sure how to fix it.
     \item Also, I think I should try to use the whole song as the snippet. I think it would be more representative. But it would take a lot of time to train. Maybe when I get a better PC.
     \item Having a cross-validation would be nice.
-    \item Testing data size could increase as well. This way, it might avoid the fixation problem in SVM so that fixation would not reach the best accuracy.
+    \item Testing data size could increase as well. This way, it might avoid the fixation problem in SVM so that fixation would not reach the best accuracy.\begin{itemize}
+        \item I think I can use the whole song as the testing data set. This way, it would be more representative.
+        \item Then I should probably try to use all the frequency ranges that could be heard by human ears. The FFT work I have done now only covers the music node frequency. But I think the whole frequency range would be more representative. Tone color and overtones are also important features of a song (Both to the singer and the instruments). But these frequencies do not live in the music node frequency range.
+        \item Number of songs could increase as well. SVM complains about the dominant class in the data set. Also, it complains that some classes have few samples so it can not split the data set into validation and training sets. So I think I should increase the number of songs.
+        \item All these probably would take a lot of time to train. So I should probably only try if I have a better PC (I increased from 64*10 to 64*100 and it took much longer to train. Now SVM took only 10 seconds, but after increasing, it took 9 minutes without completion, so I stopped it. SVM is bad already, NN takes 20 times longer so...)
+    \end{itemize}
 \end{itemize}
 
 

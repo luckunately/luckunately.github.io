@@ -1,9 +1,9 @@
 # Fdb version 4
-["pdflatex"] 1702686900 "g:/GitHub repositories/CPEN355/Project/Project report.tex" "Project report.pdf" "Project report" 1702686902 0
+["pdflatex"] 1702773029 "g:/GitHub repositories/CPEN355/Project/Project report.tex" "Project report.pdf" "Project report" 1702773032 0
   "All data.png" 1702685011 17649 7c8c1b6f8523c68556d65cfd0a62fbaa ""
-  "Project report.aux" 1702686902 2207 59b3ac46ad687e6fb49e451cfc141c93 "pdflatex"
-  "Project report.out" 1702686902 2482 fb159247ef4a73d4ac3b96449274fd8e "pdflatex"
-  "Project report.tex" 1702686899 15773 fbd7ac2f052c9c43a3346c7009656545 ""
+  "Project report.aux" 1702773032 2207 59b3ac46ad687e6fb49e451cfc141c93 "pdflatex"
+  "Project report.out" 1702773032 2482 fb159247ef4a73d4ac3b96449274fd8e "pdflatex"
+  "Project report.tex" 1702773028 16972 46d0b8c7c4e5471c0f8aa4e24bedbbce ""
   "SVM fixation bar.png" 1702540404 17273 3edbef27a1584fe9b9a0274fe6a31d32 ""
   "SVM fixed bar.png" 1702541332 17272 58eb2a6f50edd34490e5be8a26de67fc ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1698648136 2900 1537cc8184ad1792082cd229ecc269f4 ""
@@ -103,7 +103,7 @@
   "c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1698655159 4750288 f1f34006308c654e053d5a8459362656 ""
   "c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1698655415 8208552 b5c807892c40f58536fb25e871bed8c6 ""
   "c:/texlive/2023/texmf.cnf" 1698655117 713 e69b156964470283e0530f5060668171 ""
-  "g:/GitHub repositories/CPEN355/Project/Project report.tex" 1702686899 15773 fbd7ac2f052c9c43a3346c7009656545 ""
+  "g:/GitHub repositories/CPEN355/Project/Project report.tex" 1702773028 16972 46d0b8c7c4e5471c0f8aa4e24bedbbce ""
   (generated)
   "Project report.aux"
   "Project report.log"

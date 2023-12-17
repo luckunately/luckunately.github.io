@@ -1068,8 +1068,8 @@ Each thread has its own call stack and program counter, but all the threads shar
 
 \subsection*{Methods to communicate}
 \begin{itemize}
-      \item Shared\-memory communication relies on \textbf{Aliasing}.
-      \item Message\-passing: Threads do not share objects, instead, they send messages which is a copy of some data.
+      \item Shared-memory communication relies on \textbf{Aliasing}. Aliasing is when two different variables refer to the same object. Aliasing can be intentional or accidental.
+      \item Message-passing: Threads do not share objects, instead, they send messages which is a copy of some data.
       \item Data flow: The programmer uses primitives to create a directed acyclic graph (DAG). A node in the graph performs some computation using inputs that arrive on its incoming edges.
       \item Data parallelism: does not have explicit threads or nodes running different parts of the program at different times. Instead, it has primitives for parallelism that involve applying the same operations to different pieces of data at the same time. For example, break down a large number operation into separate small numbers.
 \end{itemize}
@@ -1237,7 +1237,7 @@ Reasons for using multithreading:
 \begin{itemize}
       \item Parallelism: a parallel algorithm needs to have different threads accessing the same data structures in an unpredictable way.
       \item Responsiveness: Many programs, including operating systems and programs with user interfaces, want/need to respond to external events quickly. One way to do this is to have threads doing the program's expensive computations while other threads are responsible for ``listening to'' events like buttons being clicked or typing occurring. The listening threads can then (quickly) write to fields that the computation threads later read.
-      \item Processor utilization: It takes a long time for data to be fetched either from disk or outer source. Instead of stalling and waiting, it might be better to allow a different thread to operate. y having other threads, the program can do useful work while waiting for I/O. This use of multithreading is called masking (or hiding) I/O latency.
+      \item Processor utilization: It takes a long time for data to be fetched either from disk or outer source. Instead of stalling and waiting, it might be better to allow a different thread to operate. Via having other threads, the program can do useful work while waiting for I/O. This use of multithreading is called masking (or hiding) I/O latency.
       \item Failure/performance isolation: Other threads can continue executing if one thread throws exceptions or errors due to some problems.
 \end{itemize}
 
@@ -1245,7 +1245,7 @@ Reasons for using multithreading:
 To make sure that threads do not cause data exposure (accessing data at the same time which breaks the operation), we need to enforce \textbf{mutual exclusion}
 
 We can do so by:\begin{itemize}
-      \item have operations to be done ``at-at-once'' or \textbf{atomically} so that we ensure operations are all independent and not interruptable. 
+      \item have operations to be done ``all-at-once'' or \textbf{atomically} so that we ensure operations are all independent and not interruptable. 
       \item To get out of this conundrum, we rely on \textbf{synchronization primitives} provided by the programming language. These rely on special hardware instructions that can do more all at once: these instructions allow us to do more than read or write to a memory address. 
       \item That is, they give us the \textbf{atomic} check-for-no-sign-and-hang-a-sign that we want. This is enough to implement mutual exclusion properly. The particular synchronization mechanism we will use is \textbf{locking}, and the special hardware instructions involved are "compare-and-set" or "compare-and-swap" instructions.
 \end{itemize}
@@ -1400,7 +1400,7 @@ When a data type in the Java library is Thread-safe, its documentation will expl
 
 Note that StringBuffer is a thread\-safe data type where StringBuilder is not. Can be found in their specs. 
 
-Collections.synchronizedMap(new HashMap<>()) is another example of synchronized wrapper. Now the operations are safe but iterators or for loops are still not safe. 
+Collections.synchronizedMap(new HashMap$<>$()) is another example of synchronized wrapper. Now the operations are safe but iterators or for loops are still not safe. 
 
 The solution to this problem will be to acquire the collection's lock when you need to iterate over it, which we'll talk about in a subsequent reading.
 

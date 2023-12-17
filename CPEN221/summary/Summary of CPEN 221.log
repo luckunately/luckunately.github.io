@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  2 DEC 2023 14:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  16 DEC 2023 21:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -444,12 +444,12 @@ File: ./summary_image/parallelsim vs. concurrency.jpg Graphic file (type jpg)
 Package pdftex.def Info: ./summary_image/parallelsim vs. concurrency.jpg  used on input line 1047.
 (pdftex.def)             Requested size: 182.18016pt x 109.91034pt.
  [33 <./summary_image/parallelsim vs. concurrency.jpg>] [34]
-<summary_image/Divide and Conequer Parallelism.png, id=307, 325.215pt x 257.763pt>
+<summary_image/Divide and Conequer Parallelism.png, id=306, 325.215pt x 257.763pt>
 File: summary_image/Divide and Conequer Parallelism.png Graphic file (type png)
 <use summary_image/Divide and Conequer Parallelism.png>
 Package pdftex.def Info: summary_image/Divide and Conequer Parallelism.png  used on input line 1095.
 (pdftex.def)             Requested size: 325.2142pt x 257.76237pt.
-<summary_image/Divide and Conequer algorithm.png, id=309, 355.3275pt x 373.99725pt>
+<summary_image/Divide and Conequer algorithm.png, id=308, 355.3275pt x 373.99725pt>
 File: summary_image/Divide and Conequer algorithm.png Graphic file (type png)
 <use summary_image/Divide and Conequer algorithm.png>
 Package pdftex.def Info: summary_image/Divide and Conequer algorithm.png  used on input line 1097.
@@ -511,13 +511,13 @@ L3 programming layer <2023-10-23>
 Here is how much of TeX's memory you used:
  12795 strings out of 474397
  197336 string characters out of 5754184
- 1953036 words of memory out of 5000000
+ 1952036 words of memory out of 5000000
  34431 multiletter control sequences out of 15000+600000
  568514 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,12n,93p,624b,1983s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on "Summary of CPEN 221.pdf" (51 pages, 1166209 bytes).
+Output written on "Summary of CPEN 221.pdf" (51 pages, 1166023 bytes).
 PDF statistics:
  714 PDF objects out of 1000 (max. 8388607)
  588 compressed objects within 6 object streams
