@@ -1400,7 +1400,7 @@ When a data type in the Java library is Thread-safe, its documentation will expl
 
 Note that StringBuffer is a thread\-safe data type where StringBuilder is not. Can be found in their specs. 
 
-Collections.synchronizedMap(new HashMap$<>$()) is another example of synchronized wrapper. Now the operations are safe but iterators or for loops are still not safe. 
+Collections.synchronizedMap(new HashMap$<>$()) is another example of a synchronized wrapper. Now the operations are safe but iterators or for loops are still not safe. 
 
 The solution to this problem will be to acquire the collection's lock when you need to iterate over it, which we'll talk about in a subsequent reading.
 
@@ -1460,19 +1460,114 @@ Atomic Variables are available in Java: ``AtomicInteger, AtomicLong, AtomicBoole
       \item weakCompareAndSet() weaker in the sense, that it does not create happens-before orderings. This means that it may not necessarily see updates made to other variables
 \end{itemize}
 
+\section{Deadlock}
+A deadlock is a situation in which two or more threads are blocked forever, each waiting on the other.
 
+\includegraphics*[scale=0.7]{./summary_image/Deadlock Illustration.jpg}
 
+\subsection*{Conditions for Deadlock}
+Deadlock cannot occur if any of the below conditions is not satisfied
+\begin{itemize}
+      \item Circular wait
+      \item Mutual exclusion $->$ Thread needs to acquire the lock exclusively
+      \item Hold-and-wait $->$ Thread holds a lock and waits for another lock
+      \item No preemption $->$ Thread cannot be forced to release a lock
+\end{itemize}
+\subsection*{Preventing Deadlock}
+Look at an example buggy code and try to fix it:
+\begin{lstlisting}[language=Java]
+public class Account {
+      private int balance = 0;
+      public void deposit(int amount) { balance += amount;}
+      public void withdraw(int amount) { balance -= amount;}
+      public int getBalance() { return balance; }
+      public void transfer(Account target, int amount) {
+            synchronized (this) {
+                  withdraw(amount);
+                  synchronized (target) {
+                        target.deposit(amount);
+                  }
+            }
+      }
+}       
+\end{lstlisting}
+\subsubsection*{Preventing Circular Wait}
+Providing a \textbf{total ordering} of all resources and requiring that each thread acquire resources in increasing order of enumeration. 
 
+An possible fix example:\begin{lstlisting}[language=Java]
+public void transfer(Account target, int amount) {
+      Account first = this, second = target;
+      if (System.identityHashCode(this) 
+            > System.identityHashCode(target)) {
+            first = target;
+            second = this;
+      }
+      synchronized (first) {
+            synchronized (second) {
+                  withdraw(amount);
+                  target.deposit(amount);
+            }
+      }
+}      
+\end{lstlisting}
+Note that it works since there is always an ordering of the two accounts. No transaction would hold the second lock before the first one. (hashCode is used just for demonstration purposes, hashCode is not guaranteed to be unique)
+\subsubsection*{Preventing Hold-and-Wait}
+Can be avoided by acquiring all the locks at once. 
 
+However, it requires knowing which locks must be held and to acquire them ahead of time. Then all locks must be acquired early on (at once) instead of when they really need to be used. This could decrease concurrency and performance.
 
+This acquiring at the same time mechanism can be achieved by having a global lock that is acquired before any other locks.
 
+Possible fix:\begin{lstlisting}[language=Java]
+public void transfer(Account target, int amount) {
+            synchronized (globalLock) {
+                  synchronized (this) {
+                  synchronized (target) {
+                        withdraw(amount);
+                        target.deposit(amount);
+                  }
+            }
+      }
+}
+\end{lstlisting}
+\subsubsection*{Preventing No Preemption}
+There is a tryLock() method that returns true if the lock is acquired and false if it is not. But it can also take arguments to set a timeout.
+\begin{lstlisting}[language=Java]
+boolean tryLock() 
+boolean tryLock(long time, TimeUnit unit) 
+\end{lstlisting}
+Possible fix:\begin{lstlisting}[language=Java]
+boolean retry = true;
+while (retry) {
+      lock1.lock()
+      if (lock2.trylock() == false){ 
+      lock1.unlock(); 
+      } else { // lock2 is acquired
+            try {
+            // exec the critical section
+            } finally {
+            lock2.unlock();
+            }
+            lock1.unlock();
+            retry = false;
+      }
+}
+\end{lstlisting}
+Here we use a while loop to keep trying to acquire the lock. If it fails, we release the lock and try again. This way, we can avoid deadlock by not holding the lock and waiting for another lock. However, it will introduce livelock.
 
+\includegraphics*[scale=0.5]{./summary_image/Livelock.jpg}
 
+Here, it is possible that l1 and l2 keep trying to acquire the lock and keep failing. This is livelock. It locks itself and tries to lock the other one. If the frequency of the two are exactly matching, then it will be livelock.
 
+Livelock:\begin{itemize}
+      \item Occurs when two or more interacting threads are stuck in a loop of repeated actions 
+      \item Unlike a deadlock, entities remain active but cannot progress
+      \item The perpetual cycle of actions and reactions can be considered analogous to two people attempting to pass each other in a corridor: Alphonse moves left, so Bertrand moves left to compensate. Meanwhile, Alphonse moves right to compensate Bertrand's movement, and so on.
+      \item One possible solution would be to add a randomized delay to break patterns like setting up a random wait time for `tryLock()'
+\end{itemize}
 
-
-
-
+\subsubsection*{Mutual Exclusion}
+The best to prevent deadlocks is to avoid locks if possible. Think carefully about whether you really need to lock the object.
 
 
 

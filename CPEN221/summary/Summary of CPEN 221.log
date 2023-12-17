@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  16 DEC 2023 21:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  16 DEC 2023 21:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -502,25 +502,57 @@ Overfull \hbox (14.35275pt too wide) in paragraph at lines 1435--1436
 []\OT1/cmr/m/n/12 Eliminate data races: Never al-low two threads to read-/write or write/write
  []
 
-[50] [51] (./Summary of CPEN 221.aux)
+[50]
+<./summary_image/Deadlock Illustration.jpg, id=530, 217.5628pt x 219.06844pt>
+File: ./summary_image/Deadlock Illustration.jpg Graphic file (type jpg)
+<use ./summary_image/Deadlock Illustration.jpg>
+Package pdftex.def Info: ./summary_image/Deadlock Illustration.jpg  used on input line 1466.
+(pdftex.def)             Requested size: 152.29292pt x 153.34685pt.
+ [51]
+Overfull \hbox (25.94928pt too wide) in paragraph at lines 1481--1482
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (32.99927pt too wide) in paragraph at lines 1482--1483
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (4.79932pt too wide) in paragraph at lines 1484--1485
+[][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[52 <./summary_image/Deadlock Illustration.jpg>] [53] [54]
+<./summary_image/Livelock.jpg, id=615, 365.86688pt x 295.85532pt>
+File: ./summary_image/Livelock.jpg Graphic file (type jpg)
+<use ./summary_image/Livelock.jpg>
+Package pdftex.def Info: ./summary_image/Livelock.jpg  used on input line 1558.
+(pdftex.def)             Requested size: 182.93298pt x 147.92729pt.
+
+Overfull \hbox (2.24593pt too wide) in paragraph at lines 1565--1566
+\OT1/cmr/m/n/12 gous to two peo-ple at-tempt-ing to pass each other in a cor-ri-dor: Alphonse
+ []
+
+[55 <./summary_image/Livelock.jpg>] (./Summary of CPEN 221.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-10-23>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 12795 strings out of 474397
- 197336 string characters out of 5754184
+ 12899 strings out of 474397
+ 199131 string characters out of 5754184
  1952036 words of memory out of 5000000
- 34431 multiletter control sequences out of 15000+600000
+ 34464 multiletter control sequences out of 15000+600000
  568514 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,12n,93p,624b,1983s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on "Summary of CPEN 221.pdf" (51 pages, 1166023 bytes).
+Output written on "Summary of CPEN 221.pdf" (55 pages, 1237941 bytes).
 PDF statistics:
- 714 PDF objects out of 1000 (max. 8388607)
- 588 compressed objects within 6 object streams
- 291 named destinations out of 1000 (max. 500000)
- 385 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 822 PDF objects out of 1000 (max. 8388607)
+ 687 compressed objects within 7 object streams
+ 362 named destinations out of 1000 (max. 500000)
+ 415 words of extra memory for PDF output out of 10000 (max. 10000000)
 
