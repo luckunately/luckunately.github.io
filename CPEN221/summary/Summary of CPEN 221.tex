@@ -1033,9 +1033,71 @@ In Java, the only first-class values are primitive values and object references.
 
 For example, the ``Comparator$<T>$'' object is a form of using an object to pass functions.
 
+
 \section{Grammar and Regular Expressions}
 \subsection*{Grammars}
 A grammar defines a set of sentences, where each sentence is a sequence of symbols called \textit{tokens/terminals}. A grammar is a set of productions, where each production defines a \textit{nonterminal}.
+
+A grammar consists of the following components:
+\begin{itemize}
+      \item Terminals: The basic symbols of the language.
+      \item Nonterminals: Symbols that can be replaced by a sequence of terminals and nonterminals.
+      \item Productions: Rules that define how nonterminals can be replaced by sequences of terminals and nonterminals.
+      \item Start symbol: The nonterminal from which the derivation of the language starts.
+\end{itemize}
+
+\subsection*{Regular Expressions}
+Regular expressions are a powerful tool for pattern matching and text manipulation. They are used to describe patterns in strings and can be used in various programming languages and tools.
+
+Here are some commonly used regular expression constructs:
+\begin{itemize}
+      \item Character classes: Matches any single character from a set of characters. For example, the regular expression \verb|[abc]| matches either 'a', 'b', or 'c'.
+      \item Quantifiers: Specify the number of occurrences of a pattern. For example, the regular expression \verb|a{2,4}| matches 'a' repeated 2 to 4 times.
+      \item Anchors: Specify the position of a pattern in a string. For example, the regular expression \verb|^abc| matches 'abc' at the beginning of a string.
+      \item Grouping and capturing: Allows grouping of patterns and capturing of matched substrings. For example, the regular expression \verb|(ab)+| matches 'ab' repeated one or more times.
+      \item Alternation: Matches one of several alternatives. For example, the regular expression \verb|a| matches either 'a' or 'b'.
+      \item Escape sequences: Used to match special characters. For example, the regular expression \verb|\d| matches any digit.
+\end{itemize}
+
+Here are some examples of regular expressions:
+\begin{itemize}
+      \item \verb|\d{3}-\d{3}-\d{4}|: Matches a phone number in the format XXX-XXX-XXXX.
+      \item \verb|^[A-Za-z]+$|: Matches a string consisting of only letters.
+      \item \verb|^\d{4}$|: Matches a four-digit number.
+      \item \verb|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$|: Matches an email address.
+\end{itemize}
+
+Regular expressions provide a concise and flexible way to describe patterns in strings. They are widely used in text processing, data validation, and search operations.
+\subsection*{A parsing example}
+\begin{lstlisting}[language=Java]
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class ParameterParser {
+      public static void main(String[] args) {
+            String input = "name1: 10, name2: 3.14, name3: 5";
+
+            // Define the regular expression pattern
+            String pattern = "(\\w+):\\s*(\\d+\\.\\d+|\\d+)";
+
+            // Create a Pattern object
+            Pattern regex = Pattern.compile(pattern);
+
+            // Create a Matcher object
+            Matcher matcher = regex.matcher(input);
+
+            // Iterate through the matches
+            while (matcher.find()) {
+                  String name = matcher.group(1);
+                  String value = matcher.group(2);
+
+                  System.out.println("Parameter name: " + name);
+                  System.out.println("Parameter value: " + value);
+            }
+      }
+}      
+\end{lstlisting}
+
 
 \section{Intro to Concurrency and Parallelism}
 \subsection*{Process vs. Thread}
@@ -1167,7 +1229,7 @@ A server might handle connections from many clients concurrently and clients mig
 
 \subsection*{Network Sockets}
 \subsubsection*{IP address}
-A network interface is identified by an IP address. IPv4 address is a 32\-bit number with four 8\-bit parts. For example:\begin{itemize}
+A network interface is identified by an IP address. IPv4 address is a 32-bit number with four 8-bit parts. For example:\begin{itemize}
       \item 137.82.130.49 is the IP address of a UBC web server. Every address whose first octet is 137 is on the UBC network.
       \item 173.194.123.40 is the address of a Google web server.
       \item 127.0.0.1 is the loopback or localhost address: it always refers to the local machine. Technically, any address whose first octet is 127 is a loopback address, but 127.0.0.1 is standard.
@@ -1398,14 +1460,14 @@ So in order to be confident that an immutable data type is thread-safe without l
 \subsection*{Thread-safe Data Types}
 When a data type in the Java library is Thread-safe, its documentation will explicitly state that fact. 
 
-Note that StringBuffer is a thread\-safe data type where StringBuilder is not. Can be found in their specs. 
+Note that StringBuffer is a thread-safe data type whereas StringBuilder is not. Can be found in their specs. 
 
 Collections.synchronizedMap(new HashMap$<>$()) is another example of a synchronized wrapper. Now the operations are safe but iterators or for loops are still not safe. 
 
 The solution to this problem will be to acquire the collection's lock when you need to iterate over it, which we'll talk about in a subsequent reading.
 
 However, it is still not enough:\begin{lstlisting}
-      if ( ! lst.isEmpty()) { String s = lst.get(0); ... }
+      if(!lst.isEmpty()) {String s = lst.get(0); ... }
 \end{lstlisting}
 It is not safe since another thread may have removed an element between the if statement and the line of execution, even if the data type of `lst' might be safe. 
 
@@ -1434,7 +1496,6 @@ For every memory location in the program, at least one of the following must be 
 \begin{enumerate}
       \item Eliminate data races: Never allow two threads to read/write or write/write the same location at the same time.
       \item Consistent Locking: For each location needing synchronization, have a lock that is always held when reading or writing the location. This could avoid data racing but can not solve bad interleaving. 
-      \item 
 \end{enumerate}
 \subsubsection*{Lock Granularity}
 Two styles of using locks:\begin{enumerate}
@@ -1530,6 +1591,7 @@ public void transfer(Account target, int amount) {
       }
 }
 \end{lstlisting}
+I would say do not do this unless it is the only option. It is not a good idea to have a global lock. It is not scalable and it is not flexible. We use multithreading to increase performance and concurrency. This way, we are just making it sequential.
 \subsubsection*{Preventing No Preemption}
 There is a tryLock() method that returns true if the lock is acquired and false if it is not. But it can also take arguments to set a timeout.
 \begin{lstlisting}[language=Java]
@@ -1553,7 +1615,7 @@ while (retry) {
       }
 }
 \end{lstlisting}
-Here we use a while loop to keep trying to acquire the lock. If it fails, we release the lock and try again. This way, we can avoid deadlock by not holding the lock and waiting for another lock. However, it will introduce livelock.
+Here we use a while loop to keep trying to acquire the lock. If it fails, we release the lock and try again. This way, we can avoid deadlock by not holding the lock and waiting for another lock. However, \textbf{livelock} will be introduced.
 
 \includegraphics*[scale=0.5]{./summary_image/Livelock.jpg}
 
