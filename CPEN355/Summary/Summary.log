@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  5 DEC 2023 21:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  18 DEC 2023 23:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -623,18 +623,18 @@ L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 11173 strings out of 474934
- 181315 string characters out of 5759289
+ 11271 strings out of 474934
+ 182418 string characters out of 5759289
  1937801 words of memory out of 5000000
- 32353 multiletter control sequences out of 15000+600000
+ 32451 multiletter control sequences out of 15000+600000
  568423 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,11n,93p,1005b,573s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,11n,93p,1006b,573s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Summary.pdf (59 pages, 3094964 bytes).
+Output written on Summary.pdf (59 pages, 3101621 bytes).
 PDF statistics:
- 741 PDF objects out of 1000 (max. 8388607)
- 532 compressed objects within 6 object streams
+ 1038 PDF objects out of 1200 (max. 8388607)
+ 826 compressed objects within 9 object streams
  222 named destinations out of 1000 (max. 500000)
- 515 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1299 words of extra memory for PDF output out of 10000 (max. 10000000)
 

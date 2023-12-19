@@ -23,14 +23,14 @@
 \thispagestyle{plain}
 
 \section{ML Basics}
-\subsection*{How to learn from data?}
+\subsection{How to learn from data?}
 \begin{itemize}
     \item we use some learning algorithm to train the machine how to predict.
     \item Construct a model (corresponding to a certain learning algorithm)
     \item Learn the model with observed samples in data sets.
 \end{itemize}
 
-\subsection*{Data split}
+\subsection{Data split}
 The model is trained on training data set and process test data set to make
 predictions. These two sets are independent.
 
@@ -41,7 +41,7 @@ tune the hyperparameters (if any) of the model.
 
 \includegraphics{./Image/Data split.png}
 
-\subsection*{Supervised vs. Unsupervised vs. Reinforced Learing}
+\subsection{Supervised vs. Unsupervised vs. Reinforced Learing}
 
 \begin{itemize}
     \item Supervised:
@@ -82,7 +82,7 @@ tune the hyperparameters (if any) of the model.
           \end{itemize}
 \end{itemize}
 
-\subsection*{Classification vs Regression}
+\subsection{Classification vs Regression}
 \begin{itemize}
     \item Classification: prediction of which class the sample belongs To
     \item Regression: Model the exact output given a sample.
@@ -91,7 +91,7 @@ tune the hyperparameters (if any) of the model.
 \includegraphics{./Image/Supervised vs Unsupervised.png}
 
 \section{Linear Regression}
-\subsection*{Basics}
+\subsection{Basics}
 Machine learning usually has linear regression over many\-dimensions.
 \[
     \hat{Y} = f_\theta(\mathsf{X})=\mathsf{X}\Theta
@@ -120,7 +120,7 @@ Here we denote n variables $x_1,x_2,\ldots,x_n$ to represent n features
 \]
 
 $x_0=1$ to count for the constant $\theta_0$.
-\subsection*{Geometry}
+\subsection{Geometry}
 Data points
 \{$(x_1^{(1)},\ldots,x_n^{(1)},y^{(1)}),\ldots,(x_1^{(m)},\ldots,x_n^{(m)},y^{(m)})$\}
 form a (n+1) - dimensional space.
@@ -129,7 +129,7 @@ Examples for linear regression on 2-dim feature space:
 
 \includegraphics[scale = 0.8]{./Image/2-dim_feature_space_example.png}
 
-\subsection*{Optimizing fit}
+\subsection{Optimizing fit}
 
 The best fit has the smallest distance between Y and $\hat{Y} =
     f_\theta(\mathsf{X})$
@@ -151,7 +151,7 @@ minimizes the loss function $J(\theta)$. It means:
     J^{'}{(\theta)}=0, J^{''}(\theta)>0
 \]
 
-\subsection*{Some vector and matrix calculus}
+\subsection{Some vector and matrix calculus}
 To simplify a given calculation, it is often useful to write out the
 explicit formula for a single scalar element of the output in terms of nothing
 but scalar variables.
@@ -251,7 +251,7 @@ write:
 
 \[\frac{\partial z}{\partial x} = {(\frac{\partial y}{\partial x})}^T \frac{\partial z}{\partial y}\]
 
-\subsection*{ChatGPT teaching time}
+\subsection{ChatGPT teaching time}
 
 \textbf{Step 1: Prepare the Data}
 
@@ -354,7 +354,7 @@ same principles to higher-degree polynomial regressions by increasing the
 number of columns in the design matrix $X$ and the size of the coefficient
 vector $b$.
 
-\subsection*{Metrics and prediction errors}
+\subsection{Metrics and prediction errors}
 
 Denote total samples as N, true label as Y, prediction as $\hat{Y}$, the
 average of testing set as $\bar{Y}$
@@ -371,7 +371,7 @@ regression line.
 
 \section{Regression with Shrinkage and Logistic Regression}
 
-\subsection*{Bias and Variance}
+\subsection{Bias and Variance}
 
 \includegraphics*[scale = 0.9]{./Image/Bias_Variance.png}
 
@@ -388,7 +388,7 @@ $\mathbb{E}(\hat{\theta} - \mathbb{E}\hat{\theta})^2$
 Def: The expectation $\mathbb{E}$ is used to find the average or expected
 behavior of random variables.
 
-\subsection*{Expected prediction error (Risk)}
+\subsection{Expected prediction error (Risk)}
 
 \begin{itemize}
     \item The relation of input and output is modeled by the function $f$.
@@ -426,7 +426,7 @@ For example: if we repeatedly train the sample data for too long.
           variance is zero but definitely the prediction bias is very high.
 \end{itemize}
 
-\subsection*{Bias-variance trade-off}
+\subsection{Bias-variance trade-off}
 
 \includegraphics*{./Image/Bias-variance trade-off.png}
 
@@ -436,7 +436,7 @@ A simple model will lead to high variance, hence \textbf{Underfitting}
 
 A good fit will have the lowest EPE\(X\)
 
-\subsection*{Shrinkage methods}
+\subsection{Shrinkage methods}
 Ordinary least squares are prone to learn a low bias high variance model.
 
 Tunning model complexity is a way to sacrifice some bias to reduce the variance
@@ -527,7 +527,7 @@ multiple parts. One for each category.
 A linear classifier is a linear model we use to classify data based on a linear
 combination of input features. We usually learn some function to divide.
 
-\subsection*{Logistic regression for classificaiton}
+\subsection{Logistic regression for classificaiton}
 
 Logistic regression models the probabilities for classification problems for an
 even occurring.
@@ -594,7 +594,7 @@ The decision boundary is the hyperplane $z=X^T\Theta$
 
 \includegraphics{./Image/Boundary Hyperplane.png}
 
-\subsection*{Supervision criteria}
+\subsection{Supervision criteria}
 
 For each sample $X^{(i)}=({x_1^{(i)},\ldots,x_n^{(i)}})$ we have:
 \[
@@ -636,7 +636,7 @@ written as:
 We want to make $p(\Theta)$ as large as possible. Maximizing a likelihood
 function is called \textit{maximum likelihood estimation (MLE)}.
 
-\subsection*{Cross-entropy}
+\subsection{Cross-entropy}
 Binary cross-entropy error $\equiv
     -y\text{ln}P(y)-(1-y)\text{ln}(1-P(y)),y\in\{0,1\}$ It is a concept from
 information theory. $P(y)$ is the probability density function of taking value
@@ -682,7 +682,7 @@ illustrated below:
 
 \includegraphics{./Image/learning rate for gradient descent.png}
 
-\subsection*{ChatGPT example of gradient descent}
+\subsection{ChatGPT example of gradient descent}
 
 The linear model is defined as:
 \[ f_\Theta(x_1, x_2) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 \]
@@ -712,7 +712,7 @@ local minimum instead of the global minimum.
 
 \section{Model Evaluation and Trainning}
 
-\subsection*{Multi-class Classification}
+\subsection{Multi-class Classification}
 
 Extend the previous binary regression methods to more than 2 classes.
 
@@ -725,7 +725,7 @@ Each $\Theta_k$ represents a line that separates one type from the rest. So we
 need a total of k-1 $\Theta$ since the last one is redundant.\ k=0 means it does
 not belong to anything. So $\Theta_0$ is all zeros by definition.
 
-\subsection*{Discriminative and Generative Clssifier}
+\subsection{Discriminative and Generative Clssifier}
 
 \begin{itemize}
     \item Generative models model both the input X and the output Y. ($P(y=k, X;\Theta)$)
@@ -740,7 +740,7 @@ not belong to anything. So $\Theta_0$ is all zeros by definition.
           for the input X. We only model the conditional probability $P(Y|X)$
 \end{itemize}
 
-\subsection*{Mertics for Classification}
+\subsection{Mertics for Classification}
 
 Metrics to evaluate model performance, we count the number of occurrences for the
 following.
@@ -766,7 +766,7 @@ F1 score is calculated from precision and recall and is the \textbf{harmonic
     F_1=2\frac{\text{precision}\times\text{recall}}{\text{precision}+\text{recall}}  = \frac{TP}{TP+0.5(FP+FN)}
 \]
 
-\subsection*{Confusion matrix}
+\subsection{Confusion matrix}
 Confusion matrix is a specific table layout that allows visualization of the
 performance.
 
@@ -781,7 +781,7 @@ Following are the examples of 2 classes and 10 classes:
 
 \includegraphics{./Image/Confusion matrix.png}
 
-\subsection*{Receiver operating characteristic curve (ROC)}
+\subsection{Receiver operating characteristic curve (ROC)}
 
 ROC is a graphical plot that illustrates the diagnostic ability of a binary
 classifier system as its discrimination threshold is varied.
@@ -798,7 +798,7 @@ if not easily visualized.
 
 Refer to the slide for how it is calculated.
 
-\subsection*{Cross validation}
+\subsection{Cross validation}
 Performing machine learning involves creating a model, which is trained on a
 training data set and then process the test data set.
 
@@ -853,7 +853,7 @@ faster approach.
 \includegraphics{./Image/K fold Cross-Validation.png}
 
 \section{Bayesian Classifier}
-\subsection*{Basic probabilities}
+\subsection{Basic probabilities}
 Chain rule:
 \[
     P(x,y,z) = p(x)p(y|x)p(z|x,y) = p(z)p(y|z)p(x|y,z)
@@ -877,7 +877,7 @@ Bayes Rule:
 \[
     P(x|y,z)=\frac{P(x|z)P(y|x,z)}{P(y|z)}
 \]
-\subsection*{Defination:}
+\subsection{Defination:}
 
 Bayes' Original Theorem and Marginal Probability:
 \[
@@ -921,7 +921,7 @@ Just need to find the $c_j$ with the maximum value of the following:
     \item This approach is very efficient.
 \end{itemize}
 
-\subsection*{Example question:}
+\subsection{Example question:}
 
 \includegraphics{./Image/Bayesian example.png}
 Assume fearture $a,b$ are independent, find the prediction probability for $P(k=0|a=1,b=1)$
@@ -962,7 +962,7 @@ class of data, positive and negative.
 Support vectors are data points that are closer to the hyperplane and influence
 the position and orientation of the hyperplane.
 
-\subsection*{Basic concepts}
+\subsection{Basic concepts}
 
 Let the set of training examples D be represented by:
 $\{(\vec{x}_1,y_1),(\vec{x}_2,y_2),\ldots,(\vec{x}_r,y_r)\}$, where
@@ -989,7 +989,7 @@ $<w\cdot x> + b = 0$. It is also called the \textbf{decision boundary
 A robust separating hyperplane has a ``fat'' margin (far from both sides of
 examples). So the goal is to find the fattest separating hyperplane.
 
-\subsection*{linarly separable SVM}
+\subsection{linarly separable SVM}
 Assume that the data are linearly separable.
 
 Consider a positive data point $(x^+,1)$ and a negative $(x^-,-1)$ that are
@@ -1019,7 +1019,7 @@ So at a Support Vector $(x_s,y_s)$, we have $y_s(w^T x_s+b)=\pm 1$
 
 \includegraphics*{./Image/Support vector.png}
 
-\subsection*{Compute the margin}
+\subsection{Compute the margin}
 To compute the distance between the two Marigin hyperplanes $H_+$ and $H_-$,
 recall that the (perpendicular) distance from a point $x_i$ to the hyperplane
 $<w\cdot x>+b=0 $ is:
@@ -1036,7 +1036,7 @@ margin $\gamma = \frac{2}{||w||}$
 So now, our aim is basically to maximize the margin, which is to minimize the
 norm of w.
 
-\subsection*{Optimization of SVM}
+\subsection{Optimization of SVM}
 
 Transforming the objective:
 \[
@@ -1095,7 +1095,7 @@ alleviate numerical error:
     b = \frac{1}{|S|}\sum_{s\in S}    (\frac{1}{y_s}-w^T x_s)
 \]
 
-\subsection*{Soft-margin SVM}
+\subsection{Soft-margin SVM}
 
 Linear separable case is the ideal situation, real-life data may have noise or
 errors which would not satisfy the constraints, thus, no solution!
@@ -1107,7 +1107,7 @@ condition:
     \text{s.t. }y_i(w^T x_i + b)  & \ge 1 \text{ for clean } i       \\
     \text{and }  y_i(w^T x_i + b) & \ge -\infty \text{ for noisy } i
 \end{align*}
-\subsubsection*{Penalty function}
+\subsubsection{Penalty function}
 To minimize the number of noisy samples, we can use a new \textbf{penalty} item and our objective is transformed to:
 \[
     \min_{w,b}\frac{1}{2}||W||^2+C\sum_{i=1}^{m}l_{0/1}(y_i(w^T x_i+b)-1)
@@ -1124,7 +1124,7 @@ use some other functions to replace it:
 
 \includegraphics*{./Image/Soft-Margin SVM penalty function.png}
 
-\subsubsection*{Relax the constraints}
+\subsubsection{Relax the constraints}
 To allow errors in data, we relax the margin constraints by introducing \textbf{slack} variable, $\xi_i \ge 0$ as follows:
 \begin{align*}
     <w\cdot x_i>+b & \ge 1 - \xi_i  & \text{for }y_i=1  \\
@@ -1143,7 +1143,7 @@ Summarize Lagrange multipliers:
 L_p=\frac{<w\cdot w>}{2}+C    (\sum_{i=1}^{r}\xi_i)-\sum_{i=1}^{r}\alpha_i[y_i(<w\cdot x>+b)-1+\xi_i]-\sum_{i=1}^{r}\mu_i \xi_i
 \]
 
-\subsection*{Kernel SVM for non-linear datasets}
+\subsection{Kernel SVM for non-linear datasets}
 To solve the cases where data sets are far from linearly separable, we increase the dimension, which makes them separable by planes. 
 
 For example, separate a 2D sample in 3D sapce: 
@@ -1158,7 +1158,7 @@ Procedure:
     \item Map this hyperplane back into the original 2D space to obtain a non\-linear decision boundary.
 \end{itemize}
 
-\subsubsection*{Polynomial kernel}
+\subsubsection{Polynomial kernel}
 \includegraphics*{./Image/Polynomial Kernel.png}
 
 An example of transforming: 
@@ -1172,7 +1172,7 @@ f(x)=w^T\phi(x)
 
 \includegraphics*{./Image/Kernel space in SVM.png}
 
-\subsubsection*{Kernel trick for high dimensions}
+\subsubsection{Kernel trick for high dimensions}
 Very large feature spaces have potential issues of memory and computational cost. The kernel trick can help alleviate this issue. It allows operation in the original feature space without computing the coordinates of the data in the higher dimensional space.
 
 Let's assume $k(x_i,x_j) = \Phi (x_i)^T \Phi (x_j)  $
@@ -1207,13 +1207,13 @@ Choice of tree building matters. We want to choose Rs that minimize RSS.
 Tree building takes a greedy approach. Grow the tree by \textbf{recursive
     binary splitting}, prune back the tree.
 
-\subsection*{Algorithm}
+\subsection{Algorithm}
 \begin{itemize}
     \item Assume attributes are categorical now.
     \item Tree is constructed in a top-down recursive manner.
     \item Attributes are selected based on an impurity function (information gain)
 \end{itemize}
-\subsubsection*{Information theory}
+\subsubsection{Information theory}
 
 Information theory provides a mathematical basis for measuring information
 content.
@@ -1226,7 +1226,7 @@ The heuristic is to choose the attribute with the maximum \textbf{Information
     Gain or Gain Ratio} based on information theory.
 
 A subset of data is pure if all instances belong to the same class.
-\subsubsection*{Conditions for stopping partition}
+\subsubsection{Conditions for stopping partition}
 \begin{itemize}
     \item all examples for a given node belong to the \textbf{same class}(So no need to
           split anymore)
@@ -1234,7 +1234,7 @@ A subset of data is pure if all instances belong to the same class.
     \item There are no examples left
 \end{itemize}
 
-\subsubsection*{Overfitting}
+\subsubsection{Overfitting}
 Overfitting trees get good accuracy on training data but poor on test data. It may have too deep and too many branches. Some may reflect anomalies due to noise or outliers.
 
 Two approaches to avoid overfitting:
@@ -1246,7 +1246,7 @@ Two approaches to avoid overfitting:
           validation set may be used for pruning as well.
 \end{itemize}
 
-\subsection*{Calculate information gain}
+\subsection{Calculate information gain}
 Information: reduction in uncertainty (amount of surprise in the outcome)
 \[
     I(E)=\text{log}_2 \frac{1}{p(x)}=-   \text{log}_2p(x)
@@ -1280,7 +1280,7 @@ data instance
 
 So information gain = (information before split)-(information after split) We choose the attribute with the highest gain to branch/split the current tree.
 
-\subsection*{Classification Trees}
+\subsection{Classification Trees}
 
 Let $\hat{y}_i$ be the mpst commonly occurring class of training observations in $R_j,\forall i \in R_j$
 \[
@@ -1302,18 +1302,18 @@ The Gini index does a similar job:
 
 Note that the Gini index maximizes at $p=0.5$ and minimizes at $p=1,0$, which makes sense since it wants one thing to dominate, and increase the purity. 
 
-\subsection*{Impurtiy measures}
+\subsection{Impurtiy measures}
 Define node proportion of class k:
 
 \includegraphics*{./Image/Impurity measuring equations.png}
 
 \includegraphics*{./Image/Impurity Measure Graph.png}
 
-\subsection*{Bagging and Boosting}
+\subsection{Bagging and Boosting}
 \includegraphics*{./Image/Bagging and Boosting.png}
 
 
-\subsubsection*{Bagging (Bootstrap Aggregating)}
+\subsubsection{Bagging (Bootstrap Aggregating)}
 
 In bagging, multiple subsets (bootstrap samples) of the training data are created by randomly selecting data points with replacements. Each bootstrap sample is used to train a separate decision tree.
 
@@ -1328,7 +1328,7 @@ Bagging reduces the variance of the model and helps prevent overfitting. It is p
     \item Reduce variance, increase bias
 \end{itemize}
 
-\subsubsection*{Boosting}
+\subsubsection{Boosting}
 
 In boosting, an ensemble of weak learners is created sequentially. Each learner is trained using the data, and the focus is on examples that were misclassified by previous learners.
 
@@ -1345,7 +1345,7 @@ Boosting is effective at improving both bias and variance, and it can lead to hi
     \item Reduce bias, increase variance
 \end{itemize}
 
-\subsubsection*{Differences}
+\subsubsection{Differences}
 
 \begin{enumerate}
     \item \textbf{Sequential vs. Parallel:} Bagging learners are trained in parallel while boosting learners are trained sequentially.
@@ -1353,7 +1353,7 @@ Boosting is effective at improving both bias and variance, and it can lead to hi
     \item \textbf{Combining Predictions:} Bagging combines predictions by averaging or voting while boosting combines predictions with weighted voting.
 \end{enumerate}
 
-\subsubsection*{When to Use}
+\subsubsection{When to Use}
 
 \begin{itemize}
     \item Use bagging when dealing with complex, high-variance models to reduce overfitting.
@@ -1362,7 +1362,7 @@ Boosting is effective at improving both bias and variance, and it can lead to hi
 
 It's worth noting that ensemble methods, such as Random Forest (a bagging technique) and Gradient Boosting (a boosting technique), have become popular and widely used for various machine\-learning tasks due to their effectiveness in improving model performance.
 
-\subsection*{Boosting Algorithm}
+\subsection{Boosting Algorithm}
 Boosting is a strategy to boost a weaker learner to a stronger learner. 
 \begin{itemize}
     \item It starts with learning with the base learner $M_1$. 
@@ -1377,7 +1377,7 @@ Here is an illustration of using Boosting:
 
 To be added!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-\subsection*{Bagging}
+\subsection{Bagging}
 Bagging is short for \textbf{Bootstrap Aggregating}
 
 \begin{itemize}
@@ -1405,7 +1405,7 @@ Experimentally, bagging can help substantially for unstable learners, and may so
 
 The problem occurs when there is only one very strong predictor. It will always be selected, thus similar trees will be produced. This is due to the greedy tree algorithm. 
 
-\subsubsection*{Greedy tree}
+\subsubsection{Greedy tree}
 Assume we have data $D=\{A,B\}$ where $A=\{a_1,a_2\},B=\{b_1,b2\}$.
 
 Choose from information gain: $IG_A = H(D)-H(D|A), IG_B=H(D)-H(D|B)$
@@ -1419,7 +1419,7 @@ There is a way to skip from the dominance:
 
 If we only consider a subset of the predictors at each split chosen randomly, then it is not a correlated tree. $\to$ \textbf{Random Forest}
 
-\subsection*{Random Forest}
+\subsection{Random Forest}
 
 Random forests (RF) are a combination of tree predictors such that each tree depends on the values of a random vector sampled independently and with the same distribution for all trees in the forest. 
 
@@ -1427,7 +1427,7 @@ Using a random selection of features to split each node to save the issue of hav
 
 The key difference between random forests and bagging is that random forests choose a sample of $k$ predictors (attributes) at split out of a full set of $d$ predictors. So $k<b$. But Bagging does not reduce it, so $k=b$.
 
-\subsubsection*{Random Forests Algorithm}
+\subsubsection{Random Forests Algorithm}
 For b=1 to B:
 \begin{enumerate}
     \item Draw a bootstrap sample S of size d from the training data. 
@@ -1449,7 +1449,7 @@ For b=1 to B:
 
  Like with Bagging, we can use OOB and therefore RF can be fit into one sequence, with cross-validation being performed along the way. Once the OOB stabilizes, the training can be terminated. 
 
- \subsection*{Comparing Bagging, Boosting with RF}
+ \subsection{Comparing Bagging, Boosting with RF}
  \begin{itemize}
     \item Bagging vs RF 
     \begin{itemize}
@@ -1470,17 +1470,17 @@ For b=1 to B:
 
 
 The issue of RF is that: When the number of variables is large, but the fraction of relevant variables is small, random forests are likely to perform poorly when k is small. It is because, at each split, the chance can be small that the relevant variables will be selected since we are randomly selecting variables.
-\subsection*{Variable importance}
+\subsection{Variable importance}
 While bagging improves upon the predictive ability of trees, it kills off the interpretability of the model. Now we need a tool to measure the \textbf{variable importance}
 
 Variable importance can be measured by the amount that the Residual Sum of Squares (RSS) or Gini index is reduced due to splits over a given predictor, averaged over all B trees. 
 
-\subsubsection*{Gini importance}
+\subsubsection{Gini importance}
 Mean Gini gain produced by $X_j$ over all trees (m indicates region(leaf), k indicates class) for variables of different types: biased in favor of variables with many categories (or continuous variables)
 
 Gini index: $\sum_{k=1}^{K}\hat{p}_{mk}(1-\hat{p}_{mk})$, here $\hat{p}_{mk}$ is the frequency of sample in some class, max at $\hat{p}_{mk}=0.5$. So lower the Gini, the more is reduced and the more information gained. 
 
-\subsubsection*{Permutation importance}
+\subsubsection{Permutation importance}
 Another smart way of detecting the importance of the feature is to change the order of the data representations of one feature while keeping the other features the same. Then we use the gini index gain by splitting at that node to compare the value. If the feature is more important, then the error is higher. 
 
 \section{K-Nearest Neighbor Classification (KNN)}
@@ -1491,14 +1491,14 @@ In essence, KNN performs a voting mechanism to determine the class of an unseen 
 So no training is needed. Classification time is linear in the training set size for each test case. 
 
 KNN can do both regression and classification. For regression, we just average it, for classification, we group it. 
-\subsection*{KNN intuition}
+\subsection{KNN intuition}
 To classify a test instance $d$, define $K-$neighborhood $P$ as $k$ nearest neighbors of $d$. 
 
 The predicted label for $d$ is the majority class in $P$ 
 
 If $K=1$, then we will use only the nearest neighbor to determine the class of a data point. Same thing as $K$ increases. 
 
-\subsection*{KNN Algorithm}
+\subsection{KNN Algorithm}
 For each data point in the test data:
 \begin{enumerate}
     \item Find the distance to all training data samples
@@ -1507,7 +1507,7 @@ For each data point in the test data:
     \item Label the test point based on the majority of classes present in the selected points.
     \item If it is a regression task, just take the average of the K neighbors
 \end{enumerate}
-\subsubsection*{Measure of similarity/distance}
+\subsubsection{Measure of similarity/distance}
 Imagine for the two points $\vec{a}=(a_1,a_2,\ldots,a_n),\vec{b}=(b_1,b_2,\ldots,b_n)$
 \begin{itemize}
     \item Euclidean distance (L2-norm). The square root of the sum of squares.\[\text{dist}(\vec{a},\vec{b})=\sqrt{\sum_{i=1}^{n}(a_i-b_i)^2}\]
@@ -1517,14 +1517,14 @@ Imagine for the two points $\vec{a}=(a_1,a_2,\ldots,a_n),\vec{b}=(b_1,b_2,\ldots
 \end{itemize}
 In most cases, Euclidean Distance is the default. 
 
-\subsection*{Discussion}
+\subsection{Discussion}
 
 KNN can deal with complex and arbitrary decision boundaries with reasonable accuracy. But KNN is slow at the classification time.
 
-\subsubsection*{Voting}
+\subsubsection{Voting}
 We are giving equal weight to voting for the k nearest neighbors. However, one optimization might be that voting can be weighted according to the distance to the destination. 
 
-\subsubsection*{Bias and Variance on K}
+\subsubsection{Bias and Variance on K}
 \includegraphics*[scale=0.7]{Image/KNN tunning K.jpg}
 
 When K = 1, the nearest neighbor is just itself, which is basically memorization. So very high variance due to overfitting. On the other hand, if K = number of samples, then that is basically underfitting, thus high bias. So Low K leads to High variance and High K leads to High bias. 
@@ -1534,7 +1534,7 @@ When K = 1, the nearest neighbor is just itself, which is basically memorization
 
 Now we moved to the region of unsupervised learning. Given a set of x, underlying structure or relationships of x.
 
-\subsection*{Clustering basis}
+\subsection{Clustering basis}
 Samples represent a set of individuals or objects collected or selected from a statistical population by a defined procedure. Each sample can be called a Data Point. 
 
 Label is a category or class applied to an object or a thing. 
@@ -1557,7 +1557,7 @@ The K-Means algorithm partitions the given data into K clusters:
     \item K is manually specified by the user
 \end{itemize}
 
-\subsection*{convergence (stopping) criteria}
+\subsection{convergence (stopping) criteria}
 \begin{itemize}
     \item no (or minimum) reassignment of data points to different clusters, or 
     \item no (or minimum) change of centroids or 
@@ -1567,7 +1567,7 @@ The K-Means algorithm partitions the given data into K clusters:
 Let $C_i$ be the $i$\-th cluster, and $\mu_i$ be the centroid of $C_i$ (the mean vector of all data points in $C_i$). If $x$ is the data point in the cluster and we are considering Euclidean distance:
 \[\text{SSE}=\sum_{i=1}^{K}\sum_{x\in C_i}\text{disntace}(x,\mu_i)^2\]
 
-\subsection*{algorithm}
+\subsection{algorithm}
 \begin{enumerate}
     \item Select K points as the initial centroids.
     \item repeat:
@@ -1578,10 +1578,10 @@ Let $C_i$ be the $i$\-th cluster, and $\mu_i$ be the centroid of $C_i$ (the mean
     \item until fulfill the stopping condition
 \end{enumerate}
 
-\subsection*{complexity}
+\subsection{complexity}
 No understanding for now. Check the slides
 
-\subsection*{Advantages}
+\subsection{Advantages}
 \begin{itemize}
     \item Easy to understand and implement
     \item Efficient, if K and I are small, considered as a linear algorithm
@@ -1591,7 +1591,7 @@ No understanding for now. Check the slides
     \item May produce tighter clusters than hierarchical clustering
 \end{itemize}
 
-\subsection*{Disadvantages}
+\subsection{Disadvantages}
 \begin{enumerate}
     \item K\-Means needs to \textbf{manually} set hyper\-parameter K.
     \begin{itemize}
@@ -1623,7 +1623,7 @@ Different from K\-Menas:
 
 \includegraphics[scale=0.8]{Image/DBSCAN V.S. K-Means.png}
 
-\subsection*{DBSCAN}
+\subsection{DBSCAN}
 DBSCAN stands for Density\-based spatial clustering of applications with noise. 
 
 Three parameters:
@@ -1648,12 +1648,12 @@ Given $\epsilon$ and MinPts, categorize the data points into three:
 
 As the name suggests, core points are in the center of a cluster, and border points form the border of the cluster and then enclose each cluster. 
 
-\subsubsection*{Density-reachable}
+\subsubsection{Density-reachable}
 An object q is directly density-reachable from object p if p is a core object and q is in p's $\epsilon-$neighborhood. 
 
 Note that it is not symmetric, reflexive or transitive. 
 
-\subsection*{algorithm}
+\subsection{algorithm}
 \begin{enumerate}
     \item Label data points in core, border and noise
     \item Eliminate noise points
@@ -1661,7 +1661,7 @@ Note that it is not symmetric, reflexive or transitive.
     \item Assign border points to the cluster of the closest core point.
 \end{enumerate}
 
-\subsection*{principles}
+\subsection{principles}
 DBSCAN relies on a density\-based notion of the cluster: A cluster is defined as a maximal set of density\-connected points.
 \begin{enumerate}
     \item Each cluster contains at least one core point.
@@ -1670,7 +1670,7 @@ DBSCAN relies on a density\-based notion of the cluster: A cluster is defined as
     \item All noise points do not belong to any clusters.
 \end{enumerate}
 
-\subsection*{Advantages}
+\subsection{Advantages}
 \begin{itemize}
     \item DBSCAN can handle clusters of arbitrary shapes and sizes.
     \item Number of clusters is determined automatically, which is different from K\-Menas.
@@ -1678,7 +1678,7 @@ DBSCAN relies on a density\-based notion of the cluster: A cluster is defined as
     \item Also a very commonly used clustering algorithm.
 \end{itemize}
 
-\subsection*{Disadvantages}
+\subsection{Disadvantages}
 \begin{itemize}
     \item Sensitive to parameters: hard to determine the optimal parameters.
     \item Has problem identifying clusters of varying densities.
@@ -1687,12 +1687,12 @@ DBSCAN relies on a density\-based notion of the cluster: A cluster is defined as
 \end{itemize}
 
 \section{Principal Component Analysis (PCA)}
-\subsection*{The need for dimension reduction}
+\subsection{The need for dimension reduction}
 Samples in data sets might contain thousands of features. However, too many features not only cause computational problems but also might cause inaccuracy. 
 
 \includegraphics*{Image/Classifier performance V.S. Dimensionality.jpg}
 
-\subsubsection*{Concept of dimensionality reduction}
+\subsubsection{Concept of dimensionality reduction}
 Dimensionality reduction is the process in which we transform $X\in \mathbb{R}^D$ to $X'\in \mathbb{R}^d$. Here $X'$ represents $X$ when $d<<D$. 
 \begin{itemize}
     \item $X'$ can be regarded as an approximation or abstraction of $X$
@@ -1707,7 +1707,7 @@ Besides common patterns, correlated features can also be reduced.
     \item So we can use a 1\-dimensional vector with corresponding coefficient $k$ to represent a 2\-dimensional feature. 
 \end{itemize}
 
-\subsubsection*{Projection}
+\subsubsection{Projection}
 Although feature spaces of raw data are always high dimensional. In many cases, feature vectors do not occupy the entire high\-dimensional feature space and most of them may lie around a low\-dimensional subspace of the ambient high\-dimensional space.
 
 Thus, we can find a subspace of it to preserve the best representation of the original data. To represent, we orthogonally project a feature vector $X\in\mathbb{R}^D$ onto the subspace.
@@ -1727,11 +1727,11 @@ The figure below illustrates an orthogonal projection of $X$ on the subspace spa
 
 \includegraphics*{Image/Projection to reduce dimensionality example.jpg}
 
-\subsection*{PCA algorithm}
+\subsection{PCA algorithm}
 
 One thing to note is that to correctly do PCA. It is important to normalize data. Otherwise, it is not going to produce the correct result. 
 
-\subsubsection*{Covariance}
+\subsubsection{Covariance}
 Variance and Covariance measure the ``spread'' of a set of points around their center of mass (mean).
 \begin{itemize}
     \item Variance measures the deviation from the mean for points in one dimension
@@ -1748,7 +1748,7 @@ We use it to find the relationships between two dimensions in high\-dimensional 
 \[q_{jk}=\frac{1}{N}(X_{ij}-E(X_j))(X_{ik}-E(X_k))\]
 Note that the expected value is just the sample mean.
 
-\subsubsection*{Spectral theory}
+\subsubsection{Spectral theory}
 PCA is related to eigenvalues. Review eigenvalue:
 \[Av=\lambda v ,\forall A\in \mathbb{R}^{m\times n}\]
 Any $\lambda, v$ pairs that satisfy the above relationship and are not zero are the eigenvalue and eigenvector. 
@@ -1807,7 +1807,7 @@ Give an example below:
         \item Lastly, project it by timing the $d$ eigenvector matrix to the original data. 
     \end{enumerate}
 
-\subsubsection*{Optimization}
+\subsubsection{Optimization}
 Choosing the larger eigenvalue would cause less loss of information. It can be found using the Variance percentage:
 \[p_i = \frac{\lambda_i}{\sum\lambda_i}\]
 So $\lambda_i>\lambda_j \implies$ $i^{th}$ eigenvector explains more variance.
@@ -1815,7 +1815,7 @@ So $\lambda_i>\lambda_j \implies$ $i^{th}$ eigenvector explains more variance.
 \section{Nural Network basis}
 
 Linear models need \textit{non-linearities} to be able to extend work to greater areas. Thus call for neural networks:
-\subsection*{Nonlinearities}
+\subsection{Nonlinearities}
 For linear regression, our loss function, for example, $(x,y)$ is:
 \[L=\frac{1}{2}(y-\beta^T x-\beta_0)^2=\frac{1}{2}(y-f)^2\] 
 where $f=\beta^T x+\beta_0$. Now consider $f=\beta^T h+\beta_0$:
@@ -1825,7 +1825,7 @@ where $f=\beta^T x+\beta_0$. Now consider $f=\beta^T h+\beta_0$:
 \end{itemize}
 This way, we can add as much information as we want while keeping the output linear.
 
-\subsubsection*{Activation (non\-linear) functions}
+\subsubsection{Activation (non\-linear) functions}
 \begin{itemize}
     \item Sigmoid squashes real number to range between 0 and 1
     
@@ -1858,7 +1858,7 @@ This way, we can add as much information as we want while keeping the output lin
     However, when $x<0$, the gradient is 0. Thus, the parameter is not updated, A.K.A \textbf{neuron death}. At the same time, the output mean value is greater than 0, which affects the convergence of the network. 
 \end{itemize}
 
-\subsection*{Neruon meodel}
+\subsection{Neruon meodel}
 Here we model a neuron as a logistic unit:
 
 \includegraphics*{./Image/Nueron Model.jpg}
@@ -1872,7 +1872,7 @@ Now output is an activation function where $\vec{x}=[x_1,x_2,x_3]^T$, $\Theta=[\
 
 The activation function exists so that we can get an answer of either 1 or 0. 
 
-\subsection*{Feed Forward}
+\subsection{Feed Forward}
 \includegraphics*{./Image/Feed Forward Nonliearity.jpg}
 
 The first layer is called the input, final layer is the output. Everything between the input and output are hidden layers as they cannot be seen.
@@ -1890,12 +1890,12 @@ Here, $\Theta^{(1)}$ is the coefficient/weight from layer 1 to layer 2. g is the
 
 Note that each calculation in a neural network only involves the data layer and the next layer. So a relationship can be extended to numerous layers without increasing the complexity of each calculation. 
 
-\subsubsection*{model complex function with non\-linearity}
+\subsubsection{model complex function with non\-linearity}
 Each neuron calculation can be seen as a step function with a corrected coefficient/weight that could be used to represent a piece of function.
 
 Now if we cut a complex function infinitely small, then each small piece can be approximated using a step function with weights. This way, all functions can be modeled by a neural network. 
 
-\subsection*{Backpropagation}
+\subsection{Backpropagation}
 
 A neural network consists of two components:
 \begin{itemize}
@@ -1903,12 +1903,12 @@ A neural network consists of two components:
     \item The parameters, values of the connections and model weights.
 \end{itemize}
 
-\subsubsection*{Before starting}
+\subsubsection{Before starting}
 Before starting, we need to initialize the parameters:
 
 In Practice, randomly initialize the parameters to small values, usually normally distributed around 0; $\mathcal{N}(0,0.1)$
 
-\subsubsection*{backpropagation algorithm}
+\subsubsection{backpropagation algorithm}
 
 \begin{enumerate}
     \item Input sample to the network and calculate the output (forward pass)
@@ -1937,7 +1937,7 @@ Note that:
 
 Because of the Chain Rule, we can build a gradient connection between the output and input via propagation. 
 
-\subsection*{Training and Validation}
+\subsection{Training and Validation}
 
 General formulation:\begin{itemize}
     \item Given an input dataset $X=\{x_1,x_2,\ldots,x_n\}$ with corresponding label $Y=\{y_1,y_2,\ldots,y_m\}$
@@ -1945,19 +1945,19 @@ General formulation:\begin{itemize}
     \item Get prediction $\Hat{Y}=\{\hat{y_1},\hat{y_2},\ldots,\hat{y_m}\}$, where $\hat{y_i}=f(x_i,\Theta)$
     \item Total loss $\mathcal{L}=\sum_{i=1}^{n}l(y_i,\hat{y_i})$
 \end{itemize}
-\subsubsection*{MSE}
+\subsubsection{MSE}
 We can use the mean square error as the loss:\begin{itemize}
     \item Mean square error (MSE) is the average squared difference between the estimated values and the actual value. MSE can be expressed by\[l_{MSE}=(y_i-\hat{y_i})^2=(y_i-f(c_i,\Theta))^2\]
     \item Further, we can compute the gradient of MSE by\[\frac{\partial l_{MSE}}{\partial \Theta}=-2(y_i-f(x_i,\Theta))\frac{\partial f(x_i,\Theta)}{\partial \Theta}\]
 \end{itemize}
 See the slides for an example
-\subsection*{Cross entropy error}
+\subsection{Cross entropy error}
 Cross entropy error (CE) is the cross\-entropy between two probability distributions over the same underlying set of events. \begin{itemize}
     \item CE can be expressed by \[l_{CE}=-y_i\log(\hat{y_i})=-y_i\log(f(x_i,\Theta))\]
     \item Further we can compute the gradient of CE by\[\frac{\partial l_{CE}}{\partial \Theta}=-\frac{y_i}{f(x_i,\Theta)}\frac{\partial (x_i,\Theta)}{\partial\Theta}\]
 \end{itemize}
 See the slides for an example
-\subsubsection*{Stochastic Gradient Descent (SGD)}
+\subsubsection{Stochastic Gradient Descent (SGD)}
 
 We use SGD be there is more than 1 optimal point or local minimum. We would aim for the global minimum:
 \begin{align*}
@@ -1965,13 +1965,13 @@ We use SGD be there is more than 1 optimal point or local minimum. We would aim 
     g(\theta_t)&=\frac{1}{b}\sum_{i\in B_t}\nabla_\theta l(x_i;\theta_t)& b\text{ is the Batch size}
 \end{align*}
 \includegraphics*{./Image/SGD.jpg}
-\subsubsection*{Training}
+\subsubsection{Training}
 \begin{itemize}
     \item One Epoch is completed when a complete data set is cycled forward and backward through the neural network.
     \item Batch size is a parameter that defines the number of samples to work through before updating the neural network weights.
     \item Iterations are the number of batches needed to complete on epoch
 \end{itemize}
-\subsubsection*{Learning rate decay}
+\subsubsection{Learning rate decay}
 We should reduce the learning rate as we complete more Epoch. Since we do not want oscillations when getting to the correct gradient. There are lots of ways to decay:\begin{enumerate}
     \item Step decay: reduce the rate at a few fixed points, making it as stairs.
     \item Linear decay: linearly decay proportional to the number of Epoch
@@ -1987,7 +1987,7 @@ There are lots of variants if neural network:\begin{itemize}
     \item Transformer: 
     \item Graph Neural Networks (GNN): deal with graph inputs. 
 \end{itemize}
-\subsection*{AutoEncoder(AE)}
+\subsection{AutoEncoder(AE)}
 Here are some important aspects for AE:\begin{itemize}
     \item Unsupervised: No labels used, discovers useful features of the input. 
     \item Compression: Code reduces the dimension of data
