@@ -38,12 +38,12 @@ Topics going to be covered in CPEN 221:
 
 A type is a set of values and the operations that are permitted on the values.
 
-\subsection*{OOP}
+\subsection{OOP}
 In OOP, reference types are objects and primitive types
 are not. The name of the object is the reference to the object.
 
 The object will have a constructor so that we can construct/create the object.
-\subsection*{User-defined types}
+\subsection{User-defined types}
 The intention of a type is that all interaction with values of that type be
 through the operations defined for that type.
 
@@ -51,7 +51,7 @@ Defensive programming:
 
 Build a wall to limit the access from others. E.g., private.
 
-\subsection*{Type safety}
+\subsection{Type safety}
 
 Type safety refers to a programming language's support for detecting type
 errors.
@@ -64,7 +64,7 @@ errors.
 Languages that can support stronger static analyses typically lead to stronger correctness guarantees.
 
 \section{Exception}
-\subsection*{Definations}
+\subsection{Definations}
 Exceptions are contracts that are supported by multiple programming languages.
 Exception mechanisms allow programmers to indicate problems and mechanisms
 include techniques for method clients to recover from problematic situations in
@@ -73,7 +73,7 @@ a reasonable manner.
 Java provides \textbf{throw} mechanism to indicate a problem or special
 situation. \textbf{catch} mechanisms can handle an exception thrown by the
 method used.
-\subsection*{Type of exception}
+\subsection{Type of exception}
 Java provides two exception types: \textbf{checked and unchecked}.
 \begin{itemize}
       \item Checked exception means it is checked by the compiler. It must be handled or
@@ -83,7 +83,7 @@ Java provides two exception types: \textbf{checked and unchecked}.
       \item All exceptions may have a message associated with them. If not provided in the
             constructor, the reference to the message string is null.
 \end{itemize}
-\subsection*{Throwable hierachy}
+\subsection{Throwable hierachy}
 \includegraphics{./summary_image/Throw_Hierarchy.png}
 
 Throwable is the class of objects that can be thrown or caught. Any object used
@@ -106,7 +106,7 @@ and are generally not caught.
             The compiler requires these exceptions to be caught or declared when they can be thrown.
 \end{itemize}
 When you define your own exceptions, you should either subclass RuntimeException (to make it an unchecked exception) or Exception (to make it checked).
-\subsection*{Exception design considerations}
+\subsection{Exception design considerations}
 \begin{itemize}
       \item If you design a method to have its own (new) exception, you have to create a
             new class for the exception.
@@ -117,19 +117,19 @@ When you define your own exceptions, you should either subclass RuntimeException
 You should use an unchecked exception only to signal an unexpected failure (typically, a bug), otherwise, you should use a checked exception.
 
 \section{Computing system}
-\subsection*{fetch-and-execute cycle}
+\subsection{fetch-and-execute cycle}
 CPU fetches instruction from memory and then executes it.
 
 Registers keep the values inside the CPU, program counter keeps track of the instruction address.
 
-\subsection*{Asynchronous Events}
+\subsection{Asynchronous Events}
 CPU checks data over and over again and executes when the desired data arrives. It is called polling. However, it wastes performance to keep waiting.
 
 Instead, the CPU gets interrupts, which stalls the current task and handles interrupts.
 
 Processes are individual tasks that the CPU is working on. Note that processes can have multiple streams of execution called threads.
 
-\subsection*{Java Virtual Machine}
+\subsection{Java Virtual Machine}
 Low\-level language can be translated directly to assembly and then machine language by the compilers. However high\-level languages like Java need an intermediate step.
 
 JVM is an interpreter that translates instructions one by one. Compilers translate Java to Java Bytecode program, which is a machine language for JVM. Then Java interpreter translates Java Bytecode to the local machine language. So it can be used across platforms.
@@ -137,7 +137,7 @@ JVM is an interpreter that translates instructions one by one. Compilers transla
 To solve the problem that it takes time to translate between JVM and local machine, Java introduced just\-in\-time compilers which translates from JVM to machine code while compiling to reduce time.
 \section{Program}
 
-\subsection*{Computation and Memory}
+\subsection{Computation and Memory}
 
 In the old days, the compiler explicitly decides the address of data. However, the challenge is that no other program can use it anymore.
 
@@ -151,7 +151,7 @@ CPU contains \textbf{Program Counter} (PC) to keep track of the memory address
 of the instruction being executed. Normally, pc is incremented by 1 unless
 conditional statements and function calls are given.
 
-\subsection*{Call Stacks and Stack Frames}
+\subsection{Call Stacks and Stack Frames}
 
 When a function is called, a \textbf{stack frame} is created to support the function's execution. The stack frame contains the function's local variables and the arguments passed to the function by its caller. The frame also contains housekeeping information that allows the called function (the callee) to return to the caller safely.
 
@@ -179,7 +179,7 @@ Summarize the steps:
 
 \section{Code testing and review}
 
-\subsection*{Software Validation}
+\subsection{Software Validation}
 The purpose of validation is to uncover problems in a program and thereby
 increase one's confidence in the program's correctness.
 
@@ -203,7 +203,7 @@ The development of a single function proceeds in this order:
       \item Actual code. Once you pass the tests, you are done.
 \end{enumerate}
 
-\subsection*{Why software testing is hard}
+\subsection{Why software testing is hard}
 Here are some approaches that do not work well:
 \begin{itemize}
       \item Exhaustive testing: Space of possibility is too large to cover.
@@ -214,7 +214,7 @@ Here are some approaches that do not work well:
             of possible input.
 \end{itemize}
 
-\subsection*{Partitioning}
+\subsection{Partitioning}
 Test suite: a set of test cases that cover different aspects of a program's
 behaviour.
 
@@ -233,7 +233,7 @@ Bugs often occur at the boundary between subdomains. There are a few reasons:
             example, \textbf{int} variable grows beyond its maximum positive value.
 \end{itemize}
 
-\subsection*{Two Extremes for Testing}
+\subsection{Two Extremes for Testing}
 After partitioning the input space, we can choose how exhaustive we want the
 test suite to be:
 \begin{itemize}
@@ -243,7 +243,7 @@ test suite to be:
             case, but not necessarily every combination.
 \end{itemize}
 
-\subsection*{Blackbox and Whitebox Testing}
+\subsection{Blackbox and Whitebox Testing}
 
 Specification is the description of the function's behaviour --- The types of
 parameters, type of return value, and constraints and relationships between
@@ -254,7 +254,7 @@ them.
 \textbf{Whitebox testing} means choosing test cases with knowledge of how the function is implemented.
 You must take care that your test cases don't require specific implementation behaviour that isn't specifically called for by the spec.
 
-\subsection*{Coverage}
+\subsection{Coverage}
 
 \begin{itemize}
       \item Statement coverage: is every statement run by some test case?
@@ -268,7 +268,7 @@ It is crucial to rerun your tests when you modify your code. It prevents the pro
 from regressing --- introducing other bugs. Running all your tests after every
 change is called regression testing.
 
-\subsection*{Coding style recommendations}
+\subsection{Coding style recommendations}
 
 There are only two constants that many computer engineers and computer
 scientists recognize as valid in and of themselves: 0, 1, and maybe 2. (Okay,
@@ -308,7 +308,7 @@ Postcondition: The description of the output values.
 
 Frame condition: Explain which element might change during the execution, avoid
 unintended behavior.
-\subsection*{The role of a spec}
+\subsection{The role of a spec}
 With a spec:
 \begin{itemize}
       \item the client (the user of a method or a class) agrees to rely only on information
@@ -322,7 +322,7 @@ A specification of a method can be concerned with the parameters and return
 value of the method, but it should never discuss the local variables of the method
 or private fields of the method's class.
 
-\subsection*{Designing specifications}
+\subsection{Designing specifications}
 \begin{itemize}
       \item Deterministic: Does the spec define only a single possible output for a given
             input or allow the implementor to choose from a set of legal outputs?
@@ -378,7 +378,7 @@ during testing and debugging and turned off when the program is released to
 users. So do not use it on a move directly. Make sure the program works without
 the assertion line.
 
-\subsection*{Modularity and Encapsulation}
+\subsection{Modularity and Encapsulation}
 Bettter software design:
 \begin{itemize}
       \item Modularity: Dividing up a system into components or modules. Each can be
@@ -400,7 +400,7 @@ Bettter software design:
 \section{Mutability}
 An important idea in computing (and in reasoning about computation) is that of
 mutable and immutable values.
-\subsection*{Pass parameters}
+\subsection{Pass parameters}
 Passing a mutable reference type could cause hazards! Be extra careful about
 it!
 
@@ -410,14 +410,14 @@ Do not directly return the address of a pointer! That will allow other programs 
 Immutability can be more efficient than mutability because immutable types
 never need to be defensively copied.
 
-\subsection*{Aliasing}
+\subsection{Aliasing}
 
 Aliases: multiple references on the same thing.
 
 Maybe we should just always indicate in the specs that we are returning a copy
 of a mutable type!
 
-\subsection*{Iterator}
+\subsection{Iterator}
 
 Iterator is a mutable class that could be used to iterate through different
 data types. Methods in it would be able to mutate the desired passed\-in
@@ -435,7 +435,7 @@ properties:
       \item \textbf{a recursive step}, that reduces an instance of the process to other instances of the same process, in the direction of one of the base cases.
 \end{itemize}
 
-\subsection*{Recursion and Induction}
+\subsection{Recursion and Induction}
 
 Let $P(n)$ be a statement for the $n^{th}$ natural number. We want to show that
 this statement is true for all $n\ge 0$
@@ -446,7 +446,7 @@ The idea of induction:
       \item Establish that if $P(1),\ldots,P(m)$ were true, then $P(m+1)$ is true.
 \end{itemize}
 
-\subsection*{Binary Search}
+\subsection{Binary Search}
 
 Binary Search is a recursive approach to searching through a sorted array.
 
@@ -460,7 +460,7 @@ smaller or larger than the value we have picked.
 Warnning!!!!!! The implementation is missing a termination situation where the
 the desired value is not in the data: if (startIndex $>=$ endIndex) returns false;
 
-\subsection*{Memoriztion}
+\subsection{Memoriztion}
 
 We can cache the results to prevent repetitive executions.
 
@@ -478,7 +478,7 @@ A datatype is a collection of objects/items and the operations that you can
 perform on those objects. Which means it is independent of the representation.
 As long as you can do the exact defined job, you are it!
 
-\subsection*{Controlling Access to Members of a Class}
+\subsection{Controlling Access to Members of a Class}
 
 Access level modifiers determine whether other classes can use a particular
 field or invoke a particular method. There are two levels of access control:
@@ -502,7 +502,7 @@ subclass of its class in another package.
 
 \includegraphics*{./summary_image/Access level control.png}
 
-\subsection*{What Abstration Means}
+\subsection{What Abstration Means}
 
 \begin{itemize}
       \item Abstraction.
@@ -532,7 +532,7 @@ subclass of its class in another package.
 The key idea of data abstraction is that a type is characterized by the
 operations you can perform on it
 
-\subsection*{Classifying Types and Operatoins}
+\subsection{Classifying Types and Operatoins}
 
 Types, whether built-in or user-defined, can be classified as mutable or
 immutable. Sometimes a type will be provided in two forms, a mutable and an
@@ -552,7 +552,7 @@ The operations of an abstract type can be classified as follows:
             list by adding an element to the end.
 \end{itemize}
 
-\subsection*{Designing an Abstract Type}
+\subsection{Designing an Abstract Type}
 
 It is better to have \textbf{a few, simple operations} that can be combined in
 powerful ways, rather than lots of complex operations.
@@ -571,7 +571,7 @@ representation (the actual data structure or data fields used to implement it),
 so that changes in representation have no effect on code outside the abstract
 type itself.
 
-\subsection*{Interfaces}
+\subsection{Interfaces}
 
 An interface in Java is a list of method signatures, but no method bodies. A
 the class implements an interface if it declares the interface in its implements
@@ -603,7 +603,7 @@ the interface.
 There is also a functional interface in Java. Basically, an interface that
 contains exactly just 1 abstract method.
 
-\subsection*{Invariants}
+\subsection{Invariants}
 
 The property of a good abstract data type is that it preserves its own invariants.
 An invariant is a property of a program that is always true, for every possible
@@ -643,7 +643,7 @@ The Abstraction Function maps a concrete representation to the abstract value
 it represents. The Rep Invariant specifies the legal values of the representation
 and should be checked at runtime with checkRep().
 
-\subsection*{Connecting specs and implementations}
+\subsection{Connecting specs and implementations}
 \begin{itemize}
       \item Representation invariant: Obejct $\to$ boolean.
             \begin{itemize}
@@ -660,7 +660,7 @@ and should be checked at runtime with checkRep().
 \end{itemize}
 
 %In short, an abstraction function maps rep values to the abstract values they represent.
-\subsection*{Rep invariant}
+\subsection{Rep invariant}
 Rep invariant is a condition or set of conditions that must be true for an
 an instance of an abstract data type (ADT) to be considered a valid and consistent
 representation.
@@ -685,7 +685,7 @@ Have a method to check for rep invariant:
 
 Make sure to check for null.
 
-\subsection*{Abstraction function}
+\subsection{Abstraction function}
 An AF defines a mapping between the internal representation of an ADT and the
 abstract, conceptual view of the data that the ADT is supposed to represent.
 
@@ -694,7 +694,7 @@ understanding of the data. It provides a way to interpret the internal state of
 an object in terms of its intended use.
 
 \includegraphics*[scale=0.8]{./summary_image/Abstract Function Illustration.png}
-\subsection*{Relationship between the two}
+\subsection{Relationship between the two}
 \begin{itemize}
       \item Rep invariant ensures that the internal state of an object remains consistent
             and valid.
@@ -703,12 +703,12 @@ an object in terms of its intended use.
             its conceptual model rather than its internal details.
 \end{itemize}
 
-\subsection*{How to write?}
+\subsection{How to write?}
 \includegraphics*[scale = 0.9]{./summary_image/RI and AF example.png}
 
 \section{Equality}
 
-\subsection*{Three ways to regard equality}
+\subsection{Three ways to regard equality}
 \begin{enumerate}
       \item Using an abstraction function: recall $f:R\rightarrow A$ maps concrete
             instances of a data type to their corresponding abstract values.
@@ -729,13 +729,13 @@ an object in terms of its intended use.
             be distinguished by calling any operations of the abstract data type.
 
 \end{enumerate}
-\subsection*{Comparing in programming}
+\subsection{Comparing in programming}
 == operator compares references. It tests referential equality. So only true if the value is the same.
 
 equals() compares object contents. The equals operation has to be defined
 appropriately for every abstract data type.
 
-\subsection*{The object contract}
+\subsection{The object contract}
 The spec of \textbf{Object} class is so important that it is often referred to
 as the \textbf{Object Contract}. When you override the equals method, you must
 adhere to its general contract:
@@ -747,7 +747,7 @@ adhere to its general contract:
 
 Always override hashCode when you override equals!!!!!!!!!
 
-\subsection*{Equality of Mutable/Immutable Types}
+\subsection{Equality of Mutable/Immutable Types}
 For immutable types:
 \begin{itemize}
       \item equals() should compare abstract values. This is the same as saying equals()
@@ -763,13 +763,13 @@ For mutable types:
 \end{itemize}
 So mutable types should not override equals() and hashCode() at all!
 
-\subsection*{Autoboxing}
+\subsection{Autoboxing}
 
 Java may covert some primitive types to object types and back automatically.
 
 Might not always work, although we see int and Integer equivalents usually.
 
-\subsection*{CompareTo}
+\subsection{CompareTo}
 In Java, a datatype that permits the ordering of instances can be implemented using
 a class that implements the interface Comparable. To implement the interface,
 one would need to implement a method compareTo.
@@ -777,7 +777,7 @@ one would need to implement a method compareTo.
 compareTo should be consistent with equals: if equals(o) returns true then
 compareTo(o) should return 0.
 
-\subsection*{Overloading and Overriding}
+\subsection{Overloading and Overriding}
 
 Overloading: two unrelated methods with the same name. The compliler chosses
 which method to invoke based on compile-time types of all arguments (including
@@ -789,7 +789,7 @@ based on the run\-time type of the receiver (only).
 
 \section{Subtyping}
 
-\subsection*{functional interface and delegation}
+\subsection{functional interface and delegation}
 
 Functional interface: an interface that has exactly one method.
 
@@ -797,7 +797,7 @@ Lambdas: anonymous functions which are passed as parameters to other functions.
 
 \dots
 
-\subsection*{Subclassing}
+\subsection{Subclassing}
 
 ``Extends'' key is used to define subclass relationships.
 
@@ -819,7 +819,7 @@ subtype objects safely.
 B is only a subtype of A if B's specification is at least as strong as A's
 specification.
 
-\subsection*{Some wisdom}
+\subsection{Some wisdom}
 Inherited superclass methods can break the subclass's rep invariant.
 
 When a subclass overrides superclass methods, it may depend on how the
@@ -832,7 +832,7 @@ superclass again, change all subclasss.)
 In general, mutable counterparts of immutable classes should not be declared as
 subtypes.
 
-\subsection*{Java Subtyping}
+\subsection{Java Subtyping}
 
 First of all, need to clarify that ``Java Subtyping'' is not the same as the
 concept of subtyping.
@@ -864,7 +864,7 @@ Corollaries:
             their declared type
 \end{itemize}
 
-\subsection*{Interfaces and Abstract Classes}
+\subsection{Interfaces and Abstract Classes}
 An abstract class is a class that can only be subclassed, it cannot be
 instantiated
 \begin{itemize}
@@ -884,12 +884,12 @@ Generally, it can be described as:
       \item Child nodes can be representations of different nodes that all work as a recursive node. You can define as many types of nodes as possible and use methods and fields to rule each one's behavior. Usually, using all types of nodes to extend a Node type could save our lives.
       \item Make sure there is an empty node meaning that the tree terminates here.
 \end{itemize}
-\subsection*{Null V.S. Empty}
+\subsection{Null V.S. Empty}
 Null might seem to be an easier way of expressing Empty, however, using an actual object to represent Empty can allow us to call some functions that could be more informative and are less likely to cause an error.
 
 Keep nulls out of your data structures, and your life will be happier.
 
-\subsection*{Delcared Type V.S. Actual Type}
+\subsection{Delcared Type V.S. Actual Type}
 Note that type checking occurs at \textbf{compile time and run time}.
 
 \begin{lstlisting}
@@ -899,7 +899,7 @@ Here during the compile time, it is ``List'' and during run time it is ``ArrayLi
 
 \section{Lambdas and Streams}
 
-\subsection*{Lambda Calculus}
+\subsection{Lambda Calculus}
 
 Lambdas Calculus is an expression generated by the following grammar which can
 denote a function definition, function application, variable, or parenthesized
@@ -915,7 +915,7 @@ abstraction with a formal variable x and a body + x 1 to the argument 2.
 
 In java, we represent it as x $->$ x + 1
 
-\subsection*{Java Lambdas}
+\subsection{Java Lambdas}
 A Java Lambda is basically a \textbf{method without a declaration}, usually
 written as
 \[
@@ -928,7 +928,7 @@ can be explicitly declared or inferred from the context.
 denote zero parameters. The body can contain zero or more statements. Braces
 are not needed around a single-statement body.
 
-\subsection*{Streams}
+\subsection{Streams}
 First, look at an example of using streams.
 
 \includegraphics*[scale=0.7]{./summary_image/Streams example.png}
@@ -974,7 +974,7 @@ There are a few ideas regarding streams that are good to indicate upfront:
             \end{itemize}
 \end{itemize}
 
-\subsubsection*{Sequence: map, filter and reduce}
+\subsubsection{Sequence: map, filter and reduce}
 Any datatype that has an iterator can qualify as a sequence. We will have three operations for sequences: map, filter and reduce.
 \begin{itemize}
       \item map \textbf{applies a unary function} to each element and returns a new list containing the results, in the same order.
@@ -1015,7 +1015,7 @@ Any datatype that has an iterator can qualify as a sequence. We will have three 
 \end{itemize}
 
 
-\subsection*{Parallel and Serial Streams}
+\subsection{Parallel and Serial Streams}
 
 Streams are serial unless declared parallel.
 
@@ -1027,30 +1027,92 @@ Since the partition is quite random, the behavior might be different all the
 time and execution time are not uniform across the multiple partitions.
 
 It could be seen as a \textit{concurrent} implementation of streams. So it would carry all the problems that concurrent programs have.
-\subsection*{First\-Class Functions in Java}
+\subsection{First\-Class Functions in Java}
 
 In Java, the only first-class values are primitive values and object references. But objects can carry functions with the,m in the form of methods.
 
 For example, the ``Comparator$<T>$'' object is a form of using an object to pass functions.
 
+
 \section{Grammar and Regular Expressions}
-\subsection*{Grammars}
+\subsection{Grammars}
 A grammar defines a set of sentences, where each sentence is a sequence of symbols called \textit{tokens/terminals}. A grammar is a set of productions, where each production defines a \textit{nonterminal}.
 
+A grammar consists of the following components:
+\begin{itemize}
+      \item Terminals: The basic symbols of the language.
+      \item Nonterminals: Symbols that can be replaced by a sequence of terminals and nonterminals.
+      \item Productions: Rules that define how nonterminals can be replaced by sequences of terminals and nonterminals.
+      \item Start symbol: The nonterminal from which the derivation of the language starts.
+\end{itemize}
+
+\subsection{Regular Expressions}
+Regular expressions are a powerful tool for pattern matching and text manipulation. They are used to describe patterns in strings and can be used in various programming languages and tools.
+
+Here are some commonly used regular expression constructs:
+\begin{itemize}
+      \item Character classes: Matches any single character from a set of characters. For example, the regular expression \verb|[abc]| matches either 'a', 'b', or 'c'.
+      \item Quantifiers: Specify the number of occurrences of a pattern. For example, the regular expression \verb|a{2,4}| matches 'a' repeated 2 to 4 times.
+      \item Anchors: Specify the position of a pattern in a string. For example, the regular expression \verb|^abc| matches 'abc' at the beginning of a string.
+      \item Grouping and capturing: Allows grouping of patterns and capturing of matched substrings. For example, the regular expression \verb|(ab)+| matches 'ab' repeated one or more times.
+      \item Alternation: Matches one of several alternatives. For example, the regular expression \verb|a| matches either 'a' or 'b'.
+      \item Escape sequences: Used to match special characters. For example, the regular expression \verb|\d| matches any digit.
+\end{itemize}
+
+Here are some examples of regular expressions:
+\begin{itemize}
+      \item \verb|\d{3}-\d{3}-\d{4}|: Matches a phone number in the format XXX-XXX-XXXX.
+      \item \verb|^[A-Za-z]+$|: Matches a string consisting of only letters.
+      \item \verb|^\d{4}$|: Matches a four-digit number.
+      \item \verb|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$|: Matches an email address.
+\end{itemize}
+
+Regular expressions provide a concise and flexible way to describe patterns in strings. They are widely used in text processing, data validation, and search operations.
+\subsection{A parsing example}
+\begin{lstlisting}[language=Java]
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class ParameterParser {
+      public static void main(String[] args) {
+            String input = "name1: 10, name2: 3.14, name3: 5";
+
+            // Define the regular expression pattern
+            String pattern = "(\\w+):\\s*(\\d+\\.\\d+|\\d+)";
+
+            // Create a Pattern object
+            Pattern regex = Pattern.compile(pattern);
+
+            // Create a Matcher object
+            Matcher matcher = regex.matcher(input);
+
+            // Iterate through the matches
+            while (matcher.find()) {
+                  String name = matcher.group(1);
+                  String value = matcher.group(2);
+
+                  System.out.println("Parameter name: " + name);
+                  System.out.println("Parameter value: " + value);
+            }
+      }
+}      
+\end{lstlisting}
+
+
 \section{Intro to Concurrency and Parallelism}
-\subsection*{Process vs. Thread}
+\subsection{Process vs. Thread}
 \begin{itemize}
       \item Process is an executing program. It contains its own memory space, file handles and other system resources allocated by the OS.
       \item One or more threads run in the context of one or more processes. Threads within the same process share the same memory space and resources allocated to that process. 
 \end{itemize}
-\subsection*{Parallelism V.S. Concurrency}
+\subsection{Parallelism V.S. Concurrency}
 \includegraphics*{./summary_image/parallelsim vs. concurrency.jpg}
 
 Parallel programming is about using additional computational resources to produce an answer faster. 
 
 Concurrent programming is about correctly and efficiently controlling access by multiple threads to shared resources.
 
-\subsection*{Basic Threads and Shared Memory}
+\subsection{Basic Threads and Shared Memory}
 
 Different threads can communicate by writing and reading fields of the same objects, in other words: share memory.
 
@@ -1066,7 +1128,7 @@ Each thread has its own call stack and program counter, but all the threads shar
       \item But! Static fields and objects will be unpredictable since you do not know the order of each thread accessing them.
 \end{itemize}
 
-\subsection*{Methods to communicate}
+\subsection{Methods to communicate}
 \begin{itemize}
       \item Shared-memory communication relies on \textbf{Aliasing}. Aliasing is when two different variables refer to the same object. Aliasing can be intentional or accidental.
       \item Message-passing: Threads do not share objects, instead, they send messages which is a copy of some data.
@@ -1084,7 +1146,7 @@ Normal Threads procedure:
       \item For each thread, wait for it to join, then collect the result. (This step is actually sequential. So while theoretically slicing the partition to be infinitely small can make sure work is balanced, adding up the result will take infinitely long since its sequential nature.)
 \end{enumerate}
 
-\subsection*{Divide and Conquer Parallelism}
+\subsection{Divide and Conquer Parallelism}
 The key idea is to:
 \begin{enumerate}
       \item If the range contains only one element, return that element as the sum. Else in parallel:
@@ -1106,7 +1168,7 @@ This way you do not waste threads since threads will be waiting for the two node
 
 Do notice that it takes time to create threads and work with threads. It might not be a good idea to do things that would not get too much help from threading.
 
-\subsection*{ForkJoin Framework}
+\subsection{ForkJoin Framework}
 \begin{lstlisting}[language=Java]
       import java.util.concurrent.ForkJoinPool;
       import java.util.concurrent.RecursiveAction;
@@ -1153,7 +1215,7 @@ Notice that the idea is similar, but we use different methods to achieve it.
 \end{itemize}
 
 \section{Network Programming}
-\subsection*{Client-Server Design Pattern}
+\subsection{Client-Server Design Pattern}
 We have two processes:\begin{itemize}
       \item clients:
       \item servers:
@@ -1165,14 +1227,14 @@ Procedure: \begin{enumerate}
 \end{enumerate}
 A server might handle connections from many clients concurrently and clients might also connect to multiple servers.
 
-\subsection*{Network Sockets}
-\subsubsection*{IP address}
-A network interface is identified by an IP address. IPv4 address is a 32\-bit number with four 8\-bit parts. For example:\begin{itemize}
+\subsection{Network Sockets}
+\subsubsection{IP address}
+A network interface is identified by an IP address. IPv4 address is a 32-bit number with four 8-bit parts. For example:\begin{itemize}
       \item 137.82.130.49 is the IP address of a UBC web server. Every address whose first octet is 137 is on the UBC network.
       \item 173.194.123.40 is the address of a Google web server.
       \item 127.0.0.1 is the loopback or localhost address: it always refers to the local machine. Technically, any address whose first octet is 127 is a loopback address, but 127.0.0.1 is standard.
 \end{itemize}
-\subsubsection*{Hostnames}
+\subsubsection{Hostnames}
 Host names are names that can be translated into IP addresses. A single hostname can map to different IP addresses at different times, and multiple hostnames can map to the same IP address. For example\begin{itemize}
       \item www.ubc.ca is the name of UBC's web server. You can translate this name to an IP address yourself using dig, host, or nslookup on the command line, e.g.:\begin{lstlisting}
             $ dig +short www.ubc.ca
@@ -1181,7 +1243,7 @@ Host names are names that can be translated into IP addresses. A single hostname
       \item localhost is a name for 127.0.0.1. When you want to talk to a server running on your own machine, talk to localhost.
 \end{itemize}
 Translation from hostnames to IP addresses is the job of the Domain Name System (DNS).
-\subsubsection*{Port Numbers}
+\subsubsection{Port Numbers}
 A single machine might have multiple server applications that clients wish to connect to, so we need a way to direct traffic on the same network interface to different processes.
 
 Network interfaces have multiple ports identified by a 16-bit number from 0 (which is reserved, so we effectively start at 1) to 65535.
@@ -1197,7 +1259,7 @@ When the port is not a standard port, it is specified as part of the address. Fo
 
 When a client connects to a server, that outgoing connection also uses a port number on the client's network interface, usually chosen at random from the available non-well-known ports.
 
-\subsubsection*{Sockets}
+\subsubsection{Sockets}
 A socket represents one end of the connection between the client and server.
 \begin{itemize}
       \item A \textbf{listening socket} is used by a server process to wait for connections from remote clients. In Java, use ServerSocket to make a listening socket, and use its accept method to listen to it.
@@ -1206,7 +1268,7 @@ A socket represents one end of the connection between the client and server.
             In Java, clients use a Socket constructor to establish a socket connection to a server. Servers obtain a connected socket as a Socket object returned from ServerSocket.accept.
 \end{itemize}
 
-\subsection*{Buffers}
+\subsection{Buffers}
 The size of data communication is unknown and not stable. So we just put them into buffers when data arrives. 
 
 The data going into or coming out of a socket is a stream of bytes.
@@ -1215,7 +1277,7 @@ In Java, InputStream objects represent sources of data flowing into your program
 
 OutputStream objects represent data sinks, places we can write data to: FileOutputStreams for saving to files, System.out is a PrintStream or the output to a network socket.
 
-\subsection*{Blocking}
+\subsection{Blocking}
 Blocking means that a thread waits (without doing further work) until an event occurs.
 
 Socket input/output streams exhibit blocking behavior:\begin{itemize}
@@ -1228,7 +1290,7 @@ Concurrent modules don't work in lockstep like sequential programs do, so they t
 Deadlock can be caused because of it: modules are waiting for each other to do something, so none of them can make any progress.
 
 Notice how both ServerSocket.accept() and in.readLine() are blocking. This means that the server will need a new thread to handle I/O with each new client. While the client-specific thread is working with that client (perhaps blocked in a read or a write), another thread (perhaps the main thread) is blocked waiting to accept a new connection.
-\subsection*{protocol}
+\subsection{protocol}
 A protocol is a set of messages that can be exchanged by two communicating parties. A wire protocol in particular is a set of messages represented as byte sequences, like hello world and bye
 
 
@@ -1241,7 +1303,7 @@ Reasons for using multithreading:
       \item Failure/performance isolation: Other threads can continue executing if one thread throws exceptions or errors due to some problems.
 \end{itemize}
 
-\subsection*{Synchroniztion}
+\subsection{Synchroniztion}
 To make sure that threads do not cause data exposure (accessing data at the same time which breaks the operation), we need to enforce \textbf{mutual exclusion}
 
 We can do so by:\begin{itemize}
@@ -1250,7 +1312,7 @@ We can do so by:\begin{itemize}
       \item That is, they give us the \textbf{atomic} check-for-no-sign-and-hang-a-sign that we want. This is enough to implement mutual exclusion properly. The particular synchronization mechanism we will use is \textbf{locking}, and the special hardware instructions involved are "compare-and-set" or "compare-and-swap" instructions.
 \end{itemize}
 
-\subsection*{Locks}
+\subsection{Locks}
 We can define a mutual-exclusion lock, also known as a lock (or sometimes called a mutex), as an abstract datatype designed for concurrent programming and supporting three operations:
 \begin{itemize}
       \item new: establish a new instance of lock, unheld
@@ -1290,7 +1352,7 @@ There are a few problems with the code:\begin{enumerate}
       \end{itemize}
 \end{enumerate}
 
-\subsubsection*{synchronized keyword}
+\subsubsection{synchronized keyword}
 \begin{lstlisting}[language=Java]
       synchronized (expression) {
             statements
@@ -1351,7 +1413,7 @@ Warning: locks work on objects instead of the pointer. So if we change the point
 \section{Data Races}
 A \textit{race condition} is a mistake in your program such that whether the program behaves correctly or not depends on the order in which the threads execute. 
 
-\subsection*{Bad Interleaving}
+\subsection{Bad Interleaving}
 One kind of race condition is a bad interleaving, sometimes called a higher-level race. If doing something at the same time as doing another thing causes dependency, then it is bad interleaving. 
 
 A data race is a specific kind of race condition that is better described as a \textit{simultaneous access error}. There are two kinds of data races:\begin{itemize}
@@ -1360,7 +1422,7 @@ A data race is a specific kind of race condition that is better described as a \
 \end{itemize}
 Reading at the same time is ok. 
 
-\subsection*{volatile}
+\subsection{volatile}
 Instead of using locks, we can declare fields to be volatile. By definition, accesses to volatile fields do not count as data races, so programmers using volatiles are still upholding their end of the grand compromise.
 
 Reading/writing a volatile field is less efficient than reading/writing a regular field, but more efficient than acquiring and releasing a lock.
@@ -1379,12 +1441,12 @@ There are basically four ways to make variable access safe in shared-memory conc
 
 A data type or static method is thread-safe if it behaves correctly when used from multiple threads, regardless of how those threads are executed, and without demanding additional coordination from the calling code.
 
-\subsection*{Confinement}
+\subsection{Confinement}
 You avoid races on mutable data by keeping that data confined to a single thread. Do not give any other threads the ability to read or write the data directly. Since shared mutable data is the root cause of a race condition, confinement solves it by not sharing the mutable data.
 
 Pay attention to static/global variables and references! Maybe they will be exposed to other threads without even noticing.
 
-\subsection*{Immutability}
+\subsection{Immutability}
 An immutable type is generally safe. 
 
 An immutable data type that uses beneficent mutation will have to make itself thread-safe using locks 
@@ -1395,21 +1457,21 @@ So in order to be confident that an immutable data type is thread-safe without l
       \item no mutation whatsoever of mutable objects in the rep, not even beneficent mutation;
       \item no rep exposure (see the ADT reading to review what rep exposure is).
 \end{itemize}
-\subsection*{Thread-safe Data Types}
+\subsection{Thread-safe Data Types}
 When a data type in the Java library is Thread-safe, its documentation will explicitly state that fact. 
 
-Note that StringBuffer is a thread\-safe data type where StringBuilder is not. Can be found in their specs. 
+Note that StringBuffer is a thread-safe data type whereas StringBuilder is not. Can be found in their specs. 
 
 Collections.synchronizedMap(new HashMap$<>$()) is another example of a synchronized wrapper. Now the operations are safe but iterators or for loops are still not safe. 
 
 The solution to this problem will be to acquire the collection's lock when you need to iterate over it, which we'll talk about in a subsequent reading.
 
 However, it is still not enough:\begin{lstlisting}
-      if ( ! lst.isEmpty()) { String s = lst.get(0); ... }
+      if(!lst.isEmpty()) {String s = lst.get(0); ... }
 \end{lstlisting}
 It is not safe since another thread may have removed an element between the if statement and the line of execution, even if the data type of `lst' might be safe. 
 
-\subsection*{Thread Safety Argument}
+\subsection{Thread Safety Argument}
 A safety argument needs to catalog all the threads that exist in your module or program, and the data that they use, and argue which of the four techniques you are using to protect against races for each data object or variable: confinement, immutability, Thread-safe data types, or synchronization. When you use the last two, you also need to argue that all accesses to the data are appropriately atomic that is, that the invariants you depend on are not threatened by interleaving. 
 \section{Guidence for Safe Concurrent Programming}
 Every memory location in your program should meet at least one of the following:\begin{itemize}
@@ -1419,24 +1481,23 @@ Every memory location in your program should meet at least one of the following:
 \end{itemize}
 Synchronization is hard, so try to use the other two as much as possible. 
 
-\subsection*{General Guidence}
+\subsection{General Guidence}
 Lack of synchronization is usually caused by two:\begin{itemize}
       \item Data races: simultaneous read/write or write/write of the same memory location. 
       \item Bad interleavings: exposing bad intermediate state, which can be easily interrupted by another thread
 \end{itemize}
-\subsubsection*{Three choices to fix it}
+\subsubsection{Three choices to fix it}
 For every memory location in the program, at least one of the following must be obbeyed:\begin{enumerate}
       \item Thread-local: Do not use the location in more than 1 thread.
       \item Immutable: Do not write to the memory location.
       \item Synchronized: Use synchronization to control access to the location.
 \end{enumerate}
-\subsubsection*{Guidence on locking mechanism}
+\subsubsection{Guidence on locking mechanism}
 \begin{enumerate}
       \item Eliminate data races: Never allow two threads to read/write or write/write the same location at the same time.
       \item Consistent Locking: For each location needing synchronization, have a lock that is always held when reading or writing the location. This could avoid data racing but can not solve bad interleaving. 
-      \item 
 \end{enumerate}
-\subsubsection*{Lock Granularity}
+\subsubsection{Lock Granularity}
 Two styles of using locks:\begin{enumerate}
       \item Coarse-grained: fewer locks, more objects per lock.\begin{itemize}
             \item simpler to implement
@@ -1447,7 +1508,7 @@ Two styles of using locks:\begin{enumerate}
       \end{itemize}
 \end{enumerate}
 General advice is to start with coarse-grained (simpler) and move to fine-grained (performance) only if contention on the coarser locks becomes an issue.  Alas, often leads to bugs.
-\subsubsection*{Atomicity}
+\subsubsection{Atomicity}
 An operation is atomic if no other thread can see it partly executed.
 
 Make critical sections just long enough to preserve atomicity. Then design the locking protocol to implement the critical sections correctly. 
@@ -1465,7 +1526,7 @@ A deadlock is a situation in which two or more threads are blocked forever, each
 
 \includegraphics*[scale=0.7]{./summary_image/Deadlock Illustration.jpg}
 
-\subsection*{Conditions for Deadlock}
+\subsection{Conditions for Deadlock}
 Deadlock cannot occur if any of the below conditions is not satisfied
 \begin{itemize}
       \item Circular wait
@@ -1473,7 +1534,7 @@ Deadlock cannot occur if any of the below conditions is not satisfied
       \item Hold-and-wait $->$ Thread holds a lock and waits for another lock
       \item No preemption $->$ Thread cannot be forced to release a lock
 \end{itemize}
-\subsection*{Preventing Deadlock}
+\subsection{Preventing Deadlock}
 Look at an example buggy code and try to fix it:
 \begin{lstlisting}[language=Java]
 public class Account {
@@ -1491,7 +1552,7 @@ public class Account {
       }
 }       
 \end{lstlisting}
-\subsubsection*{Preventing Circular Wait}
+\subsubsection{Preventing Circular Wait}
 Providing a \textbf{total ordering} of all resources and requiring that each thread acquire resources in increasing order of enumeration. 
 
 An possible fix example:\begin{lstlisting}[language=Java]
@@ -1511,7 +1572,7 @@ public void transfer(Account target, int amount) {
 }      
 \end{lstlisting}
 Note that it works since there is always an ordering of the two accounts. No transaction would hold the second lock before the first one. (hashCode is used just for demonstration purposes, hashCode is not guaranteed to be unique)
-\subsubsection*{Preventing Hold-and-Wait}
+\subsubsection{Preventing Hold-and-Wait}
 Can be avoided by acquiring all the locks at once. 
 
 However, it requires knowing which locks must be held and to acquire them ahead of time. Then all locks must be acquired early on (at once) instead of when they really need to be used. This could decrease concurrency and performance.
@@ -1530,7 +1591,8 @@ public void transfer(Account target, int amount) {
       }
 }
 \end{lstlisting}
-\subsubsection*{Preventing No Preemption}
+I would say do not do this unless it is the only option. It is not a good idea to have a global lock. It is not scalable and it is not flexible. We use multithreading to increase performance and concurrency. This way, we are just making it sequential.
+\subsubsection{Preventing No Preemption}
 There is a tryLock() method that returns true if the lock is acquired and false if it is not. But it can also take arguments to set a timeout.
 \begin{lstlisting}[language=Java]
 boolean tryLock() 
@@ -1553,7 +1615,7 @@ while (retry) {
       }
 }
 \end{lstlisting}
-Here we use a while loop to keep trying to acquire the lock. If it fails, we release the lock and try again. This way, we can avoid deadlock by not holding the lock and waiting for another lock. However, it will introduce livelock.
+Here we use a while loop to keep trying to acquire the lock. If it fails, we release the lock and try again. This way, we can avoid deadlock by not holding the lock and waiting for another lock. However, \textbf{livelock} will be introduced.
 
 \includegraphics*[scale=0.5]{./summary_image/Livelock.jpg}
 
@@ -1566,7 +1628,7 @@ Livelock:\begin{itemize}
       \item One possible solution would be to add a randomized delay to break patterns like setting up a random wait time for `tryLock()'
 \end{itemize}
 
-\subsubsection*{Mutual Exclusion}
+\subsubsection{Mutual Exclusion}
 The best to prevent deadlocks is to avoid locks if possible. Think carefully about whether you really need to lock the object.
 
 

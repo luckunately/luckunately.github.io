@@ -32,7 +32,7 @@ Some other useful notations: $\mathbb{N} $ is a natural number.$ \mathbb{Q} $ is
 
 We write $|S|$ to denote the \textbf{cardinality} of S. For a finite set S, the cardinality is the number of elements in S. For example, $|$\O$|$=0.
 
-\subsection*{Subset}
+\subsection{Subset}
 
 Let $A,B$ be sets
 \begin{itemize}
@@ -44,7 +44,7 @@ Let $A,B$ be sets
     $A=B \iff ((A\subseteq B)\land (B\subseteq A))$
 \end{itemize}
 
-\subsection*{Power set}
+\subsection{Power set}
 Let $A$ be a set. The \textbf{power set} of $A$, denoted as $\mathcal{P}(A)$, is the set of all subsets of $A$. 
 \begin{align*}
     \mathcal{P}(\emptyset) &= \{\emptyset\} \\
@@ -53,7 +53,7 @@ Let $A$ be a set. The \textbf{power set} of $A$, denoted as $\mathcal{P}(A)$, is
 \end{align*}
 Not hard to prove that $|A|=n \implies |\mathcal{P}(A)|=2^n$
 
-\subsection*{Set operations}
+\subsection{Set operations}
 \begin{itemize}
     \item Let A, and B be sets. The \textbf{union} of A and B is 
     \[A\cup B = \{x:x\in A \lor x \in B\} \]
@@ -81,7 +81,7 @@ Not hard to prove that $|A|=n \implies |\mathcal{P}(A)|=2^n$
     Note that $\forall A,B \neq \emptyset, A \times B = B \times A \iff A = B$ 
 
 \end{itemize}
-\subsubsection*{Set proofs}
+\subsubsection{Set proofs}
 Let A, B be sets:
 \begin{itemize}
     \item Subset and equality:
@@ -103,7 +103,7 @@ Let A, B be sets:
 
 
 
-\subsection*{Set partitions}
+\subsection{Set partitions}
 
 Equivalence classes either euqal or disjoint. There is no overlap.
 
@@ -218,7 +218,7 @@ DeMorgan's laws: $\neg (P\cup Q)\equiv (\neg P)\cap (\neg Q) \quad and\quad \neg
 
 \section{Quantifiers and negations}
 
-\subsection*{Some basics}
+\subsection{Some basics}
 
 Adding quantifiers to an open sentence turns it into a statement. Here the added quantifier is a scope.
 
@@ -234,7 +234,7 @@ Def:
 
 To show $\forall$ is true or $\exists$ is false, you have to show it generically. Otherwise, one example of the case is good enough.
 
-\subsection*{Negation theorem}
+\subsection{Negation theorem}
 
 Let P(x) be an open sentence over the domain A, then
 \[
@@ -246,7 +246,7 @@ Let P(x) be an open sentence over the domain A, then
 
 Be cautious that the domain would not change!!!!!!!!!!!!!
 
-\subsection*{Nested Quantifiers}
+\subsection{Nested Quantifiers}
 The order of quantifiers matters a lot! 
 \[
 \forall x, \exists y s.t. P(x,y)\not \equiv \exists y s.t. \forall, P(x,y)    
@@ -280,14 +280,14 @@ then $P(n)$ is true $\forall n \in \mathbb{N}$
 
 So we prove the base case is true, then prove $P(k)\implies P(k+1)$
 
-\subsection*{The well ordering principle}
+\subsection{The well ordering principle}
 Definition: (The well ordering principle)
 
 A set $A$ is well ordered if every non-empty subset $B \subseteq A$ has one smallest element. 
 
 Notice that $\mathbb{N}$ is well ordered, but $\mathbb{Z, Q, R}$ are not. This is why induction only works on $\mathbb{N}$
 
-\subsection*{Generalize induction}
+\subsection{Generalize induction}
 
 Lay out two definitions of induction here. 
 
@@ -331,7 +331,7 @@ $R$ is
 
 If $R$ satisfies all the conditions above, then $R$ is an \textbf{equivalence relation}
 
-\subsection*{Equivalence class}
+\subsection{Equivalence class}
 
 Let R be an \textit{equivalence relation} on set A;
 
@@ -359,7 +359,7 @@ Suppose R is an equivalence relation on A, and let $a, b\in A$. Then
     \end{itemize}
 \end{proof}
 
-\subsection*{Congurence}
+\subsection{Congurence}
 Congurence is a equivalence relation. Meaning it is reflexive, symmetric and transitive. 
 
 Take modulo as an example:
@@ -397,7 +397,7 @@ Finally, the \textbf{range} of $f$ is
 
 Note that the \textbf{range} is a subset of the \textbf{codomain}
 
-\subsection*{Images and Preimages}
+\subsection{Images and Preimages}
 Let $f:A \to B$ be a function and let $C\subseteq A, D\subseteq B$
 \begin{itemize}
     \item The \textbf{image} of $C$ in $B$ is $f(C)=\{f(x)s.t.x\in C\}$
@@ -419,7 +419,7 @@ Now let $C_1, C_2\subseteq A$ and $D_1,D_2\subseteq B$. Then:
 
 Note that one of them is a subset relationship. 
 
-\subsection*{Injection, Surjection and Bijection}
+\subsection{Injection, Surjection and Bijection}
 Let $f:A\times B$ be a function:
 \begin{itemize}
     \item The function is an \textbf{injective/one-to-one} function when $\forall a_1,a_2 \in A$
@@ -431,7 +431,7 @@ Let $f:A\times B$ be a function:
     \item \textbf{Bijective} functions are \textbf{BOTH} \textit{injective and surjective}. Bijection AKA \textbf{one-to-one correspondences}
 \end{itemize}
 
-\subsection*{Composition}
+\subsection{Composition}
 Let $f:A\to B$ and $g:B\to C$, The \textbf{composition} of $f$ and $g$ denoted $g \circ f$, defines a new function: 
 \[g \circ f : A\to C \quad (g\circ f)(a)=g(f(a))\quad \forall a\in A\]
 Note that composition is \textit{associative}: $h\circ(g\circ f)=(h\circ g)\circ f$
@@ -449,7 +449,7 @@ At the same time:
     \item If $g\circ f$ is surjective, then $g$ is surjective, $f$ is unknown.
 \end{itemize}
 
-\subsection*{Inverse functions}
+\subsection{Inverse functions}
 For a set $A$, the \textbf{identity function} on $A$ is the function $i_A:A\to A$ defined as $i_A(x)=x,\forall x \in A$.  
 
 Let $f:A\to B, g:B\to A$ be functions:
@@ -476,14 +476,14 @@ Proof by Contradiction relies on two things:
     \item Fact: Law of the excluded middle: Let $P$ be a statement. Then either $P$ is true or its negation is true.
     \item MODUS TOLLENS: If $(P\implies Q)$ and $Q$ is false, then $P$ is false. (Write out the truth table to check)
 \end{itemize}
-\subsection*{Structure of contradiction proofs}
+\subsection{Structure of contradiction proofs}
 Imagine that we want to prove statement $P$ is true:
 \begin{enumerate}
     \item State that we use contradiction and assume $\neg P$ is true
     \item We establish a chain of implications that terminates at a contradiction that is false: \[\neg P\implies P_1\implies P_2 \implies \ldots \implies \textbf{contradiction}\]
     \item By modus tollens, $\neg P$ must be false, thus $P$ is true.
 \end{enumerate}
-\subsection*{Irrational Numbers}
+\subsection{Irrational Numbers}
 With contradiction, we can define rational and irrational numbers:
 Let $q$ be a real number:
 \begin{itemize}
@@ -491,7 +491,7 @@ Let $q$ be a real number:
     \item We say $q$ is \textbf{irrational} when it is \textbf{not rational}\[\forall a\in \mathbb,\forall b\in (\mathbb{Z}-\{0\}),q=\frac{a}{b}\]
     \item Note that irrational and rational numbers make up the partition of real numbers. \[\mathbb{R}=\mathbb{Q}+\mathbb{I} \iff \mathbb{I}=\mathbb{R}-\mathbb{Q} \]
 \end{itemize}
-\subsection*{There are infinite primes}
+\subsection{There are infinite primes}
 Lemma: Let $n\in\mathbb{N}$, if $n\ge 2$, then $n$ is divisible by a prime.
 
 Now we want to prove that there is an infinite number of primes:
@@ -505,7 +505,7 @@ Now we want to prove that there is an infinite number of primes:
 Define: Let $A, B$ be sets. They have the same \textbf{cardinality} if $A=B=\emptyset$ or if there is a \textit{bijection} from A to B. In this case, we write $|A|=|B|$ and say the sets are \textbf{equinumerous}. 
 
 Note that the special case exists because there is no bijection between empty sets. 
-\subsection*{Pigeonhole Principle (PHP)}
+\subsection{Pigeonhole Principle (PHP)}
 If $n$ objects are placed in $k$ boxes then\begin{itemize}
     \item if $n<k$, at least one box has zero objects in it.
     \item if $n>k$, at least one box has at least two objects in it.
@@ -521,7 +521,7 @@ Let $A,B$ be \textbf{finite} sets and let $f:A\to V$. Then\begin{align*}
 \end{align*}
 
 
-\subsection*{Infinite Sets}
+\subsection{Infinite Sets}
 Let $A, B ,C$ be sets, then ``being equininumerous'' is an equivalence relation:\begin{itemize}
     \item reflexive: $|A|=|A|$
     \item symmetric: $|A|=|B|\implies |B|=|A|$
@@ -544,7 +544,7 @@ Now we can define infinite set:\begin{itemize}
     \item \textit{formal definition}: a set $A$ is infinite if there is a bijection from $A$ to a proper subset of $A$. (not itself)
 \end{itemize}
 
-\subsection*{denumerable}
+\subsection{denumerable}
 The first infinite set we meet is the natural numbers.
 \begin{itemize}
     \item A set $A$ is called \textbf{denumerable} if there is a bijection $f : \mathbb{N} \to A$
@@ -564,7 +564,7 @@ This list has two nice properties:\begin{itemize}
     \item Since $f$ is surjective, any given $y\in B$ appears at some \textbf{finite} position:\[\forall y\in B, \exists n\in \mathbb{N}s.t.y=f(x)=b_n\]
 \end{itemize}
 In the same way, if there is a bijection from $\mathbb{N}$ to $B$, then $B$ is denumerable. 
-\subsubsection*{Example}
+\subsubsection{Example}
 The idea of this kind of proof is to find a list that could be written as a bijection to natural numbers.
 
 For example, prove that the set of all integers is denumerable.\begin{proof}
@@ -585,7 +585,7 @@ For example, prove that the set of all integers is denumerable.\begin{proof}
     \end{itemize}
     Thus there is a bijection
 \end{proof}
-\subsection*{Countable}
+\subsection{Countable}
 Theorem:
 
 Let $A,B$ be sets with $A\subseteq B$. If $B$ is denumerable then $A$ is countable.
@@ -619,12 +619,12 @@ Following is the chart way of proving it:
 
     So we showed that we can get an infinite list of all rational numbers. Thus $|\mathbb{Q}=\mathbb{N}$ and that could be extended to the Cartesian product of two countably infinite sets. E.g., $|\mathbb{Q}=\mathbb{N}=\mathbb{Z}\times \mathbb{Z}$
 \end{proof}
-\subsection*{Uncountable}
+\subsection{Uncountable}
 Fact: Every irrational number has a unique non-repeating decimal expansion. 
 
 Corollary: The set of all real numbers is uncountable. Additionally $|(0,1)|=|\mathbb{R}|=c$. 
 
-\subsection*{Infinities}
+\subsection{Infinities}
 Comparing different infinities:
 
 Let $A, B$ be sets.\begin{itemize}

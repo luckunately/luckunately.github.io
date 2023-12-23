@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1701841957 "c:/Users/10054/OneDrive/luckunately.github.io/CPEN355/Summary/Summary.tex" "Summary.pdf" "Summary" 1701841960 0
+["pdflatex"] 1702970145 "c:/Users/10054/OneDrive/luckunately.github.io/CPEN355/Summary/Summary.tex" "Summary.pdf" "Summary" 1702970148 0
   "Image/2-dim_feature_space_example.png" 1700092796 182497 2fd0d569406b1589f0fd444954d2ca29 ""
   "Image/2D to 3D example.png" 1700092796 89681 e2a722be06ca74a20a998840cb9900f6 ""
   "Image/Backpropagation example.jpg" 1700695649 5952 917fba0330949ac367fda0e9840cbec4 ""
@@ -46,9 +46,9 @@
   "Image/Tanh funciton.jpg" 1700695649 8648 7b1fd7fb2bf13dde192e4e586d338a70 ""
   "Image/cross entropy.png" 1700092796 59809 df63293def723fad592bcb1942381740 ""
   "Image/learning rate for gradient descent.png" 1700092796 29558 52c15210c1bd65e37d93141f1a69e271 ""
-  "Summary.aux" 1701841960 8024 ae3ab7ba2b21fc24bcca4f151100acd2 "pdflatex"
-  "Summary.tex" 1701841953 87314 aacd08db671603a764b55f93ab03cd1b ""
-  "c:/Users/10054/OneDrive/luckunately.github.io/CPEN355/Summary/Summary.tex" 1701841953 87314 aacd08db671603a764b55f93ab03cd1b ""
+  "Summary.aux" 1702970148 49442 74200da97cb1d4089428f0a8fce3d3aa "pdflatex"
+  "Summary.tex" 1702970141 87216 6c4290f5a9b911bfd43bdc0f07037add ""
+  "c:/Users/10054/OneDrive/luckunately.github.io/CPEN355/Summary/Summary.tex" 1702970141 87216 6c4290f5a9b911bfd43bdc0f07037add ""
   "e:/TeX live/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1694992909 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "e:/TeX live/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1694995317 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "e:/TeX live/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1694993906 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
