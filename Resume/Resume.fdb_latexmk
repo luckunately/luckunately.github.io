@@ -1,8 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1703321594 "g:/GitHub repositories/luckunately.github.io/Resume/Resume.tex" "Resume.pdf" "Resume" 1703321596 0
-  "Resume.aux" 1703321596 797 8cfe2edfccb7e462acde500918712bd3 "pdflatex"
-  "Resume.out" 1703321596 526 447a15987d0668c95efc5f3b0175598c "pdflatex"
-  "Resume.tex" 1703321593 2551 b4f3dbb0149376716140b615867d00fe ""
+["pdflatex"] 1703322593 "g:/GitHub repositories/luckunately.github.io/Resume/Resume.tex" "Resume.pdf" "Resume" 1703322595 0
+  "Resume.aux" 1703322595 797 8cfe2edfccb7e462acde500918712bd3 "pdflatex"
+  "Resume.out" 1703322595 526 447a15987d0668c95efc5f3b0175598c "pdflatex"
+  "Resume.tex" 1703322592 4063 72b519e68e09370929f17f0b946070db ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc" 1698648882 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/tex-gyre/q-rm.enc" 1698653874 2409 c64dab22331c83731e970f6020b4448b ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc" 1698653874 3124 3813fd4c981d99822890a2861b0d274c ""
@@ -78,11 +78,12 @@
   "c:/texlive/2023/texmf-dist/tex/latex/tex-gyre/ts1qpl.fd" 1698653874 1162 2c49e2817a9551ff0c50d454b41d1128 ""
   "c:/texlive/2023/texmf-dist/tex/latex/titlesec/titlesec.sty" 1698654231 48766 0b93839be28e9744a24c45075c75b2e2 ""
   "c:/texlive/2023/texmf-dist/tex/latex/url/url.sty" 1698654638 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
+  "c:/texlive/2023/texmf-dist/tex/latex/xcolor/xcolor.sty" 1698654866 56148 51a9a8571c07b9921892ae11063ae853 ""
   "c:/texlive/2023/texmf-dist/web2c/texmf.cnf" 1698646650 41009 84b61f42d16d06bedb915f57aa2374cf ""
   "c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1698655159 4750288 f1f34006308c654e053d5a8459362656 ""
   "c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1698655415 8208552 b5c807892c40f58536fb25e871bed8c6 ""
   "c:/texlive/2023/texmf.cnf" 1698655117 713 e69b156964470283e0530f5060668171 ""
-  "g:/GitHub repositories/luckunately.github.io/Resume/Resume.tex" 1703321593 2551 b4f3dbb0149376716140b615867d00fe ""
+  "g:/GitHub repositories/luckunately.github.io/Resume/Resume.tex" 1703322592 4063 72b519e68e09370929f17f0b946070db ""
   (generated)
   "Resume.aux"
   "Resume.log"
