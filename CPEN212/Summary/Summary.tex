@@ -1,0 +1,132 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{14.49998pt}
+\usepackage{fancyhdr}
+\usepackage{lipsum,graphicx}
+\usepackage{amsmath, amsfonts, amssymb, ragged2e}
+\usepackage{amsthm}
+\usepackage{bookmark}
+\usepackage{listings}
+\title{Summary for CPEN 212}
+\author{Tom Wang}
+\date{Spring 2024}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{Tom Wang}
+    \fancyhead[R]{\thepage}
+}
+
+\begin{document}
+\section{Calling conventions}
+In assembly, sometimes we need to make system calls to the OS. We need to follow the calling conventions to make sure that the OS can understand our request.
+
+\subsection{Start with examples}
+Start we an example: \begin{lstlisting}
+    .text
+    .global _start
+_start:
+    mov x0, 42
+    mov x8, 93
+    svc 0
+\end{lstlisting}
+Here, we are trying to make a system call to exit the program. We need to put the system call number in x8, and the argument in x0. The system call number for exit is 93. We then use svc 0 to make the system call.
+
+\begin{itemize}
+    \item $.text$ tells the assembler/linker that code follows.
+    \item $.global$ tells the assembler/linker that the symbol \_start is visible to the linker. This is the entry point of the program.
+    \item Then we put the value in x0 and x8. Here x0 is the argument for the system call, and x8 is the system call number.
+\end{itemize}
+
+To compile this and run (on Linux/arm64): \begin{lstlisting}
+    as -0 foo.o foo.s
+    ld -o foo foo.o
+    ./foo
+    echo \$?
+\end{lstlisting}
+The last line prints the exit code of the program. In this case, it should be 42.
+\begin{itemize}
+    \item $as$ is the assembler. It takes the assembly code and produces an object file.
+    \item $ld$ is the linker. It takes the object file and produces an executable.
+    \item $./foo$ runs the executable.
+    \item $echo \$?$ prints the exit code of the program.
+\end{itemize}
+
+Another example: \begin{lstlisting}
+    .text
+    .global _start
+_start:
+    mov x8, 64
+    mov x0, 1
+    adr x1, txt 
+    mov x2, len 
+    svc 0
+    mov x8, 93
+    mov x0, 42
+    svc 0
+txt: .ascii "goodbye, cruel world!\textbackslash n"
+len = . - txt
+\end{lstlisting}
+This program prints "goodbye, cruel world!" and exits with code 42. Here, we are using the write system call. The system call number for write is 64. The arguments are: \begin{itemize}
+    \item system call number 64 in x8 means write
+    \item file descriptor 1 in x0 means stdout, which is the standard output.
+    \item address of the string in x1
+    \item length of the string in x2
+    \item system call number 93 in x8 means exit
+    \item exit code 42 in x0
+    \item system call 0 to make the system call
+    \item the string to print
+    \item The length is calculated by subtracting the address of the string from the current location. (note that in the stack, the address grows downwards)
+\end{itemize}
+
+One more example: \begin{lstlisting}
+length:
+    mov x2, -1
+length_rec:
+    add x2, x2, 1
+    ldrb w1, [x0], 1
+    cbnz w1, length_rec
+    mov x0, x2
+    ret
+
+
+.global _start
+_start:
+    adr x0, txt
+    bl length
+    mov x2, x0
+    mov x0, 1
+    adr x1, txt
+    mov x8, 64
+    svc 0
+    mov x8, 93
+    mov x0, 0
+    svc 0
+txt: .asciz "goodbye, cruel world!\textbackslash n"
+
+
+    //Here we decompose bl and ret
+    str lr, [sp, -4]! //store the lr original value
+    mov lr, [pc, 4] 
+    //load the address of the next instruction
+    mov pc, length //jump to the function
+    ...\dots
+    //now returning
+    mov pc, lr //return to the address in lr
+    ldr lr, [sp] //restore the lr value
+    add sp, sp, 4 //restore the stack pointer
+    //that is it
+    
+\end{lstlisting}
+Here instead of using the length variable, we are using a function to calculate the length of the string. The function is called length. It takes the address of the string as the argument and returns the length of the string in x0. The function is called using bl, which is a branch and link. It branches to the function and saves the address of the next instruction in the link register. The function returns using ret, which branches to the address in the link register.
+
+Explain code line by line:\begin{itemize}
+    \item $mov x2, -1$ sets x2 to -1. This is the initial value of the length.
+    \item $add x2, x2, 1$ increments x2 by 1. Increase the length by 1 for each loop.
+    \item $ldrb w1, [x0], 1$ loads a byte from the address in x0 into w1. The address in x0 is then incremented by 1. This loads the next character in the string. If we want to increment by 1 then load, we can use $ldrb w1, [x0, 1]!$. The $!$ means increment after.
+    \item $cbnz w1, length_rec$ checks if w1 is not zero. If it is not zero, then it branches to length\_rec. This is the loop condition. If the character is not zero, then we continue the loop.
+    \item $mov x0, x2$ moves the length in x2 to x0. This is the return value.
+    \item $ret$ returns to the address in the link register.
+    \item The rest is the same as before. 
+\end{itemize}
+
+\end{document}

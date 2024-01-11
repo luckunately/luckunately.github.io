@@ -76,7 +76,14 @@ System registers cannot be used directly by data processing or load/store instru
     \item MSR (Move to System register from Register) copies the contents of an X register into a system register.
 \end{itemize}
 
-System register names end with \_ELx. The \_ELx specifies the minimum privilege necessary to access the register.
+System register names end with \_ELx. The \_ELx specifies the minimum privilege necessary to access the register. Attempting to access the register with insufficient privilege results in an exception.
 
+\subsection{System calls}
+System calls cause an exception which allows controlled entry into a more privileged Exception level. 
 
+\begin{itemize}
+    \item SVC Supervisor call causes an exception targeting EL1. Used by an application to call the OS.
+    \item HVC Hypervisor call causes an exception targeting EL2. Used by an OS to call the hypervisor, not available at EL0.
+    \item SMC Secure monitor call causes an exception targeting EL3. Used by an OS or hypervisor to call the EL3 firmware, not available at EL0.
+\end{itemize}
 \end{document}
