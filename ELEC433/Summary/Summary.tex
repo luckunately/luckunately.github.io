@@ -1,0 +1,136 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{14.49998pt}
+\usepackage{fancyhdr}
+\usepackage{lipsum,graphicx}
+\usepackage{amsmath, amsfonts, amssymb, ragged2e}
+\usepackage{amsthm}
+\usepackage{bookmark}
+\usepackage{bbm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\title{Summary of ELEC 433}
+\author{Tom Wang}
+\date{Spring, 2024}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{Tom Wang}
+    \fancyhead[R]{\thepage}
+}
+
+\begin{document}
+
+\maketitle
+\section{Introduction to Hamming Codes} 
+ECC solves the problem of errors in transmission. The idea is to add redundancy to the message so that the receiver can detect and correct errors.
+
+Assume that we have a message of length $k$, then we encode it to a codeword $C$ of length $n$. If the codeword is decrypted, then we call it $\tilde{C}$.
+
+\subsection{Things we care about}
+\begin{enumerate}
+    \item \textbf{Error Detection}: We want to be able to detect if there are errors in the transmission.
+    \item \textbf{Error Correction}: We want to be able to correct the errors in the transmission.
+    \item \textbf{Efficiency}: We want to be able to minimize the number of bits we need to add to the message. So minimize the overhead. ($\frac{k}{n}$ should be as large as possible)
+    \item \textbf{Complexity}: We want to be able to encode and decode the message in a reasonable amount of time.
+    \item \textbf{Robustness}: We want to be able to correct as many errors as possible.
+    \item \textbf{Flexibility}: We want to be able to correct different types of errors.
+\end{enumerate}
+\subsection{Definitions}
+First of all, we need to define a code:
+
+\begin{definition}
+    A code $C$ of length $n$ over an alphabet $\Sigma$ is a subset of $\Sigma^n$. So $C\subseteq \Sigma^n$. The elements $c\in C$ are called codewords.
+\end{definition}
+
+There are two types of errors:\begin{itemize}
+    \item \textbf{Erasure}: We know which bit is erased, but we don't know what it is. So we can \textbf{detect} and \textbf{correct} erasures.
+    \item \textbf{Error}: We don't know which bit is wrong, but we know that there is at least one bit that is wrong. So we can \textbf{detect} errors, but we can't for sure \textbf{correct} them.
+\end{itemize}
+
+Also, we define all possible codeword to be $C_i$ where they all belong to the same set $\mathcal{C}$. So $C_i\in \mathcal{C}$ for all possible $i$. 
+\subsection{Hamming Codes}
+Hamming codes are linear block codes. They are named after Richard Hamming. They are single-error correcting and double-error detecting. They are also systematic, which means that the message is part of the codeword.
+
+Hamming code encodes a message of length 4 to a codeword of length 7. So $k=4$ and $n=7$. Also, it encodes only binary messages, so $\Sigma = \{0,1\}$.
+
+\[(x_1,x_2,x_3,x_4)\implies (x_1,x_2,x_3,x_4,x_2+x_3+x_4,x_1+x_3+x_4,x_1+x_2+x_4)\]
+
+Note that they are binary additions. So $1+1=0$. It is basically XOR. 
+
+Some definitions:\begin{itemize}
+    \item \textbf{Hamming distance}: Hamming distance between $x,y\in \Sigma^n$ is the number of positions where $x$ and $y$ differ. It is denoted by $d(x,y)=\sum_{i=1}^{n}\mathbbm{1}\{x_i\neq y_i\}$. So adding each bit that is different.
+    \item \textbf{Relative distance}: counts for the length of the codeword. So $\frac{d(x,y)}{n}$.
+    \item \textbf{Minimum distance}: The minimum distance between any two codewords. So $d_{min} = \min d(x,y)$, for which ${x,y\in C, x\neq y}$. It measures the robustness of the code. The larger the minimum distance, the more errors it can correct.
+    \item \textbf{Hamming weight}: The number of non-zero elements in a vector. So $w(x)=\sum_{i=1}^{n}\mathbbm{1}\{x_i\neq 0\}$. It is the number of 1s in the vector.
+\end{itemize}
+
+\subsection{Hamming Code Properties}
+\begin{theorem}
+    A code with a minimum distance of $d$ can:\begin{itemize}
+        \item Detect $d-1$ errors.
+        \item Correct $\lfloor \frac{d-1}{2}\rfloor$ errors.
+        \item Detect $d-1$ erasures.
+        \item Correct $d-1$ erasures.
+    \end{itemize}
+\end{theorem}
+
+\subsection{Algorithm for Hamming Code}
+\subsubsection{Error Detection}
+If given a codeword $\tilde{C}$ that we assume the error is within $d-1$ away from one point, we can calculate the syndrome $S$ by $S = \tilde{C}H^T$. If $S=0$, then there is no error. If $S\neq 0$, then there is an error.
+
+\subsubsection{Error Correction}
+For a codeword $\tilde{C}$, with an error smaller than or equal to $\lfloor \frac{d-1}{2}\rfloor$, we can recover the original codeword by finding the closest codeword to $\tilde{C}$. The distance will be within $\lfloor \frac{d-1}{2}\rfloor$.
+
+Note that it is not possible to have two $C$ that are within $\lfloor \frac{d-1}{2}\rfloor$ distance from $\tilde{C}$. Otherwise, the distance between the two $C$ will be smaller than $d$. Here is the proof:
+\begin{proof}
+
+    $\lfloor \frac{d-1}{2}\rfloor\times 2\le d-1<d$. So circle of radius $\lfloor \frac{d-1}{2}\rfloor$ around $\tilde{C}$ does not contain any other codewords. So there is only one codeword that is within $\lfloor \frac{d-1}{2}\rfloor$ distance from $\tilde{C}$.
+\end{proof}
+
+To mathematically express this:
+
+If $\tilde{C}$ has error $\le \lfloor \frac{d-1}{2}\rfloor$, then return $C\in\mathcal{C}$ such that $d(\tilde{C},C)\le \lfloor \frac{d-1}{2}\rfloor$.
+
+\subsubsection{Erasure Correction}
+If we have a codeword $\tilde{C}$ with $e$ erasures, where $e\le d-1$, then we can recover the original codeword by finding the closest codeword to $\tilde{C}$. The distance will be within $e$.
+
+\subsection{More definitions}
+\begin{definition}
+    The \textbf{message length/dimiension} of $\mathcal{C}$ over an alphabet $\Sigma$ is the length of the message. So $k=log_{|\sigma|}{|\mathcal{C}|}$. 
+\end{definition}
+(log base is the size of the alphabet set, and the log is the size of the code set)
+
+\begin{definition}
+    The \textbf{rate} of $\mathcal{C}$ is the ratio of the message length to the codeword length. So $R=\frac{k}{n}$.
+\end{definition}
+Note the rate is between 0 and 1. \begin{itemize}
+    \item The closer it is to 1, the more efficient the code is.
+    \item If $R=1$, then the code is not redundant. So it is not an error-correcting code.
+    \item  The closer it is to 0, the more redundant the code is.
+    \item If $R=0$, then the code is not efficient. So it is not an error-correcting code.
+    \item So we need to make trade-offs between efficiency and robustness.
+\end{itemize}
+
+We could find that $R$ is a function: $R(d,n,k,\Sigma)$. So we can find the maximum rate and minimum rate for a given $d,n,k,\Sigma$. Basically, R has two bounds:
+\[g(d,n,k,\Sigma)\le R(d,n,k,\Sigma) \le f(d,n,k,\Sigma)\]
+\subsection{Hamming Bound}
+Hamming bound is the upper bound of the rate of a code. It answers the question: How many Hamming balls can we put in $\Sigma^n$ such that they are disjoint for a fixed $d$?
+
+The question implies that the ball radius is $\lfloor \frac{d-1}{2}\rfloor$. With the given information we can find that \begin{itemize}
+    \item We will have $|\mathcal{C}|$ disjoint balls of radius $\lfloor \frac{d-1}{2}\rfloor$.
+    \item Vol$(\Sigma^n)=|\Sigma|^n$.
+    \item $|\mathcal{C}|\le \frac{|\Sigma|^n}{\text{Vol(Hamming ball)}}$. 
+\end{itemize}
+Note that we are dealing with discrete points. So we need to use the floor function which actually just counts for the points within the ball.
+
+
+\subsubsection{Proof of Hamming Bound}
+
+The Hamming ball in $\Sigma^n$ of radius $e$ about $x\in \Sigma^n$ is the set of all points in $\Sigma^n$ that are within $e$ distance from $x$. So $B_{\Sigma^n} (x,e)=\{y\in \Sigma^n: d(x,y)\le e\}$.
+
+
+So the volume of the ball is $V=\sum_{i=0}^{\lfloor \frac{d-1}{2}\rfloor}\binom{n}{i}$. So the number of balls is $\frac{|\Sigma|^n}{V}$. So the number of codewords is $\frac{|\Sigma|^n}{V}$. So the rate is:
+
+
+\end{document}

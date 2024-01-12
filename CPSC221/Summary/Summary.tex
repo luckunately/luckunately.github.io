@@ -1,0 +1,103 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{14.49998pt}
+\usepackage{fancyhdr}
+\usepackage{lipsum,graphicx}
+\usepackage{amsmath, amsfonts, amssymb, ragged2e}
+\usepackage{amsthm}
+\usepackage{bookmark}
+\usepackage{bbm}
+\usepackage{listings}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\title{Summary of CPSC 221}
+\author{Tom Wang}
+\date{Spring, 2024}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{Tom Wang}
+    \fancyhead[R]{\thepage}
+}
+
+
+\begin{document}
+\maketitle
+\section{Complexity}
+A ``good'' algorithm should:\begin{itemize}
+    \item Be correct (or at least mostly correct)
+    \item finish in a reasonable amount of time (time complexity)
+    \item use a reasonable amount of memory (space complexity)
+\end{itemize}
+
+\subsection{Time Complexity}
+Running time is expressed as a function $T(n):\mathbb{Z}^0 \to \mathbb{R}^0$, where $n$ is the size of the input. We are interested in the asymptotic behavior of $T(n)$ as $n\to \infty$. We use big-O notation to express this.
+\subsubsection{Asymptotic Notation}
+\begin{definition}
+
+    $T(n)\in O(f(n))$ if there exists $c>0$ and $n_0>0$ such that $T(n)\leq cf(n)$ for all $n\geq n_0$.
+
+    $T(n)\in \Omega(f(n))$ if there exists $c>0$ and $n_0>0$ such that $T(n)\geq cf(n)$ for all $n\geq n_0$.
+
+    $T(n)\in \Theta(f(n))$ if $T(n)\in O(f(n))$ and $T(n)\in \Omega(f(n))$.
+
+    $T(n)\in o(f(n))$ if for all $c>0$, there exists $n_0>0$ such that $T(n)\leq cf(n)$ for all $n\geq n_0$.
+
+    $T(n)\in \omega(f(n))$ if for all $c>0$, there exists $n_0>0$ such that $T(n)\geq cf(n)$ for all $n\geq n_0$.
+\end{definition}
+
+The reason we use big-O notation and omit the details is that it is easy to work with. For example, if $T(n)\in O(f(n))$ and $S(n)\in O(g(n))$, then $T(n)+S(n)\in O(f(n)+g(n))$ and $T(n)S(n)\in O(f(n)g(n))$.
+
+We only care about the dominant term in the function (When n gets really large). We also ignore constant factors because we are only interested in the asymptotic behavior.
+
+\subsubsection{Analyze loops}
+\begin{lstlisting}[language=C++]
+bool hasDuplicate(int arr[], int size){
+    for(int i=0; i<size-1; i++){
+        for(int j=+1; j<size; j++){
+            if(arr[i]==arr[j]){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+\end{lstlisting}
+
+Now we analyze the running time of this algorithm. Basically, counts for the worst-case scenario.
+
+It is easy to tell that the outer loop runs $n-1$ times, thus $O(n)$.
+
+The inner loop runs from $n-1$ to $1$ times if we run the loop. However, we can use the fact that the sum of the first $n$ integers is $\frac{n(n-1)}{2}$. So the inner loop runs $\frac{n(n-1)}{2}$ times, thus $O(n^2)$. This is the overall complexity of the nested loop.
+
+Give more examples:\begin{lstlisting}[language=C++]
+void candyapple(int n) {
+    for (int i = 1; i < n; i *= 3)
+    cout << "iteration: " << i << endl;
+}
+void caramelcorn(int n) {
+    for (int i = 0; i * i < 6 * n; i++)
+    cout << "iteration: " << i << endl;
+}         
+\end{lstlisting}
+If loop variable is multiplied by a constant, then the loop runs in $O(\log n)$ time. If loop variable is squared, then the loop runs in $O(\sqrt{n})$ time.
+
+So candyapple runs in $O(\log n)$ time and caramelcorn runs in $O(\sqrt{n})$ time.
+\begin{proof}
+
+    in candyapple, $i$ is multiplied by 3 each time, so $i=3^k$ after $k$ iterations. So $3^k=n$, so $k=\log_3 n$. So the loop runs $\log_3 n$ times, thus $O(\log n)$.
+
+    in caramelcorn, $i^2=6n$, so $i=\sqrt{6n}$. So the loop runs $\sqrt{6n}$ times, thus $O(\sqrt{n})$.
+\end{proof}
+
+lastly, we can analyze the following code:\begin{lstlisting}[language=C++]
+int i, j;
+for (i = 1; i < 9*n; i = i*2) {
+    for (j = n*n; j > 0; j--) {
+        ...
+    }
+}
+\end{lstlisting}
+The outer loop runs $\log_2 9n$ times, thus $O(\log n)$. The inner loop runs $n^2$ times, thus $O(n^2)$. So the overall complexity is $O(n^2\log n)$.
+
+\end{document}
