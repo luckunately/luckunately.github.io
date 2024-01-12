@@ -1,0 +1,74 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{14.49998pt}
+\usepackage{fancyhdr}
+\usepackage{lipsum,graphicx}
+\usepackage{amsmath, amsfonts, amssymb, ragged2e}
+\usepackage{amsthm}
+\usepackage{bookmark}
+\title{Summary of Math 312}
+\author{Tom Wang}
+\date{Spring, 2024}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{Tom Wang}
+    \fancyhead[R]{\thepage}
+}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plain}
+\section{Induction}
+Some basic properties of the natural numbers:
+\begin{itemize}
+    \item Mathematical induction
+    
+    Suppose $S \subseteq \mathbb{N}$ such that:\begin{itemize}
+        \item $1 \in S$
+        \item $\forall n \in \mathbb{N}, n \in S \implies n+1 \in S$
+    \end{itemize}
+    \item Strong Induction
+    
+    Suppose $S \subseteq \mathbb{N}$ such that:\begin{itemize}
+        \item $1 \in S$
+        \item $\forall n \in \mathbb{N}, \forall k \in \mathbb{N}, 1 \leq k \leq n \implies k \in S \implies n+1 \in S$
+    \end{itemize}
+    \item Well-Ordering Principle: Every non-empty subset of $\mathbb{N}$ has a least element.
+\end{itemize}
+
+Note that the above three are equivalent.
+
+\subsection{Examples}
+Let $\alpha = \frac{1+\sqrt{5}}{2}, \beta = \frac{1-\sqrt{5}}{2}$, Prove that the n-th Fibonacci number $F_n = \frac{\alpha^n - \beta^n}{\alpha - \beta} = \frac{\alpha^n - \beta^n}{\sqrt{5}}$.
+\begin{proof}
+    Note that $\alpha, \beta$ are the roots of $x^2 - x - 1 = 0$. Then we have $\alpha^2 = \alpha + 1, \beta^2 = \beta + 1$. We will prove the statement by \textbf{Strong} induction on $n$.
+
+    \textbf{Base Case:} $n = 1, F_1 = 1 = \frac{\alpha - \beta}{\sqrt{5}} = \frac{\alpha^1 - \beta^1}{\sqrt{5}}$.
+
+    $n=2, F_2 = 1 = \frac{\alpha^2 - \beta^2}{\sqrt{5}}$.
+
+    \textbf{Inductive Step:} Suppose $F_k = \frac{\alpha^k - \beta^k}{\sqrt{5}}$ for all $k \leq n$. Then we have $F_{n+1} = F_n + F_{n-1} = \frac{\alpha^n - \beta^n}{\sqrt{5}} + \frac{\alpha^{n-1} - \beta^{n-1}}{\sqrt{5}} = \frac{\alpha^{n-1}(\alpha + 1) - \beta^{n-1}(\beta + 1)}{\sqrt{5}} = \frac{\alpha^{n+1} - \beta^{n+1}}{\sqrt{5}}$.
+
+    Used the properties of $\alpha, \beta$ in the last step.
+\end{proof}
+
+Another example:
+
+Prove that all positive integers are a product of primes. Here we treat the empty product as 1 and the product of one prime as itself.
+
+\begin{proof}
+    We use proof by contradiction to show the use of the well-ordering principle.
+
+    Let S be the set of positive integers which cannot be written as products of primes. \textbf{Assume} that S is not empty:
+
+    Then by the well-ordering principle, S has a least element $n$. Since $n$ is the least element, it cannot be prime. 
+    
+    Then $n = ab$ for some $a, b \in \mathbb{N}$. Then $a, b < n$. Since $n$ is the least element, $a, b \notin S$. Then $a, b$ can be written as products of primes. Then $n = ab$ can be written as a product of primes. This is a contradiction. 
+    
+    Therefore, S is empty and all positive integers can be written as products of primes.
+\end{proof}
+
+
+
+\end{document}
