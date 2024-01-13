@@ -126,7 +126,52 @@ Explain code line by line:\begin{itemize}
     \item $cbnz w1, length_rec$ checks if w1 is not zero. If it is not zero, then it branches to length\_rec. This is the loop condition. If the character is not zero, then we continue the loop.
     \item $mov x0, x2$ moves the length in x2 to x0. This is the return value.
     \item $ret$ returns to the address in the link register.
-    \item The rest is the same as before. 
+    \item The rest is the same as before.
 \end{itemize}
 
+\subsection{calling convention}
+Calling convention is not enforced by hardware, but it is a convention to make sure that the caller and callee agree on how to pass arguments and return values.
+
+The caller is the function that calls another function. The callee is the function that is called. The calling convention is a contract between the caller and the callee. The caller must follow the calling convention to call the callee. The callee must follow the calling convention to be called by the caller. The calling convention includes:
+
+Here are some rules:
+\begin{itemize}
+    \item bl is for address relative to the current instruction. b is for absolute address. blr is for register relative to the current instruction. br is for absolute register.
+    \item function arguments are passed in registers x0-x7. If there are more than 8 arguments, then the rest are passed on the stack.
+    \item function results are in x0. If there are more, we use x1 to x7 then the stack. x8 is used for system call number.
+    \item return address is in lr (x30). lr is the link register. It is used to store the return address when we call a function. It is also used to store the address of the next instruction when we use bl.
+    \item Caller is responsible for saving registers x0-x18. The callee can use them without saving them. The callee is responsible for saving registers x19-x30. The caller can use them without saving them.
+    \item The stack grows downwards. The stack pointer is in x31. The stack pointer points to the last item in the stack. The stack pointer is decremented when we push something onto the stack. The stack pointer is incremented when we pop something from the stack.
+\end{itemize}
+\subsection{call frame}
+The call frame is the part of the stack that is used to store information about the function call. It includes the return address, the saved registers, and the local variables. 
+
+The call frame is created when we call a function. It is destroyed when the function returns. The call frame is created by the caller. The caller is responsible for saving the registers and creating the local variables. The callee is responsible for saving the return address.
+
+Usually we have stack pointer which points to the last item in the stack. 
+
+We also have frame pointer which points to the start of the call frame. The frame pointer is used to access the local variables. 
+
+The frame pointer is not necessary, but it makes it easier to access the local variables.
+
+But if we have dynamically sized stack allocation (memory allocation functions), then fp is obligatory. 
+
+\subsection{Jumping to a function}
+To jump to a function, we use bl. bl is a branch and link. 
+
+It branches to the function and saves the address of the next instruction in the link register. The function returns using ret, which branches to the address in the link register.
+
+Back in the time where there is no bl, we have to do this manually. We have to save the return address in the stack, then jump to the function. The function then returns by popping the return address from the stack and jumping to it.
+
+Another way is to specify the line of return when creating the callee function. And then when we call a function, the caller will write the return address to the specified line. And then the callee will jump to that line when it returns. This is called a trampoline. Not to nice to use, but it is a way to do it back in the day.
+
+\subsection{ABI}
+ABI is the application binary interface. It is a standard for binary interfaces. It specifies the calling convention, the system call numbers, and the system call arguments. It is used to make sure that the caller and callee agree on how to pass arguments and return values.
+
+\subsubsection{stack-based ABI}
+\begin{itemize}
+    \item stacks are sequential. If we spawn two functions, the stack must grow into two different directions. how to achieve this? We can use two different stacks. 
+    \item stack spaces are deallocated on return, so we can reuse the stack space. 
+\end{itemize}
 \end{document}
+
