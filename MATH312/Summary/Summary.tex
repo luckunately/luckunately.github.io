@@ -5,6 +5,8 @@
 \usepackage{amsmath, amsfonts, amssymb, ragged2e}
 \usepackage{amsthm}
 \usepackage{bookmark}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
 \title{Summary of Math 312}
 \author{Tom Wang}
 \date{Spring, 2024}
@@ -68,7 +70,54 @@ Prove that all positive integers are a product of primes. Here we treat the empt
     
     Therefore, S is empty and all positive integers can be written as products of primes.
 \end{proof}
+\subsection{The division algorithm}
+Let $a\in \mathbb{Z}, a\ge 1$. $\forall n \in \mathbb{Z}, \exists q, r \in \mathbb{Z}$ such that $n = aq + r$ and $0 \leq r < a$. Moreover, $q, r$ are unique.
 
+\begin{proof}
+    Prove using the well-ordering principle. 
 
+    Let $S = \{s \in \mathbb{Z} | s\ge 0 \land s=n-aq \land a,q,n \in \mathbb{Z}\}$. We claim that $S$ is not empty.
 
+    Indeed $n-aq\ge0 \iff n\ge aq \iff q\le \frac{n}{a}$, given $a>0$. So there are infinitely many $q$ that satisfy the condition, which proves that $S$ is not empty.
+    
+    By the well-ordering principle, $S$ has a least element $r$. Then $r = n-aq$ for some $q$. Then $n = aq + r$. It remains to show that $0 \leq r < a$. We argue by contradiction. 
+
+    If $r \ge a$, then $r-a \ge 0$. Then $r-a = n-aq-a = n-a(q+1) \in S$. But $r-a < r$, which contradicts the fact that $r$ is the least element of $S$. Therefore, $r < a$.
+
+    To show uniqueness, suppose $n = aq + r = aq' + r'$, where $0 \leq r, r' < a$. Out goal is to show that $q = q'$ and $r = r'$.
+
+    Subtracting the two equations, we have $a(q-q') = r' - r$. Notice that the LHS is divisible by $a$ and the RHS is less than $a$ but greater than 0. Therefore, $r' - r = 0$ and $q-q' = 0$. Therefore, $q = q'$ and $r = r'$.
+
+    This completes the proof.
+\end{proof}
+
+Remark: q stands for \textbf{quotient} and r stands for \textbf{remainder}.
+
+Also, the Division algorithm is a \textbf{theorem}. The actual algorithm to find q and r is called \textbf{long division}.
+\section{Primes}
+\begin{definition}
+    A positive integer $p$ is called \textbf{prime} if $p \ge 2$ and the only positive divisors of $p$ are 1 and $p$.
+\end{definition}
+\subsection{Euclid's Theorem}
+\begin{theorem}
+    There are infinitely many primes.
+\end{theorem}
+\begin{proof}
+    Suppose there are only finitely many primes $p_1, p_2, \dots, p_n$. 
+    
+    Let $N = p_1p_2\dots p_n + 1$. (Products of primes plus 1) 
+    
+    Then $N$ is not divisible by any of the primes $p_1, p_2, \dots, p_n$. Therefore, $N$ is either prime or divisible by a prime larger than $p_n$. 
+    
+    This is a contradiction. Therefore, there are infinitely many primes.
+\end{proof}
+The theorem can be used to generate infinitely many primes. For example, $2, 2\cdot 3 + 1 = 7, 2\cdot 3\cdot 5 + 1 = 31, \dots$ are all primes. However, this is not a good way to generate primes because the numbers get very large very quickly.
+
+\subsection{Sieve of Eratosthenes}
+\begin{theorem}
+    Let $n \in \mathbb{N}, n \ge 2$. Then there exists a prime $p$ such that $p \leq n$.
+\end{theorem}
+The key idea is that if $n=ab$ and n is a composite, then at least one of $a, b$ is less than or equal to $\sqrt{n}$. So we only need to check up to $\sqrt{n}$ to see if $n$ is a prime.
+
+For example, to check the primes within 25, we only need to check up to $\sqrt{25} = 5$. List out all the numbers from 2 to 25. Then cross out all the multiples of 2, 3, 5. The remaining numbers are all primes.
 \end{document}
