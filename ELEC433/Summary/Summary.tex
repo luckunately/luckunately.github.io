@@ -126,11 +126,29 @@ Note that we are dealing with discrete points. So we need to use the floor funct
 
 
 \subsubsection{Proof of Hamming Bound}
+\begin{proof}
+    
+The Hamming ball in $\Sigma^n$ of radius $e$ about $x\in \Sigma^n$ is the set of all points in $\Sigma^n$ that are within $e$ distance from $x$. 
 
-The Hamming ball in $\Sigma^n$ of radius $e$ about $x\in \Sigma^n$ is the set of all points in $\Sigma^n$ that are within $e$ distance from $x$. So $B_{\Sigma^n} (x,e)=\{y\in \Sigma^n: d(x,y)\le e\}$.
+So $B_{\Sigma^n} (x,e)=\{y\in \Sigma^n: d(x,y)\le e\}$ is the set of the discrete points that are within $e$ distance from $x$, including $x$ itself.
 
+Now we can define the volume of the ball. The volume of the ball is the number of points in the ball. So $V_{\Sigma^n}=|B_{\Sigma^n} (x,e)|$ which is the size of the ball point set.
 
-So the volume of the ball is $V=\sum_{i=0}^{\lfloor \frac{d-1}{2}\rfloor}\binom{n}{i}$. So the number of balls is $\frac{|\Sigma|^n}{V}$. So the number of codewords is $\frac{|\Sigma|^n}{V}$. So the rate is:
+To make the calculation easier, we let $q = \Sigma^n$. \[
+    \text{Vol}_q(e,n)= 1+ \binom{n}{1}(q-1)+\binom{n}{2}(q-1)^2+\ldots+\binom{n}{e}(q-1)^e=\sum_{i=0}^{e}\binom{n}{i}(q-1)^i
+\]
+
+So since Hamming balls cannot overlap, we have: \begin{align*}
+     |\mathcal{C}|&\le \frac{q^n}{\text{Vol}_q(e,n)}\\
+     |\mathcal{C}|\times \text{Vol}_q(e,n)&\le q^n\\
+     \log_q(|\mathcal{C}|)+\log_q(\text{Vol}_q(e,n))&\le \log_q(q^n)\\
+        \log_q(|\mathcal{C}|)+\log_q(\text{Vol}_q(e,n))&\le n\\
+        \log_q(|\mathcal{C}|)&\le n-\log_q(\text{Vol}_q(e,n))\\
+        \textbf{Rate}= \frac{\log_q(|\mathcal{C}|)}{n}&\le 1-\frac{\log_q(\text{Vol}_q(e,n))}{n} 
+\end{align*}
+The rate here is the maximum rate. So we have the upper bound of the rate of a code. So we have the \textbf{Hamming bound}:
+
+\end{proof}
 
 
 \end{document}
