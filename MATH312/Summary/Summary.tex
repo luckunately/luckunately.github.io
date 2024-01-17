@@ -121,4 +121,59 @@ The key idea is that if $n=ab$ and n is a composite, then at least one of $a, b$
 
 For example, to check the primes within 25, we only need to check up to $\sqrt{25} = 5$. List out all the numbers from 2 to 25. Then cross out all the multiples of 2, 3, 5. The remaining numbers are all primes.
 
+\subsection{The prime number theorem}
+\begin{theorem}
+    Let $\pi(x)$ be the number of primes less than or equal to $x$. Then $\lim_{x\to\infty} \frac{\pi(x)}{x/\ln x} = 1$.
+
+    In other words, the number of primes less than or equal to $x$ is approximately $\frac{x}{\ln x}$.
+\end{theorem}
+
+\section{Division}
+\subsection{Greatest common divisor}
+\begin{definition}
+    Let $a, b \in \mathbb{Z}, (a, b) \neq (0, 0)$. The \textbf{greatest common divisor} of $a$ and $b$, denoted by $\gcd(a, b)$, is the largest positive integer that divides both $a$ and $b$.
+\end{definition}
+Simple properties of gcd:\begin{itemize}
+    \item $a\neq 0 \implies \gcd(a, 0) = |a|$. 
+    \item $gcd(a, b)\ge 1$.
+    \item $gcd(a, b)=d \implies gcd(\frac{a}{d},\frac{b}{d})=1$.
+\end{itemize}
+\begin{proof}
+    \begin{itemize}
+        \item Common divisors of $a$ and $0$ are all divisors of $a$. The largest one is $|a|$.
+        \item We know 1 is a common divisor of $a$ and $b$. Therefore, $\gcd(a, b) \ge 1$.
+        \item Suppose $d = gcd(a, b), e = gcd(\frac{a}{d}, \frac{b}{d})$. 
+        
+        We write $\frac{a}{d} = ek, \frac{b}{d} = em$ for some $k, m \in \mathbb{Z}$. Then $a = (de)k, b = (de)m$. Now we can know that $de$ is a common divisor of $a$ and $b$. Thus $de \leq d$. Since $d \ge 1$, we have $e \leq 1$. Therefore, $e = 1$. Proof concluded.
+    \end{itemize}
+\end{proof}
+
+\subsection{Bezout's identity}
+An integer linear combination of $a$ and $b$ is an integer of the form $ax + by$, where $x, y \in \mathbb{Z}$.
+\begin{theorem}
+    gcd(a, b) is the smallest positive integer that can be written as an integer linear combination of $a$ and $b$.
+\end{theorem}
+\begin{proof}
+    Let S be the set of positive integers that can be written as an integer linear combination of $a$ and $b$. We want to show that $gcd(a, b)$ is the smallest element of S.
+
+    Note that since $(a, b) \neq (0, 0)$, $S$ is not empty. By the well-ordering principle, $S$ has a least element $d$. We want to show that $d = gcd(a, b)$. To show it, we need to show that: \begin{itemize}
+        \item $gcd(a ,b) | d$. This tells us that $gcd(a, b) \leq d$.
+        \item $d | a$ and $d | b$. This tells us that $d \leq gcd(a, b)$.
+    \end{itemize}
+
+    By definition, $d=x_0a+y_0b$ for some $x_0, y_0 \in \mathbb{Z}$ which is a linear combination of a and b. Thus $d = gcd(a, b) | x_0a + y_0b$. Therefore, $gcd(a, b) | d$.
+
+    Now we want to show that $d | a$ and $d | b$. Let $a=dq+r$ where q is the quotient and r is the remainder. Just need to show that r = 0. Note that: \[
+    r = a - dq = a - (x_0a + y_0b)q = a(1-x_0q) + b(-y_0q)
+    \]
+    So r is a linear combination of a and b. Since r is a remainder, $0 \leq r < d$. Since d is the smallest positive integer in S, r must be 0. Therefore, $d | a$. Similarly, $d | b$.
+\end{proof}
+
+
+
+
+
+
+
+
 \end{document}
