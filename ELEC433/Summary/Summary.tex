@@ -22,7 +22,7 @@
 \begin{document}
 
 \maketitle
-\section{Introduction to Hamming Codes} 
+\section{Introduction to Hamming Codes}
 ECC solves the problem of errors in transmission. The idea is to add redundancy to the message so that the receiver can detect and correct errors.
 
 Assume that we have a message of length $k$, then we encode it to a codeword $C$ of length $n$. If the codeword is decrypted, then we call it $\tilde{C}$.
@@ -48,7 +48,7 @@ There are two types of errors:\begin{itemize}
     \item \textbf{Error}: We don't know which bit is wrong, but we know that there is at least one bit that is wrong. So we can \textbf{detect} errors, but we can't for sure \textbf{correct} them.
 \end{itemize}
 
-Also, we define all possible codeword to be $C_i$ where they all belong to the same set $\mathcal{C}$. So $C_i\in \mathcal{C}$ for all possible $i$. 
+Also, we define all possible codewords to be $C_i$ where they all belong to the same set $\mathcal{C}$. So $C_i\in \mathcal{C}$ for all possible $i$.
 \subsection{Hamming Codes}
 Hamming codes are linear block codes. They are named after Richard Hamming. They are single-error correcting and double-error detecting. They are also systematic, which means that the message is part of the codeword.
 
@@ -56,7 +56,7 @@ Hamming code encodes a message of length 4 to a codeword of length 7. So $k=4$ a
 
 \[(x_1,x_2,x_3,x_4)\implies (x_1,x_2,x_3,x_4,x_2+x_3+x_4,x_1+x_3+x_4,x_1+x_2+x_4)\]
 
-Note that they are binary additions. So $1+1=0$. It is basically XOR. 
+Note that they are binary additions. So $1+1=0$. It is basically XOR.
 
 Some definitions:\begin{itemize}
     \item \textbf{Hamming distance}: Hamming distance between $x,y\in \Sigma^n$ is the number of positions where $x$ and $y$ differ. It is denoted by $d(x,y)=\sum_{i=1}^{n}\mathbbm{1}\{x_i\neq y_i\}$. So adding each bit that is different.
@@ -97,9 +97,9 @@ If we have a codeword $\tilde{C}$ with $e$ erasures, where $e\le d-1$, then we c
 
 \subsection{More definitions}
 \begin{definition}
-    The \textbf{message length/dimiension} of $\mathcal{C}$ over an alphabet $\Sigma$ is the length of the message. So $k=log_{|\sigma|}{|\mathcal{C}|}$. 
+    The \textbf{message length/dimension} of $\mathcal{C}$ over an alphabet $\Sigma$ is the length of the message. So $k=log_{|\sigma|}{|\mathcal{C}|}$.
 \end{definition}
-(log base is the size of the alphabet set, and the log is the size of the code set)
+(The log base is the size of the alphabet set, and the log is the size of the code set)
 
 \begin{definition}
     The \textbf{rate} of $\mathcal{C}$ is the ratio of the message length to the codeword length. So $R=\frac{k}{n}$.
@@ -120,35 +120,147 @@ Hamming bound is the upper bound of the rate of a code. It answers the question:
 The question implies that the ball radius is $\lfloor \frac{d-1}{2}\rfloor$. With the given information we can find that \begin{itemize}
     \item We will have $|\mathcal{C}|$ disjoint balls of radius $\lfloor \frac{d-1}{2}\rfloor$.
     \item Vol$(\Sigma^n)=|\Sigma|^n$.
-    \item $|\mathcal{C}|\le \frac{|\Sigma|^n}{\text{Vol(Hamming ball)}}$. 
+    \item $|\mathcal{C}|\le \frac{|\Sigma|^n}{\text{Vol(Hamming ball)}}$.
 \end{itemize}
 Note that we are dealing with discrete points. So we need to use the floor function which actually just counts for the points within the ball.
 
 
 \subsubsection{Proof of Hamming Bound}
 \begin{proof}
+
+    The Hamming ball in $\Sigma^n$ of radius $e$ about $x\in \Sigma^n$ is the set of all points in $\Sigma^n$ that are within $e$ distance from $x$.
+
+    So $B_{\Sigma^n} (x,e)=\{y\in \Sigma^n: d(x,y)\le e\}$ is the set of the discrete points that are within $e$ distance from $x$, including $x$ itself.
+
+    Now we can define the volume of the ball. The volume of the ball is the number of points in the ball. So $V_{\Sigma^n}=|B_{\Sigma^n} (x,e)|$ which is the size of the ballpoint set.
+
+    To make the calculation easier, we let $q = \Sigma^n$. \[
+        \text{Vol}_q(e,n)= 1+ \binom{n}{1}(q-1)+\binom{n}{2}(q-1)^2+\ldots+\binom{n}{e}(q-1)^e=\sum_{i=0}^{e}\binom{n}{i}(q-1)^i
+    \]
+
+    So since Hamming balls cannot overlap, we have: \begin{align*}
+        |\mathcal{C}|                                   & \le \frac{q^n}{\text{Vol}_q(e,n)}         \\
+        |\mathcal{C}|\times \text{Vol}_q(e,n)           & \le q^n                                   \\
+        \log_q(|\mathcal{C}|)+\log_q(\text{Vol}_q(e,n)) & \le \log_q(q^n)                           \\
+        \log_q(|\mathcal{C}|)+\log_q(\text{Vol}_q(e,n)) & \le n                                     \\
+        \log_q(|\mathcal{C}|)                           & \le n-\log_q(\text{Vol}_q(e,n))           \\
+        \textbf{Rate}= \frac{\log_q(|\mathcal{C}|)}{n}  & \le 1-\frac{\log_q(\text{Vol}_q(e,n))}{n}
+    \end{align*}
+    The rate here is the maximum rate. So we have the upper bound of the rate of a code. So we have the \textbf{Hamming bound}:
+\end{proof}
+\subsubsection{Analysis of Hamming Bound for binary codes}
+Now that we have all the tools for binary Hamming codes:\begin{itemize}
+    \item $q=2$. So $|\Sigma|=2$, which is the alphabet size.
+    \item $n=7$. So $n$ is the length of the codeword.
+    \item $k=4$. So $k$ is the length of the message.
+    \item $d=3$. So $d$ is the minimum distance. Proof of this will be in the next section.
+\end{itemize}
+Using the above information, we find that the Hamming bound is:\[
+    R = 1-\frac{\log_2(\text{Vol}_2(\lfloor \frac{3-1}{2}\rfloor, 7))}{7}= 1-\frac{\log_2(1+7)}{7}=\frac{4}{7}
+\]
+But we also notice that the Hamming code has a rate of $\frac{k}{n}=\frac{4}{7}$. So the Hamming bound is tight. So the Hamming code is the best/optimal code for this case. 
+
+\subsection{Linear Algebra View of Hamming Codes}
+If we view the encoding process as a matrix multiplication it will be like this:
+\[
+    \begin{bmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1 \\
+        0 & 1 & 1 & 1 \\
+        1 & 0 & 1 & 1 \\
+        1 & 1 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_1 \\
+        x_2 \\
+        x_3 \\
+        x_4
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        x_1 \\
+        x_2 \\
+        x_3 \\
+        x_4 \\
+        x_2+x_3+x_4 \\
+        x_1+x_3+x_4 \\
+        x_1+x_2+x_4
+    \end{bmatrix}
+    \]
     
-The Hamming ball in $\Sigma^n$ of radius $e$ about $x\in \Sigma^n$ is the set of all points in $\Sigma^n$ that are within $e$ distance from $x$. 
+We can write it as $G\cdot X=\mathcal{C}$ where $G$ is the generator matrix. So $G$ is a $n\times k$ matrix. $X$ is the message vector. $\mathcal{C}$ is the codeword vector. $\mathcal{C}=\{G\cdot X (\mod 2): \forall x \in X, x\in \{0,1\}^4\}$
 
-So $B_{\Sigma^n} (x,e)=\{y\in \Sigma^n: d(x,y)\le e\}$ is the set of the discrete points that are within $e$ distance from $x$, including $x$ itself.
+There are three properties with it:\begin{enumerate}
+    \item $\mathcal{C}$ is closed under addition. So $\forall C_1,C_2\in \mathcal{C}, C_1+C_2\in \mathcal{C}$.\begin{proof}
+        \[
+            C_1+C_2 = G\cdot X_1+G\cdot X_2 = G\cdot (X_1+X_2)
+        \]
+        Since $X_1+X_2\in \{0,1\}^4$, so $C_1+C_2\in \mathcal{C}$. Proved.
+    \end{proof}
+    \item $\mathcal{C}$ is a linear subspace of $\{0,1\}^7$ of dimension 4. \begin{proof}
+        $\mathcal{C}$ is all the linear combinations of the columns of $G$. So $\mathcal{C}$ is a linear subspace of $\{0,1\}^7$ of dimension 4. Proved.
+    \end{proof}
+    \item The distance of $\mathcal{C}$ is the same as the minimum weight of the non-zero codewords in $\mathcal{C}$.\begin{proof}
+        Recall that $wt(x)=\sum_{i=1}^{n}\mathbbm{1}\{x_i\neq 0\}$. So $wt(x)$ is the number of 1s in the vector. 
+        
+        $\forall C_1,C_2\in \mathcal{C}, C_1\neq C_2$, then $wt(C_1+C_2)=wt(C_1 \oplus C_2)$,which is just the number of different bits between $C_1$ and $C_2$. So $d(C_1,C_2)=wt(C_1 \oplus C_2)$. 
 
-Now we can define the volume of the ball. The volume of the ball is the number of points in the ball. So $V_{\Sigma^n}=|B_{\Sigma^n} (x,e)|$ which is the size of the ball point set.
+        Thus if we go through all the possibility space, we can claim that $d_{min}=\min_{C_1, C_2\in \mathcal{C}, C_1\neq C_2}d(C_1, C_2)=\min_{C\in \mathcal{C}, C\neq 0}wt(C)$. Proved.
+    \end{proof}
+\end{enumerate}
 
-To make the calculation easier, we let $q = \Sigma^n$. \[
-    \text{Vol}_q(e,n)= 1+ \binom{n}{1}(q-1)+\binom{n}{2}(q-1)^2+\ldots+\binom{n}{e}(q-1)^e=\sum_{i=0}^{e}\binom{n}{i}(q-1)^i
+\subsubsection{Parity Check Matrix}
+We can also define a parity check matrix $H$ for the Hamming code. It is a $n\times (n-k)$ matrix. So $H\cdot C^T=0$ where $C$ is the codeword vector. So $H$ is the matrix that can detect errors.
+\[
+    \begin{bmatrix}
+        0 & 1 & 1 & 1 & 1 & 0 & 0 \\
+        1 & 0 & 1 & 1 & 0 & 1 & 0 \\
+        1 & 1 & 0 & 1 & 0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_1 \\
+        x_2 \\
+        x_3 \\
+        x_4 \\
+        c_5 = x_2+x_3+x_4 \\
+        c_6 = x_1+x_3+x_4 \\
+        c_7 = x_1+x_2+x_4
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        0 \\
+        0 \\
+        0
+    \end{bmatrix}
 \]
 
-So since Hamming balls cannot overlap, we have: \begin{align*}
-     |\mathcal{C}|&\le \frac{q^n}{\text{Vol}_q(e,n)}\\
-     |\mathcal{C}|\times \text{Vol}_q(e,n)&\le q^n\\
-     \log_q(|\mathcal{C}|)+\log_q(\text{Vol}_q(e,n))&\le \log_q(q^n)\\
-        \log_q(|\mathcal{C}|)+\log_q(\text{Vol}_q(e,n))&\le n\\
-        \log_q(|\mathcal{C}|)&\le n-\log_q(\text{Vol}_q(e,n))\\
-        \textbf{Rate}= \frac{\log_q(|\mathcal{C}|)}{n}&\le 1-\frac{\log_q(\text{Vol}_q(e,n))}{n} 
-\end{align*}
-The rate here is the maximum rate. So we have the upper bound of the rate of a code. So we have the \textbf{Hamming bound}:
+Note that $H$ is just letting the encoded codeword to XOR with its decomposition. It should be 0 if there is no error. So if there is an error, then $H\cdot C^T\neq 0$.
 
+\subsubsection{Proof of Minimum Distance}
+With the help of the parity check matrix, we can prove that the minimum distance of the Hamming code is 3.\begin{proof}
+    Proof by contradiction: Suppose that $\exists C \in \mathcal{C}$ such that $wt(C)=1$ or $wt(C)=2$. 
+
+    We can list out all the possibilities of C and find out that: $H\cdot C^T\neq 0$. So $C$ is not a codeword. Contradiction. So $\forall C\in \mathcal{C}, wt(C)\ge 3$. 
+    
+    Now just need to find a codeword with weight 3. We can find that $C=(1,1,1,0,0,0,0)$ is a codeword. With the property that we just proved: 
+    
+    \textit{The distance of $\mathcal{C}$ is the same as the minimum weight of the non-zero codewords in $\mathcal{C}$.} 
+    
+    So $d_{min}=3$. Proved.
 \end{proof}
 
-
+\subsection{Decoding Hamming Codes}
+Assume that we have a codeword $\tilde{C}$ that is transmitted. We want to find the closest codeword to $\tilde{C}$.\begin{itemize}
+    \item If $\tilde{C}$ has no error, then we can just return $\tilde{C}$.
+    \item If $\tilde{C}$ has one error, $\tilde{C}=C\oplus Z$ where $Z$ is the noise such that $wt(Z)=1$. \begin{align*}
+        H\cdot \tilde{C}^T & = H\cdot (C\oplus Z)^T \\
+                           & = H\cdot C^T\oplus H\cdot Z^T &\text{Addition is commutative}\\
+                           & = H\cdot Z^T &\text{Since $H\cdot C^T=0$}
+    \end{align*}
+    From there, we can know which bit is wrong now, and moreover, we can correct it.\[
+        C = \tilde{C}\oplus Z
+    \] XOR can be reversed by XOR again. So we can correct the error.
+\end{itemize}
 \end{document}
