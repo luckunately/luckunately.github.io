@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  12 JAN 2024 21:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.30)  17 JAN 2024 10:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -360,25 +360,41 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 44.
  [1
 
-{c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [2] [3] [4] [5] [6] (./Summary.aux)
+{c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [2] [3] [4] [5] (c:/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+) (c:/texlive/2023/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+) [6] [7]
+<./Image/Haxx victim stack.jpg, id=132, 216.81pt x 200.24812pt>
+File: ./Image/Haxx victim stack.jpg Graphic file (type jpg)
+<use ./Image/Haxx victim stack.jpg>
+Package pdftex.def Info: ./Image/Haxx victim stack.jpg  used on input line 207.
+(pdftex.def)             Requested size: 216.80946pt x 200.24763pt.
+ [8 <./Image/Haxx victim stack.jpg>]
+<./Image/Haxx attack v3.jpg, id=140, 556.32843pt x 284.56313pt>
+File: ./Image/Haxx attack v3.jpg Graphic file (type jpg)
+<use ./Image/Haxx attack v3.jpg>
+Package pdftex.def Info: ./Image/Haxx attack v3.jpg  used on input line 232.
+(pdftex.def)             Requested size: 333.79964pt x 170.73918pt.
+ [9 <./Image/Haxx attack v3.jpg>] [10] (./Summary.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-10-23>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 12312 strings out of 474397
- 187035 string characters out of 5754184
+ 12502 strings out of 474397
+ 189705 string characters out of 5754184
  1959036 words of memory out of 5000000
- 34168 multiletter control sequences out of 15000+600000
- 564569 words of font info for 60 fonts, out of 8000000 for 9000
+ 34324 multiletter control sequences out of 15000+600000
+ 564916 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,6n,93p,607b,1871s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Summary.pdf (6 pages, 86281 bytes).
+<c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on Summary.pdf (10 pages, 207867 bytes).
 PDF statistics:
- 173 PDF objects out of 1000 (max. 8388607)
- 151 compressed objects within 2 object streams
- 77 named destinations out of 1000 (max. 500000)
- 57 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 250 PDF objects out of 1000 (max. 8388607)
+ 217 compressed objects within 3 object streams
+ 105 named destinations out of 1000 (max. 500000)
+ 127 words of extra memory for PDF output out of 10000 (max. 10000000)
 
