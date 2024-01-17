@@ -144,24 +144,24 @@ Here are some rules:
     \item The stack grows downwards. The stack pointer is in x31. The stack pointer points to the last item in the stack. The stack pointer is decremented when we push something onto the stack. The stack pointer is incremented when we pop something from the stack.
 \end{itemize}
 \subsection{call frame}
-The call frame is the part of the stack that is used to store information about the function call. It includes the return address, the saved registers, and the local variables. 
+The call frame is the part of the stack that is used to store information about the function call. It includes the return address, the saved registers, and the local variables.
 
 The call frame is created when we call a function. It is destroyed when the function returns. The call frame is created by the caller. The caller is responsible for saving the registers and creating the local variables. The callee is responsible for saving the return address.
 
-Usually we have stack pointer which points to the last item in the stack. 
+Usually we have stack pointer which points to the last item in the stack.
 
-We also have frame pointer which points to the start of the call frame. The frame pointer is used to access the local variables. 
+We also have frame pointer which points to the start of the call frame. The frame pointer is used to access the local variables.
 
 The frame pointer is not necessary, but it makes it easier to access the local variables.
 
-But if we have dynamically sized stack allocation (memory allocation functions), then fp is obligatory. 
+But if we have dynamically sized stack allocation (memory allocation functions), then fp is obligatory.
 
 \subsection{Jumping to a function}
-To jump to a function, we use bl. bl is a branch and link. 
+To jump to a function, we use bl. bl is a branch and link.
 
 It branches to the function and saves the address of the next instruction in the link register. The function returns using ret, which branches to the address in the link register.
 
-Back in the time where there is no bl, we have to do this manually. We have to save the return address in the stack, then jump to the function. The function then returns by popping the return address from the stack and jumping to it.
+Back in the time when there is no bl, we have to do this manually. We have to save the return address in the stack, then jump to the function. The function then returns by popping the return address from the stack and jumping to it.
 
 Another way is to specify the line of return when creating the callee function. And then when we call a function, the caller will write the return address to the specified line. And then the callee will jump to that line when it returns. This is called a trampoline. Not to nice to use, but it is a way to do it back in the day.
 
@@ -170,8 +170,103 @@ ABI is the application binary interface. It is a standard for binary interfaces.
 
 \subsubsection{stack-based ABI}
 \begin{itemize}
-    \item stacks are sequential. If we spawn two functions, the stack must grow into two different directions. how to achieve this? We can use two different stacks. 
-    \item stack spaces are deallocated on return, so we can reuse the stack space. 
+    \item stacks are sequential. If we spawn two functions, the stack must grow into two different directions. how to achieve this? We can use two different stacks.
+    \item stack spaces are deallocated on return, so we can reuse the stack space.
 \end{itemize}
+\section{Haxx}
+Start with a C example: \begin{lstlisting}[language=C]
+    int main() {
+        volatile long ans = 42;
+        char buf[16];
+        gets(buf);
+        //latex does not support printf properly
+        printf(ans);
+        return 0;
+    }
+    
+\end{lstlisting}
+gets() reads a line from stdin into the buffer pointed to by s until either a terminating newline or EOF, which it replaces with a null byte ('\textbackslash 0'). No check for buffer overrun is performed (see BUGS below).
+
+So this program is vulnerable to buffer overflow. We can overflow the buffer and overwrite the value of ans.
+\subsection{Analysis of the victim}
+By observing, volatile makes sure that ans lies on the stack. Then we allocated 16 bytes for buf (char is 1 byte each). Now the pointer of buf is 16 bytes away from ans. With that, have a look at the compiled assembly code:
+\begin{lstlisting}
+main:
+    stp x29, x30, [sp, -48]!
+    mov x29, sp
+    mov x0, 42
+    str x0, [x29, 40]
+    add x0, x29, 24
+    bl gets
+    ... rest of the code 
+\end{lstlisting}
+stp is store pair. It stores two registers in the stack. The first register x29 (Stack pointer, pointing to the top of the stack of the parent function) is stored at the address in sp. The second register x30 (Link register, parent function address) is stored at the address in sp minus 8. The stack pointer is then decremented by 48. So 48 lines of memory is allocated for the call frame.
+
+Then x29 keeps the current program sp. x0 is loaded with 42. Then x0 is stored in the address in x29 plus 40. So the address of ans is x29 plus 40 which is the bottom of the frame (Stack grows downwards, so right next to the parent function's top of stack). Then x0 is loaded with x29 plus 24. So x0 is loaded with the address of buf. Then we call gets.
+
+\includegraphics*{./Image/Haxx victim stack.jpg}
+
+Now if we input more than 16 bytes, we can overflow the buffer and overwrite the value of ans.
+
+For example, we can input ``ffffffff ffffffff 3905''. This will overwrite the value of ans with 3905.
+
+\subsection{Typical attack pattern}
+\begin{itemize}
+    \item Find a program running on target (maybe as root)
+    \item scan binary for potential buffer overflows. E.g, look for gets, strcpy, strcat, sprintf, etc.
+    \item craft input that will overflow the buffer and overwrite something interesting
+    \item objective: execute arbitrary code
+\end{itemize}
+\subsubsection{Jump to arbitrary code}
+In ARMv8, typically, we save lr to the top of the stack before bl to another function.
+
+Since overwrite in this case writes to the higher address, but lr for the current call frame is at the lower address, we can't overwrite the current function's lr.
+
+But we can overwrite the return address of the parent function which will lie just above the bottom of the call frame. So we can overwrite the return address of the parent function with the address of the code we want to execute. Then when the parent function returns, it will jump to the code we want to execute.
+
+\subsection{Code injection}
+Now we know how to jump to other addresses, but we still need to inject our code into the program. How do we pass arguments to the code you want to execute?
+
+One way to do it is to overwrite the stack with the machine code that corresponds to the assembly code you want to execute. Then you can pass arguments to the code by putting them in the stack.
+
+\includegraphics*[scale = 0.6]{./Image/Haxx attack v3.jpg}
+
+Note that the ARM64 code is little-endian. So the first byte is the least significant byte. We put the code to overwrite the space for buf and ans. The value printed is the third line of ARM machine code in large-endian.
+
+we overwrite the lr with the start of the ARM code address ``00 00 ff ff ff ff ee b8''. So the pc will jump to your written code.
+
+Also, since ARM only allows 16-bit constant input, we can load 16 bits of a register at a time. That is why we have to load the value of ans into x0 and x1 separately by shifting the constant input.
+
+Now last line ``br x1'' would allow us to jump to the address in x1. The argument we want to pass has its address in x0, which is the last line we overwritten.
+
+\subsubsection{Code injection limitations}
+\begin{itemize}
+    \item stack/heap often non-executable.\begin{itemize}
+              \item enforced by virtual memory system (Segmentation fault)
+              \item It will crash the program if we try to execute code in the stack or heap.
+          \end{itemize}
+    \item stack/heap locations often randomized (ASLR) \begin{itemize}
+              \item enforced by the virtual memory system
+              \item It will randomize the location of the stack and heap. So we can't predict the location of the stack or heap.
+          \end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
 

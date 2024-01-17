@@ -100,4 +100,76 @@ for (i = 1; i < 9*n; i = i*2) {
 \end{lstlisting}
 The outer loop runs $\log_2 9n$ times, thus $O(\log n)$. The inner loop runs $n^2$ times, thus $O(n^2)$. So the overall complexity is $O(n^2\log n)$.
 
+\section{Correctness}
+Former methods to argue Correctness:
+\subsection{Loop Invariant}
+\begin{definition}
+    \begin{itemize}
+        \item A loop invariant is a property that holds before and after each iteration of a loop.
+        \item Within a loop body, these properties may be violated briefly but must be fixed for the next iteration.
+        \item A loop invariant proof must use features of the code being analyzed to demonstrate that any violations of loop invariants are fixed.
+    \end{itemize}
+\end{definition}
+\subsubsection{Proving a loop invariant}
+Generally, we use induction to prove it:\begin{enumerate}
+    \item Find an induction variable or property.
+    \item Base case: show that the loop invariant holds before the first iteration.
+    \item Inductive hypothesis: assume that the loop invariant holds before the $k$th iteration. $k$ can be unspecified.
+    \item Inductive step: show that the loop invariant holds for the $(k+1)$th iteration.
+    \item Termination: show that the loop invariant holds after the last iteration.
+\end{enumerate}
+\subsection{Selection Sort}
+\begin{lstlisting}[language=C++]
+void selectionSort(Vector<int> & arr) {
+    for(int i=0; i<arr.size(); i++){
+        int min = indexOfMin(arr, i);
+        swap(arr[i], arr[min]);
+    }
+}
+\end{lstlisting}
+This algorithm finds the smallest element in the array and swap it with the first element. Then it finds the second smallest element and swap it with the second element. And so on.
+
+For each iteration, we need to compare $n-i$ elements to find the smallest element. So a total of $\sum_{i=0}^{n-1}n-i=\frac{n(n-1)}{2}$ comparisons. Swap is just a function to perform each iteration, which could be seen as $O(n)$. So the running time is $O(n^2)$.
+
+Note that the running time is independent of the input. So it is a \textbf{deterministic} algorithm. Running time is the same for best, average, and worst case.
+
+Space complexity is $O(1)$ because we only need to store the array and use a few variables on the stack to keep track of the indices.
+\subsubsection{Invariant proof of selection sort}
+\begin{proof}
+    Claim that the loop invariant is that the first $i$ elements are sorted. All elements before $i$ are smaller than or equal to all elements after $i$.
+
+    Base case: before the first iteration, $i=0$, so the first $i$ elements are empty, so the invariant holds. 
+
+    Inductive hypothesis: assume that the invariant holds before the $k$th iteration.
+
+    Inductive step: after the $k$th iteration, the smallest element in the array is swapped with the $k$th element. So the first $k$ elements are sorted. All elements before $k$ are smaller than or equal to all elements after $k$.
+
+    Termination: after the last iteration, $i=n$, so the first $i$ elements are the whole array, which is sorted. All elements before $i$ are smaller than or equal to all elements after $i$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
