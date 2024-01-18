@@ -5,6 +5,7 @@
 \usepackage{amsmath, amsfonts, amssymb, ragged2e}
 \usepackage{amsthm}
 \usepackage{bookmark}
+\usepackage{listings}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
 \title{Summary of Math 312}
@@ -148,6 +149,20 @@ Simple properties of gcd:\begin{itemize}
     \end{itemize}
 \end{proof}
 
+\subsubsection{Some Crollaries}
+\begin{enumerate}
+    \item An integer $e$ is a common divisor of $a$ and $b$ if and only if $e | gcd(a, b)$.\begin{proof}
+        If $e$ is a common divisor of $a$ and $b$, then $e | a$ and $e | b$. Therefore, $e | gcd(a, b) = ma + nb$ for some $m, n \in \mathbb{Z}$. Therefore, $e | gcd(a, b)$.
+
+        If $e | gcd(a, b)$, then $gcd(a, b) = ek$ for some $k \in \mathbb{Z}$. Then $gcd(a, b) = ek = ma + nb$. Therefore, $e | a$ and $e | b$. Therefore, $e$ is a common divisor of $a$ and $b$.
+    \end{proof}
+    \item Let $c$ be an integer, then $ax+by = c$ has an integer solution if and only if $gcd(a, b) | c$.\begin{proof}
+        if $ax + by = c$ has an integer solution, then $gcd(a, b) | ax + by = c$.
+
+        If $gcd(a, b) | c$, then $c = k(gcd(a, b)) = k(ax + by) = (ka)x + (kb)y$. Therefore, $ax + by = c$ has an integer solution.
+    \end{proof}
+\end{enumerate}
+
 \subsection{Bezout's identity}
 An integer linear combination of $a$ and $b$ is an integer of the form $ax + by$, where $x, y \in \mathbb{Z}$.
 \begin{theorem}
@@ -168,6 +183,66 @@ An integer linear combination of $a$ and $b$ is an integer of the form $ax + by$
     \]
     So r is a linear combination of a and b. Since r is a remainder, $0 \leq r < d$. Since d is the smallest positive integer in S, r must be 0. Therefore, $d | a$. Similarly, $d | b$.
 \end{proof}
+
+\subsection{Euclidean Division Algorithm}
+Euclidean algorithm is a highly \textbf{recursive} and fast algorithm to find the gcd of two numbers. 
+
+The complexity of the algorithm is $O(\log n)$, where $n$ is the larger of the two numbers.
+
+Before starting, we need to know the following lemma:
+
+\subsubsection{Lemma}
+Let $a, b, q, r \in \mathbb{Z}$ such that $a = bq + r$. Then $gcd(a, b) = gcd(b, r)$.\begin{proof}
+    Let $d = gcd(a, b), d' = gcd(b, r)$. We want to show that $d = d'$.
+
+    We know that $d' | b$ and $d' | r$. Therefore, $d' | bq + r = a$. Therefore, $d' | a$. So $d' \leq d$, it is a common divisor of $a$ and $b$.
+
+    At the same time, $d | a$ and $d | b$. Therefore, $d | bq + r = a$. Therefore, $d | a$ and $d | r$. So $d \leq d'$, it is a common divisor of $b$ and $r$.
+
+    Therefore, $d = d'$.
+\end{proof}
+\subsubsection{Euclidean algorithm}
+The algorithm applies the lemma repeatedly until we get $r = 0$ if we have $a,b\ge 0$. Then the last non-zero remainder is the gcd of $a$ and $b$.
+
+Give a recursion code example:\begin{lstlisting} [language=C++]
+    int gcd(int a, int b) {
+        if (b == 0) return a;
+        if (a == 0) return b;
+        if (a < b) return gcd(b % a, a);
+        return gcd(b, a % b);
+    }
+\end{lstlisting}
+So basically, we keep replacing $gcd(a, b)$ with $gcd(b, r)$ until $r = 0$ if we choose $a\ge b$ the whole time. Then the last non-zero remainder is the gcd of $a$ and $b$.
+
+\subsubsection{Number of steps in Euclidean algorithm}
+Lemma:
+
+Let $a, b \in \mathbb{Z}, a \ge b \ge 1$. We let $a = bq + r$ where $0 \leq r < b$. Then $r < \frac{a}{2}$. \begin{proof}
+    \begin{itemize}
+        \item Case 1: $b \leq \frac{a}{2}$. Then $r < b \leq \frac{a}{2}$.
+        \item Case 2: $b > \frac{a}{2}$. Then $r = a - bq < a - \frac{a}{2}q = \frac{a}{2}(2-q) \leq \frac{a}{2}$. Given $q \ge 1$ since $a \ge b \land r \ge 0$.
+    \end{itemize}
+\end{proof}
+
+Corollary:
+
+Assume $a \ge b \ge 1$. Then the number of steps in the Euclidean algorithm is at most $2 \log_2 a$. \begin{proof}
+    By the lemma above, we know that for each iteration, $r < \frac{a}{2}$. Therefore, after $k$ iterations, $r < \frac{a}{2^k}$. But $r$ is a positive integer otherwise it terminates (The last r before becoming zero is the gcd, we have r = 0 to be the termination point since it is easier to program).
+    
+    We want to find the smallest $k$ such that $\frac{a}{2^k} < 1$. This is equivalent to $2^k > a$. Therefore, $k > \log_2 a$. Therefore, the number of iterations is at most $\log_2 a$.
+\end{proof}
+
+\subsubsection{Lame's theorem}
+\begin{theorem}
+    Suppose $a, b \in \mathbb{Z}, a \ge b \ge 1$. Let $d$ be the number of steps in the Euclidean algorithm. Then $d \leq 5 \log_{10} a$.
+\end{theorem}
+
+The proof can be found on Wikipedia. The $\log_{10}$ is used because the proof involved Fibonacci numbers for some reason.
+
+Now compare the bound by Lame's theorem and the bound by the corollary above. We can compare the two bounds:\[
+    2 \log_2 a = \frac{2}{\log_{10} 2} \log_{10} a \approx 6.64 \log_{10} a > 5 \log_{10} a
+\]
+So Lame's theorem is a better bound than the corollary above.
 
 
 
