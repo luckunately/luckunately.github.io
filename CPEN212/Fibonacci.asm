@@ -62,3 +62,28 @@ one_or_zero:
     mov x0, #1
     ret 
     
+
+
+
+
+
+//mie's code
+fib:
+    cmp x0, 1 //I would assume that this is the base case, if x0 = 1, it should return 1 directly.
+    --ANS1-- b.le end //if it is 1 or smaller, should reutrn 1 directly
+    --ANS2-- sub sp, sp, 8 //allocate space for the return address and the value of x0
+    str lr, [sp, 8] //store the return address
+    --ANS3-- //what else do I need to store?
+    str x0, [sp] //store the value of x0
+    --ANS4-- add x4 x2, x3 //add the last two numbers
+    --ANS5-- mov x2, x3 //move the last number to the second last
+    --ANS6-- mov x3, x4 //move the sum to the last number
+    //Here is the problem, x2 and x3 is not initialized
+    sub x0, x1, 1 //decrement the number of iterations left and pass to next recursion
+    bl  fib
+    ldr x1, [sp]
+    --ANS7--
+    ldr lr, [sp, 8] //but the stack pointer is not increased
+    --ANS8-- mov x0, x4 //move the result to x0 
+end:
+    ret
