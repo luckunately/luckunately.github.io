@@ -26,24 +26,27 @@
 Some basic properties of the natural numbers:
 \begin{itemize}
     \item Mathematical induction
-    
-    Suppose $S \subseteq \mathbb{N}$ such that:\begin{itemize}
-        \item $1 \in S$
-        \item $\forall n \in \mathbb{N}, n \in S \implies n+1 \in S$
-    \end{itemize}
+
+          Suppose $S \subseteq \mathbb{N}$ such that:\begin{itemize}
+              \item $1 \in S$
+              \item $\forall n \in \mathbb{N}, n \in S \implies n+1 \in S$
+          \end{itemize}
     \item Strong Induction
-    
-    Suppose $S \subseteq \mathbb{N}$ such that:\begin{itemize}
-        \item $1 \in S$
-        \item $\forall n \in \mathbb{N}, \forall k \in \mathbb{N}, 1 \leq k \leq n \implies k \in S \implies n+1 \in S$
-    \end{itemize}
-    \item Well-Ordering Principle: Every non-empty subset of $\mathbb{N}$ has a least element.
+
+          Suppose $S \subseteq \mathbb{N}$ such that:\begin{itemize}
+              \item $1 \in S$
+              \item $\forall n \in \mathbb{N}, \forall k \in \mathbb{N}, 1 \leq k \leq n \implies k \in S \implies n+1 \in S$
+          \end{itemize}
+    \item Well-Ordering Principle: Every non-empty subset of $\mathbb{N}$ has a least
+          element.
 \end{itemize}
 
 Note that the above three are equivalent.
 
 \subsection{Examples}
-Let $\alpha = \frac{1+\sqrt{5}}{2}, \beta = \frac{1-\sqrt{5}}{2}$, Prove that the n-th Fibonacci number $F_n = \frac{\alpha^n - \beta^n}{\alpha - \beta} = \frac{\alpha^n - \beta^n}{\sqrt{5}}$.
+Let $\alpha = \frac{1+\sqrt{5}}{2}, \beta = \frac{1-\sqrt{5}}{2}$, Prove that
+the n-th Fibonacci number $F_n = \frac{\alpha^n - \beta^n}{\alpha - \beta} =
+    \frac{\alpha^n - \beta^n}{\sqrt{5}}$.
 \begin{proof}
     Note that $\alpha, \beta$ are the roots of $x^2 - x - 1 = 0$. Then we have $\alpha^2 = \alpha + 1, \beta^2 = \beta + 1$. We will prove the statement by \textbf{Strong} induction on $n$.
 
@@ -58,43 +61,63 @@ Let $\alpha = \frac{1+\sqrt{5}}{2}, \beta = \frac{1-\sqrt{5}}{2}$, Prove that th
 
 Another example:
 
-Prove that all positive integers are a product of primes. Here we treat the empty product as 1 and the product of one prime as itself.
+Prove that all positive integers are a product of primes. Here we treat the
+empty product as 1 and the product of one prime as itself.
 
 \begin{proof}
     We use proof by contradiction to show the use of the well-ordering principle.
 
-    Let S be the set of positive integers which cannot be written as products of primes. \textbf{Assume} that S is not empty:
+    Let S be the set of positive integers which cannot be written as products of
+    primes. \textbf{Assume} that S is not empty:
 
-    Then by the well-ordering principle, S has a least element $n$. Since $n$ is the least element, it cannot be prime. 
-    
-    Then $n = ab$ for some $a, b \in \mathbb{N}$. Then $a, b < n$. Since $n$ is the least element, $a, b \notin S$. Then $a, b$ can be written as products of primes. Then $n = ab$ can be written as a product of primes. This is a contradiction. 
-    
-    Therefore, S is empty and all positive integers can be written as products of primes.
+    Then by the well-ordering principle, S has a least element $n$. Since $n$ is
+    the least element, it cannot be prime.
+
+    Then $n = ab$ for some $a, b \in \mathbb{N}$. Then $a, b < n$. Since $n$ is the
+    least element, $a, b \notin S$. Then $a, b$ can be written as products of
+    primes. Then $n = ab$ can be written as a product of primes. This is a
+    contradiction.
+
+    Therefore, S is empty and all positive integers can be written as products of
+    primes.
 \end{proof}
 \subsection{The division algorithm}
-Let $a\in \mathbb{Z}, a\ge 1$. $\forall n \in \mathbb{Z}, \exists q, r \in \mathbb{Z}$ such that $n = aq + r$ and $0 \leq r < a$. Moreover, $q, r$ are unique.
+Let $a\in \mathbb{Z}, a\ge 1$. $\forall n \in \mathbb{Z}, \exists q, r \in
+    \mathbb{Z}$ such that $n = aq + r$ and $0 \leq r < a$. Moreover, $q, r$ are
+unique.
 
 \begin{proof}
-    Prove using the well-ordering principle. 
+    Prove using the well-ordering principle.
 
-    Let $S = \{s \in \mathbb{Z} | s\ge 0 \land s=n-aq \land a,q,n \in \mathbb{Z}\}$. We claim that $S$ is not empty.
+    Let $S = \{s \in \mathbb{Z} | s\ge 0 \land s=n-aq \land a,q,n \in
+        \mathbb{Z}\}$. We claim that $S$ is not empty.
 
-    Indeed $n-aq\ge0 \iff n\ge aq \iff q\le \frac{n}{a}$, given $a>0$. So there are infinitely many $q$ that satisfy the condition, which proves that $S$ is not empty.
-    
-    By the well-ordering principle, $S$ has a least element $r$. Then $r = n-aq$ for some $q$. Then $n = aq + r$. It remains to show that $0 \leq r < a$. We argue by contradiction. 
+    Indeed $n-aq\ge0 \iff n\ge aq \iff q\le \frac{n}{a}$, given $a>0$. So there are
+    infinitely many $q$ that satisfy the condition, which proves that $S$ is not
+    empty.
 
-    If $r \ge a$, then $r-a \ge 0$. Then $r-a = n-aq-a = n-a(q+1) \in S$. But $r-a < r$, which contradicts the fact that $r$ is the least element of $S$. Therefore, $r < a$.
+    By the well-ordering principle, $S$ has a least element $r$. Then $r = n-aq$
+    for some $q$. Then $n = aq + r$. It remains to show that $0 \leq r < a$. We
+    argue by contradiction.
 
-    To show uniqueness, suppose $n = aq + r = aq' + r'$, where $0 \leq r, r' < a$. Our goal is to show that $q = q'$ and $r = r'$.
+    If $r \ge a$, then $r-a \ge 0$. Then $r-a = n-aq-a = n-a(q+1) \in S$. But $r-a
+        < r$, which contradicts the fact that $r$ is the least element of $S$.
+    Therefore, $r < a$.
 
-    Subtracting the two equations, we have $a(q-q') = r' - r$. Notice that the LHS is divisible by $a$ and the RHS is less than $a$ but greater than 0. Therefore, $r' - r = 0$ and $q-q' = 0$. Therefore, $q = q'$ and $r = r'$.
+    To show uniqueness, suppose $n = aq + r = aq' + r'$, where $0 \leq r, r' < a$.
+    Our goal is to show that $q = q'$ and $r = r'$.
+
+    Subtracting the two equations, we have $a(q-q') = r' - r$. Notice that the LHS
+    is divisible by $a$ and the RHS is less than $a$ but greater than 0. Therefore,
+    $r' - r = 0$ and $q-q' = 0$. Therefore, $q = q'$ and $r = r'$.
 
     This completes the proof.
 \end{proof}
 
 Remark: q stands for \textbf{quotient} and r stands for \textbf{remainder}.
 
-Also, the Division algorithm is a \textbf{theorem}. The actual algorithm to find q and r is called \textbf{long division}.
+Also, the Division algorithm is a \textbf{theorem}. The actual algorithm to
+find q and r is called \textbf{long division}.
 \section{Primes}
 \begin{definition}
     A positive integer $p$ is called \textbf{prime} if $p \ge 2$ and the only positive divisors of $p$ are 1 and $p$.
@@ -104,12 +127,13 @@ Also, the Division algorithm is a \textbf{theorem}. The actual algorithm to find
     There are infinitely many primes.
 \end{theorem}
 \begin{proof}
-    Suppose there are only finitely many primes $p_1, p_2, \dots, p_n$. 
-    
-    Let $N = p_1p_2\dots p_n + 1$. (Products of primes plus 1) 
-    
-    Then $N$ is not divisible by any of the primes $p_1, p_2, \dots, p_n$. Therefore, $N$ is either prime or divisible by a prime larger than $p_n$. 
-    
+    Suppose there are only finitely many primes $p_1, p_2, \dots, p_n$.
+
+    Let $N = p_1p_2\dots p_n + 1$. (Products of primes plus 1)
+
+    Then $N$ is not divisible by any of the primes $p_1, p_2, \dots, p_n$.
+    Therefore, $N$ is either prime or divisible by a prime larger than $p_n$.
+
     This is a contradiction. Therefore, there are infinitely many primes.
 \end{proof}
 The theorem can be used to generate infinitely many primes. For example, $2, 2\cdot 3 + 1 = 7, 2\cdot 3\cdot 5 + 1 = 31, \dots$ are all primes. However, this is not a good way to generate primes because the numbers get very large very quickly.
@@ -120,13 +144,16 @@ The theorem can be used to generate infinitely many primes. For example, $2, 2\c
 \end{theorem}
 The key idea is that if $n=ab$ and n is a composite, then at least one of $a, b$ is less than or equal to $\sqrt{n}$. So we only need to check up to $\sqrt{n}$ to see if $n$ is a prime.
 
-For example, to check the primes within 25, we only need to check up to $\sqrt{25} = 5$. List out all the numbers from 2 to 25. Then cross out all the multiples of 2, 3, 5. The remaining numbers are all primes.
+For example, to check the primes within 25, we only need to check up to
+$\sqrt{25} = 5$. List out all the numbers from 2 to 25. Then cross out all the
+multiples of 2, 3, 5. The remaining numbers are all primes.
 
 \subsection{The prime number theorem}
 \begin{theorem}
     Let $\pi(x)$ be the number of primes less than or equal to $x$. Then $\lim_{x\to\infty} \frac{\pi(x)}{x/\ln x} = 1$.
 
-    In other words, the number of primes less than or equal to $x$ is approximately $\frac{x}{\ln x}$.
+    In other words, the number of primes less than or equal to $x$ is approximately
+    $\frac{x}{\ln x}$.
 \end{theorem}
 
 \section{Division}
@@ -135,76 +162,101 @@ For example, to check the primes within 25, we only need to check up to $\sqrt{2
     Let $a, b \in \mathbb{Z}, (a, b) \neq (0, 0)$. The \textbf{greatest common divisor} of $a$ and $b$, denoted by $\gcd(a, b)$, is the largest positive integer that divides both $a$ and $b$.
 \end{definition}
 Simple properties of gcd:\begin{itemize}
-    \item $a\neq 0 \implies \gcd(a, 0) = |a|$. 
+    \item $a\neq 0 \implies \gcd(a, 0) = |a|$.
     \item $gcd(a, b)\ge 1$.
     \item $gcd(a, b)=d \implies gcd(\frac{a}{d},\frac{b}{d})=1$.
 \end{itemize}
 \begin{proof}
     \begin{itemize}
-        \item Common divisors of $a$ and $0$ are all divisors of $a$. The largest one is $|a|$.
+        \item Common divisors of $a$ and $0$ are all divisors of $a$. The largest one is
+              $|a|$.
         \item We know 1 is a common divisor of $a$ and $b$. Therefore, $\gcd(a, b) \ge 1$.
-        \item Suppose $d = gcd(a, b), e = gcd(\frac{a}{d}, \frac{b}{d})$. 
-        
-        We write $\frac{a}{d} = ek, \frac{b}{d} = em$ for some $k, m \in \mathbb{Z}$. Then $a = (de)k, b = (de)m$. Now we can know that $de$ is a common divisor of $a$ and $b$. Thus $de \leq d$. Since $d \ge 1$, we have $e \leq 1$. Therefore, $e = 1$. Proof concluded.
+        \item Suppose $d = gcd(a, b), e = gcd(\frac{a}{d}, \frac{b}{d})$.
+
+              We write $\frac{a}{d} = ek, \frac{b}{d} = em$ for some $k, m \in \mathbb{Z}$.
+              Then $a = (de)k, b = (de)m$. Now we can know that $de$ is a common divisor of
+              $a$ and $b$. Thus $de \leq d$. Since $d \ge 1$, we have $e \leq 1$. Therefore,
+              $e = 1$. Proof concluded.
     \end{itemize}
 \end{proof}
 
 \subsubsection{Some Crollaries}
 \begin{enumerate}
-    \item An integer $e$ is a common divisor of $a$ and $b$ if and only if $e | gcd(a, b)$.\begin{proof}
+    \item An integer $e$ is a common divisor of $a$ and $b$ if and only if $e | gcd(a,
+              b)$.\begin{proof}
 
-        If $e$ is a common divisor of $a$ and $b$, then $e | a$ and $e | b$. Therefore, $e | gcd(a, b) = ma + nb$ (Bezout's identity which will be proven below) for some $m, n \in \mathbb{Z}$. Therefore, $e | gcd(a, b)$.
+              If $e$ is a common divisor of $a$ and $b$, then $e | a$ and $e | b$. Therefore,
+              $e | gcd(a, b) = ma + nb$ (Bezout's identity which will be proven below) for
+              some $m, n \in \mathbb{Z}$. Therefore, $e | gcd(a, b)$.
 
-        If $e | gcd(a, b)$, then $gcd(a, b) = ek$ for some $k \in \mathbb{Z}$. Then $gcd(a, b) = ek = ma + nb$. Therefore, $e | a$ and $e | b$. Therefore, $e$ is a common divisor of $a$ and $b$.
-    \end{proof}
-    \item Let $c$ be an integer, then $ax+by = c$ has an integer solution if and only if $gcd(a, b) | c$.\begin{proof}
-    \item 
-        If $ax + by = c$ has an integer solution, then $gcd(a, b) | ax + by = c$.
+              If $e | gcd(a, b)$, then $gcd(a, b) = ek$ for some $k \in \mathbb{Z}$. Then
+              $gcd(a, b) = ek = ma + nb$. Therefore, $e | a$ and $e | b$. Therefore, $e$ is a
+              common divisor of $a$ and $b$.
+          \end{proof}
+    \item Let $c$ be an integer, then $ax+by = c$ has an integer solution if and only if
+          $gcd(a, b) | c$.\begin{proof}
+              \item
+              If $ax + by = c$ has an integer solution, then $gcd(a, b) | ax + by = c$.
 
-        If $gcd(a, b) | c$, then $c = k(gcd(a, b)) = k(ax + by) = (ka)x + (kb)y$. Therefore, $ax + by = c$ has an integer solution.
-    \end{proof}
+              If $gcd(a, b) | c$, then $c = k(gcd(a, b)) = k(ax + by) = (ka)x + (kb)y$.
+              Therefore, $ax + by = c$ has an integer solution.
+          \end{proof}
 \end{enumerate}
 
 \subsection{Bezout's identity}
-An integer linear combination of $a$ and $b$ is an integer of the form $ax + by$, where $x, y \in \mathbb{Z}$.
+An integer linear combination of $a$ and $b$ is an integer of the form $ax +
+    by$, where $x, y \in \mathbb{Z}$.
 \begin{theorem}
     gcd(a, b) is the smallest positive integer that can be written as an integer linear combination of $a$ and $b$.
 \end{theorem}
 \begin{proof}
     Let S be the set of positive integers that can be written as an integer linear combination of $a$ and $b$. We want to show that $gcd(a, b)$ is the smallest element of S.
 
-    Note that since $(a, b) \neq (0, 0)$, $S$ is not empty. By the well-ordering principle, $S$ has a least element $d$. We want to show that $d = gcd(a, b)$. To show it, we need to show that: \begin{itemize}
+    Note that since $(a, b) \neq (0, 0)$, $S$ is not empty. By the well-ordering
+    principle, $S$ has a least element $d$. We want to show that $d = gcd(a, b)$.
+    To show it, we need to show that: \begin{itemize}
         \item $gcd(a ,b) | d$. This tells us that $gcd(a, b) \leq d$.
         \item $d | a$ and $d | b$. This tells us that $d \leq gcd(a, b)$.
     \end{itemize}
 
-    By definition, $d=x_0a+y_0b$ for some $x_0, y_0 \in \mathbb{Z}$ which is a linear combination of a and b. But we know that $gcd(a, b) | (ma + nb),\forall m, n \in \mathbb{Z}$. Also, $d = x_0a + y_0b$. Therefore, $gcd(a, b) | d$.
+    By definition, $d=x_0a+y_0b$ for some $x_0, y_0 \in \mathbb{Z}$ which is a
+    linear combination of a and b. But we know that $gcd(a, b) | (ma + nb),\forall
+        m, n \in \mathbb{Z}$. Also, $d = x_0a + y_0b$. Therefore, $gcd(a, b) | d$.
 
-    Now we want to show that $d | a$ and $d | b$. Let $a=dq+r$ where q is the quotient and r is the remainder. Just need to show that r = 0. Note that: \[
-    r = a - dq = a - (x_0a + y_0b)q = a(1-x_0q) + b(-y_0q)
+    Now we want to show that $d | a$ and $d | b$. Let $a=dq+r$ where q is the
+    quotient and r is the remainder. Just need to show that r = 0. Note that: \[
+        r = a - dq = a - (x_0a + y_0b)q = a(1-x_0q) + b(-y_0q)
     \]
-    So r is a linear combination of a and b. Since r is a remainder, $0 \leq r < d$. Since d is the smallest positive integer in S, r must be 0. Therefore, $d | a$. Similarly, $d | b$.
+    So r is a linear combination of a and b. Since r is a remainder, $0 \leq r <
+        d$. Since d is the smallest positive integer in S, r must be 0. Therefore, $d |
+        a$. Similarly, $d | b$.
 \end{proof}
 
 \subsection{Euclidean Division Algorithm}
-The Euclidean algorithm is a highly \textbf{recursive} and fast algorithm to find the gcd of two numbers. 
+The Euclidean algorithm is a highly \textbf{recursive} and fast algorithm to
+find the gcd of two numbers.
 
-The complexity of the algorithm is $O(\log n)$, where $n$ is the larger of the two numbers.
+The complexity of the algorithm is $O(\log n)$, where $n$ is the larger of the
+two numbers.
 
 Before starting, we need to know the following lemma:
 
 \subsubsection{Lemma}
-Let $a, b, q, r \in \mathbb{Z}$ such that $a = bq + r$. Then $gcd(a, b) = gcd(b, r)$.\begin{proof}
+Let $a, b, q, r \in \mathbb{Z}$ such that $a = bq + r$. Then $gcd(a, b) =
+    gcd(b, r)$.\begin{proof}
     Let $d = gcd(a, b), d' = gcd(b, r)$. We want to show that $d = d'$.
 
-    We know that $d' | b$ and $d' | r$. Therefore, $d' | bq + r = a$. Therefore, $d' | a$. So $d' \leq d$, it is a common divisor of $a$ and $b$.
+    We know that $d' | b$ and $d' | r$. Therefore, $d' | bq + r = a$. Therefore,
+    $d' | a$. So $d' \leq d$, it is a common divisor of $a$ and $b$.
 
-    At the same time, $d | a$ and $d | b$. Therefore, $d | bq + r = a$. Therefore, $d | a$ and $d | r$. So $d \leq d'$, it is a common divisor of $b$ and $r$.
+    At the same time, $d | a$ and $d | b$. Therefore, $d | bq + r = a$. Therefore,
+    $d | a$ and $d | r$. So $d \leq d'$, it is a common divisor of $b$ and $r$.
 
     Combine two results: $d = d'$.
 \end{proof}
 \subsubsection{Euclidean algorithm}
-The algorithm applies the lemma repeatedly until we get $r = 0$ if we have $a,b\ge 0$. Then the last non-zero remainder is the gcd of $a$ and $b$.
+The algorithm applies the lemma repeatedly until we get $r = 0$ if we have
+$a,b\ge 0$. Then the last non-zero remainder is the gcd of $a$ and $b$.
 
 Give a recursion code example:\begin{lstlisting} [language=C++]
     int gcd(int a, int b) {
@@ -214,26 +266,36 @@ Give a recursion code example:\begin{lstlisting} [language=C++]
         return gcd(b, a % b);
     }
 \end{lstlisting}
-So basically, we keep replacing $\gcd(a, b)$ with $\gcd(b, r)$ until $r = 0$ if we choose $a\ge b$ the whole time. Then the last non-zero remainder is the gcd of $a$ and $b$.
+So basically, we keep replacing $\gcd(a, b)$ with $\gcd(b, r)$ until $r = 0$ if
+we choose $a\ge b$ the whole time. Then the last non-zero remainder is the gcd
+of $a$ and $b$.
 
 \subsubsection{Number of steps in Euclidean algorithm}
 Lemma:
 
-Let $a, b \in \mathbb{Z}, a \ge b \ge 1$. We let $a = bq + r$ where $0 \leq r < b$. Then $r < \frac{a}{2}$. \begin{proof}
+Let $a, b \in \mathbb{Z}, a \ge b \ge 1$. We let $a = bq + r$ where $0 \leq r <
+    b$. Then $r < \frac{a}{2}$. \begin{proof}
     \begin{itemize}
         \item Case 1: $b \leq \frac{a}{2}$. Then $r < b \leq \frac{a}{2}$.
-        \item Case 2: $b > \frac{a}{2}$. Then $r = a - bq < a - \frac{a}{2}q = \frac{a}{2}(2-q) \leq \frac{a}{2}$. Given $q \ge 1$ since $a \ge b \le 0 \land r \ge 0$.
+        \item Case 2: $b > \frac{a}{2}$. Then $r = a - bq < a - \frac{a}{2}q =
+                  \frac{a}{2}(2-q) \leq \frac{a}{2}$. Given $q \ge 1$ since $a \ge b \le 0 \land
+                  r \ge 0$.
     \end{itemize}
 \end{proof}
 
 Corollary:
 
-Assume $a \ge b \ge 1$. Then the number of steps in the Euclidean algorithm is at most $2 \log_2 a$. \begin{proof}
-    By the lemma above, we know that for each iteration, $r < \frac{a}{2}$. Therefore, after $k$ iterations, $r < \frac{a}{2^k}$. 
-    
-    But $r$ is a positive integer otherwise it terminates (The last r before becoming zero is the gcd, we have r = 0 to be the termination point in the sample code since it is easier to program).
-    
-    We want to find the smallest $k$ such that $\frac{a}{2^k} < 1$ (termination point). This is equivalent to $2^k > a$. Therefore, $k > \log_2 a$. Therefore, the number of iterations is at most $\log_2 a$.
+Assume $a \ge b \ge 1$. Then the number of steps in the Euclidean algorithm is
+at most $2 \log_2 a$. \begin{proof}
+    By the lemma above, we know that for each iteration, $r < \frac{a}{2}$. Therefore, after $k$ iterations, $r < \frac{a}{2^k}$.
+
+    But $r$ is a positive integer otherwise it terminates (The last r before
+    becoming zero is the gcd, we have r = 0 to be the termination point in the
+    sample code since it is easier to program).
+
+    We want to find the smallest $k$ such that $\frac{a}{2^k} < 1$ (termination
+    point). This is equivalent to $2^k > a$. Therefore, $k > \log_2 a$. Therefore,
+    the number of iterations is at most $\log_2 a$.
 \end{proof}
 
 \subsubsection{Lame's theorem}
@@ -241,18 +303,103 @@ Assume $a \ge b \ge 1$. Then the number of steps in the Euclidean algorithm is a
     Suppose $a, b \in \mathbb{Z}, a \ge b \ge 1$. Let $d$ be the number of steps in the Euclidean algorithm. Then $d \leq 5 \log_{10} a$.
 \end{theorem}
 
-The proof can be found on Wikipedia. The $\log_{10}$ is used because the proof involved Fibonacci numbers for some reason.
+The proof can be found on Wikipedia. The $\log_{10}$ is used because the proof
+involved Fibonacci numbers for some reason.
 
-Now compare the bound by Lame's theorem and the bound by the corollary above. We can compare the two bounds:\[
+Now compare the bound by Lame's theorem and the bound by the corollary above.
+We can compare the two bounds:\[
     2 \log_2 a = \frac{2}{\log_{10} 2} \log_{10} a \approx 6.64 \log_{10} a > 5 \log_{10} a
 \]
 So Lame's theorem is a better bound than the corollary above.
 
+\subsection{Linear equations}
+Solve linear equations in the form of $ax + by = c$ where $a, b, c \in
+    \mathbb{Z}, (a, b)=(0, 0)$. And we are interested in the integer solutions of
+$x, y$. Note that real solutions are easy to find and there are infinitely many
+of them.
 
+The above sections proved that an integer solution exists if and only if
+$gcd(a, b) | c$. Now we want to find all the integer solutions.\begin{itemize}
+    \item Describe the set of all integer solutions.
+    \item Develop an algorithm to find all the integer solutions if exist
+\end{itemize}
 
+Let $d = \gcd(a,b)$. \begin{enumerate}
+    \item if $c=d$, by Bezout's theorem, there exists $ax+by=d$ for some $x, y \in
+              \mathbb{Z}$. To find them, use the Euclidean algorithm. Set $r_0 =a, r_1 = b$
+          assuming $a \ge b \ge 0$. Then $r_0 = r_1q_1 + r_2$. Then $r_1 = r_2q_2 + r_3$.
+          Keep going until $r_{n-1} = r_nq_n + 0$. Then $r_n = d$. Then we can find $x,
+              y$ by back substitution.
 
+          Back substitution: \begin{itemize}
+              \item start from $d = r_{n+1}=r_{n-1}-r_nq_n=r_{n-1}-q_n(r_{n-2}-r_{n-1}q_{n-1})$ So
+                    moving from a linear combination of $r_{n-1}$ and $r_n$ to a linear combination
+                    of $r_{n-2}$ and $r_{n-1}$.
+              \item continues until we get a linear combination of $r_0=a$ and $r_1=b$.
+          \end{itemize}
+          For example: find an integer solution for $154x+35y=7$. \begin{align*}
+              154 & = 35 \cdot 4 + 14 \\
+              35  & = 14 \cdot 2 + 7  \\
+              14  & = 7 \cdot 2 + 0
+          \end{align*}
+          So $\gcd(154, 35) = 7$. Then we can find $x, y$ by back substitution.
 
+          \begin{align*}
+              7 & = 35 - 14 \cdot 2                 \\
+                & = 35 - (154 - 35 \cdot 4) \cdot 2 \\
+                & = 35 \cdot 9 - 154 \cdot 2
+          \end{align*}
+          So $x = -2, y = 9$ is a solution.
 
+          Another example: $553x+327y=1$. \begin{align*}
+              553 & = 327 \cdot 1 + 226 \\
+              327 & = 226 \cdot 1 + 101 \\
+              226 & = 101 \cdot 2 + 24  \\
+              101 & = 24 \cdot 4 + 5    \\
+              24  & = 5 \cdot 4 + 4     \\
+              5   & = 4 \cdot 1 + 1     \\
+              4   & = 1 \cdot 4 + 0
+          \end{align*}
+          So $\gcd(553, 327) = 1$. Then we can find $x, y$ by back substitution.
+          !! warnnign this is wrong !!!!!!!!!!!!!!!!! redo this
+          \begin{align*}
+              1 & = 5 - 4                            \\
+                & = 5 - (24 - 5 \cdot 4)             \\
+                & = 5 \cdot 5 - 24 \cdot 1           \\
+                & = 5 \cdot 5 - (101 - 24 \cdot 4)   \\
+                & = 5 \cdot 21 - 101 \cdot 1         \\
+                & = 5 \cdot 21 - (226 - 101 \cdot 2) \\
+                & = 5 \cdot 21 - 226 \cdot 1         \\
+                & = 5 \cdot 21 - (327 - 226 \cdot 1) \\
+                & = 5 \cdot 22 - 327 \cdot 1         \\
+                & = 5 \cdot 22 - (553 - 327 \cdot 1) \\
+                & = 5 \cdot 23 - 553 \cdot 1
+          \end{align*}
+    \item Back to $ax+by=c$. Now assume that $d= \gcd(a,b) | c$. So $c = td$, for some
+          $t\in \mathbb{Z}$ \begin{itemize}
+              \item In this case, find a solution $(x_0, y_0)$ for $ax+by=d$.
+              \item Then $x = x_0t, y = y_0t$ is a solution for $ax+by=c$.
+              \item This is because $a(x_0t) + b(y_0t) = td = c$.
+          \end{itemize}
+    \item If $d \nmid c$, then there are no integer solutions.
 
+          For example, $154x+35y=24$ has no integer solutions. This is because $24$ is
+          not a multiple of $7$. $t$ is not an integer.
+
+    \item Now we want to describe all solutions: \begin{theorem}
+              Suppose $a,b,c \in \mathbb{Z}, (a,b) \neq (0,0)$.
+
+              Let $d = \gcd(a,b)$. Then the set of all integer solutions of $ax+by=c$ is
+              given by \[
+                  \{(x_0+\frac{b}{d}t, y_0-\frac{a}{d}t) | t \in \mathbb{Z}\}
+              \]
+              if $d | c \iff c=td$. Otherwise, the set of all integer solutions is empty.
+          \end{theorem}
+
+          Note that $(x_0, y_0)$ is a particular solution of $ax+by=d$. Here ``general
+          solution'' means that $(x,y)$ is a solution for every integer value of t, and
+          every integer solution can be expressed in this form.
+
+\end{enumerate}
 
 \end{document}
