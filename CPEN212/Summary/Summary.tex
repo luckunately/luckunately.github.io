@@ -251,15 +251,78 @@ Now last line ``br x1'' would allow us to jump to the address in x1. The argumen
           \end{itemize}
 \end{itemize}
 
+\subsection{Gadgets}
+Gadgets are small pieces of code that end with a return instruction. 
 
+Since code injection is not executable, we can find some existing code (gadgets) and chain them together to do what we want. It could be either in the program itself or in a library.
 
+\subsubsection{return-oriented programming (ROP)}
+\begin{enumerate}
+    \item find gadgets in the program or libraries
+    \item put the address of the gadget in the stack by overflowing the buffer
+    \item prepare the arguments for the gadget by overflowing the buffer
+    \item construct a chain of gadgets that does what you want
+\end{enumerate}
+Depending on the found gadgets, we inject the useful value into the stack by overflowing the buffer. The ultimate goal is to change the value of the link register and pass the desired arguments to the gadget.
 
+Refer to mie's slides for examples.
+\subsubsection{more advanced ROP}
+\begin{itemize}
+    \item can be any indirect jump instruction, not just ret. For example \begin{lstlisting}
+        ldp x1, x2, [sp], 16
+        br x2
+    \end{lstlisting}
+    \item can overwrite virtual function pointers in C++ objects. 
+    \item SROP: play with signals to set all registers.
+\end{itemize}
 
+\subsection{Non-executable stack/data}
+For most systems, the stack and data are non-executable. 
 
+Virtual memory system enforces this. It will crash the program if we try to execute code in the stack or heap. Also called $W^X$ policy (write xor execute).
 
+However, we can use ROP to make a system call to make the stack executable. Then we can inject our code into the stack and execute it.
 
+\subsection{Address space layout randomization (ASLR)}
+ASLR randomizes the location of the stack and heap. So we can't predict the location of the stack or heap.
 
+Virtual memory system enforces this. It will randomize the location of the stack and heap. So we can't predict the location of the stack or heap.
 
+\subsubsection{Limitations of ASLR}
+\begin{itemize}
+    \item not all bits are random, it is possible to brute-force the address space. Just need more trials.
+    \item Library locations are not randomized since programs need to find libraries to use them once the program starts. So we can use gadgets in libraries.
+    \item Programs on machines like servers are not restarted often. So we can use brute-force to find the address of the stack and heap.
+\end{itemize}
+\subsection{Array bounds checking}
+Some programming languages like Java and Python have array bounds checking. It checks if the index is inside the bounds for each operation. So we can't overflow the buffer.
+
+This prevents writing to memory that we don't own. However, for languages that could do pointer arithmetic, we can still do buffer overflow. C and C++ are typical examples.
+
+Also, people sometimes disable array bounds checking for performance reasons. This kind of fast but unsafe code is hackers' best friend.
+
+\subsection{Stack canaries}
+\begin{itemize}
+    \item put some value on the stack below the return address (or frame pointer if it exists)
+    \item check the value, see if it is modified before ret.
+    \item if modified, abort the program. Might print something like ``stack smashing detected'' (Should work just like an exception)
+    \item the variants can be 0, random, or random XOR with the return address.
+\end{itemize}
+However, there are still limitations to it:\begin{itemize}
+    \item if exception handling is hacked, we can still bypass the stack canaries.
+    \item the pattern can only detect \textbf{some} overflows.
+    \item fixed canary value can be easily discovered.
+    \item canary value can still be leaked.
+    \item canary feature is usually not enabled by default.
+\end{itemize}
+\subsection{safe(r) programming languages}
+\begin{itemize}
+    \item Java, Python, etc. have array bounds checking.
+    \item Rust, Go, etc. have memory safety.
+    \item C/C++ are still the most popular language.
+    \item safe languages are not always safe. For example, Java has a lot of vulnerabilities.
+    \item Some languages guarantee safety via \textbf{type system}. For example, Rust. It is checked by the compiler at compile time. However, only guaranteed if used properly. Also, these languages are not as popular as C/C++.
+\end{itemize}
 
 
 
