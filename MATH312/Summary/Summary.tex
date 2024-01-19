@@ -85,7 +85,7 @@ Let $a\in \mathbb{Z}, a\ge 1$. $\forall n \in \mathbb{Z}, \exists q, r \in \math
 
     If $r \ge a$, then $r-a \ge 0$. Then $r-a = n-aq-a = n-a(q+1) \in S$. But $r-a < r$, which contradicts the fact that $r$ is the least element of $S$. Therefore, $r < a$.
 
-    To show uniqueness, suppose $n = aq + r = aq' + r'$, where $0 \leq r, r' < a$. Out goal is to show that $q = q'$ and $r = r'$.
+    To show uniqueness, suppose $n = aq + r = aq' + r'$, where $0 \leq r, r' < a$. Our goal is to show that $q = q'$ and $r = r'$.
 
     Subtracting the two equations, we have $a(q-q') = r' - r$. Notice that the LHS is divisible by $a$ and the RHS is less than $a$ but greater than 0. Therefore, $r' - r = 0$ and $q-q' = 0$. Therefore, $q = q'$ and $r = r'$.
 
@@ -152,12 +152,14 @@ Simple properties of gcd:\begin{itemize}
 \subsubsection{Some Crollaries}
 \begin{enumerate}
     \item An integer $e$ is a common divisor of $a$ and $b$ if and only if $e | gcd(a, b)$.\begin{proof}
-        If $e$ is a common divisor of $a$ and $b$, then $e | a$ and $e | b$. Therefore, $e | gcd(a, b) = ma + nb$ for some $m, n \in \mathbb{Z}$. Therefore, $e | gcd(a, b)$.
+
+        If $e$ is a common divisor of $a$ and $b$, then $e | a$ and $e | b$. Therefore, $e | gcd(a, b) = ma + nb$ (Bezout's identity which will be proven below) for some $m, n \in \mathbb{Z}$. Therefore, $e | gcd(a, b)$.
 
         If $e | gcd(a, b)$, then $gcd(a, b) = ek$ for some $k \in \mathbb{Z}$. Then $gcd(a, b) = ek = ma + nb$. Therefore, $e | a$ and $e | b$. Therefore, $e$ is a common divisor of $a$ and $b$.
     \end{proof}
     \item Let $c$ be an integer, then $ax+by = c$ has an integer solution if and only if $gcd(a, b) | c$.\begin{proof}
-        if $ax + by = c$ has an integer solution, then $gcd(a, b) | ax + by = c$.
+    \item 
+        If $ax + by = c$ has an integer solution, then $gcd(a, b) | ax + by = c$.
 
         If $gcd(a, b) | c$, then $c = k(gcd(a, b)) = k(ax + by) = (ka)x + (kb)y$. Therefore, $ax + by = c$ has an integer solution.
     \end{proof}
@@ -176,7 +178,7 @@ An integer linear combination of $a$ and $b$ is an integer of the form $ax + by$
         \item $d | a$ and $d | b$. This tells us that $d \leq gcd(a, b)$.
     \end{itemize}
 
-    By definition, $d=x_0a+y_0b$ for some $x_0, y_0 \in \mathbb{Z}$ which is a linear combination of a and b. Thus $d = gcd(a, b) | x_0a + y_0b$. Therefore, $gcd(a, b) | d$.
+    By definition, $d=x_0a+y_0b$ for some $x_0, y_0 \in \mathbb{Z}$ which is a linear combination of a and b. But we know that $gcd(a, b) | (ma + nb),\forall m, n \in \mathbb{Z}$. Also, $d = x_0a + y_0b$. Therefore, $gcd(a, b) | d$.
 
     Now we want to show that $d | a$ and $d | b$. Let $a=dq+r$ where q is the quotient and r is the remainder. Just need to show that r = 0. Note that: \[
     r = a - dq = a - (x_0a + y_0b)q = a(1-x_0q) + b(-y_0q)
@@ -185,7 +187,7 @@ An integer linear combination of $a$ and $b$ is an integer of the form $ax + by$
 \end{proof}
 
 \subsection{Euclidean Division Algorithm}
-Euclidean algorithm is a highly \textbf{recursive} and fast algorithm to find the gcd of two numbers. 
+The Euclidean algorithm is a highly \textbf{recursive} and fast algorithm to find the gcd of two numbers. 
 
 The complexity of the algorithm is $O(\log n)$, where $n$ is the larger of the two numbers.
 
@@ -199,7 +201,7 @@ Let $a, b, q, r \in \mathbb{Z}$ such that $a = bq + r$. Then $gcd(a, b) = gcd(b,
 
     At the same time, $d | a$ and $d | b$. Therefore, $d | bq + r = a$. Therefore, $d | a$ and $d | r$. So $d \leq d'$, it is a common divisor of $b$ and $r$.
 
-    Therefore, $d = d'$.
+    Combine two results: $d = d'$.
 \end{proof}
 \subsubsection{Euclidean algorithm}
 The algorithm applies the lemma repeatedly until we get $r = 0$ if we have $a,b\ge 0$. Then the last non-zero remainder is the gcd of $a$ and $b$.
@@ -212,7 +214,7 @@ Give a recursion code example:\begin{lstlisting} [language=C++]
         return gcd(b, a % b);
     }
 \end{lstlisting}
-So basically, we keep replacing $gcd(a, b)$ with $gcd(b, r)$ until $r = 0$ if we choose $a\ge b$ the whole time. Then the last non-zero remainder is the gcd of $a$ and $b$.
+So basically, we keep replacing $\gcd(a, b)$ with $\gcd(b, r)$ until $r = 0$ if we choose $a\ge b$ the whole time. Then the last non-zero remainder is the gcd of $a$ and $b$.
 
 \subsubsection{Number of steps in Euclidean algorithm}
 Lemma:
@@ -220,16 +222,18 @@ Lemma:
 Let $a, b \in \mathbb{Z}, a \ge b \ge 1$. We let $a = bq + r$ where $0 \leq r < b$. Then $r < \frac{a}{2}$. \begin{proof}
     \begin{itemize}
         \item Case 1: $b \leq \frac{a}{2}$. Then $r < b \leq \frac{a}{2}$.
-        \item Case 2: $b > \frac{a}{2}$. Then $r = a - bq < a - \frac{a}{2}q = \frac{a}{2}(2-q) \leq \frac{a}{2}$. Given $q \ge 1$ since $a \ge b \land r \ge 0$.
+        \item Case 2: $b > \frac{a}{2}$. Then $r = a - bq < a - \frac{a}{2}q = \frac{a}{2}(2-q) \leq \frac{a}{2}$. Given $q \ge 1$ since $a \ge b \le 0 \land r \ge 0$.
     \end{itemize}
 \end{proof}
 
 Corollary:
 
 Assume $a \ge b \ge 1$. Then the number of steps in the Euclidean algorithm is at most $2 \log_2 a$. \begin{proof}
-    By the lemma above, we know that for each iteration, $r < \frac{a}{2}$. Therefore, after $k$ iterations, $r < \frac{a}{2^k}$. But $r$ is a positive integer otherwise it terminates (The last r before becoming zero is the gcd, we have r = 0 to be the termination point since it is easier to program).
+    By the lemma above, we know that for each iteration, $r < \frac{a}{2}$. Therefore, after $k$ iterations, $r < \frac{a}{2^k}$. 
     
-    We want to find the smallest $k$ such that $\frac{a}{2^k} < 1$. This is equivalent to $2^k > a$. Therefore, $k > \log_2 a$. Therefore, the number of iterations is at most $\log_2 a$.
+    But $r$ is a positive integer otherwise it terminates (The last r before becoming zero is the gcd, we have r = 0 to be the termination point in the sample code since it is easier to program).
+    
+    We want to find the smallest $k$ such that $\frac{a}{2^k} < 1$ (termination point). This is equivalent to $2^k > a$. Therefore, $k > \log_2 a$. Therefore, the number of iterations is at most $\log_2 a$.
 \end{proof}
 
 \subsubsection{Lame's theorem}
