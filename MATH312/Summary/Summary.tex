@@ -331,7 +331,7 @@ Let $d = \gcd(a,b)$. \begin{enumerate}
           Keep going until $r_{n-1} = r_nq_n + 0$. Then $r_n = d$. Then we can find $x,
               y$ by back substitution.
 
-          Back substitution: \begin{itemize}
+          \textbf{Back substitution}: \begin{itemize}
               \item start from $d = r_{n+1}=r_{n-1}-r_nq_n=r_{n-1}-q_n(r_{n-2}-r_{n-1}q_{n-1})$ So
                     moving from a linear combination of $r_{n-1}$ and $r_n$ to a linear combination
                     of $r_{n-2}$ and $r_{n-1}$.
@@ -361,20 +361,16 @@ Let $d = \gcd(a,b)$. \begin{enumerate}
               4   & = 1 \cdot 4 + 0
           \end{align*}
           So $\gcd(553, 327) = 1$. Then we can find $x, y$ by back substitution.
-          !! warnnign this is wrong !!!!!!!!!!!!!!!!! redo this
           \begin{align*}
-              1 & = 5 - 4                            \\
-                & = 5 - (24 - 5 \cdot 4)             \\
-                & = 5 \cdot 5 - 24 \cdot 1           \\
-                & = 5 \cdot 5 - (101 - 24 \cdot 4)   \\
-                & = 5 \cdot 21 - 101 \cdot 1         \\
-                & = 5 \cdot 21 - (226 - 101 \cdot 2) \\
-                & = 5 \cdot 21 - 226 \cdot 1         \\
-                & = 5 \cdot 21 - (327 - 226 \cdot 1) \\
-                & = 5 \cdot 22 - 327 \cdot 1         \\
-                & = 5 \cdot 22 - (553 - 327 \cdot 1) \\
-                & = 5 \cdot 23 - 553 \cdot 1
+              1 & = 5 - 4                                                                      \\
+                & = 5 - (24 - 5 \cdot 4) = 5 \cdot 5  - 24 \cdot 1                             \\
+                & = (101 - 24 \cdot 4) \cdot 5 - 24 \cdot 1 = 101 \cdot 5 - 24 \cdot 21        \\
+                & = 101 \cdot 5 - (226 - 101 \cdot 2) \cdot 21 = 101 \cdot 47 - 226 \cdot 21   \\
+                & = (327 - 226) \cdot 47 - 226 \cdot 21 = 327 \cdot 47 - 226 \cdot 68          \\
+                & = 327 \cdot 47 - (553 - 327 \cdot 1) \cdot 68 = 327 \cdot 115 - 553 \cdot 68
           \end{align*}
+          Now we can find $x = -68, y = 115$.
+
     \item Back to $ax+by=c$. Now assume that $d= \gcd(a,b) | c$. So $c = td$, for some
           $t\in \mathbb{Z}$ \begin{itemize}
               \item In this case, find a solution $(x_0, y_0)$ for $ax+by=d$.
