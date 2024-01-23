@@ -27,7 +27,7 @@
 A ``good'' algorithm should:\begin{itemize}
     \item Be correct (or at least mostly correct)
     \item finish in a reasonable amount of time (time complexity)
-    \item use a reasonable amount of memory (space complexity)
+    \item uses a reasonable amount of memory (space complexity)
 \end{itemize}
 
 \subsection{Time Complexity}
@@ -80,7 +80,7 @@ void caramelcorn(int n) {
     cout << "iteration: " << i << endl;
 }         
 \end{lstlisting}
-If loop variable is multiplied by a constant, then the loop runs in $O(\log n)$ time. If loop variable is squared, then the loop runs in $O(\sqrt{n})$ time.
+If the loop variable is multiplied by a constant, then the loop runs in $O(\log n)$ time. If the loop variable is squared, then the loop runs in $O(\sqrt{n})$ time.
 
 So candyapple runs in $O(\log n)$ time and caramelcorn runs in $O(\sqrt{n})$ time.
 \begin{proof}
@@ -146,12 +146,121 @@ Space complexity is $O(1)$ because we only need to store the array and use a few
 
     Termination: after the last iteration, $i=n$, so the first $i$ elements are the whole array, which is sorted. All elements before $i$ are smaller than or equal to all elements after $i$.
 \end{proof}
+\subsection{Insertion Sort}
+\begin{lstlisting}[language=C++]
+void slide(Vector<int> & arr, int p) {
+    //need arr is in ascending order up to p exclusive
+    int temp = arr[p];
+    int j = p;
+    while(j>0 && arr[j-1]>temp){
+        arr[j] = arr[j-1];
+        j--;
+    }
+    arr[j] = temp;
+}
+void insertionSort(Vector<int> & arr) {
+    for(int i=1; i<arr.size(); i++){
+        slide(arr, i);
+    }
+}
+\end{lstlisting}
+\subsubsection{Slide}
+Slide checks the pth element and moves to the front of the array if it is smaller than the previous elements. It is a $O(n)$ operation (worst case) and $\Omega(1)$ (best case) space complexity.
 
+loop invariant:  \begin{itemize}
+    \item the first $p$ elements are sorted.
+    \item $arr[0:j-1]\cup arr[j+1:p] \cup temp$ is the same value \textbf{set} as $arr[0:p]$.
+\end{itemize}
+\subsubsection{Insertion Sort}
+Insertion sort is a $O(n^2)$ algorithm since it calls slide $n-1$ times where slide is $O(n)$.
 
+Best case is a sorted array, so the running time is $O(n)$.
 
+Worst case is a reverse sorted array, so the running time is $O(n^2)$.
 
+If random data is given, the running time is closer to the worst case than the best case. Around $\frac{n(n-1)}{4}$ comparisons and $\frac{n(n-1)}{4}$ swaps.
 
+Insertion sort is good for small data sets and nearly sorted data. Also, it barely uses any space (memory), so it is good for embedded systems.
 
+\subsubsection{correctness proof}
+\begin{proof}
+    \textbf{Base case:} before the first iteration, $i=1$, so the first $i$ elements are sorted. All elements before $i$ are smaller than or equal to all elements after $i$.
+
+    \textbf{Inductive hypothesis:} assume that the invariant holds before the $k$th iteration.
+
+    \textbf{Inductive step:} after the $k$th iteration, the $k$th element is inserted into the first $k$ elements. So the first $k+1$ elements are sorted. All elements before $k+1$ are smaller than or equal to all elements after $k+1$.
+
+    \textbf{Termination:} after the last iteration, $i=n$, so the first $i$ elements are the whole array, which is sorted. All elements before $i$ are smaller than or equal to all elements after $i$.
+
+    All of the above is true because of the loop invariant of slide.
+\end{proof}
+
+\section{Memory}
+4 area of memory: \begin{enumerate}
+    \item Code: the compiled machine code of the instructions.
+    \item Stack: local variables, function parameters, and return addresses. Automatically allocated and deallocated. (Usually about few MB)
+    \item Heap: dynamically allocated memory. Must be manually allocated and deallocated. (Usually about few GB)
+    \item NULL: the area of memory that is not used. Address 0x0.
+\end{enumerate}
+\subsection{Call by value and call by reference}
+\begin{lstlisting}[language=C++]
+void swap_wrong(int a, int b){
+    int temp = a;
+    a = b;
+    b = temp;
+}
+void swap_true(int & a, int & b){
+    int temp = a;
+    a = b;
+    b = temp;
+}
+int main(){
+    int x = 3;
+    int y = 5;
+    swap(x, y);
+    cout << x << " " << y << endl;
+}  
+\end{lstlisting}
+The output of the above code is 3 5. This is because the swap function is called by value, so the original x and y are not changed.
+
+If we change the swap function to swap\_true, then the output will be 5 3. This is because the swap function is called by reference, so the original x and y are changed.
+
+\subsection{Pointers}
+Pointers are variables that store the address of another variable. It is a powerful tool but also dangerous. It is powerful because it can access the memory directly. It is dangerous because it can access the memory directly.
+
+\begin{lstlisting}[language=C++]
+int main(){
+    int x = 3;
+    int * p = &x;
+    cout << *p << endl;
+    *p = 5;
+    cout << x << endl;
+}
+\end{lstlisting}
+The output of the above code is 3 5. This is because the pointer p is pointing to the address of x. So *p is the value of x. So *p = 5 is the same as x = 5.
+
+Note that the type of p is int*, which means it is a pointer to an integer. The type of *p is int, which means it is the value of the integer that p is pointing to.
+
+\subsubsection{new and delete}
+\begin{lstlisting}[language=C++]
+int main(){
+    int * p = new int;
+    *p = 5;
+    cout << *p << endl;
+    delete p;
+}
+\end{lstlisting}
+The above code is an example of dynamic memory allocation. The new operator allocates memory for an integer and returns a pointer to the memory. The delete operator deallocates the memory. It will give memory space in the heap instead of the stack. Thus it is a good way to avoid stack overflow if we want some huge data structure.
+
+\subsubsection{Memory leak}
+\begin{lstlisting}[language=C++]
+int main(){
+    int * p = new int;
+    p = new int;
+    delete p;
+}
+\end{lstlisting}
+The above code is an example of memory leak. The first new operator allocates memory for an integer and returns a pointer to the memory. The second new operator allocates memory for another integer and returns a pointer to the memory. The delete operator deallocates the memory for the second integer. However, the memory for the first integer is not deallocated. This is a memory leak.
 
 
 

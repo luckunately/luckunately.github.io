@@ -392,10 +392,73 @@ Let $d = \gcd(a,b)$. \begin{enumerate}
               if $d | c \iff c=td$. Otherwise, the set of all integer solutions is empty.
           \end{theorem}
 
-          Note that $(x_0, y_0)$ is a particular solution of $ax+by=d$. Here ``general
+          Note that $(x_0, y_0)$ is a particular solution of $ax+by=c$. Here ``general
           solution'' means that $(x,y)$ is a solution for every integer value of t, and
           every integer solution can be expressed in this form.
-
 \end{enumerate}
+\subsubsection{Proof of the theorem}
+Before proving the theorem, we need to prove the following lemma:
+
+\textbf{Key Lemma}: Let $a, b, c \in \mathbb{Z}, (a, b) \neq (0, 0)$. Let $d = \gcd(a, b) = 1$. Then $a|bc \implies a|c$.
+
+Note that the lemma is not true if $d \neq 1$. \begin{proof}
+    By Bezout's theorem, $\gcd(a,b)=1 \implies ax+by=1$ for some $x, y \in \mathbb{Z}$. Then multiply both sides by $c$: $acx+bcy=c$. Then $a|acx+bcy=c$ as defined in the Lemma.
+\end{proof}
+
+With the Lemma in hand, we can start proving the theorem:\begin{proof}
+    \begin{itemize}
+        \item First need to show that $x=x_0+\frac{b}{d}t, y=y_0-\frac{a}{d}t$ is a solution
+              of $ax+by=c, \forall t \in \mathbb{Z}$.
+
+              We have $ax_0+by_0=ax+by=c$. Then \begin{align*}
+                  ax+by & = a(x_0+\frac{b}{d}t) + b(y_0-\frac{a}{d}t)   \\
+                        & = ax_0 + \frac{ab}{d}t + by_0 - \frac{ab}{d}t \\
+                        & = ax_0 + by_0 = d
+              \end{align*}
+
+              Therefore, we showed that $x=x_0+\frac{b}{d}t, y=y_0-\frac{a}{d}t$ is a
+              solution of $ax+by=c, \forall t \in \mathbb{Z}$.
+        \item Now we need to show that every integer solution can be expressed in this form.
+
+              Subtract $ax_0+by_0=ax+by=c$ togeather: \[
+                  a(x-x_0) + b(y-y_0) = 0 \implies \frac{a}{d}(x-x_0) = - \frac{b}{d}(y-y_0)
+              \]
+              Note that $\gcd(\frac{a}{d}, \frac{b}{d}) = 1$. Therefore, $\frac{a}{d} | (y-y_0)$ by the Key Lemma. 
+              
+              Then $y-y_0 = -\frac{a}{d}t$ for some $t \in \mathbb{Z}$. Substitute it into the equation: \[
+                \frac{a}{d}(x-x_0) = \frac{b}{d}\frac{a}{d}t
+                \]
+                Here we have two cases:\begin{itemize}
+                    \item If $a=0$, then $by=c$. $x$ can be arbitrary and $y = \frac{c}{b}$. Then $a(x_0+\frac{b}{d}t) + b(y_0-\frac{a}{d}t) = by_o = ax+by = c\forall t\in\mathbb{R}$. Note that $b\neq 0$ in this case because $(a,b)\neq(0,0)$. $a\neq 0 \land b=0$ case is similar.
+                    \item Now we talk about the general case. Divide both sides by $\frac{a}{d}$: \[
+                        x-x_0 = \frac{b}{d}t
+                    \]
+                    Then $x - x_0 = \frac{b}{d}t$ and we already have $y = y_0 - \frac{a}{d}t$. We have shown that every integer solution can be expressed in this form.
+                \end{itemize}
+    \end{itemize}
+\end{proof}
+\subsection{Fundedamental theorem of arithmetic}
+\begin{theorem}
+    $\forall n \in \mathbb{N}, n \ge 1$, $n$ can be written as a product of primes in a unique way.
+\end{theorem}
+Note that one prime can appear multiple times in the product. For example, $12 = 2 \cdot 2 \cdot 3$. Also, we assume that $n=1$ is an empty product which equals 1.
+
+Usually, we collect the same primes together and write as \[
+    n=p_1^{e_1}p_2^{e_2}\dots p_k^{e_k}
+\]
+Now $p_1, p_2, \dots, p_k$ are all distinct primes that appear in the product and $e_1, e_2, \dots, e_k$ are the powers of the primes $\in \mathbb{N}$.
+
+We have already proved the existence of the prime factorization in the previous section. Now we need to prove the uniqueness. 
+
+\subsubsection{Corollary}
+Let $p$ be a prime, $a_1, a_2, \dots, a_n \in \mathbb{Z}$. Then $p | a_1a_2\dots a_n \implies p | a_i$ for some $i$. \begin{proof}
+    We prove by induction on $n$.
+
+    \textbf{Base Case:} $n=1$. Then $p | a_1$. Obviously true.
+
+    \textbf{Inductive Step:} Suppose the statement is true for $n=k$. We want to show that the statement is true for $n=k+1$.
+
+    Suppose $p | a_1a_2\dots a_{k+1}$. Then $p | a_1a_2\dots a_k$ or $p | a_{k+1}$. By the inductive hypothesis, $p | a_i$ for some $i$.
+\end{proof}
 
 \end{document}
