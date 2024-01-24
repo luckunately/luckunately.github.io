@@ -190,6 +190,16 @@ INPUT e:/TeX live/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex
 INPUT e:/TeX live/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
 INPUT e:/TeX live/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT e:/TeX live/texlive/2023/texmf-dist/fonts/tfm/public/bbm/bbm5.tfm
+INPUT ./Images/Generator Matrix.png
+INPUT ./Images/Generator Matrix.png
+INPUT ./Images/Generator Matrix.png
+INPUT ./Images/Generator Matrix.png
+INPUT ./Images/Generator Matrix.png
+INPUT ./Images/Parity Matrix.png
+INPUT ./Images/Parity Matrix.png
+INPUT ./Images/Parity Matrix.png
+INPUT ./Images/Parity Matrix.png
+INPUT ./Images/Parity Matrix.png
 INPUT Summary.aux
 INPUT c:/Users/10054/.texlive2023/texmf-var/fonts/pk/ljfour/public/bbm/bbm12.600pk
 INPUT e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb

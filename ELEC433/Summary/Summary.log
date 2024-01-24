@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  23 JAN 2024 17:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  23 JAN 2024 21:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -292,24 +292,24 @@ LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
  (./Summary.aux)
 \openout1 = `Summary.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
  (e:/TeX live/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count290
@@ -329,39 +329,51 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (e:/TeX live/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 22.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 25.
+Package hyperref Info: Link coloring OFF on input line 23.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
  (e:/TeX live/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 25.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
  (e:/TeX live/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1{e:/TeX live/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-LaTeX Font Info:    Trying to load font information for U+bbm on input line 68.
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 69.
  (e:/TeX live/texlive/2023/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
-) [2{e:/TeX live/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [3] [4] [5] [6] [7] [8] [9] [10] (./Summary.aux)
+) [2{e:/TeX live/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [3] [4] [5] [6] [7] [8] [9]
+<./Images/Generator Matrix.png, id=93, 100.57574pt x 65.043pt>
+File: ./Images/Generator Matrix.png Graphic file (type png)
+<use ./Images/Generator Matrix.png>
+Package pdftex.def Info: ./Images/Generator Matrix.png  used on input line 378.
+(pdftex.def)             Requested size: 100.57549pt x 65.04283pt.
+ [10 <./Images/Generator Matrix.png>]
+<./Images/Parity Matrix.png, id=107, 190.91325pt x 80.09924pt>
+File: ./Images/Parity Matrix.png Graphic file (type png)
+<use ./Images/Parity Matrix.png>
+Package pdftex.def Info: ./Images/Parity Matrix.png  used on input line 395.
+(pdftex.def)             Requested size: 190.91278pt x 80.09903pt.
+ [11 <./Images/Parity Matrix.png>] [12] (./Summary.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 10773 strings out of 474934
- 168338 string characters out of 5759289
+ 10797 strings out of 474934
+ 168932 string characters out of 5759289
  1932801 words of memory out of 5000000
- 32119 multiletter control sequences out of 15000+600000
+ 32136 multiletter control sequences out of 15000+600000
  569667 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,13n,93p,660b,592s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <c:/Users/10054/.texlive2023/texmf-var/fonts/pk/ljfour/public/bbm/bbm12.600pk><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Summary.pdf (10 pages, 197107 bytes).
+Output written on Summary.pdf (12 pages, 218441 bytes).
 PDF statistics:
- 250 PDF objects out of 1000 (max. 8388607)
- 204 compressed objects within 3 object streams
- 49 named destinations out of 1000 (max. 500000)
- 177 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 282 PDF objects out of 1000 (max. 8388607)
+ 228 compressed objects within 3 object streams
+ 56 named destinations out of 1000 (max. 500000)
+ 223 words of extra memory for PDF output out of 10000 (max. 10000000)
 

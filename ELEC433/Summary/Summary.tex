@@ -6,6 +6,7 @@
 \usepackage{amsthm}
 \usepackage{bookmark}
 \usepackage{bbm}
+
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
 
@@ -241,7 +242,7 @@ There are three properties with it:\begin{enumerate}
 
               $\forall C_1,C_2\in \mathcal{C}, C_1\neq C_2$, then $wt(C_1+C_2)=wt(C_1 \oplus C_2)$,which is just the number of different bits between $C_1$ and $C_2$. So $d(C_1,C_2)=wt(C_1 \oplus C_2)$.
 
-              Thus if we go through all the possibility space, we can claim that
+              Thus if we go through all the possibilities space, we can claim that
               $d_{min}=\min_{C_1, C_2\in \mathcal{C}, C_1\neq C_2}d(C_1, C_2)=\min_{C\in
                       \mathcal{C}, C\neq 0}wt(C)$. Proved.
           \end{proof}
@@ -370,7 +371,60 @@ Let $\mathbb{F}$:\begin{itemize}
 Note that if we connect to previous definitions, it is the same as block length $n$ and message length $k$ over alphabet $\Sigma = \mathbb{F}$.\[
     \mathcal{C} \text{ is a ``linear code''}\implies \mathcal{C} \text{ is a linear subspace of } \mathbb{F}^n
 \]
+\subsubsection{Generator Matrix}
+\begin{definition}
+    Let $\mathcal{C}\subseteq \mathbb{F}^n$ be a linear block code of length $n$ and dimension $k$. A generator matrix $G$ for $\mathcal{C}$ is a $n\times k$ matrix such that $\mathcal{C}=\{G\cdot X: X\in \mathbb{F}^k\}$.
+\end{definition}
+\includegraphics*{./Images/Generator Matrix.png}
+$[G] = 
+\begin{bmatrix}
+    I_k \\
+    A
+    \end{bmatrix}$
 
+Observations:\begin{itemize}
+    \item Any linear code has a generator matrix. (Choose any basis for the code and put the basis vectors as the columns of the generator matrix.)
+    \item The generator matrix is not unique. (Different bases will give different generator matrices.)
+\end{itemize}
+A generator like the above is called a \textbf{systematic generator matrix} where $I_k$ is the identity matrix of size $k$ and $A$ is a $(n-k)\times k$ matrix. It is called systematic because the message is part of the codeword.
+
+\subsubsection{Parity Check Matrix}
+\begin{definition}
+    Let $\mathcal{C}\subseteq \mathbb{F}^n$ be a linear block code of length $n$ and dimension $k$. A parity check matrix $H\in \mathbb{F}^{(n-k)\times k}$ for $\mathcal{C}$ is a $(n-k)\times n$ matrix such that $\mathcal{C}=\{C\in \mathbb{F}^n: H\cdot C=0\}$. $H$ is the kernel matrix of $G$.
+\end{definition}
+\includegraphics*{./Images/Parity Matrix.png} 
+
+$[H]= \begin{bmatrix}
+    B_{(n-k)\times k} & I_{k}
+\end{bmatrix}$
+
+Observations:\begin{itemize}
+    \item Any linear code has a parity check matrix. 
+    \item The parity check matrix is not unique. 
+\end{itemize}
+A parity check matrix like the above is called a \textbf{systematic parity check matrix} where $I_{(n-k)}$ is the identity matrix of size $(n-k)$ and $B$ is a $(n-k)\times k$ matrix. It is called systematic because the message is part of the codeword.
+\subsubsection{Relationship between G and H}
+Question:
+
+Let $\mathcal{C}$ be a linear code of dimension $k$ and length $n$ over $\mathbb{F}=\{0,1\}$. Let $G$ be a generator matrix for $\mathcal{C}$ and $H$ be a parity check matrix for $\mathcal{C}$. What is the relationship between $G$ and $H$, or more specifically what is the relationship between $A$ and $B$?
+
+Let the original message be $X$. Note that $A \cdot X$ is the parity bits. 
+
+Then we can write the codeword as $C = G \cdot X = \begin{bmatrix}
+    I_k \\
+    A
+\end{bmatrix} \cdot X = \begin{bmatrix}
+X \\
+(A \cdot X)
+\end{bmatrix}$. Also, we know that $H \cdot C = 0$. So \[
+    \begin{bmatrix}
+        B_{(n-k)\times k} & I_{k}
+    \end{bmatrix} \cdot \begin{bmatrix}
+        X_{k\times k} \\
+        (A \cdot X)_{(n-k)\times k}
+    \end{bmatrix} = 0 \implies B \cdot X + I \cdot (A \cdot X) = 0 
+\]
+So $B+A=0$ note that the addition is the addition defined in the field $\mathbb{F} = \{0,1\}$. So $B + A = 0 \implies B = A$ in a binary sense.
 
 
 

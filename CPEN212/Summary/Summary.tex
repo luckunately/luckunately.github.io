@@ -18,7 +18,9 @@
 
 \begin{document}
 \section{Calling conventions}
-In assembly, sometimes we need to make system calls to the OS. We need to follow the calling conventions to make sure that the OS can understand our request.
+In assembly, sometimes we need to make system calls to the OS. We need to
+follow the calling conventions to make sure that the OS can understand our
+request.
 
 \subsection{Start with examples}
 Start we an example: \begin{lstlisting}
@@ -29,12 +31,15 @@ _start:
     mov x8, 93
     svc 0
 \end{lstlisting}
-Here, we are trying to make a system call to exit the program. We need to put the system call number in x8, and the argument in x0. The system call number for exit is 93. We then use svc 0 to make the system call.
+Here, we are trying to make a system call to exit the program. We need to put
+the system call number in x8, and the argument in x0. The system call number
+for exit is 93. We then use svc 0 to make the system call.
 
 \begin{itemize}
     \item $.text$ tells the assembler/linker that code follows.
     \item $.global$ tells the assembler/linker that the symbol \_start is visible to the linker. This is the entry point of the program.
-    \item Then we put the value in x0 and x8. Here x0 is the argument for the system call, and x8 is the system call number.
+    \item Then we put the value in x0 and x8. Here x0 is the argument for the system
+          call, and x8 is the system call number.
 \end{itemize}
 
 To compile this and run (on Linux/arm64): \begin{lstlisting}
@@ -43,7 +48,8 @@ To compile this and run (on Linux/arm64): \begin{lstlisting}
     ./foo
     echo \$?
 \end{lstlisting}
-The last line prints the exit code of the program. In this case, it should be 42.
+The last line prints the exit code of the program. In this case, it should be
+42.
 \begin{itemize}
     \item $as$ is the assembler. It takes the assembly code and produces an object file.
     \item $ld$ is the linker. It takes the object file and produces an executable.
@@ -66,7 +72,9 @@ _start:
 txt: .ascii "goodbye, cruel world!\textbackslash n"
 len = . - txt
 \end{lstlisting}
-This program prints "goodbye, cruel world!" and exits with code 42. Here, we are using the write system call. The system call number for write is 64. The arguments are: \begin{itemize}
+This program prints "goodbye, cruel world!" and exits with code 42. Here, we
+are using the write system call. The system call number for write is 64. The
+arguments are: \begin{itemize}
     \item system call number 64 in x8 means write
     \item file descriptor 1 in x0 means stdout, which is the standard output.
     \item address of the string in x1
@@ -75,7 +83,8 @@ This program prints "goodbye, cruel world!" and exits with code 42. Here, we are
     \item exit code 42 in x0
     \item system call 0 to make the system call
     \item the string to print
-    \item The length is calculated by subtracting the address of the string from the current location. (note that in the stack, the address grows downwards)
+    \item The length is calculated by subtracting the address of the string from the
+          current location. (note that in the stack, the address grows downwards)
 \end{itemize}
 
 One more example: \begin{lstlisting}
@@ -117,7 +126,13 @@ txt: .asciz "goodbye, cruel world!\textbackslash n"
     //that is it
     
 \end{lstlisting}
-Here instead of using the length variable, we are using a function to calculate the length of the string. The function is called length. It takes the address of the string as the argument and returns the length of the string in x0. The function is called using bl, which is a branch and link. It branches to the function and saves the address of the next instruction in the link register. The function returns using ret, which branches to the address in the link register.
+Here instead of using the length variable, we are using a function to calculate
+the length of the string. The function is called length. It takes the address
+of the string as the argument and returns the length of the string in x0. The
+function is called using bl, which is a branch and link. It branches to the
+function and saves the address of the next instruction in the link register.
+The function returns using ret, which branches to the address in the link
+register.
 
 Explain code line by line:\begin{itemize}
     \item $mov x2, -1$ sets x2 to -1. This is the initial value of the length.
@@ -130,47 +145,84 @@ Explain code line by line:\begin{itemize}
 \end{itemize}
 
 \subsection{calling convention}
-Calling convention is not enforced by hardware, but it is a convention to make sure that the caller and callee agree on how to pass arguments and return values.
+Calling convention is not enforced by hardware, but it is a convention to make
+sure that the caller and callee agree on how to pass arguments and return
+values.
 
-The caller is the function that calls another function. The callee is the function that is called. The calling convention is a contract between the caller and the callee. The caller must follow the calling convention to call the callee. The callee must follow the calling convention to be called by the caller. The calling convention includes:
+The caller is the function that calls another function. The callee is the
+function that is called. The calling convention is a contract between the
+caller and the callee. The caller must follow the calling convention to call
+the callee. The callee must follow the calling convention to be called by the
+caller. The calling convention includes:
 
 Here are some rules:
 \begin{itemize}
-    \item bl is for address relative to the current instruction. b is for absolute address. blr is for register relative to the current instruction. br is for absolute register.
-    \item function arguments are passed in registers x0-x7. If there are more than 8 arguments, then the rest are passed on the stack.
-    \item function results are in x0. If there are more, we use x1 to x7 then the stack. x8 is used for system call number.
-    \item return address is in lr (x30). lr is the link register. It is used to store the return address when we call a function. It is also used to store the address of the next instruction when we use bl.
-    \item Caller is responsible for saving registers x0-x18. The callee can use them without saving them. The callee is responsible for saving registers x19-x30. The caller can use them without saving them.
-    \item The stack grows downwards. The stack pointer is in x31. The stack pointer points to the last item in the stack. The stack pointer is decremented when we push something onto the stack. The stack pointer is incremented when we pop something from the stack.
+    \item bl is for address relative to the current instruction. b is for absolute
+          address. blr is for register relative to the current instruction. br is for
+          absolute register.
+    \item function arguments are passed in registers x0-x7. If there are more than 8
+          arguments, then the rest are passed on the stack.
+    \item function results are in x0. If there are more, we use x1 to x7 then the stack.
+          x8 is used for system call number.
+    \item return address is in lr (x30). lr is the link register. It is used to store the
+          return address when we call a function. It is also used to store the address of
+          the next instruction when we use bl.
+    \item Caller is responsible for saving registers x0-x18. The callee can use them
+          without saving them. The callee is responsible for saving registers x19-x30.
+          The caller can use them without saving them.
+    \item The stack grows downwards. The stack pointer is in x31. The stack pointer
+          points to the last item in the stack. The stack pointer is decremented when we
+          push something onto the stack. The stack pointer is incremented when we pop
+          something from the stack.
 \end{itemize}
 \subsection{call frame}
-The call frame is the part of the stack that is used to store information about the function call. It includes the return address, the saved registers, and the local variables.
+The call frame is the part of the stack that is used to store information about
+the function call. It includes the return address, the saved registers, and the
+local variables.
 
-The call frame is created when we call a function. It is destroyed when the function returns. The call frame is created by the caller. The caller is responsible for saving the registers and creating the local variables. The callee is responsible for saving the return address.
+The call frame is created when we call a function. It is destroyed when the
+function returns. The call frame is created by the caller. The caller is
+responsible for saving the registers and creating the local variables. The
+callee is responsible for saving the return address.
 
 Usually we have stack pointer which points to the last item in the stack.
 
-We also have frame pointer which points to the start of the call frame. The frame pointer is used to access the local variables.
+We also have frame pointer which points to the start of the call frame. The
+frame pointer is used to access the local variables.
 
-The frame pointer is not necessary, but it makes it easier to access the local variables.
+The frame pointer is not necessary, but it makes it easier to access the local
+variables.
 
-But if we have dynamically sized stack allocation (memory allocation functions), then fp is obligatory.
+But if we have dynamically sized stack allocation (memory allocation
+functions), then fp is obligatory.
 
 \subsection{Jumping to a function}
 To jump to a function, we use bl. bl is a branch and link.
 
-It branches to the function and saves the address of the next instruction in the link register. The function returns using ret, which branches to the address in the link register.
+It branches to the function and saves the address of the next instruction in
+the link register. The function returns using ret, which branches to the
+address in the link register.
 
-Back in the time when there is no bl, we have to do this manually. We have to save the return address in the stack, then jump to the function. The function then returns by popping the return address from the stack and jumping to it.
+Back in the time when there is no bl, we have to do this manually. We have to
+save the return address in the stack, then jump to the function. The function
+then returns by popping the return address from the stack and jumping to it.
 
-Another way is to specify the line of return when creating the callee function. And then when we call a function, the caller will write the return address to the specified line. And then the callee will jump to that line when it returns. This is called a trampoline. Not to nice to use, but it is a way to do it back in the day.
+Another way is to specify the line of return when creating the callee function.
+And then when we call a function, the caller will write the return address to
+the specified line. And then the callee will jump to that line when it returns.
+This is called a trampoline. Not to nice to use, but it is a way to do it back
+in the day.
 
 \subsection{ABI}
-ABI is the application binary interface. It is a standard for binary interfaces. It specifies the calling convention, the system call numbers, and the system call arguments. It is used to make sure that the caller and callee agree on how to pass arguments and return values.
+ABI is the application binary interface. It is a standard for binary
+interfaces. It specifies the calling convention, the system call numbers, and
+the system call arguments. It is used to make sure that the caller and callee
+agree on how to pass arguments and return values.
 
 \subsubsection{stack-based ABI}
 \begin{itemize}
-    \item stacks are sequential. If we spawn two functions, the stack must grow into two different directions. how to achieve this? We can use two different stacks.
+    \item stacks are sequential. If we spawn two functions, the stack must grow into two
+          different directions. how to achieve this? We can use two different stacks.
     \item stack spaces are deallocated on return, so we can reuse the stack space.
 \end{itemize}
 \section{Haxx}
@@ -185,11 +237,16 @@ Start with a C example: \begin{lstlisting}[language=C]
     }
     
 \end{lstlisting}
-gets() reads a line from stdin into the buffer pointed to by s until either a terminating newline or EOF, which it replaces with a null byte ('\textbackslash 0'). No check for buffer overrun is performed (see BUGS below).
+gets() reads a line from stdin into the buffer pointed to by s until either a
+terminating newline or EOF, which it replaces with a null byte ('\textbackslash
+0'). No check for buffer overrun is performed (see BUGS below).
 
-So this program is vulnerable to buffer overflow. We can overflow the buffer and overwrite the value of ans.
+So this program is vulnerable to buffer overflow. We can overflow the buffer
+and overwrite the value of ans.
 \subsection{Analysis of the victim}
-By observing, volatile makes sure that ans lies on the stack. Then we allocated 16 bytes for buf (char is 1 byte each). Now the pointer of buf is 16 bytes away from ans. With that, have a look at the compiled assembly code:
+By observing, volatile makes sure that ans lies on the stack. Then we allocated
+16 bytes for buf (char is 1 byte each). Now the pointer of buf is 16 bytes away
+from ans. With that, have a look at the compiled assembly code:
 \begin{lstlisting}
 main:
     stp x29, x30, [sp, -48]!
@@ -200,44 +257,72 @@ main:
     bl gets
     ... rest of the code 
 \end{lstlisting}
-stp is store pair. It stores two registers in the stack. The first register x29 (Stack pointer, pointing to the top of the stack of the parent function) is stored at the address in sp. The second register x30 (Link register, parent function address) is stored at the address in sp minus 8. The stack pointer is then decremented by 48. So 48 lines of memory is allocated for the call frame.
+stp is store pair. It stores two registers in the stack. The first register x29
+(Stack pointer, pointing to the top of the stack of the parent function) is
+stored at the address in sp. The second register x30 (Link register, parent
+function address) is stored at the address in sp minus 8. The stack pointer is
+then decremented by 48. So 48 lines of memory is allocated for the call frame.
 
-Then x29 keeps the current program sp. x0 is loaded with 42. Then x0 is stored in the address in x29 plus 40. So the address of ans is x29 plus 40 which is the bottom of the frame (Stack grows downwards, so right next to the parent function's top of stack). Then x0 is loaded with x29 plus 24. So x0 is loaded with the address of buf. Then we call gets.
+Then x29 keeps the current program sp. x0 is loaded with 42. Then x0 is stored
+in the address in x29 plus 40. So the address of ans is x29 plus 40 which is
+the bottom of the frame (Stack grows downwards, so right next to the parent
+function's top of stack). Then x0 is loaded with x29 plus 24. So x0 is loaded
+with the address of buf. Then we call gets.
 
-\includegraphics*{./Image/Haxx victim stack.jpg}
+\includegraphics*{./Images/Haxx victim stack.jpg}
 
-Now if we input more than 16 bytes, we can overflow the buffer and overwrite the value of ans.
+Now if we input more than 16 bytes, we can overflow the buffer and overwrite
+the value of ans.
 
-For example, we can input ``ffffffff ffffffff 3905''. This will overwrite the value of ans with 3905.
+For example, we can input ``ffffffff ffffffff 3905''. This will overwrite the
+value of ans with 3905.
 
 \subsection{Typical attack pattern}
 \begin{itemize}
     \item Find a program running on target (maybe as root)
-    \item scan binary for potential buffer overflows. E.g, look for gets, strcpy, strcat, sprintf, etc.
+    \item scan binary for potential buffer overflows. E.g, look for gets, strcpy, strcat,
+          sprintf, etc.
     \item craft input that will overflow the buffer and overwrite something interesting
     \item objective: execute arbitrary code
 \end{itemize}
 \subsubsection{Jump to arbitrary code}
-In ARMv8, typically, we save lr to the top of the stack before bl to another function.
+In ARMv8, typically, we save lr to the top of the stack before bl to another
+function.
 
-Since overwrite in this case writes to the higher address, but lr for the current call frame is at the lower address, we can't overwrite the current function's lr.
+Since overwrite in this case writes to the higher address, but lr for the
+current call frame is at the lower address, we can't overwrite the current
+function's lr.
 
-But we can overwrite the return address of the parent function which will lie just above the bottom of the call frame. So we can overwrite the return address of the parent function with the address of the code we want to execute. Then when the parent function returns, it will jump to the code we want to execute.
+But we can overwrite the return address of the parent function which will lie
+just above the bottom of the call frame. So we can overwrite the return address
+of the parent function with the address of the code we want to execute. Then
+when the parent function returns, it will jump to the code we want to execute.
 
 \subsection{Code injection}
-Now we know how to jump to other addresses, but we still need to inject our code into the program. How do we pass arguments to the code you want to execute?
+Now we know how to jump to other addresses, but we still need to inject our
+code into the program. How do we pass arguments to the code you want to
+execute?
 
-One way to do it is to overwrite the stack with the machine code that corresponds to the assembly code you want to execute. Then you can pass arguments to the code by putting them in the stack.
+One way to do it is to overwrite the stack with the machine code that
+corresponds to the assembly code you want to execute. Then you can pass
+arguments to the code by putting them in the stack.
 
-\includegraphics*[scale = 0.6]{./Image/Haxx attack v3.jpg}
+\includegraphics*[scale = 0.6]{./Images/Haxx attack v3.jpg}
 
-Note that the ARM64 code is little-endian. So the first byte is the least significant byte. We put the code to overwrite the space for buf and ans. The value printed is the third line of ARM machine code in large-endian.
+Note that the ARM64 code is little-endian. So the first byte is the least
+significant byte. We put the code to overwrite the space for buf and ans. The
+value printed is the third line of ARM machine code in large-endian.
 
-we overwrite the lr with the start of the ARM code address ``00 00 ff ff ff ff ee b8''. So the pc will jump to your written code.
+we overwrite the lr with the start of the ARM code address ``00 00 ff ff ff ff
+ee b8''. So the pc will jump to your written code.
 
-Also, since ARM only allows 16-bit constant input, we can load 16 bits of a register at a time. That is why we have to load the value of ans into x0 and x1 separately by shifting the constant input.
+Also, since ARM only allows 16-bit constant input, we can load 16 bits of a
+register at a time. That is why we have to load the value of ans into x0 and x1
+separately by shifting the constant input.
 
-Now last line ``br x1'' would allow us to jump to the address in x1. The argument we want to pass has its address in x0, which is the last line we overwritten.
+Now last line ``br x1'' would allow us to jump to the address in x1. The
+argument we want to pass has its address in x0, which is the last line we
+overwritten.
 
 \subsubsection{Code injection limitations}
 \begin{itemize}
@@ -247,14 +332,17 @@ Now last line ``br x1'' would allow us to jump to the address in x1. The argumen
           \end{itemize}
     \item stack/heap locations often randomized (ASLR) \begin{itemize}
               \item enforced by the virtual memory system
-              \item It will randomize the location of the stack and heap. So we can't predict the location of the stack or heap.
+              \item It will randomize the location of the stack and heap. So we can't predict the
+                    location of the stack or heap.
           \end{itemize}
 \end{itemize}
 
 \subsection{Gadgets}
-Gadgets are small pieces of code that end with a return instruction. 
+Gadgets are small pieces of code that end with a return instruction.
 
-Since code injection is not executable, we can find some existing code (gadgets) and chain them together to do what we want. It could be either in the program itself or in a library.
+Since code injection is not executable, we can find some existing code
+(gadgets) and chain them together to do what we want. It could be either in the
+program itself or in a library.
 
 \subsubsection{return-oriented programming (ROP)}
 \begin{enumerate}
@@ -272,40 +360,55 @@ Refer to mie's slides for examples.
         ldp x1, x2, [sp], 16
         br x2
     \end{lstlisting}
-    \item can overwrite virtual function pointers in C++ objects. 
+    \item can overwrite virtual function pointers in C++ objects.
     \item SROP: play with signals to set all registers.
 \end{itemize}
 
 \subsection{Non-executable stack/data}
-For most systems, the stack and data are non-executable. 
+For most systems, the stack and data are non-executable.
 
-Virtual memory system enforces this. It will crash the program if we try to execute code in the stack or heap. Also called $W^X$ policy (write xor execute).
+Virtual memory system enforces this. It will crash the program if we try to
+execute code in the stack or heap. Also called $W^X$ policy (write xor
+execute).
 
-However, we can use ROP to make a system call to make the stack executable. Then we can inject our code into the stack and execute it.
+However, we can use ROP to make a system call to make the stack executable.
+Then we can inject our code into the stack and execute it.
 
 \subsection{Address space layout randomization (ASLR)}
-ASLR randomizes the location of the stack and heap. So we can't predict the location of the stack or heap.
+ASLR randomizes the location of the stack and heap. So we can't predict the
+location of the stack or heap.
 
-Virtual memory system enforces this. It will randomize the location of the stack and heap. So we can't predict the location of the stack or heap.
+Virtual memory system enforces this. It will randomize the location of the
+stack and heap. So we can't predict the location of the stack or heap.
 
 \subsubsection{Limitations of ASLR}
 \begin{itemize}
-    \item not all bits are random, it is possible to brute-force the address space. Just need more trials.
-    \item Library locations are not randomized since programs need to find libraries to use them once the program starts. So we can use gadgets in libraries.
-    \item Programs on machines like servers are not restarted often. So we can use brute-force to find the address of the stack and heap.
+    \item not all bits are random, it is possible to brute-force the address space. Just
+          need more trials.
+    \item Library locations are not randomized since programs need to find libraries to
+          use them once the program starts. So we can use gadgets in libraries.
+    \item Programs on machines like servers are not restarted often. So we can use
+          brute-force to find the address of the stack and heap.
 \end{itemize}
 \subsection{Array bounds checking}
-Some programming languages like Java and Python have array bounds checking. It checks if the index is inside the bounds for each operation. So we can't overflow the buffer.
+Some programming languages like Java and Python have array bounds checking. It
+checks if the index is inside the bounds for each operation. So we can't
+overflow the buffer.
 
-This prevents writing to memory that we don't own. However, for languages that could do pointer arithmetic, we can still do buffer overflow. C and C++ are typical examples.
+This prevents writing to memory that we don't own. However, for languages that
+could do pointer arithmetic, we can still do buffer overflow. C and C++ are
+typical examples.
 
-Also, people sometimes disable array bounds checking for performance reasons. This kind of fast but unsafe code is hackers' best friend.
+Also, people sometimes disable array bounds checking for performance reasons.
+This kind of fast but unsafe code is hackers' best friend.
 
 \subsection{Stack canaries}
 \begin{itemize}
-    \item put some value on the stack below the return address (or frame pointer if it exists)
+    \item put some value on the stack below the return address (or frame pointer if it
+          exists)
     \item check the value, see if it is modified before ret.
-    \item if modified, abort the program. Might print something like ``stack smashing detected'' (Should work just like an exception)
+    \item if modified, abort the program. Might print something like ``stack smashing
+          detected'' (Should work just like an exception)
     \item the variants can be 0, random, or random XOR with the return address.
 \end{itemize}
 However, there are still limitations to it:\begin{itemize}
@@ -320,14 +423,105 @@ However, there are still limitations to it:\begin{itemize}
     \item Java, Python, etc. have array bounds checking.
     \item Rust, Go, etc. have memory safety.
     \item C/C++ are still the most popular language.
-    \item safe languages are not always safe. For example, Java has a lot of vulnerabilities.
-    \item Some languages guarantee safety via \textbf{type system}. For example, Rust. It is checked by the compiler at compile time. However, only guaranteed if used properly. Also, these languages are not as popular as C/C++.
+    \item safe languages are not always safe. For example, Java has a lot of
+          vulnerabilities.
+    \item Some languages guarantee safety via \textbf{type system}. For example, Rust. It
+          is checked by the compiler at compile time. However, only guaranteed if used
+          properly. Also, these languages are not as popular as C/C++.
+\end{itemize}
+\section{Memory management}
+\includegraphics*{./Images/Memory of a process.png}
+
+Each process has its own memory space. The memory space is divided into
+segments. The segments are: \begin{itemize}
+    \item text segment: the code of the program
+    \item data segment: the variables
+    \item heap: the dynamic memory allocation
+    \item stack: the local variables and the call frames
+\end{itemize}
+Heap and stack grow towards each other. The stack grows downwards. The heap grows upwards.
+
+\begin{itemize}
+    \item Stack is easy to allocate but disappears after the function returns.
+    \item Heap is harder to allocate but can be used after the function returns.
 \end{itemize}
 
+\subsection{Allocation strategies}
+\begin{itemize}
+    \item automated: \begin{itemize}
+              \item garbage collection: the memory is automatically deallocated when it is no
+                    longer used. It is used in languages like Java and Python.
+              \item reference counting: the memory is automatically deallocated when the reference
+                    count is zero. It is used in languages like C++. (There are limitations to
+                    this, for example, circular references)
+              \item Hard to implement but easy to use
+          \end{itemize}
+    \item manual: allocate and deallocate pairs. \begin{itemize}
+              \item malloc()+free() or new+delete comes in pairs. (It is a contract that must be obeyed)
+              \item easy to implement but hard to use. (lots of bugs)
+          \end{itemize}
+\end{itemize}
+\subsection{Memory allocation}
+\begin{itemize}
+    \item want high utilization and low fragmentation\begin{itemize}
+        \item physical memory is limited among all processes
+        \item OS only gives big chunks of memory to processes (usually 4KB pages)
+        \item most allocs are small, few words to a few KB
+    \end{itemize}
+    \item want high allocation throughput. Minimize the management overhead. 
+\end{itemize}
 
+Recall the stack allocation:\begin{itemize}
+    \item to allocate, just move the stack pointer downwards
+    \item to deallocate, just move the stack pointer upwards
+    \item easy to implement and efficient
+    \item However it does not support dynamic allocation which does not work for heap.
+\end{itemize}
+\subsubsection{Challenges}
+\begin{itemize}
+    \item how to keep track of block size?
+    \item how to keep track of free blocks?
+    \item how to find a free block?
+    \item how to allocate a block? which free block to use?
+\end{itemize}
+\subsubsection{tracking allocation size}
+For each block, we can store the size of the block which can be used to find the start and the end of the current block. Thus we can find the neighboring blocks.
 
+Note that the blocks can also request the size of both neighboring blocks. Just having the size at the start of the block is not enough. We need the size at both the end and the start of the block.
 
+\includegraphics*{./Images/Memory track size.png}
 
+Note that we may or may not contain the padding there to follow the alignment rules of the system. At the same time, we can omit the lower bits of the size to store the status of the block since size should always occupy the whole line in the system no matter what the system is working with. Lastly, the a there can indicate the status of the block. 1 means allocated, 0 means free.
+\subsubsection{finding a free block}
+let $p$ = heap start: for each block $b$ at $p$:\begin{itemize}
+    \item if $b$ is free \textbf{and} $b$ is big enough, return $b$
+    \item else $p$ = $p$ + size of $b$
+    \item keep going until the end of the heap \begin{itemize}
+        \item either we find a free block
+        \item or we run out of memory
+        \item or ask OS for more memory
+        \end{itemize}
+    \end{itemize}
+This is a ``first fit'' strategy. It is simple and fast, but it can lead to fragmentation. 
+
+We can have ``next fit'' as well:\begin{itemize}
+    \item keep track of the last block we allocated, return the next free and big enough block after that
+    \item can be faster than first fit
+    \item but still can lead to fragmentation (even worse than first fit)
+\end{itemize}
+
+Also we can have ``best fit'':\begin{itemize}
+    \item return the smallest free block that is big enough
+    \item but it is slow (overhead of searching for the smallest block)
+\end{itemize}
+\subsubsection{coalescing and boundary tags}
+\includegraphics*{./Images/Coalescing.png}
+
+As shown in the figure, if we just free the 4-byte block, we will have two free blocks connecting together which we can merge by coalescing. This is done by checking the status of the neighboring blocks. If they are free, we can merge them together. This is called coalescing. 
+
+Note that we can use either the header or the boundary tag to track the neighboring blocks. So it does not matter if the free neighboring block is at the higher address or the lower address. We can always find it by checking the status and the size of the neighboring blocks.
+
+In some cases, we might need to connect both neighboring blocks together if it happens that they are both free.
 
 
 
