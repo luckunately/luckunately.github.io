@@ -515,7 +515,7 @@ Also we can have ``best fit'':\begin{itemize}
     \item but it is slow (overhead of searching for the smallest block)
 \end{itemize}
 \subsubsection{coalescing and boundary tags}
-\includegraphics*{./Images/Coalescing.png}
+\includegraphics*[scale = 0.7]{./Images/Coalescing.png}
 
 As shown in the figure, if we just free the 4-byte block, we will have two free blocks connecting together which we can merge by coalescing. This is done by checking the status of the neighboring blocks. If they are free, we can merge them together. This is called coalescing. 
 
