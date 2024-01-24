@@ -23,9 +23,11 @@
 
 \maketitle
 \section{Introduction to Hamming Codes}
-ECC solves the problem of errors in transmission. The idea is to add redundancy to the message so that the receiver can detect and correct errors.
+ECC solves the problem of errors in transmission. The idea is to add redundancy
+to the message so that the receiver can detect and correct errors.
 
-Assume that we have a message of length $k$, then we encode it to a codeword $C$ of length $n$. If the codeword is decrypted, then we call it $\tilde{C}$.
+Assume that we have a message of length $k$, then we encode it to a codeword
+$C$ of length $n$. If the codeword is decrypted, then we call it $\tilde{C}$.
 
 \subsection{Things we care about}
 \begin{enumerate}
@@ -48,11 +50,15 @@ There are two types of errors:\begin{itemize}
     \item \textbf{Error}: We don't know which bit is wrong, but we know that there is at least one bit that is wrong. So we can \textbf{detect} errors, but we can't for sure \textbf{correct} them.
 \end{itemize}
 
-Also, we define all possible codewords to be $C_i$ where they all belong to the same set $\mathcal{C}$. So $C_i\in \mathcal{C}$ for all possible $i$.
+Also, we define all possible codewords to be $C_i$ where they all belong to the
+same set $\mathcal{C}$. So $C_i\in \mathcal{C}$ for all possible $i$.
 \subsection{Hamming Codes}
-Hamming codes are linear block codes. They are named after Richard Hamming. They are single-error correcting and double-error detecting. They are also systematic, which means that the message is part of the codeword.
+Hamming codes are linear block codes. They are named after Richard Hamming.
+They are single-error correcting and double-error detecting. They are also
+systematic, which means that the message is part of the codeword.
 
-Hamming code encodes a message of length 4 to a codeword of length 7. So $k=4$ and $n=7$. Also, it encodes only binary messages, so $\Sigma = \{0,1\}$.
+Hamming code encodes a message of length 4 to a codeword of length 7. So $k=4$
+and $n=7$. Also, it encodes only binary messages, so $\Sigma = \{0,1\}$.
 
 \[(x_1,x_2,x_3,x_4)\implies (x_1,x_2,x_3,x_4,x_2+x_3+x_4,x_1+x_3+x_4,x_1+x_2+x_4)\]
 
@@ -77,12 +83,19 @@ Some definitions:\begin{itemize}
 
 \subsection{Algorithm for Hamming Code}
 \subsubsection{Error Detection}
-If given a codeword $\tilde{C}$ that we assume the error is within $d-1$ away from one point, we can calculate the syndrome $S$ by $S = \tilde{C}H^T$. If $S=0$, then there is no error. If $S\neq 0$, then there is an error.
+If given a codeword $\tilde{C}$ that we assume the error is within $d-1$ away
+from one point, we can calculate the syndrome $S$ by $S = \tilde{C}H^T$. If
+$S=0$, then there is no error. If $S\neq 0$, then there is an error.
 
 \subsubsection{Error Correction}
-For a codeword $\tilde{C}$, with an error smaller than or equal to $\lfloor \frac{d-1}{2}\rfloor$, we can recover the original codeword by finding the closest codeword to $\tilde{C}$. The distance will be within $\lfloor \frac{d-1}{2}\rfloor$.
+For a codeword $\tilde{C}$, with an error smaller than or equal to $\lfloor
+    \frac{d-1}{2}\rfloor$, we can recover the original codeword by finding the
+closest codeword to $\tilde{C}$. The distance will be within $\lfloor
+    \frac{d-1}{2}\rfloor$.
 
-Note that it is not possible to have two $C$ that are within $\lfloor \frac{d-1}{2}\rfloor$ distance from $\tilde{C}$. Otherwise, the distance between the two $C$ will be smaller than $d$. Here is the proof:
+Note that it is not possible to have two $C$ that are within $\lfloor
+    \frac{d-1}{2}\rfloor$ distance from $\tilde{C}$. Otherwise, the distance
+between the two $C$ will be smaller than $d$. Here is the proof:
 \begin{proof}
 
     $\lfloor \frac{d-1}{2}\rfloor\times 2\le d-1<d$. So circle of radius $\lfloor \frac{d-1}{2}\rfloor$ around $\tilde{C}$ does not contain any other codewords. So there is only one codeword that is within $\lfloor \frac{d-1}{2}\rfloor$ distance from $\tilde{C}$.
@@ -90,10 +103,13 @@ Note that it is not possible to have two $C$ that are within $\lfloor \frac{d-1}
 
 To mathematically express this:
 
-If $\tilde{C}$ has error $\le \lfloor \frac{d-1}{2}\rfloor$, then return $C\in\mathcal{C}$ such that $d(\tilde{C},C)\le \lfloor \frac{d-1}{2}\rfloor$.
+If $\tilde{C}$ has error $\le \lfloor \frac{d-1}{2}\rfloor$, then return
+$C\in\mathcal{C}$ such that $d(\tilde{C},C)\le \lfloor \frac{d-1}{2}\rfloor$.
 
 \subsubsection{Erasure Correction}
-If we have a codeword $\tilde{C}$ with $e$ erasures, where $e\le d-1$, then we can recover the original codeword by finding the closest codeword to $\tilde{C}$. The distance will be within $e$.
+If we have a codeword $\tilde{C}$ with $e$ erasures, where $e\le d-1$, then we
+can recover the original codeword by finding the closest codeword to
+$\tilde{C}$. The distance will be within $e$.
 
 \subsection{More definitions}
 \begin{definition}
@@ -106,33 +122,44 @@ If we have a codeword $\tilde{C}$ with $e$ erasures, where $e\le d-1$, then we c
 \end{definition}
 Note the rate is between 0 and 1. \begin{itemize}
     \item The closer it is to 1, the more efficient the code is.
-    \item If $R=1$, then the code is not redundant. So it is not an error-correcting code.
+    \item If $R=1$, then the code is not redundant. So it is not an error-correcting
+          code.
     \item  The closer it is to 0, the more redundant the code is.
-    \item If $R=0$, then the code is not efficient. So it is not an error-correcting code.
+    \item If $R=0$, then the code is not efficient. So it is not an error-correcting
+          code.
     \item So we need to make trade-offs between efficiency and robustness.
 \end{itemize}
 
-We could find that $R$ is a function: $R(d,n,k,\Sigma)$. So we can find the maximum rate and minimum rate for a given $d,n,k,\Sigma$. Basically, R has two bounds:
+We could find that $R$ is a function: $R(d,n,k,\Sigma)$. So we can find the
+maximum rate and minimum rate for a given $d,n,k,\Sigma$. Basically, R has two
+bounds:
 \[g(d,n,k,\Sigma)\le R(d,n,k,\Sigma) \le f(d,n,k,\Sigma)\]
 \subsection{Hamming Bound}
-Hamming bound is the upper bound of the rate of a code. It answers the question: How many Hamming balls can we put in $\Sigma^n$ such that they are disjoint for a fixed $d$?
+Hamming bound is the upper bound of the rate of a code. It answers the
+question: How many Hamming balls can we put in $\Sigma^n$ such that they are
+disjoint for a fixed $d$?
 
-The question implies that the ball radius is $\lfloor \frac{d-1}{2}\rfloor$. With the given information we can find that \begin{itemize}
-    \item We will have $|\mathcal{C}|$ disjoint balls of radius $\lfloor \frac{d-1}{2}\rfloor$.
+The question implies that the ball radius is $\lfloor \frac{d-1}{2}\rfloor$.
+With the given information we can find that \begin{itemize}
+    \item We will have $|\mathcal{C}|$ disjoint balls of radius $\lfloor
+              \frac{d-1}{2}\rfloor$.
     \item Vol$(\Sigma^n)=|\Sigma|^n$.
     \item $|\mathcal{C}|\le \frac{|\Sigma|^n}{\text{Vol(Hamming ball)}}$.
 \end{itemize}
 Note that we are dealing with discrete points. So we need to use the floor function which actually just counts for the points within the ball.
 
-
 \subsubsection{Proof of Hamming Bound}
 \begin{proof}
 
-    The Hamming ball in $\Sigma^n$ of radius $e$ about $x\in \Sigma^n$ is the set of all points in $\Sigma^n$ that are within $e$ distance from $x$.
+    The Hamming ball in $\Sigma^n$ of radius $e$ about $x\in \Sigma^n$ is the set
+    of all points in $\Sigma^n$ that are within $e$ distance from $x$.
 
-    So $B_{\Sigma^n} (x,e)=\{y\in \Sigma^n: d(x,y)\le e\}$ is the set of the discrete points that are within $e$ distance from $x$, including $x$ itself.
+    So $B_{\Sigma^n} (x,e)=\{y\in \Sigma^n: d(x,y)\le e\}$ is the set of the
+    discrete points that are within $e$ distance from $x$, including $x$ itself.
 
-    Now we can define the volume of the ball. The volume of the ball is the number of points in the ball. So $V_{\Sigma^n}=|B_{\Sigma^n} (x,e)|$ which is the size of the ballpoint set.
+    Now we can define the volume of the ball. The volume of the ball is the number
+    of points in the ball. So $V_{\Sigma^n}=|B_{\Sigma^n} (x,e)|$ which is the size
+    of the ballpoint set.
 
     To make the calculation easier, we let $q = \Sigma^n$. \[
         \text{Vol}_q(e,n)= 1+ \binom{n}{1}(q-1)+\binom{n}{2}(q-1)^2+\ldots+\binom{n}{e}(q-1)^e=\sum_{i=0}^{e}\binom{n}{i}(q-1)^i
@@ -158,10 +185,13 @@ Now that we have all the tools for binary Hamming codes:\begin{itemize}
 Using the above information, we find that the Hamming bound is:\[
     R = 1-\frac{\log_2(\text{Vol}_2(\lfloor \frac{3-1}{2}\rfloor, 7))}{7}= 1-\frac{\log_2(1+7)}{7}=\frac{4}{7}
 \]
-But we also notice that the Hamming code has a rate of $\frac{k}{n}=\frac{4}{7}$. So the Hamming bound is tight. So the Hamming code is the best/optimal code for this case. 
+But we also notice that the Hamming code has a rate of
+$\frac{k}{n}=\frac{4}{7}$. So the Hamming bound is tight. So the Hamming code
+is the best/optimal code for this case.
 
 \subsection{Linear Algebra View of Hamming Codes}
-If we view the encoding process as a matrix multiplication it will be like this:
+If we view the encoding process as a matrix multiplication it will be like
+this:
 \[
     \begin{bmatrix}
         1 & 0 & 0 & 0 \\
@@ -180,39 +210,47 @@ If we view the encoding process as a matrix multiplication it will be like this:
     \end{bmatrix}
     =
     \begin{bmatrix}
-        x_1 \\
-        x_2 \\
-        x_3 \\
-        x_4 \\
+        x_1         \\
+        x_2         \\
+        x_3         \\
+        x_4         \\
         x_2+x_3+x_4 \\
         x_1+x_3+x_4 \\
         x_1+x_2+x_4
     \end{bmatrix}
-    \]
-    
-We can write it as $G\cdot X=\mathcal{C}$ where $G$ is the generator matrix. So $G$ is a $n\times k$ matrix. $X$ is the message vector. $\mathcal{C}$ is the codeword vector. $\mathcal{C}=\{G\cdot X (\mod 2): \forall x \in X, x\in \{0,1\}^4\}$
+\]
+
+We can write it as $G\cdot X=\mathcal{C}$ where $G$ is the generator matrix. So
+$G$ is a $n\times k$ matrix. $X$ is the message vector. $\mathcal{C}$ is the
+codeword vector. $\mathcal{C}=\{G\cdot X (\mod 2): \forall x \in X, x\in
+    \{0,1\}^4\}$
 
 There are three properties with it:\begin{enumerate}
     \item $\mathcal{C}$ is closed under addition. So $\forall C_1,C_2\in \mathcal{C}, C_1+C_2\in \mathcal{C}$.\begin{proof}
-        \[
-            C_1+C_2 = G\cdot X_1+G\cdot X_2 = G\cdot (X_1+X_2)
-        \]
-        Since $X_1+X_2\in \{0,1\}^4$, so $C_1+C_2\in \mathcal{C}$. Proved.
-    \end{proof}
+              \[
+                  C_1+C_2 = G\cdot X_1+G\cdot X_2 = G\cdot (X_1+X_2)
+              \]
+              Since $X_1+X_2\in \{0,1\}^4$, so $C_1+C_2\in \mathcal{C}$. Proved.
+          \end{proof}
     \item $\mathcal{C}$ is a linear subspace of $\{0,1\}^7$ of dimension 4. \begin{proof}
-        $\mathcal{C}$ is all the linear combinations of the columns of $G$. So $\mathcal{C}$ is a linear subspace of $\{0,1\}^7$ of dimension 4. Proved.
-    \end{proof}
-    \item The distance of $\mathcal{C}$ is the same as the minimum weight of the non-zero codewords in $\mathcal{C}$.\begin{proof}
-        Recall that $wt(x)=\sum_{i=1}^{n}\mathbbm{1}\{x_i\neq 0\}$. So $wt(x)$ is the number of 1s in the vector. 
-        
-        $\forall C_1,C_2\in \mathcal{C}, C_1\neq C_2$, then $wt(C_1+C_2)=wt(C_1 \oplus C_2)$,which is just the number of different bits between $C_1$ and $C_2$. So $d(C_1,C_2)=wt(C_1 \oplus C_2)$. 
+              $\mathcal{C}$ is all the linear combinations of the columns of $G$. So $\mathcal{C}$ is a linear subspace of $\{0,1\}^7$ of dimension 4. Proved.
+          \end{proof}
+    \item The distance of $\mathcal{C}$ is the same as the minimum weight of the non-zero
+          codewords in $\mathcal{C}$.\begin{proof}
+              Recall that $wt(x)=\sum_{i=1}^{n}\mathbbm{1}\{x_i\neq 0\}$. So $wt(x)$ is the number of 1s in the vector.
 
-        Thus if we go through all the possibility space, we can claim that $d_{min}=\min_{C_1, C_2\in \mathcal{C}, C_1\neq C_2}d(C_1, C_2)=\min_{C\in \mathcal{C}, C\neq 0}wt(C)$. Proved.
-    \end{proof}
+              $\forall C_1,C_2\in \mathcal{C}, C_1\neq C_2$, then $wt(C_1+C_2)=wt(C_1 \oplus C_2)$,which is just the number of different bits between $C_1$ and $C_2$. So $d(C_1,C_2)=wt(C_1 \oplus C_2)$.
+
+              Thus if we go through all the possibility space, we can claim that
+              $d_{min}=\min_{C_1, C_2\in \mathcal{C}, C_1\neq C_2}d(C_1, C_2)=\min_{C\in
+                      \mathcal{C}, C\neq 0}wt(C)$. Proved.
+          \end{proof}
 \end{enumerate}
 
 \subsubsection{Parity Check Matrix}
-We can also define a parity check matrix $H$ for the Hamming code. It is a $n\times (n-k)$ matrix. So $H\cdot C^T=0$ where $C$ is the codeword vector. So $H$ is the matrix that can detect errors.
+We can also define a parity check matrix $H$ for the Hamming code. It is a
+$n\times (n-k)$ matrix. So $H\cdot C^T=0$ where $C$ is the codeword vector. So
+$H$ is the matrix that can detect errors.
 \[
     \begin{bmatrix}
         0 & 1 & 1 & 1 & 1 & 0 & 0 \\
@@ -220,10 +258,10 @@ We can also define a parity check matrix $H$ for the Hamming code. It is a $n\ti
         1 & 1 & 0 & 1 & 0 & 0 & 1
     \end{bmatrix}
     \begin{bmatrix}
-        x_1 \\
-        x_2 \\
-        x_3 \\
-        x_4 \\
+        x_1               \\
+        x_2               \\
+        x_3               \\
+        x_4               \\
         c_5 = x_2+x_3+x_4 \\
         c_6 = x_1+x_3+x_4 \\
         c_7 = x_1+x_2+x_4
@@ -236,31 +274,117 @@ We can also define a parity check matrix $H$ for the Hamming code. It is a $n\ti
     \end{bmatrix}
 \]
 
-Note that $H$ is just letting the encoded codeword to XOR with its decomposition. It should be 0 if there is no error. So if there is an error, then $H\cdot C^T\neq 0$.
+Note that $H$ is just letting the encoded codeword to XOR with its
+decomposition. It should be 0 if there is no error. So if there is an error,
+then $H\cdot C^T\neq 0$.
 
 \subsubsection{Proof of Minimum Distance}
-With the help of the parity check matrix, we can prove that the minimum distance of the Hamming code is 3.\begin{proof}
-    Proof by contradiction: Suppose that $\exists C \in \mathcal{C}$ such that $wt(C)=1$ or $wt(C)=2$. 
+With the help of the parity check matrix, we can prove that the minimum
+distance of the Hamming code is 3.\begin{proof}
+    Proof by contradiction: Suppose that $\exists C \in \mathcal{C}$ such that $wt(C)=1$ or $wt(C)=2$.
 
-    We can list out all the possibilities of C and find out that: $H\cdot C^T\neq 0$. So $C$ is not a codeword. Contradiction. So $\forall C\in \mathcal{C}, wt(C)\ge 3$. 
-    
-    Now just need to find a codeword with weight 3. We can find that $C=(1,1,1,0,0,0,0)$ is a codeword. With the property that we just proved: 
-    
-    \textit{The distance of $\mathcal{C}$ is the same as the minimum weight of the non-zero codewords in $\mathcal{C}$.} 
-    
+    We can list out all the possibilities of C and find out that: $H\cdot C^T\neq
+        0$. So $C$ is not a codeword. Contradiction. So $\forall C\in \mathcal{C},
+        wt(C)\ge 3$.
+
+    Now just need to find a codeword with weight 3. We can find that
+    $C=(1,1,1,0,0,0,0)$ is a codeword. With the property that we just proved:
+
+    \textit{The distance of $\mathcal{C}$ is the same as the minimum weight of the non-zero codewords in $\mathcal{C}$.}
+
     So $d_{min}=3$. Proved.
 \end{proof}
 
 \subsection{Decoding Hamming Codes}
-Assume that we have a codeword $\tilde{C}$ that is transmitted. We want to find the closest codeword to $\tilde{C}$.\begin{itemize}
+Assume that we have a codeword $\tilde{C}$ that is transmitted. We want to find
+the closest codeword to $\tilde{C}$.\begin{itemize}
     \item If $\tilde{C}$ has no error, then we can just return $\tilde{C}$.
-    \item If $\tilde{C}$ has one error, $\tilde{C}=C\oplus Z$ where $Z$ is the noise such that $wt(Z)=1$. \begin{align*}
-        H\cdot \tilde{C}^T & = H\cdot (C\oplus Z)^T \\
-                           & = H\cdot C^T\oplus H\cdot Z^T &\text{Addition is commutative}\\
-                           & = H\cdot Z^T &\text{Since $H\cdot C^T=0$}
-    \end{align*}
-    From there, we can know which bit is wrong now, and moreover, we can correct it.\[
-        C = \tilde{C}\oplus Z
-    \] XOR can be reversed by XOR again. So we can correct the error.
+    \item If $\tilde{C}$ has one error, $\tilde{C}=C\oplus Z$ where $Z$ is the noise such
+          that $wt(Z)=1$. \begin{align*}
+              H\cdot \tilde{C}^T & = H\cdot (C\oplus Z)^T                                         \\
+                                 & = H\cdot C^T\oplus H\cdot Z^T & \text{Addition is commutative} \\
+                                 & = H\cdot Z^T                  & \text{Since $H\cdot C^T=0$}
+          \end{align*}
+          From there, we can know which bit is wrong now, and moreover, we can correct it.\[
+              C = \tilde{C}\oplus Z
+          \] XOR can be reversed by XOR again. So we can correct the error.
 \end{itemize}
+\section{General Linear Block Codes}
+\subsection{Finite Fields}
+Intuitively, a (finite) field is a (finite) set of elements that can be added,
+subtracted, multiplied, and divided.
+
+Formally, we can define as follows:\begin{definition}
+    A field $\mathbb{F}$ is a set of elements, along with operations of addition and multiplication, such that $\forall x,y,z \in \mathbb{F}$\begin{itemize}
+        \item (Associativity) $x+(y+z)=(x+y)+z$ and $x\cdot (y\cdot z)=(x\cdot y)\cdot z$.
+        \item (Commutativity) $x+y=y+x$ and $x\cdot y=y\cdot x$.
+        \item (Distributivity) $x\cdot (y+z)=x\cdot y+x\cdot z$.
+        \item (Identity):\begin{itemize}
+                  \item $\exists `0'\in \mathbb{F}$ such that $x+0=x$.
+                  \item $\exists `1'\in \mathbb{F}$ such that $x\cdot 1=x$.
+              \end{itemize}
+        \item (Inverse):\begin{itemize}
+                  \item $\forall x\in \mathbb{F}, \exists -x\in \mathbb{F}$ such that $x+(-x)=0$.
+                  \item $\forall x\in \mathbb{F}, x\neq 0, \exists x^{-1}\in \mathbb{F}$ such that $x\cdot x^{-1}=1$.
+              \end{itemize}
+    \end{itemize}
+\end{definition}
+\subsubsection{Existance of finite fields}
+We can examine two examples first: $\mathbb{F}_1 = \{0,1,2,3,4\}$ with `$+$' =
+`$+\mod 5$',`$\times$' = `$\times\mod 5$' and $\mathbb{F}_2 = \{0,1,2,3\}$ with
+`$+$'= `$+\mod 4$',`$\times$' = `$\times\mod 4$'.
+
+It is easy to verify associativity, commutativity, distributivity and identity
+for both, but let's take a closer look into the inverse.
+\begin{itemize}
+    \item $\mathbb{F}_1$: \begin{itemize}
+              \item $0$ has no inverse for multiplication.
+              \item $1,2,3,4$ all have inverses for multiplication.
+              \item $0,1,2,3,4$ all have inverses for addition.
+          \end{itemize}
+    \item $\mathbb{F}_2$: \begin{itemize}
+              \item $0$ has no inverse for multiplication.
+              \item $1,3$ all have inverses for multiplication. But what is the inverse of 2? There is no such thing. \textbf{So $\mathbb{F}_2$ is not a field.}
+              \item $0,1,2,3$ all have inverses for addition.
+          \end{itemize}
+\end{itemize}
+\begin{theorem}
+    When $p$ is a prime number, then $\mathbb{F}_p = \{0,1,2,\ldots,p-1\}$ with `$+$'= `$+\mod p$',`$\times$' = `$\times\mod p$' is a field.
+\end{theorem}
+\subsection{Linear algebra's view of finite fields}
+Let $\mathbb{F}$:\begin{itemize}
+    \item $\mathbb{F}^n = \{(x_1, x_2, \ldots, x_n): x_i\in \mathbb{F}\}$.
+    \item A \textbf{subspace} $V\subseteq \mathbb{F}^n$ is a set of vectors that is
+          closed under addition and scalar multiplication. So $\forall u,v\in V,
+              \lambda\in \mathbb{F}, u+v\in V, \lambda u\in V$.
+    \item $v_1,v_2,\ldots,v_k\in \mathbb{F}^n$ are \textbf{linearly independent} if $\lambda_1v_1+\lambda_2v_2+\ldots+\lambda_kv_k=0$ implies that $\lambda_1=\lambda_2=\ldots=\lambda_k=0$.
+    \item For $v_1,v_2,\ldots,v_k\in \mathbb{F}^n$, the \textbf{span} of $v_1,v_2,\ldots,v_k$ is the set of all linear combinations of $v_1,v_2,\ldots,v_k$. So $\text{span}(v_1,v_2,\ldots,v_k)=\{\lambda_1v_1+\lambda_2v_2+\ldots+\lambda_kv_k: \lambda_1,\lambda_2,\ldots,\lambda_k\in \mathbb{F}\}=\{\sum_i \lambda_i v_i:\lambda \in \mathbb{F}\}$.
+    \item A \textbf{basis} for a subspace $V\subseteq \mathbb{F}^n$ is a set of linearly independent vectors that span $V$.
+    \item The \textbf{dimension} of a subspace $V\subseteq \mathbb{F}^n$ is the number of vectors in a basis for $V$.
+\end{itemize}
+
+\subsection{Linear Block Codes over Finite Fields}
+\begin{definition}
+    A linear block code $\mathcal{C}$ of length $n$ and dimension $k$ over a finite field $\mathbb{F}$ is a $k-$dimension linear subspace of $\mathbb{F}^n$. So $\mathcal{C}\subseteq \mathbb{F}^n$. The elements $c\in \mathcal{C}$ are called codewords.  
+\end{definition}
+Note that if we connect to previous definitions, it is the same as block length $n$ and message length $k$ over alphabet $\Sigma = \mathbb{F}$.\[
+    \mathcal{C} \text{ is a ``linear code''}\implies \mathcal{C} \text{ is a linear subspace of } \mathbb{F}^n
+\]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
+
