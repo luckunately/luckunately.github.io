@@ -448,7 +448,7 @@ Usually, we collect the same primes together and write as \[
 \]
 Now $p_1, p_2, \dots, p_k$ are all distinct primes that appear in the product and $e_1, e_2, \dots, e_k$ are the powers of the primes $\in \mathbb{N}$.
 
-We have already proved the existence of the prime factorization in the previous section. Now we need to prove the uniqueness. 
+We have already proved the existence of the prime factorization in the previous section using the Well-Ordering Principle. Now we need to prove the uniqueness. 
 
 \subsubsection{Corollary}
 Let $p$ be a prime, $a_1, a_2, \dots, a_n \in \mathbb{Z}$. Then $p | a_1a_2\dots a_n \implies p | a_i$ for some $i$. \begin{proof}
@@ -460,5 +460,59 @@ Let $p$ be a prime, $a_1, a_2, \dots, a_n \in \mathbb{Z}$. Then $p | a_1a_2\dots
 
     Suppose $p | a_1a_2\dots a_{k+1}$. Then $p | a_1a_2\dots a_k$ or $p | a_{k+1}$. By the inductive hypothesis, $p | a_i$ for some $i$.
 \end{proof}
+
+\subsubsection{Proof of the theorem}
+\begin{proof}
+    Let $n = p_1, p_2, \ldots, p_r = q_1, q_2, \ldots, q_s$ be two prime factorizations of $n$. We want to show that $r = s$ and $p_i = q_i$ for all $i$.
+
+    Cancel both primes on both sides if the same primes appear in both factorizations. Then we have new primes on both sides that do not equal each other\[
+        p_1p_2\dots p_a = q_1q_2\dots q_b
+    \]
+
+    Our goal now is to show that there is nothing left on both sides. 
+
+    Now by the corollary, $p_1 | q_1q_2\dots q_b$. Then $p_1 | q_i$ for some $i$. But $q_i$ is a prime. Therefore, $p_1 = q_i$. Then we can cancel $p_1$ and $q_i$ from both sides. So this is a contradiction. Therefore, $r = s$ and $p_i = q_i$ for all $i$. We have proved the uniqueness.
+\end{proof}
+
+Remark: Uniqueness of prime factorization fails in many number systems other than the integers. For example: ``even integers'': In this system, then 6, 10, 30 and 50 are primes in this system. Then 300 = 6 $\cdot$ 50 = 10 $\cdot$ 30. So the prime factorization is not unique in this system.
+
+\subsubsection{Applications}
+Proposition: Suppose $n=p_1^{d_1},\ldots,p_k^{d_k}, m = p_1^{e_1},\ldots,p_k^{e_k}$ where $p_1,\ldots,p_k$ are distinct primes and $d_1,\ldots,d_k,e_1,\ldots,e_k \in \mathbb{N}\cup 0$. Then $\gcd(n,m) = p_1^{\min(d_1,e_1)}\ldots p_k^{\min(d_k,e_k)}$ and the largest common multiple $lcm(n,m) = p_1^{\max(d_1,e_1)}\ldots p_k^{\max(d_k,e_k)}$.
+
+For example: \begin{align*}
+    35&=5\times7 &= 2^0\times 5^1\times 7^1\times 11^0\\ 
+    154&= 2\times7\times11 &= 2^1\times 5^0\times 7^1\times 11^1\\
+    \gcd(35,154) &= 2^0\times 5^0\times 7^1\times 11^0 &= 7
+\end{align*}
+
+In general, prime factorization is difficult for large numbers. The Euclidean algorithm is a much faster way to find the gcd of two numbers.
+
+To show the Proposition is true, we need the following corollary:
+
+Let us write the highest power of p appearing in the prime factorization of n as $v_p(n)$. For example: $v_2(12) = 2, v_3(12) = 1, v_5(12) = 0$. Then we have the following corollary:
+
+If m and n are positive integers, then $m | n \iff v_p(m) \leq v_p(n)$ for all primes p.\begin{proof}
+    Prove both directions:
+    \begin{itemize}
+        \item $\implies$: Suppose $m | n$. Then $n = mk$ for some $k \in \mathbb{Z}$. Then $v_p(n) = v_p(mk) = v_p(m) + v_p(k) \ge v_p(m)$.
+        \item $\impliedby$: Suppose $0\leq v_p(m) \leq v_p(n)$ for all primes p. Then $n = mk$ for some $k \in \mathbb{Z}$. Then $v_p(n) = v_p(mk) = v_p(m) + v_p(k) \ge v_p(m)$. Therefore, $m | n$. Redo this proof !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    \end{itemize}
+\end{proof}
+
+Now back to the Proposition: \begin{proof}
+    By the Corollary above: $\forall$ common divisor m and n is of the form $p_1^{f_1}\ldots p_k^{f_k}$ where $f_i \leq \min(d_i,e_i)$. 
+    
+    Therefore, The largest common divisor is exactly where $f_i = \min(d_i,e_i)$. Therefore, $\gcd(n,m) = p_1^{\min(d_1,e_1)}\ldots p_k^{\min(d_k,e_k)}$.
+
+    If we count for negatives, just add $\pm$ in front of the powers.
+
+    Proof of lcm is similar. Do it yourself!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+\end{proof}
+
+Corollary: $\gcd(n,m) \times \text{lcm}(n,m) = nm$. \begin{proof}
+    $\max(d_i,e_i)+\min(d_i,e_i) = d_i+e_i$. Therefore, $\gcd(n,m) \times \text{lcm}(n,m) = nm$.
+\end{proof}
+
+
 
 \end{document}
