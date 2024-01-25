@@ -87,3 +87,24 @@ fib:
     --ANS8-- mov x0, x4 //move the result to x0 
 end:
     ret
+
+
+//mie's code
+fib:
+    cmp x0, 1 //I would assume that this is the base case, if x0 = 1, it should return 1 directly.
+    --ANS1-- b.le end //if it is 1 or smaller, should reutrn 1 directly
+    --ANS2-- sub sp, sp, 16 //allocate space for the return address and the value of x0
+    str lr, [sp, 8] //store the return address
+    --ANS3-- sub x0, x0, 1 //decrement the number of iterations left and pass to next recursion
+    str x0, [sp] //store the value of n-1
+    --ANS4-- bl fib //do recursion here fib(n-1)
+    --ANS5-- ldr x1, [sp] //load n-1 back
+    --ANS6-- str x0, [sp] //store the result of fib(n-1)
+    sub x0, x1, 1 //decrement the number of iterations left and pass to next recursion
+    bl  fib
+    ldr x1, [sp]
+    --ANS7-- add x0, x0, x1 //add the result of fib(n-1) and fib(n-2)
+    ldr lr, [sp, 8] //but the stack pointer is not increased
+    --ANS8-- //maybe used some repetitive code here
+end:
+    ret

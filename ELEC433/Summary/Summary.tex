@@ -359,14 +359,21 @@ Let $\mathbb{F}$:\begin{itemize}
           closed under addition and scalar multiplication. So $\forall u,v\in V,
               \lambda\in \mathbb{F}, u+v\in V, \lambda u\in V$.
     \item $v_1,v_2,\ldots,v_k\in \mathbb{F}^n$ are \textbf{linearly independent} if $\lambda_1v_1+\lambda_2v_2+\ldots+\lambda_kv_k=0$ implies that $\lambda_1=\lambda_2=\ldots=\lambda_k=0$.
-    \item For $v_1,v_2,\ldots,v_k\in \mathbb{F}^n$, the \textbf{span} of $v_1,v_2,\ldots,v_k$ is the set of all linear combinations of $v_1,v_2,\ldots,v_k$. So $\text{span}(v_1,v_2,\ldots,v_k)=\{\lambda_1v_1+\lambda_2v_2+\ldots+\lambda_kv_k: \lambda_1,\lambda_2,\ldots,\lambda_k\in \mathbb{F}\}=\{\sum_i \lambda_i v_i:\lambda \in \mathbb{F}\}$.
-    \item A \textbf{basis} for a subspace $V\subseteq \mathbb{F}^n$ is a set of linearly independent vectors that span $V$.
-    \item The \textbf{dimension} of a subspace $V\subseteq \mathbb{F}^n$ is the number of vectors in a basis for $V$.
+    \item For $v_1,v_2,\ldots,v_k\in \mathbb{F}^n$, the \textbf{span} of
+          $v_1,v_2,\ldots,v_k$ is the set of all linear combinations of
+          $v_1,v_2,\ldots,v_k$. So
+          $\text{span}(v_1,v_2,\ldots,v_k)=\{\lambda_1v_1+\lambda_2v_2+\ldots+\lambda_kv_k:
+              \lambda_1,\lambda_2,\ldots,\lambda_k\in \mathbb{F}\}=\{\sum_i \lambda_i
+              v_i:\lambda \in \mathbb{F}\}$.
+    \item A \textbf{basis} for a subspace $V\subseteq \mathbb{F}^n$ is a set of linearly
+          independent vectors that span $V$.
+    \item The \textbf{dimension} of a subspace $V\subseteq \mathbb{F}^n$ is the number of
+          vectors in a basis for $V$.
 \end{itemize}
 
 \subsection{Linear Block Codes over Finite Fields}
 \begin{definition}
-    A linear block code $\mathcal{C}$ of length $n$ and dimension $k$ over a finite field $\mathbb{F}$ is a $k-$dimension linear subspace of $\mathbb{F}^n$. So $\mathcal{C}\subseteq \mathbb{F}^n$. The elements $c\in \mathcal{C}$ are called codewords.  
+    A linear block code $\mathcal{C}$ of length $n$ and dimension $k$ over a finite field $\mathbb{F}$ is a $k-$dimension linear subspace of $\mathbb{F}^n$. So $\mathcal{C}\subseteq \mathbb{F}^n$. The elements $c\in \mathcal{C}$ are called codewords.
 \end{definition}
 Note that if we connect to previous definitions, it is the same as block length $n$ and message length $k$ over alphabet $\Sigma = \mathbb{F}$.\[
     \mathcal{C} \text{ is a ``linear code''}\implies \mathcal{C} \text{ is a linear subspace of } \mathbb{F}^n
@@ -376,15 +383,17 @@ Note that if we connect to previous definitions, it is the same as block length 
     Let $\mathcal{C}\subseteq \mathbb{F}^n$ be a linear block code of length $n$ and dimension $k$. A generator matrix $G$ for $\mathcal{C}$ is a $n\times k$ matrix such that $\mathcal{C}=\{G\cdot X: X\in \mathbb{F}^k\}$.
 \end{definition}
 \includegraphics*{./Images/Generator Matrix.png}
-$[G] = 
-\begin{bmatrix}
-    I_k \\
-    A
+$[G] =
+    \begin{bmatrix}
+        I_k \\
+        A
     \end{bmatrix}$
 
 Observations:\begin{itemize}
-    \item Any linear code has a generator matrix. (Choose any basis for the code and put the basis vectors as the columns of the generator matrix.)
-    \item The generator matrix is not unique. (Different bases will give different generator matrices.)
+    \item Any linear code has a generator matrix. (Choose any basis for the code and put
+          the basis vectors as the columns of the generator matrix.)
+    \item The generator matrix is not unique. (Different bases will give different
+          generator matrices.)
 \end{itemize}
 A generator like the above is called a \textbf{systematic generator matrix} where $I_k$ is the identity matrix of size $k$ and $A$ is a $(n-k)\times k$ matrix. It is called systematic because the message is part of the codeword.
 
@@ -392,44 +401,122 @@ A generator like the above is called a \textbf{systematic generator matrix} wher
 \begin{definition}
     Let $\mathcal{C}\subseteq \mathbb{F}^n$ be a linear block code of length $n$ and dimension $k$. A parity check matrix $H\in \mathbb{F}^{(n-k)\times k}$ for $\mathcal{C}$ is a $(n-k)\times n$ matrix such that $\mathcal{C}=\{C\in \mathbb{F}^n: H\cdot C=0\}$. $H$ is the kernel matrix of $G$.
 \end{definition}
-\includegraphics*{./Images/Parity Matrix.png} 
+\includegraphics*{./Images/Parity Matrix.png}
 
 $[H]= \begin{bmatrix}
-    B_{(n-k)\times k} & I_{k}
-\end{bmatrix}$
+        B_{(n-k)\times k} & I_{k}
+    \end{bmatrix}$
 
 Observations:\begin{itemize}
-    \item Any linear code has a parity check matrix. 
-    \item The parity check matrix is not unique. 
+    \item Any linear code has a parity check matrix.
+    \item The parity check matrix is not unique.
 \end{itemize}
 A parity check matrix like the above is called a \textbf{systematic parity check matrix} where $I_{(n-k)}$ is the identity matrix of size $(n-k)$ and $B$ is a $(n-k)\times k$ matrix. It is called systematic because the message is part of the codeword.
 \subsubsection{Relationship between G and H}
 Question:
 
-Let $\mathcal{C}$ be a linear code of dimension $k$ and length $n$ over $\mathbb{F}=\{0,1\}$. Let $G$ be a generator matrix for $\mathcal{C}$ and $H$ be a parity check matrix for $\mathcal{C}$. What is the relationship between $G$ and $H$, or more specifically what is the relationship between $A$ and $B$?
+Let $\mathcal{C}$ be a linear code of dimension $k$ and length $n$ over
+$\mathbb{F}=\{0,1\}$. Let $G$ be a generator matrix for $\mathcal{C}$ and $H$
+be a parity check matrix for $\mathcal{C}$. What is the relationship between
+$G$ and $H$, or more specifically what is the relationship between $A$ and $B$?
 
-Let the original message be $X$. Note that $A \cdot X$ is the parity bits. 
+Let the original message be $X$. Note that $A \cdot X$ is the parity bits.
 
 Then we can write the codeword as $C = G \cdot X = \begin{bmatrix}
-    I_k \\
-    A
-\end{bmatrix} \cdot X = \begin{bmatrix}
-X \\
-(A \cdot X)
-\end{bmatrix}$. Also, we know that $H \cdot C = 0$. So \[
+        I_k \\
+        A
+    \end{bmatrix} \cdot X = \begin{bmatrix}
+        X \\
+        (A \cdot X)
+    \end{bmatrix}$. Also, we know that $H \cdot C = 0$. So \[
     \begin{bmatrix}
         B_{(n-k)\times k} & I_{k}
     \end{bmatrix} \cdot \begin{bmatrix}
         X_{k\times k} \\
         (A \cdot X)_{(n-k)\times k}
-    \end{bmatrix} = 0 \implies B \cdot X + I \cdot (A \cdot X) = 0 
+    \end{bmatrix} = 0 \implies B \cdot X + I \cdot (A \cdot X) = 0
 \]
-So $B+A=0$ note that the addition is the addition defined in the field $\mathbb{F} = \{0,1\}$. So $B + A = 0 \implies B = A$ in a binary sense.
+So $B+A=0$ note that the addition is the addition defined in the field
+$\mathbb{F} = \{0,1\}$. So $B + A = 0 \implies B = A$ in a binary sense.
+\subsubsection{usful facts about linear code:}
+Let $\mathcal{C}$ be a linear code of dimension $k$ and length $n$ over
+$\mathbb{F}=\{0,1\}$. Let $G$ be a generator matrix for $\mathcal{C}$ and $H$
+be a parity check matrix for $\mathcal{C}$.
+\begin{enumerate}
+    \item $H\cdot G=0,\forall C\in \mathcal{C}, C=G\cdot X, H\cdot C=0$. This is because $H\cdot C=H\cdot (G\cdot X)=(H\cdot G)\cdot X=0\cdot X=0$.
+    \item For $\mathbb{F}_2$, any linear code has a systematic generator matrix $\begin{bmatrix}
+                  I_k \\
+                  A
+              \end{bmatrix}$ and systematic parity check matrix $\begin{bmatrix}
+                  A \\
+                  I_{n-k}
+              \end{bmatrix}$.
+    \item Any column of $G$ is a codeword. This is because $H\cdot G=0$ which implies
+          each column of $G$ has $H$ as a kernel. So each column of $G$ is a codeword.
+    \item The distance of $\mathcal{C}$ is the same as the minimum weight of the non-zero
+          codewords in $\mathcal{C}$. This is because $\min d(C_1,C_2)=\min wt(C_1\oplus
+              C_2)=\min wt(C_1-C_2)$. Now if one of $C_1$ and $C_2$ is 0, then $C_1-C_2=C_1$
+          (if $C_2$ is zero here)
+    \item let $\mathcal{C}$ have distance $d$. \begin{itemize}
+              \item there are some $d$ columns of $H$ that are linearly dependednt.
+              \item Anye $d-1$ columns of $H$ are linearly independent.
+          \end{itemize}\begin{proof}
+              By fact 4, $\exists$ some $C\in\mathcal{C}$ with $wt(C)=d, HC=0$. Thus these $d$ columns of $H$ are linearly dependent to add up to 0 somehow.
+
+              $\forall y$ with $wt(y)\le d-1$, $Hy\neq 0$ So $Hy$ is a linearly independent set of columns of $H$.
+          \end{proof}
+\end{enumerate}
+\subsection{Decoding Linear Block Codes}
+\subsubsection{Error Correction}
+Let $\mathcal{C}$ be a linear code of distance $d$. Then $\mathcal{C}$ can
+correct $\lfloor \frac{d-1}{2}\rfloor$ errors.
+
+Input: $\tilde{C}$, a codeword\begin{enumerate}
+    \item If $\tilde{C}\in \mathcal{C}$, then return $\tilde{C}$. (No errors or too many errors)
+    \item else Find $C\in \mathcal{C}$ such that $d(\tilde{C},C)\le \lfloor
+              \frac{d-1}{2}\rfloor$. If such $C$ exists, then return $C$. The Algorithm is as follows:
+          \begin{enumerate}
+              \item for $i=1,2,\ldots,e$
+              \item for $S\subseteq \{1,2,\ldots,n\}$ with $|S|=i$ ($|S|$ is the number of non-zero
+                    elements in the error vector. $S$ is the position of non-zero elements)
+              \item let $e_{n\times 1}$ be the error vector with all possible value in $\mathbb{F}$
+                    code space. in the $i$th position and $0$ elsewhere. (Test all combinations of
+                    possible values in the code space with positions specified by $S$)
+              \item if $\tilde{C}-e\in \mathcal{C}$, then return $\tilde{C}+e$.
+              \item If all possibilities are explored, then return ``fail''.
+          \end{enumerate}
+\end{enumerate}
+\subsubsection{Error Detection}
+Let $\mathcal{C}$ be a linear code of parity matrix $H$.
+
+Input: $\tilde{C}$. A codeword\begin{enumerate}
+    \item If $H\cdot \tilde{C}=0$, then return ``no error''.
+    \item else return ``error''.
+\end{enumerate}
+Remark: This algorithm can guarantee to detection of $d-1$ errors. For more than $d$ errors, it might or might not detect them. It depends on the error pattern. When we detect them,  it might be because we thought the correct code is another one that is within the Hamming ball of radius $0\le e \le d-1$. So we can detect it. 
 
 
+\section{Generalize Hamming Codes}
+Generalized Hamming codes are linear block codes. $(2^r-1, 2^r-r-1,3)_2$-code. So $n=2^r-1$, $k=2^r-r-1$, $d=3$.
 
+The (7,4,3) version of Hamming code we see before is $r=3$.
 
+$H_3 = \begin{bmatrix}
+        0 & 0 & 0 & 1 & 1 & 1 & 1 \\
+        0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+        1 & 0 & 1 & 0 & 1 & 0 & 1
+    \end{bmatrix}$ Note that each column is just a binary representation of number $\begin{bmatrix}
+        1 & 2 & 3 & 4 & 5 & 6 & 7
+    \end{bmatrix}$
 
+For integer $r\ge 3$, define $H_r$ as a $r\times (2^r-1)$ matrix with columns as the binary representation of the numbers $1,2,\ldots,2^r-1$.
+
+Then $\mathcal{C}_r = \{C\in \{0,1\}^{2^r-1}: H_r\cdot C^T=0\}$ is a linear block code of length $2^r-1$ and dimension $2^r-r-1$. It is called the $(2^r-1, 2^r-r-1,3)_2$-code.
+
+Remark: Hamming bound of $(2^r-1, 2^r-r-1,3)_2$-code is \[
+    1-\frac{r}{2^r-1}=\frac{2^r-r-1}{2R-1}=\frac{k}{n}\le 1-\frac{\log_q(\text{Vol}_q(\lfloor \frac{d-1}{2}\rfloor,n))}{n}=1-\frac{\log_2(2^r)}{2^r-1}=1-\frac{r}{2^r-1}
+\]
+Achieved by equality, so-called perfect code. 
 
 
 
