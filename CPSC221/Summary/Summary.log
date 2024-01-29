@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  22 JAN 2024 21:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.17)  28 JAN 2024 20:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -308,29 +308,35 @@ File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
 File: listings.cfg 2023/02/27 1.9 listings configuration
 ))
 Package: listings 2023/02/27 1.9 (Carsten Heinz)
+ (e:/TeX live/texlive/2023/texmf-dist/tex/latex/psnfss/times.sty
+Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
+)
 \c@theorem=\count296
 \c@definition=\count297
- (./Summary.aux)
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 27.
+ (e:/TeX live/texlive/2023/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+) (./Summary.aux)
 \openout1 = `Summary.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
  (e:/TeX live/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count298
@@ -350,55 +356,59 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (e:/TeX live/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 24.
+Package hyperref Info: Link coloring OFF on input line 27.
 \c@lstlisting=\count304
-LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 29.
  (e:/TeX live/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 29.
  (e:/TeX live/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1{e:/TeX live/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+)
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 31.
+ (e:/TeX live/texlive/2023/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+) [1{e:/TeX live/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{e:/TeX live/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
-{e:/TeX live/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] (e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
+] (e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (e:/TeX live/texlive/2023/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
 )
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 55.
- (e:/TeX live/texlive/2023/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 58.
+ (e:/TeX live/texlive/2023/texmf-dist/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
 )
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 55.
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 56.
- (e:/TeX live/texlive/2023/texmf-dist/tex/latex/base/omlcmr.fd
-File: omlcmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 58.
+LaTeX Font Info:    Trying to load font information for OML+ptm on input line 59.
+ (e:/TeX live/texlive/2023/texmf-dist/tex/latex/psnfss/omlptm.fd
+File: omlptm.fd 
 )
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 56.
- [2] [3] [4] [5] [6] [7] [8] (./Summary.aux)
+LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <12> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 59.
+ [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] (./Summary.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 12666 strings out of 474934
- 193511 string characters out of 5759289
- 1943801 words of memory out of 5000000
- 33925 multiletter control sequences out of 15000+600000
- 567516 words of font info for 72 fonts, out of 8000000 for 9000
+ 12933 strings out of 474934
+ 197312 string characters out of 5759289
+ 1955801 words of memory out of 5000000
+ 34072 multiletter control sequences out of 15000+600000
+ 577451 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,12n,93p,606b,1418s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Summary.pdf (8 pages, 152563 bytes).
+ 89i,11n,93p,746b,1928s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><e:/TeX live/texlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Summary.pdf (12 pages, 150226 bytes).
 PDF statistics:
- 303 PDF objects out of 1000 (max. 8388607)
- 266 compressed objects within 3 object streams
- 126 named destinations out of 1000 (max. 500000)
- 145 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 475 PDF objects out of 1000 (max. 8388607)
+ 434 compressed objects within 5 object streams
+ 230 named destinations out of 1000 (max. 500000)
+ 241 words of extra memory for PDF output out of 10000 (max. 10000000)
 

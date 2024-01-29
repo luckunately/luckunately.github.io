@@ -7,6 +7,9 @@
 \usepackage{bookmark}
 \usepackage{bbm}
 \usepackage{listings}
+\usepackage{times}
+
+
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
 
@@ -260,17 +263,140 @@ int main(){
     delete p;
 }
 \end{lstlisting}
-The above code is an example of memory leak. The first new operator allocates memory for an integer and returns a pointer to the memory. The second new operator allocates memory for another integer and returns a pointer to the memory. The delete operator deallocates the memory for the second integer. However, the memory for the first integer is not deallocated. This is a memory leak.
+The above code is an example of a memory leak. The first new operator allocates memory for an integer and returns a pointer to the memory. The second new operator allocates memory for another integer and returns a pointer to the memory. The delete operator deallocates the memory for the second integer. However, the memory for the first integer is not deallocated. This is a memory leak.
 
+\section{Linked List}
+A linked list is a data structure that stores a sequence of elements. Each element is a node that contains a value and a pointer to the next node. The last node points to NULL.
 
+\subsection{Node Pointers}
+\begin{lstlisting}[language=C++]
+struct Node{
+    //Can be any type of data stored in the node
+    type value;
+    Node * next;
+    //Constructor, by default next is NULL
+    Node(type value, Node * next = NULL){
+        this->value = value;
+        this->next = next;
+    }
+};
+\end{lstlisting}
+example of the implementation of a node.
+\begin{lstlisting}
+Node * head = new Node(3);
+Node * second = new Node(5);
+Node * third = new Node(7);
+head->next = second;
+//head->next->next = third;
+second->next = third;
+//Both of the above are equivalent
+\end{lstlisting}
+\subsubsection{Traversing a linked list}
+\begin{lstlisting}[language=C++]
+Node * current = head;
+while(current != NULL){
+    cout << current->value << endl;
+    current = current->next;
+}
+\end{lstlisting}
+The above code traverses the linked list and prints out the value of each node.
+\subsubsection{Inserting a node}
+\begin{lstlisting}[language=C++]
+//Insert a node after the current node with the value
+void insert(Node * & current_head, int value){
+    Node * new_node = new Node(value);
+    new_node->next = current_head->next;
+    current_head->next = new_node;
+}
+\end{lstlisting}
+\subsubsection{Deleting a node}
+\begin{lstlisting}[language=C++]
+//Delete the node after the current node
+void delete(Node * & current_head){
+    Node * temp = current_head->next;
+    current_head->next = current_head->next->next;
+    delete temp;
+}
+\end{lstlisting}
+\subsection{Other features with linked list}
+List out other possible add-on features of linked list to improve the efficiency of the linked list.
+\subsubsection{Linkage}
+\begin{itemize}
+    \item Singly linked list: each node only points to the next node.
+    \item Doubly linked list: each node points to the next node and the previous node.
+\end{itemize}
+\subsubsection{Access/Entry}
+\begin{itemize}
+    \item Front/Head pointer: a pointer to the first node.
+    \item Back/Tail pointer: a pointer to the last node.
+\end{itemize}
+\subsubsection{Termination}
+\begin{itemize}
+    \item Circular linked list: the last node points to the first node.
+    \item Sentinel node: a dummy node that is always there. The first node points to the head sentinel node. The last node points to the last sentinel node.
+    \item NULL: the last node points to NULL.
+\end{itemize}
+\subsection{double linked list}
+Links to the previous node and the next node. It is useful for traversing the linked list backward. However, it takes more space and time to maintain the links.
+\begin{lstlisting}[language=C++]
+struct Node{
+    //Can be any type of data stored in the node
+    type value;
+    Node * next;
+    Node * prev;
+    //Constructor, by default next is NULL
+    Node(type value, 
+        Node * next = NULL, 
+        Node * prev = NULL){
+        this->value = value;
+        this->next = next;
+        this->prev = prev;
+    }
+};
+//Insert a node after the current node with the value
+void insert(Node * & current_head, int value){
+    Node * new_node = new Node(value);
+    //Note the order of the following two lines
+    new_node->next = current_head->next;
+    new_node->prev = current_head;
+    current_head->next->prev = new_node;
+    current_head->next = new_node;
+} 
+//Delete the given node
+void delete(Node * & target){
+    target->prev->next = target->next;
+    target->next->prev = target->prev;
+    delete target;
+} 
+\end{lstlisting}
+\subsection{Recursive nature of linked list}
+Consider that we need to print the value of each node in a signly linked list.
 
+If we access each node independently, then we have to start from the head each time. Each visit is $O(n)$, so the total running time is $O(n^2)$.
 
-
-
-
-
-
-
+If we use recursion, then we can start from the head and print the value of the current node. Then we can recursively call the function on the next node. Each visit is $O(1)$, so the total running time is $O(n)$.
+\begin{lstlisting}
+void print(Node * current){
+    if(current == NULL){
+        return;
+    }
+    cout << current->value << endl;
+    print(current->next);
+}
+\end{lstlisting}
+\subsubsection{Reverse a linked list and print odd-numbered nodes}
+\begin{lstlisting}
+    void PrintReverseOdds(Node * current){
+        //Base case, last one or second last one
+        if(current == NULL || current->next == NULL){
+            return;
+        }
+        //Recursive step
+        //recurse first to print the last one first
+        PrintReverseOdds(current->next->next);
+        cout << current->value << endl;
+    }
+\end{lstlisting}
 
 
 
