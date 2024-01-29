@@ -6,6 +6,7 @@
 \usepackage{amsthm}
 \usepackage{bookmark}
 \usepackage{listings}
+\usepackage{times}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
 \title{Summary of Math 312}
@@ -397,7 +398,7 @@ Let $d = \gcd(a,b)$. \begin{enumerate}
           solution'' means that $(x,y)$ is a solution for every integer value of t, and
           every integer solution can be expressed in this form.
 \end{enumerate}
-\subsubsection{Proof of the theorem}
+\subsubsection{Key Lemma}
 Before proving the theorem, we need to prove the following lemma:
 
 \textbf{Key Lemma}: Let $a, b, c \in \mathbb{Z}, (a, b) \neq (0, 0)$. Let $d = \gcd(a, b) = 1$. Then $a|bc \implies a|c$.
@@ -405,7 +406,7 @@ Before proving the theorem, we need to prove the following lemma:
 Note that the lemma is not true if $d \neq 1$. \begin{proof}
     By Bezout's theorem, $\gcd(a,b)=1 \implies ax+by=1$ for some $x, y \in \mathbb{Z}$. Then multiply both sides by $c$: $acx+bcy=c$. Then $a|acx+bcy=c$ as defined in the Lemma.
 \end{proof}
-
+\subsubsection{Proof of the general solution theorem}
 With the Lemma in hand, we can start proving the theorem:\begin{proof}
     \begin{itemize}
         \item First need to show that $x=x_0+\frac{b}{d}t, y=y_0-\frac{a}{d}t$ is a solution
@@ -414,7 +415,7 @@ With the Lemma in hand, we can start proving the theorem:\begin{proof}
               We have $ax_0+by_0=ax+by=c$. Then \begin{align*}
                   ax+by & = a(x_0+\frac{b}{d}t) + b(y_0-\frac{a}{d}t)   \\
                         & = ax_0 + \frac{ab}{d}t + by_0 - \frac{ab}{d}t \\
-                        & = ax_0 + by_0 = d
+                        & = ax_0 + by_0 = c
               \end{align*}
 
               Therefore, we showed that $x=x_0+\frac{b}{d}t, y=y_0-\frac{a}{d}t$ is a
@@ -530,10 +531,10 @@ primes p.\begin{proof}
 Now back to the Proposition: \begin{proof}
     By the Corollary above: $\forall$ common divisor m and n is of the form $p_1^{f_1}\ldots p_k^{f_k}$ where $f_i \leq \min(d_i,e_i)$.
 
-    Therefore, The largest common divisor is exactly where $f_i = \min(d_i,e_i)$.
+    Therefore, The greatest common divisor is exactly where $f_i = \min(d_i,e_i)$.
     Therefore, $\gcd(n,m) = p_1^{\min(d_1,e_1)}\ldots p_k^{\min(d_k,e_k)}$.
 
-    If we count for negatives, just add $\pm$ in front of the powers.
+    If we count for negatives, just add $\pm$ in front of the primes.
 
     Proof of lcm is similar. $\forall$ lcm of m and n is of the form
     $p_1^{f_1}\ldots p_k^{f_k}$ where $f_i \geq \max(d_i,e_i)$. Therefore,
