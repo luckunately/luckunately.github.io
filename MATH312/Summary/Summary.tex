@@ -544,5 +544,27 @@ Now back to the Proposition: \begin{proof}
 Corollary: $\gcd(n,m) \times \text{lcm}(n,m) = nm$. \begin{proof}
     $\max(d_i,e_i)+\min(d_i,e_i) = d_i+e_i$. Therefore, $\gcd(n,m) \times \text{lcm}(n,m) = nm$.
 \end{proof}
+\section{Congruences}
+\begin{definition}
+    Let $a, b, n \in \mathbb{Z}, n \ge 2$. We say that $a$ is \textbf{congruent} to $b$ modulo $n$ if $n | (a-b)$. We write $a \equiv b \pmod{n}$.
+\end{definition}
+Note that $\forall a ,n \in \mathbb{Z}, n \ge 2, a\equiv b \pmod{n}$ for some $b \in \mathbb{Z}, 0\le b \le n-1$.
+
+Congruences mod n may be thought of as a way of focusing on the remainder and casting out (ignoring) the quotient (multiples of n).
+\subsection{Properties of congruences}
+\begin{align*}
+    a & \equiv a \pmod{n} \forall a, n \in \mathbb{Z}\\
+    a & \equiv b \pmod{n} \implies b \equiv a \pmod{n}\\
+    a & \equiv b \pmod{n} \land b \equiv c \pmod{n} \implies a \equiv c \pmod{n}\\
+    a & \equiv b \pmod{n} \land c \equiv d \pmod{n} \implies a+c \equiv b+d \pmod{n}\\
+    a & \equiv b \pmod{n} \land c \equiv d \pmod{n} \implies ac \equiv bd \pmod{n}\\
+    a & \equiv b \pmod{n} \implies ac \equiv bc \pmod{n}\\
+    a & \equiv b \pmod{n} \implies a^k \equiv b^k \pmod{n} \forall k \in \mathbb{N}
+\end{align*}
+Note that it is reflective, symmetric and transitive. It is also closed under addition, multiplication and exponentiation.
+
+
+
+
 
 \end{document}
