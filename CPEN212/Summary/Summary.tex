@@ -455,12 +455,12 @@ Heap and stack grow towards each other. The stack grows downwards. The heap grow
               \item garbage collection: the memory is automatically deallocated when it is no
                     longer used. It is used in languages like Java and Python.
               \item reference counting: the memory is automatically deallocated when the reference
-                    count is zero. It is used in languages like C++. (There are limitations to
+                    the count is zero. It is used in languages like C++. (There are limitations to
                     this, for example, circular references)
               \item Hard to implement but easy to use
           \end{itemize}
     \item manual: allocate and deallocate pairs. \begin{itemize}
-              \item malloc()+free() or new+delete comes in pairs. (It is a contract that must be obeyed)
+              \item malloc()+free() or new()+delete() comes in pairs. (It is a contract that must be obeyed)
               \item easy to implement but hard to use. (lots of bugs)
           \end{itemize}
 \end{itemize}
@@ -525,8 +525,42 @@ As shown in the figure, if we just free the 4-byte block, we will have two free 
 Note that we can use either the header or the boundary tag to track the neighboring blocks. So it does not matter if the free neighboring block is at the higher address or the lower address. We can always find it by checking the status and the size of the neighboring blocks.
 
 In some cases, we might need to connect both neighboring blocks together if it happens that they are both free.
+\subsection{explicit freelist}
+The above section is an example of an implicit freelist. The freelist is implicit because it is not explicitly stored. It is stored in the heap itself. We need to find them by checking the status of the neighboring blocks.
 
+We can also have an explicit freelist. We can have a linked list of free blocks. Each free block contains a pointer to the next free block. This is called an explicit freelist because the freelist is explicitly stored in the heap. 
 
+\includegraphics{Images/Doble-linked explicit freelist.png}
+\subsubsection{data structure}
+For a double-linked list, we can have a pointer to the next free block and a pointer to the previous free block. This is called a doubly linked list. It is useful when we want to remove a block from the list. We can just change the pointers of the previous and the next block to remove the current block from the list.
+
+\includegraphics{Images/explicit freelist data structure.png}
+
+This way, we can find the free block by just following the pointers. We can also remove the block from the list by changing the pointers. We can also add a block to the list by changing the pointers.
+\subsubsection{Coalescing}
+Note that coalescing is not achieved by the explicit freelist since it does not know the neighboring blocks. We need to use the implicit freelist to coalesce the blocks. So we still need to header and footer to track the neighboring blocks.
+
+\subsubsection{Optimizing boundary tags}
+Consider when we use the boundary tags? We use it when we want to coalesce the blocks. So we can optimize the boundary tags by only using it when we want to coalesce the blocks which would only happen for the free blocks. 
+
+To know if the previous block is free, we use another bit in the header to indicate if the previous block is free. Note that lower bits of size can be omitted because of alignment with bytes reason.
+
+\includegraphics{Images/Optimizing boundary tags.png}
+\subsection{segregated free lists}
+If we mix all sizes of free blocks in one list, then it becomes hard to track the sizes and find the best one to use and do coalescing. 
+
+It is better to keep a list for some special size of blocks. Usually, $2^k$ bytes or Fibonacci bytes. The reason for choosing these two is that they add up to each other, making them easy to do coalesce. 
+
+\subsubsection{buddy allocator}
+\begin{itemize}
+    \item what if one FL is empty? Just steal another block from the FL with larger sizes and break it into two.
+    \item what if we coaleasce? Just put the coalesced block into the FL with larger sizes.
+\end{itemize}
+\subsubsection{slab allocator}
+\begin{itemize}
+    \item what if common sizes are not powers of 2? Fro example, we use size of 3 all the time. Then we waste internal fragmentation overhead of 25\%.
+    \item We can fix it by using slab allocator. We can allocate a slab of memory and divide it into blocks of the same size. Then we can use the blocks to allocate memory. For example, we have so many size 3 right? Just pick a 256 block and break them to allocate size 3. Overhead is only $\frac{255}{256}=0.4$\%.
+\end{itemize}
 
 \end{document}
 
