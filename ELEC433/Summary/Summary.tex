@@ -454,9 +454,9 @@ be a parity check matrix for $\mathcal{C}$.
     \item Any column of $G$ is a codeword. This is because $H\cdot G=0$ which implies
           each column of $G$ has $H$ as a kernel. So each column of $G$ is a codeword.
     \item The distance of $\mathcal{C}$ is the same as the minimum weight of the non-zero
-          codewords in $\mathcal{C}$. This is because $\min d(C_1,C_2) = \min d(C_1-C2,0)=\min wt(C_1\oplus
-              C_2)=\min wt(C_1-C_2)$. Now if one of $C_1$ and $C_2$ is 0, then $C_1-C_2=C_1$
-          (if $C_2$ is zero here)
+          codewords in $\mathcal{C}$. This is because $\min d(C_1,C_2) = \min
+              d(C_1-C2,0)=\min wt(C_1\oplus C_2)=\min wt(C_1-C_2)$. Now if one of $C_1$ and
+          $C_2$ is 0, then $C_1-C_2=C_1$ (if $C_2$ is zero here)
     \item let $\mathcal{C}$ have distance $d$. \begin{itemize}
               \item there are some $d$ columns of $H$ that are linearly dependednt.
               \item Any $\le d-1$ columns of $H$ are linearly independent.
@@ -472,9 +472,11 @@ Let $\mathcal{C}$ be a linear code of distance $d$. Then $\mathcal{C}$ can
 correct $\lfloor \frac{d-1}{2}\rfloor$ errors.
 
 Input: $\tilde{C}$, a codeword\begin{enumerate}
-    \item If $\tilde{C}\in \mathcal{C}$, then return $\tilde{C}$. (No errors or too many errors)
+    \item If $\tilde{C}\in \mathcal{C}$, then return $\tilde{C}$. (No errors or too many
+          errors)
     \item else Find $C\in \mathcal{C}$ such that $d(\tilde{C},C)\le \lfloor
-              \frac{d-1}{2}\rfloor =e$. If such $C$ exists, then return $C$. The Algorithm is as follows:
+              \frac{d-1}{2}\rfloor =e$. If such $C$ exists, then return $C$. The Algorithm is
+          as follows:
           \begin{enumerate}
               \item for $i=1,2,\ldots,e$
               \item for $S\subseteq \{1,2,\ldots,n\}$ with $|S|=i$ ($|S|$ is the number of non-zero
@@ -493,16 +495,19 @@ Input: $\tilde{C}$. A codeword\begin{enumerate}
     \item If $H\cdot \tilde{C}=0$, then return ``no error''.
     \item else return ``error''.
 \end{enumerate}
-Remark: This algorithm can guarantee to detection of $d-1$ errors. For more than $d$ errors, it might or might not detect them. It depends on the error pattern. When we detect them,  it might be because we thought the correct code is another one that is within the Hamming ball of radius $0\le e \le d-1$. So we can detect it. 
+Remark: This algorithm can guarantee to detection of $d-1$ errors. For more than $d$ errors, it might or might not detect them. It depends on the error pattern. When we detect them,  it might be because we thought the correct code is another one that is within the Hamming ball of radius $0\le e \le d-1$. So we can detect it.
 
-Note: Any error pattern corresponding to linearly independent columns of $H$ can be detected. For example, ENC$(x_1,x_2,x_3)=(x_1,x_2,x_3,x_1+x_2+x_3)$, $H=\begin{bmatrix}
+Note: Any error pattern corresponding to linearly independent columns of $H$
+can be detected. For example, ENC$(x_1,x_2,x_3)=(x_1,x_2,x_3,x_1+x_2+x_3)$, $H=\begin{bmatrix}
         1 & 0 & 0 & 1 \\
         0 & 1 & 0 & 1 \\
         0 & 0 & 1 & 1
     \end{bmatrix}$
-    Can detect any odd number of errors. Because any odd number of errors will correspond to linearly independent columns of $H$.
-\section{Generalize Hamming Codes}
-Generalized Hamming codes are linear block codes. $(2^r-1, 2^r-r-1,3)_2$-code. So $n=2^r-1$, $k=2^r-r-1$, $d=3$.
+Can detect any odd number of errors. Because any odd number of errors will correspond to linearly independent columns of $H$.
+
+\subsection{Generalize Hamming Codes}
+Generalized Hamming codes are linear block codes. $(2^r-1, 2^r-r-1,3)_2$-code.
+So $n=2^r-1$, $k=2^r-r-1$, $d=3$.
 
 The (7,4,3) version of Hamming code we see before is $r=3$.
 
@@ -514,23 +519,124 @@ $H_3 = \begin{bmatrix}
         1 & 2 & 3 & 4 & 5 & 6 & 7
     \end{bmatrix}$
 
-For integer $r\ge 3$, define $H_r$ as a $r\times (2^r-1)$ matrix with columns as the binary representation of the numbers $1,2,\ldots,2^r-1$.
+For integer $r\ge 3$, define $H_r$ as a $r\times (2^r-1)$ matrix with columns
+as the binary representation of the numbers $1,2,\ldots,2^r-1$.
 
-Then $\mathcal{C}_r = \{C\in \{0,1\}^{2^r-1}: H_r\cdot C^T=0\}$ is a linear block code of length $2^r-1$ and dimension $2^r-r-1$. It is called the $(2^r-1, 2^r-r-1,3)_2$-code.
+Then $\mathcal{C}_r = \{C\in \{0,1\}^{2^r-1}: H_r\cdot C^T=0\}$ is a linear
+block code of length $2^r-1$ and dimension $2^r-r-1$. It is called the $(2^r-1,
+    2^r-r-1,3)_2$-code.
 
 Remark: Hamming bound of $(2^r-1, 2^r-r-1,3)_2$-code is \[
     1-\frac{r}{2^r-1}=\frac{2^r-r-1}{2^r-1}=\frac{k}{n}\le 1-\frac{\log_q(\text{Vol}_q(\lfloor \frac{d-1}{2}\rfloor,n))}{n}=1-\frac{\log_2(2^r)}{2^r-1}=1-\frac{r}{2^r-1}
 \]
-Achieved by equality, the so-called perfect code. 
+Achieved by equality, the so-called perfect code.
+\subsection{Dual of a linear code}
+Dual space in an Euclidean space is the space of all vectors that are
+orthogonal to a given subspace. For example, if $S$ is $z$-axis, then the dual
+space of $S$ is the $xy$-plane. $S^{\perp}=\{v\in \mathbb{R}^3: v\cdot s=0,
+    \forall s\in S\}$.
 
+$\mathcal{C}$ is a linear code iff $\mathcal{C}$ is a linear subspace of $\mathbb{F}_q^n$. Let $\mathcal{C} = \{c:Hc=0\}$
 
+Then the dual code $\mathcal{C}^{\perp}$ is defined as the dual subspace in
+$\mathbb{F}_q^n$. Or equivalently, $\mathcal{C}^{\perp}$ has generator matrix
+$H^T$.
 
+So $\mathcal{C}^{\perp}=\{v\in \mathbb{F}^n: v\cdot c=0, \forall c\in
+    \mathcal{C}\}$ is the dual of $\mathcal{C}$.
+\subsubsection{Dual of Hamming Code - Simplex code}
+Parity check matrix for $(2^r-1,2^r-r-1,3)_2$-code is $H_r=\begin{bmatrix}
+        0 & 0 & 0 & 1 & 1 & 1 & 1 \\
+        0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+        1 & 0 & 1 & 0 & 1 & 0 & 1
+    \end{bmatrix}$ when r = 3. Note that the columns increase by 1 in binary. The parity matrix is not unique. It is different from the one with the identity matrix and $A$ matrix. Note that as long as they span the same space, they are the same.
 
+The generator matrix $G$ for simplex code $(2^r-1, r, 2^{r-1})$ is $H_r^T = \begin{bmatrix}
+        0 & 0 & 1 \\
+        0 & 1 & 0 \\
+        0 & 1 & 1 \\
+        1 & 0 & 0 \\
+        1 & 0 & 1 \\
+        1 & 1 & 0 \\
+        1 & 1 & 1
+    \end{bmatrix}$ So using the $n,k,d$ from the original code, simplex code should be $(n, n-k,2^{r-1})$ need to prove the last one later.
 
+Since every column of $G$ is a codeword, the simplex codeword space is a linear
+combination of the $G$ columns. $\mathcal{C}= \begin{bmatrix}
+        0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 \\
+        0 & 0 & 1 & 0 & 1 & 0 & 1 & 1 \\
+        0 & 0 & 1 & 1 & 1 & 1 & 0 & 0 \\
+        0 & 1 & 0 & 0 & 1 & 1 & 0 & 1 \\
+        Add some later
+    \end{bmatrix}$
+\subsubsection{Hadamard Code}
+The generator matrix is $G=\begin{bmatrix}
+        0 & H_r
+    \end{bmatrix}^T$ So add a 0 column to the front of the parity matrix.
 
+Then $G$ has the top row to be zero which means the Hadamard code is
+$(2^r,2^r-r,2^{r-1})$-code. So the simplex code is a subcode of the Hadamard
+code. Hadamard codeword space is just one more 0 at the first row of the
+simplex codeword space. Note that it is all zero, the weight is the same.
 
+The only difference is that the weight is exactly the half of length. So it
+introduces \textbf{symmetry}.
 
+\section{Polynomial Over finite fields}
+Idea: When we have a 2nd-degree polynomial, we can find it using 3 points. So
+if we use this polynomial to encode a message to get 4 points, then we can
+correct 1 error.
 
+\begin{definition}
+    A \textbf{polynomial} in variable $X$ over a field $\mathbb{F}_q$ of degree d is of the form : \[
+        f(X)=a_0+a_1X+a_2X^2+\ldots+a_dX^d
+    \]
+    where $a\in \mathbb{F}_q$ and $a_d\neq 0$.
 
+    The collection of all polynomials over $\mathbb{F}_q$ of degree $\le d$ is
+    denoted by $\mathbb{F}_q[X]_{\le d}$.
+\end{definition}
+
+For example, over $\mathbb{F}_3, f(x) = x^2-1, g(x) = x^3+2x^2+2x$ \begin{itemize}
+    \item Addition: $f(x)+g(x) = x^3+x^2+2x-1$
+    \item Multiplication: $f(x)\cdot g(x) = x^5+x^4+x^3+x^2-x$
+    \item Division: $f(x)\div g(x) = (x+2)f(x)+2$ (need to use long division) then we get
+          a quotient polynomial $(x+2)$ and a remainder polynomial $(2)$.
+\end{itemize}
+
+Facts: A nonzero polynomial of degree $\le d$ has at most $d$ roots in
+$\mathbb{F}_q$. $|\{x\in\mathbb{F}_q:f(x)=0\}|\le d$. For example in
+$\mathbb{F}_3$: \begin{itemize}
+    \item $f(x)=x^2-1$ has 2 roots: 1 and 2.
+    \item $f(x)=x^2+2x+1 = (x+1)^2$ has 1 root: 2. Not that in $\mathbb{F}_3$, $-1=2$. So $f(2)=0$.
+    \item $f(x)=x^2+1$ has no root. Note that the same polynomial in different fields has different behavior. In $\mathbb{F}_5$, $f(x)=x^2+1$ has 2 roots: 2 and 3.
+\end{itemize}
+Now we can prove the fact:
+\begin{proof}
+    If $f(x)$ which has a degree of $d$ has $d+1$ roots $\alpha_1,\alpha_2,\ldots,\alpha_{d+1}$, then $f(x)=(x-\alpha_1)(x-\alpha_2)\ldots(x-\alpha_{d+1})$. But this is a polynomial of degree $d+1$. Contradiction.
+\end{proof}
+\subsection{Vandemnoode Matrices}
+\begin{definition}
+    A Vandemnoode matrix is of the form: 
+    
+    $V=\begin{bmatrix}
+       1 & \alpha_1 & \alpha_1^2 & \ldots & \alpha_1^{m} \\
+       \cdots & \cdots & \cdots & \cdots & \cdots \\
+         1 & \alpha_{n-1} & \alpha_{n-1}^2 & \ldots & \alpha_{n-1}^{m} 
+    \end{bmatrix}_{n\times (m+1)}$ 
+    
+    for distinct $\alpha_1,\alpha_2,\ldots,\alpha_{n-1}\in \mathbb{F}_q$. $v_{ij}=\alpha_i^{j}$.
+\end{definition}
+Fact: The square Vandemnoode matrix is invertible. $V\cdot V^T=I$.\begin{proof}
+    Let $m=n-1$???????????????????
+\end{proof}
+\subsection{Polynomial Interpolation over $\mathbb{F}_q$}
+\begin{theorem}
+    Given $(\alpha_i,y_i)\in \mathbb{F}_q \times \mathbb{F}_q$ for $i=1,2,\ldots,d$ with distinct $\alpha_i$, there is a unique polynomial $f(x)\in \mathbb{F}_q[x]$ such that $f(\alpha_i)=y_i$ for $i=1,2,\ldots,d$.
+\end{theorem} \begin{proof}
+    $f(x)= a_0+a_1 x +a_2 x^2+\ldots + a_d x^d$
+
+    .............................
+\end{proof}
 \end{document}
 
