@@ -397,8 +397,28 @@ void print(Node * current){
         cout << current->value << endl;
     }
 \end{lstlisting}
+\section{Stack}
+Stack is a data structure that stores a sequence of elements. It is a LIFO (Last In First Out) structure. It has two operations: push and pop. Push adds an element to the top of the stack. Pop removes the top element of the stack.
 
-
+\subsection{Stack implementation}
+Here is the public interface of the stack class.
+\begin{lstlisting}[language=C++]
+//the type of the elements in the stack
+template <typename T>
+class Stack {
+    public:
+        Stack();
+        bool IsEmpty() const;
+        void Push(T value); 
+        T Pop();
+    private:
+        //the rest of the implementation
+}
+\end{lstlisting}
+We can implement using a linked list or an array.\begin{itemize}
+    \item Linked list: all operatoins are $O(1)$.
+    \item Array: Each push and pop is $O(1)$, but we need to resize the array if it is full which is $O(n)$. So the amortized running time is $O(1)$. However, we get a better cache performance.
+\end{itemize}
 
 
 
