@@ -552,6 +552,19 @@ Corollary: $\gcd(n,m) \times \text{lcm}(n,m) = nm$. \begin{proof}
 Note that $\forall a ,n \in \mathbb{Z}, n \ge 2, a\equiv b \pmod{n}$ for some $b \in \mathbb{Z}, 0\le b \le n-1$.
 
 Congruences mod n may be thought of as a way of focusing on the remainder and casting out (ignoring) the quotient (multiples of n).
+
+\subsection{Congruence Class}
+\begin{definition}
+    Let $n \in \mathbb{Z}, n \ge 2$. The \textbf{congruence class} of $a$ modulo $n$ is the set of all integers that are congruent to $a$ modulo $n$. We write $[a]_n$.
+\end{definition}
+For example: \begin{align*}
+    [0]_5 & = \{\ldots, -10, -5, 0, 5, 10, \ldots\} \\
+    [1]_5 & = \{\ldots, -9, -4, 1, 6, 11, \ldots\}  \\
+    [2]_5 & = \{\ldots, -8, -3, 2, 7, 12, \ldots\}  \\
+    [3]_5 & = \{\ldots, -7, -2, 3, 8, 13, \ldots\}  \\
+    [4]_5 & = \{\ldots, -6, -1, 4, 9, 14, \ldots\}
+\end{align*}
+Note that $[a]_n = [b]_n \iff a \equiv b \pmod{n}$.
 \subsection{Properties of congruences}
 \begin{align*}
     a & \equiv a \pmod{n} \forall a, n \in \mathbb{Z}\\
@@ -563,9 +576,62 @@ Congruences mod n may be thought of as a way of focusing on the remainder and ca
     a & \equiv b \pmod{n} \implies a^k \equiv b^k \pmod{n} \forall k \in \mathbb{N}
 \end{align*}
 Note that it is reflective, symmetric and transitive. It is also closed under addition, multiplication and exponentiation.
+\subsubsection{Arithmetics on congruence classes}
+Arithmetics between congruence classes: \begin{align*}
+    [a]_n + [b]_n & = [a+b]_n \\
+    [a]_n \times [b]_n & = [a \times b]_n \\
+    [a]_n^k & = [a^k]_n
+\end{align*}
+If $x_1 \equiv x_2 \pmod n, y_1 \equiv y_2 \pmod n$, then \begin{itemize}
+    \item $x_1 + y_1 \equiv x_2 + y_2 \pmod n$
+    \item $x_1y_1 \equiv x_2y_2 \pmod n$
+    \item $x_1 - y_1 \equiv x_2 - y_2 \pmod n$
+\end{itemize} 
+\begin{proof}
+    Suppose $x_1-x_2=an,y_1-y_2=bn$ for some $a,b \in \mathbb{Z}$. Then 
+    \begin{itemize}
+        \item $(x_1+y_1)-(x_2+y_2)=an+bn=(a+b)n\equiv 0 \pmod n$ Thus $x_1+y_1\equiv x_2+y_2 \pmod n$
+        \item Subtraction is similar to addition proof
+        \item $x_1=x_2+a_n,y_1=y_2+b_n$ Then $x_1y_1=x_2y_2+a(x_2y_2)+b(x_2n)+abn\equiv x_2y_2 \pmod n$ nfrubgnoeruvbgncuwhpocwhapuh
+    \end{itemize}
+\end{proof}
+Using the rules above, we can calculate some insanely big numbers: \begin{align*}
+    48^{100}+15\times 70002 \pmod 7 & \equiv (-1)^{100}+1\times 2 \pmod 7 \\
+    & \equiv 1+2 \pmod 7 \\
+    & \equiv 3 \pmod 7
+\end{align*}
+Note that if $d\equiv e \pmod n$, does not imply $a^d\equiv a^e \pmod n$. For example, $2\equiv 9 \pmod 7$, but $2^2\not\equiv 2^9 \pmod 7$.
+\subsubsection{Modular exponentiation}
+Modular exponentiation like raising an integer to a high power modulo n, is used in cryptography. 
 
+For large $x,y\equiv a^x \pmod n$ is easy to compute. On the other hand, given $y$, recovering $x$ is hard. Without additional information, it is a ``Discrete Logarithm Problem''.
 
+A quick algorithm for computing $a^x \pmod n$ is called ``the method of repeated squaring''. For example, $a^{13} \pmod n$ can be computed as follows: 
 
+For example: find $7^51\pmod 17$ 
+\begin{align*}
+    7^1 & \equiv 7 \pmod {17} \\
+    7^2 & \equiv 7\times 7 \equiv 49 \equiv 15 \equiv -2 \pmod {17} \\
+    7^4 & \equiv (-2)^2 \equiv 4 \pmod {17} \\
+    7^8 & \equiv 4^2 \equiv 16 \equiv -1 \pmod {17} \\
+    7^{16} & \equiv (-1)^2 \equiv 1 \pmod {17} \\
+    7^{32} & \equiv 1^2 \equiv 1 \pmod {17} \\
+    7^{51} & \equiv 7^{32}\times 7^{16}\times 7^2\times 7^1 \equiv 1\times 1\times (-2)\times 7 \equiv -14 \equiv 3 \pmod {17}
+\end{align*}
+
+\subsubsection{Representations of integers}
+\begin{theorem}
+    Let $b\in \mathbb{Z},b\ge 2$. Then $\forall m \in \mathbb{N}$ can be written as \[
+        m=a_k b^k+a_{k-1}b^{k-1}+\cdots+a_1b+a_0
+    \]
+    
+    where $k\in \mathbb{N},a_0,a_1,\ldots,a_k\in \mathbb{Z},0\le a_i\le b-1$ for all $i$.
+
+    Moreover, this representation is unique.
+\end{theorem}
+The theorem gives a representation of $m$ in base b. $a_k$ is the highest digit and $a_0$ is the lowest digit. If $b=10$, then it is the normal decimal representation. fenrigberouigheroiug
+
+For example, $51=32+16+2+1=1\times 2^5+1\times 2^4+0\times 2^3+0\times 2^2+1\times 2^1+1\times 2^0=110011_2$.
 
 
 \end{document}
