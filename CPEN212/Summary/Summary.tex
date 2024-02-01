@@ -561,6 +561,84 @@ It is better to keep a list for some special size of blocks. Usually, $2^k$ byte
     \item what if common sizes are not powers of 2? Fro example, we use size of 3 all the time. Then we waste internal fragmentation overhead of 25\%.
     \item We can fix it by using slab allocator. We can allocate a slab of memory and divide it into blocks of the same size. Then we can use the blocks to allocate memory. For example, we have so many size 3 right? Just pick a 256 block and break them to allocate size 3. Overhead is only $\frac{255}{256}=0.4$\%.
 \end{itemize}
+\section{Garbage collection}
+To automatically free the memory that is no longer used. It is used in languages like Java and Python.
 
+Explore a few ways to achieve it:
+\subsection{Delete upon destruction}
+When variables go out of scope, the destructor is called. Why don't we just free the memory there? 
+\begin{lstlisting}[language=C++]
+    template <typename T> class ptr{
+        T* p;
+        public:
+        //some other code:
+        virtual ~ptr() {delete p;}
+        //upon destruction, delete the memory
+    }
+    void foo() {
+        auto c = ptr<complex>(new complex(1,2));
+        //do something with c
+        //c is destroyed upon exiting foo()
+    }
+    void foo1() {
+        auto c = ptr<complex>(new complex(1,2));
+        bar(c);
+        //some other use of pointers
+    }
+    void bar(ptr<complex> c) {
+        //do something with c
+        //c is destroyed upon exiting bar()
+    }
+\end{lstlisting}
+Note that it works well with foo(), however, it can cause trouble with foo1(). The reason is that we can't free the memory until we exit foo1(). But we have already deleted it upon exiting bar(). So we can't use it anymore.
+
+So we need a better way of doing it.
+\subsection{Reference counting}
+Why don't we just count the number of references to the memory? When the number of references is zero, we can free the memory.
+\begin{itemize}
+    \item upon initialization, set the reference count to 1
+    \item upon assignment, increment the reference count of the new pointer and decrement the reference count of the old pointer
+    \item upon destruction, decrement the reference count and free the memory if the reference count is zero
+\end{itemize}
+Note that we store the number inside the memory itself instead of the pointers. This is because if we store it in the pointers, for each update, we need to update all of the pointers to keep them present. This is not efficient.
+\subsubsection{Overhead}
+\begin{itemize}
+    \item Space overhead: each smart memory has a reference count. Then smart pointers have two pointers, one to the memory and one to the reference count. 
+    \item Performance overhead: each access is just 1 pointer dereference. However, each copy/destroy is 1 pointer dereference and 1 arithmetic operation.
+\end{itemize}
+\subsubsection{Limitations}
+circular references: if two objects refer to each other, then the reference count will never reach zero. 
+
+\includegraphics*[scale = 0.6]{./Images/Circular Reference.jpg}
+
+In the picture there, it is possible that we lost the reference to the memory while the reference count is not zero. This is a memory leak.
+\subsection{reachability}
+So the real problem is reachability. If the memory is not reachable, then we can free it. So we need to find a way to check if the memory is reachable.
+
+Observation: once a memory is not reachable, it will never be reachable again. So we can free it.
+
+Now we need to know how to check if the memory is reachable. We can use a graph to represent the memory. Each node is a memory block. Each edge is a reference from one block to another. Then we can use graph traversal to check if the memory is reachable.
+\subsubsection{A tracing garbage collector}
+\begin{itemize}
+    \item start from the roots (global variables, local variables, etc.)
+    \item follow the references to other memory blocks
+    \item mark the memory blocks as reachable
+    \item free the memory blocks that are not marked
+\end{itemize}
+\subsubsection{The tri-colour abstraction}
+\begin{itemize}
+    \item white: not visited
+    \item grey: visited but not finished (A data that contains multiple references to other data, and we did not visit all of them)
+    \item black: visited and finished
+\end{itemize}
+Using this abstraction, we can use some graph algorithms to do the garbage collection. In the end, all the block that we mark as white can be freed.
+\subsubsection{mark and sweep}
+\begin{itemize}
+    \item pause the program
+    \item traverse the graph from the roots
+    \item mark the reachable memory blocks
+    \item sweep the memory blocks that are not marked
+    \item resume the program
+\end{itemize}
 \end{document}
 

@@ -213,7 +213,7 @@ void swap_wrong(int a, int b){
     b = temp;
 }
 void swap_true(int & a, int & b){
-    int temp = a;
+    int temp = a; 
     a = b;
     b = temp;
 }
@@ -221,7 +221,7 @@ int main(){
     int x = 3;
     int y = 5;
     swap(x, y);
-    cout << x << " " << y << endl;
+    cout << x << "and" << y << endl;
 }  
 \end{lstlisting}
 The output of the above code is 3 5. This is because the swap function is called by value, so the original x and y are not changed.
