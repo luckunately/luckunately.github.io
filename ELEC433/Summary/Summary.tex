@@ -681,5 +681,82 @@ Now we can prove the fact:
     \]
     V is invertible and $y$ is the given points. 
 \end{proof}
-\end{document}
 
+Fact: $\forall$ functions $f:\mathbb{F}_q\to \mathbb{F}_q$, $f$ is given by degree $q-1$ polynomial.R
+
+Remark: In $\mathbb{R}$, $f:\mathbb{R}\to \mathbb{R}$, $\exists$ non-polynomial functions. However, in \textbf{finite filed} $\mathbb{F}_q$, $\forall$ functions $f:\mathbb{F}_q\to \mathbb{F}_q$ is given by a polynomial of degree $\le q-1$. It has something to do with the fact that it contains only finite elements.
+\begin{proof}
+    Consider $\alpha_i\in \mathbb{F}_q$ for $i=1,2,\ldots,q-1$. Given $(\alpha_i,f(\alpha_i)).....$
+\end{proof}
+
+\subsection{Reed-Solomon Codes}
+Basic idea: codewords are of the form $(f(\alpha_1),f(\alpha_2),\ldots,f(\alpha_n))$ for some polynomial $f(x)$ of degree $\le n-1$.
+
+Note that if we choose $f$ to be a low-degree polynomial of degree $k-1$, then we can recover the message from $k$ points. So we can correct $n-k$ errors.
+\subsubsection{Definition}
+\begin{definition}
+    Let $q\ge n \ge k$ be integers. Let $\vec{\alpha}=\alpha_1,\alpha_2,\ldots,\alpha_n\in \mathbb{F}_q$ be distinct. The Reed-Solomon code $\mathcal{C}_{RS}(\vec{\alpha}, n,k)$ over $\mathbb{F}_q$ with evaluation points $\vec{\alpha}$ is defined as follows: \[
+        \mathcal{C}_{RS}(n,k)=\{(f(\alpha_1),f(\alpha_2),\ldots,f(\alpha_n)): f(x)\in \mathbb{F}_q[x], \deg(f(x))\le k-1\}
+    \]
+\end{definition}
+For example: $q=3, n=3, k=2, \vec{\alpha}=(0,1,2)$. Then $\mathcal{C}_{RS}(\vec{\alpha},3,2)=\{(f(0),f(1),f(2)): f(x)\in \mathbb{F}_3[x], \deg(f(x))\le 1\}$. List out valid polynomials $\{a_0+a_1 x: a_0,a_1\in\mathbb{F}_3\} = \{0,1,2,x,x+1,x+2,2x,2x+1,2x+2\}$
+\begin{align*}
+    0 & \to (0,0,0) \\
+    x & \to (0,1,2) \\
+    2x+1 & \to (1,0,2) 
+\end{align*}
+Note that the Reed-Solomon code is still linear. It is a linear subspace of $\mathbb{F}_q^n$. \[
+    C_1+C_2 = (f_1(\alpha_1)+f_2(\alpha_1),\ldots,f_1(\alpha_n)+f_2(\alpha_n))=(f_3(\alpha_1),f_3(\alpha_2),\ldots,f_3(\alpha_n))
+\]
+\subsubsection{Generator Matrix}
+Generator matrix of $\mathcal{C}_{RS}(\vec{\alpha},n,k)$ is a $k\times n$ matrix $G$ such that $\mathcal{C}_{RS}(\vec{\alpha},n,k)=\{G\cdot X: X\in \mathbb{F}_q^k\}$.
+
+We can achieve this by using the Vandemnoode matrix. \[
+    G_{RS}=V=\begin{bmatrix}
+        1 & \alpha_1 & \alpha_1^2 & \cdots & \alpha_1^{k-1} \\
+        1 & \alpha_2 & \alpha_2^2 & \cdots & \alpha_2^{k-1} \\
+        \vdots & \vdots & \vdots & \cdots & \vdots \\
+        1 & \alpha_n & \alpha_n^2 & \cdots & \alpha_n^{k-1} \\
+    \end{bmatrix}_{k\times n}
+\]
+Same idea: $f(\vec{\alpha})=V\cdot \vec{a}$ for some $\vec{a}\in \mathbb{F}_q^k$.
+\subsubsection{Distance of RS code}
+The distance of $\mathcal{C}_{RS}(\vec{\alpha},n,k)$ is $d=n-k+1$.
+\begin{proof}
+    RS codes are linear. It suffices to show that the minimum weight of non-zero is $d=n-k+1$ $\iff$ the maximum number of zeros of $c\in \mathcal{C},c\neq 0$ is $n-d=k-1$. $\iff$ Any polynomial has at most $k-1$ roots. $\iff$ Any polynomial of degree $\le k-1$ has at most $k-1$ roots.
+
+    We know the last statement is true
+\end{proof}
+\subsection{The Singleton bound}
+\begin{theorem}
+    If $\mathcal{C}$ is an $(n,k,d)_q$-code, then $d\le n-k+1$ or $k\le n-d+1$.
+\end{theorem}
+Draw the picture here !!!!!!!!!!!!!!!!!!
+
+Hamming bound is tighter than Singleton bound when $q=2$. But when $q>2$, Singleton bound is tighter than Hamming bound. Singleton bound is not dependent on $q$ however, Hamming bound is dependent on $q$. So Singleton bound is a better fit for Reed-Solomon codes.
+\begin{proof}
+    Let $c\in\mathcal{C}$, $c=(c_1,c_2,\ldots,c_n)$. Then let $\phi(c)=(c_1,c_2,\ldots,c_{n-d+1})$. Then consider: $\mathcal{C}'=\{\phi(c):c\in\mathcal{C}\},\mathcal{C}'\subseteq \mathbb{F}_q^{n-d+1}$.
+
+    Claim 1: $|\mathcal{C}|=|\mathcal{C}'|......$
+
+    Claim 2: $|\mathcal{C}'|=q^{n-d+1}$. ..............
+\end{proof}
+So RS is optimal in the sense that it achieves the Singleton bound by equality.
+\subsubsection{MDS code}
+\begin{definition}
+    A linear $(n,k,d)_q$-code is called a maximum distance separable (MDS) code if $d=n-k+1$.
+\end{definition}
+So RS code is MDS. 
+
+Property: MDS $\iff$ every $k\times k$ submatrix of the generator matrix $G$ is invertible (full rank).
+
+So you can pick any row of $G$ and they are all independent of each other.
+
+\begin{proof}
+    $d=n-k+1\iff$ can fill in any $n-k$ erasures. $\iff$ any k remaining rows of $G$ forms a full rank matrix. $\iff$ every $k\times k$ submatrix of $G$ is invertible.
+\end{proof}
+
+Property: Let $\mathcal{C}$ be MDS $(n,k,d)_q$-code. Then any $k$ position of $c\in\mathcal{C}$ determines $c$ uniquely. So we can recover the message from $k$ points.
+
+It is basically a restatement of the above property
+\end{document}
