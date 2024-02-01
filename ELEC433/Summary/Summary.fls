@@ -1,8 +1,0 @@
-PWD c:/Users/10054/OneDrive/luckunately.github.io/ELEC433/Summary
-INPUT e:/TeX live/texlive/2023/texmf.cnf
-INPUT e:/TeX live/texlive/2023/texmf-dist/web2c/texmf.cnf
-INPUT e:/TeX live/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT c:/Users/10054/OneDrive/luckunately.github.io/ELEC433/Summary/Summary.tex
-OUTPUT Summary.log
-INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/base/article.cls
-INPUT e:/TeX live/texlive/2023/texmf-dist/tex/latex/base/article.cls
