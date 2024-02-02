@@ -640,5 +640,78 @@ Using this abstraction, we can use some graph algorithms to do the garbage colle
     \item sweep the memory blocks that are not marked
     \item resume the program
 \end{itemize}
+\subsubsection{mark and sweep implementation}
+\begin{itemize}
+    \item Note that we need a bit in the memory to indicate if the memory is marked. We can just steal another bit from the size. Since we already have one for allocation status and one for the previous block, it requires it to be 8-byte aligned. So we can just steal the lower bit of the size to indicate if the memory is marked. A negligible overhead.
+    \item We also need to distinguish between pointers and integers. We can use the lower bit of the pointer to indicate if it is a pointer or an integer. 
+    
+    \includegraphics[scale = 0.6]{./Images/Pointer and Integer distinguishing.png}
+
+    Note that we chose integers to be even numbers. This is to make sure that pointer arithmetics with integers keep the lower bit to be 1 which keeps consistency with the pointers.
+
+    drawback of this approach is the smaller range of integers. 
+
+    Note that this might not be a problem in some programming languages where the data structure makes clear of where the pointers are. Java and Python are examples of this.
+    \item Backtracking during traversal: the current way of doing it would store all the pointers as we mark, which will take up a lot of memory space. However, by the time we are doing the garbage collection, we are close to running out of memory, which could be a problem. 
+    
+    One of the way to solve it is by reversing the pointers. We use a temprory pointer to store the current branch and reverse the visiting node to point to the parent node. This way we can always trace back to the parent node without storing all the pointers.
+
+    \includegraphics[scale = 0.6]{Images/BackTracking.png}
+
+    Refer to Miezko's slides for an animation of this process.
+
+    This approach only takes $O(1)$ space. However, it is slower than the previous approach and it stops the program for a longer time since pointers are moved, the program cannot visit all the nodes in progress. No \textbf{concurrent} garbage collection.
+\end{itemize}
+\subsection{Stop and Copy}
+Mark and sweep is nice, but it creates fragmentation. Free space is \textbf{not contiguous}.
+
+Stop and copy is a way to solve this problem. It is a two-space collector. It has two spaces: from-space and to-space. It copies the reachable memory blocks from from-space to to-space. Then it swaps the two spaces.
+
+Refer to Miezko's slides for an animation of this process.
+
+\begin{itemize}
+    \item Stop and Copy would require us to only use half of the memory space. This is a big overhead. But it is not that bad. Most of the time, the objects we left in the heap does not live for too long. So a much more frequent garbage collection is not that bad given that we get huge chunk of free space instead of fragmented space.
+    \item It is \textbf{Not Concurrent}. It stops the program since it moves the pointers.
+\end{itemize}
+\subsection{refcount vs mark and sweep s stop and copy}
+\includegraphics*[scale=0.7]{Images/refcount vs mark and sweep s stop and copy.png}
+\subsection{mark and compact}
+Wonder if there is a way to use the entire heap nad still avoid fragmentation (compact)?
+
+Idea: save the working pointers somewhere else so that we can use the whole sapce. \begin{itemize}
+    \item keep an extra space to store them.
+    \item keep the pointers in the heap itself as a break table and move it accordingly if needed. 
+\end{itemize}
+Refer to miezko's slides for an animation of this process.
+
+\subsection{ephemeral garbage collection}
+Observation: most allocs have short lifetimes. Why not just garbage collect the young objects?
+
+Split heap into generations:\begin{itemize}
+    \item young generation (nursery): for new objects
+    \item when the young generation is full, garbage collects it
+    \item if an object survives a few garbage collections, move it to the old generation
+    \item we can have multiple levels of generations, apply gc as well if they are full
+\end{itemize}
+Note that gc is fast if we keep the young generation (nursery) small.
+\subsection{Weak references}
+\begin{itemize}
+    \item a weak reference is a reference that does not prevent the object from being garbage collected
+    \item it is useful for caches, observers, etc.
+    \item The object is reachable, but the event is not happening anymore. So we can free the memory.
+    \item it is used in languages like Java and Python
+\end{itemize}
+\subsection{non-deterministic finalization}
+\begin{itemize}
+    \item finalization is the process of freeing the memory
+    \item For example, in C++, the destructor is called when the object goes out of scope, sockets and locks in Java and Python are closed when the object is garbage collected
+    \item it is non-deterministic because we don't know when the memory will be freed
+\end{itemize}
+\subsection{Conservative garbage collection}
+Some languages do not distinguish between pointers and integers. They can also do pointer arithmetics with pointers. 
+
+We can use some logic to find the difference, for example, small numebrs are generally not pointers. However, this is not always true. If not pointing inside blocks, then it is not a heap pointer.
+
+These tricks are not always reliable. So we can use conservative garbage collection. It is a way to do garbage collection without knowing the exact location of the pointers. We can just assume that the integers are pointers and do garbage collection.
 \end{document}
 
