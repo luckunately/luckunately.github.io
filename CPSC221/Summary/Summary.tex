@@ -421,10 +421,122 @@ We can implement using a linked list or an array.\begin{itemize}
 \end{itemize}
 
 
+\section{Queue}
+Queue is a data structure that stores a sequence of elements. It is a FIFO (First In First Out) structure. It has two operations: enqueue and dequeue. Enqueue adds an element to the back of the queue. Dequeue removes the front element of the queue.
 
+Like stacks, the operations are expected to be $O(1)$.
+\subsection{Queue implementation}
+\subsubsection{Linked list}
+\begin{lstlisting}[language=C++]
+template <typename T>
+class Queue {
+    public:
+        Queue();
+        bool IsEmpty() const;
+        void Enqueue(T value); 
+        T Dequeue();
+    private:
+        struct Node{
+            T value;
+            Node * next;
+            Node(T value, Node * next = NULL){
+                this->value = value;
+                this->next = next;
+            }
+        };
+        Node * front, * back;
+}
+bool Queue<T>::IsEmpty() const{
+    return front == NULL;
+}
+bool Queue<T>::Enqueue(T value){
+    Node * new_node = new Node(value);
+    if(IsEmpty()){
+        front = new_node;
+    }else{
+        back->next = new_node;
+    }
+    back = new_node;
+}
+T Queue<T>::Dequeue(){
+    if(IsEmpty()){
+        throw "Queue is empty";
+    }
+    T value = front->value;
+    Node * temp = front;
+    front = front->next;
+    delete temp;
+    return value;
+}   
+\end{lstlisting}
+Really easy to implement using a linked list. All operations are $O(1)$.
+\subsubsection{Array}
+Array size is fixed, so the front and the end cannot move physically. Copying the array is $O(n)$, so the enqueue and dequeue are $O(n)$. We can use a circular array to avoid copying the array. 
 
+The idea of a circular array is that the end of the array ``wraps around'' to the beginning of the array. We use the modulo operator to calculate the index of the next element.
 
+The only problem it resizing. When resizing, we need to copy the other. But note that we should put the front of the queue at the beginning of the array instead of the original order of the queue. It is because the capacity changed, we need to start from the beginning of the array.
+\section{Merge Sort}
+Merge sort is a divide and conquer algorithm. It divides the input into smaller parts, solves the smaller parts, and then combines the solutions to solve the original problem.
 
+The running time of merge sort is $O(n\log n)$, which is the best possible running time for a comparison-based sorting algorithm.
 
+\includegraphics*{./Images/Merge Sort.jpg}
+
+\subsection{implementation}
+\begin{lstlisting}[language=C++]
+void MergeSort(vector<T> & arr){
+    Msort (arr, 0, arr.size()-1);
+}
+void Msort(vector<T> & arr, int low, int high){
+    if(low < high){
+        int mid = (low + high) / 2;
+        Msort(arr, low, mid);
+        Msort(arr, mid+1, high);
+        Merge(arr, low, mid, high);
+    }
+}
+void Merge(vector<T> & arr, int low, int mid, int high){
+    vector<T> temp;
+    int i = low;
+    int j = mid+1;
+    while(i <= mid && j <= high){
+        if(arr[i] < arr[j]){
+            temp.push_back(arr[i]);
+            i++;
+        }else{
+            temp.push_back(arr[j]);
+            j++;
+        }
+    }
+    while(i <= mid){
+        temp.push_back(arr[i]);
+        i++;
+    }
+    while(j <= high){
+        temp.push_back(arr[j]);
+        j++;
+    }
+    for(int k = low; k <= high; k++){
+        arr[k] = temp[k-low];
+    }
+}
+\end{lstlisting}
+\subsection{Analysis}
+For merge, worst case we need to compare $n-1$ times, and best case $n/2$ times. So the running time is $O(n)$.
+
+For Msort, the running time is $O(\log n)$ since we are dividing the array into half each time.
+
+So the overall running time is $O(n\log n)$.
+\subsection{Correctness}
+\begin{proof}
+    Base case: if the array has only one element, then it is already sorted.
+
+    Inductive hypothesis: assume that the subarray from low to mid and the subarray from mid+1 to high are sorted.
+
+    Inductive step: merge the two sorted subarrays into one sorted array.
+
+    Termination: after the last merge, the whole array is sorted.
+\end{proof}
 
 \end{document}
