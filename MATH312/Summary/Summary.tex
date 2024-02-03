@@ -165,8 +165,8 @@ multiples of 2, 3, 5. The remaining numbers are all primes.
 \end{definition}
 Simple properties of gcd:\begin{itemize}
     \item $a\neq 0 \implies \gcd(a, 0) = |a|$.
-    \item $gcd(a, b)\ge 1$.
-    \item $gcd(a, b)=d \implies gcd(\frac{a}{d},\frac{b}{d})=1$.
+    \item $\gcd(a, b)\ge 1$.
+    \item $\gcd(a, b)=d \implies \gcd(\frac{a}{d},\frac{b}{d})=1$.
 \end{itemize}
 \begin{proof}
     \begin{itemize}
@@ -629,9 +629,71 @@ For example: find $7^51\pmod 17$
 
     Moreover, this representation is unique.
 \end{theorem}
-The theorem gives a representation of $m$ in base b. $a_k$ is the highest digit and $a_0$ is the lowest digit. If $b=10$, then it is the normal decimal representation. fenrigberouigheroiug
+The theorem gives a representation of $m$ in base b. $a_k$ is the highest digit and $a_0$ is the lowest digit. If $b=10$, then it is the normal decimal representation. We just simply leave out the subscript $b=10$.
 
 For example, $51=32+16+2+1=1\times 2^5+1\times 2^4+0\times 2^3+0\times 2^2+1\times 2^1+1\times 2^0=110011_2$.
+
+\begin{proof}
+    Prove by strong induction on $n$.
+
+    \textbf{Base Case:} $b^0\le n<b^1$. Then $n=(n)_b$.
+
+    \textbf{Inductive Step:} Assume $n\ge b$ and the existence part of the theorem holds for any integer between $1$ and $n-1$. We want to show that the existence part of the theorem holds for $n$.
+
+    Divide $n$ by $b$: $n=bq+r$ where $0\le r<b$. Then $0\le q<n$. By the inductive hypothesis, $q$ can be written as \[
+        q=c_s b^s+c_{s-1}b^{s-1}+\cdots+c_1b+c_0
+    \]
+    Now $n=qb+r=c_s b^{s+1}+c_{s-1}b^s+\cdots+c_1b^2+c_0b+r$. Therefore, $n$ can be written as \[
+        n=a_k b^k+a_{k-1}b^{k-1}+\cdots+a_1b+a_0
+    \]
+    This is the representation of $n$ in base $b$.  
+
+    For uniqueness, again by induction:
+
+    \textbf{Base Case:} $n=b^0\le n<b^1$. Then $n=(n)_b$. It only has 1 digit and it has to be n, thus unique.
+
+    \textbf{Inductive Step:} Assume $n\ge b$ and the uniqueness part of the theorem holds for any integer between $1$ and $n-1$. We want to show that the uniqueness part of the theorem holds for $n$.
+
+    assume $n$ can be expressed in two ways: \begin{align*}
+        n & = a_k b^k+a_{k-1}b^{k-1}+\cdots+a_1b+a_0 \\
+        n & = c_s b^s+c_{s-1}b^{s-1}+\cdots+c_1b+c_0
+    \end{align*}
+    Then \begin{align*}
+        a_0 = n \pmod b = c_0 &\land  0\le a_0, c_0 \le b-1 \\
+        \frac{1}{b}(n-a_0)=a_k b^{k-1}+\cdots+a_2 b+a_1 & = \frac{1}{b}(n-c_0)=c_s b^{s-1}+\cdots+c_2 b+c_1
+    \end{align*}
+    By induction assumption, $k-1=m-1 \land a_i=c_i$ for all $i$. Therefore, $k=s \land a_i=c_i$ for all $i$.
+\end{proof}
+\subsubsection{Exponentiation arithmetic}
+Back to repeated squaring, the goal is to compute $a^x \pmod n$. 
+
+Pre-compute: $a,a^2,a^4,a^8,\ldots,a^{2^k} \pmod n$
+
+Now write $x$ in base 2: $x=2^{k_1}+2^{k_2}+\cdots+2^{k_m}$ where $k_1>k_2>\cdots>k_m\ge 0$.
+
+Then $a^x=a^{2^{k_1}}\times a^{2^{k_2}}\times \cdots \times a^{2^{k_m}} \pmod n$.   
+
+For example: Compute the last two digits of $53^{29}$. Equivalently, it is $53^{29} \pmod {100}$.
+
+Start with 29 in base 2: $29=16+8+4+1$. Then $53^{29}=53^{16}\times 53^8\times 53^4\times 53^1 \pmod {100}$.
+
+\begin{align*}
+    53^1 & = 53 \pmod {100} \\
+    53^2 & = 2809 \equiv 9 \pmod {100} \\
+    53^4 & = (53^2)^2 \equiv 81 \pmod {100} \\
+    53^8 & \equiv 81^2 = 6561 \equiv 61 \pmod {100} \\
+    53^{16} & \equiv 61^2 = 3721 \equiv 21 \pmod {100} \\
+    53^{29} & = 21\times 61\times 81\times 53 \equiv 13 \pmod {100}
+\end{align*}
+\subsection{Linear congruences}
+$ax\equiv b \pmod n$ is a linear congruence. We want to find all solutions of $x$ given $a,b,n$.
+
+The case where $b=1$ is of particular interest. Here $x$ is called the inverse of $a$ modulo $n$. We write $x=a^{-1} \pmod n$.
+
+Note that $ax \equiv b \pmod n \iff a x = b + n k$ for some $k \in \mathbb{Z}$. For example, $ax-nk=b$ for some $k\in \mathbb{Z}$. We know that $ax-nk=\gcd(a,n)$ by Bezout's theorem. Therefore, $ax-nk=\gcd(a,n)$ for some $k\in \mathbb{Z}$.
+
+If it exists, we are interested in how many there are. 
+
 
 
 \end{document}
