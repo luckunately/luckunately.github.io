@@ -25,7 +25,7 @@
 
 \maketitle
 \section{Introduction to Hamming Codes}
-ECC solves the problem of errors in transmission. The idea is to add redundancy
+ECC solves the problem of transmission errors. The idea is to add redundancy
 to the message so that the receiver can detect and correct errors.
 
 Assume that we have a message of length $k$, then we encode it to a codeword
@@ -682,11 +682,11 @@ Now we can prove the fact:
     V is invertible and $y$ is the given points. 
 \end{proof}
 
-Fact: $\forall$ functions $f:\mathbb{F}_q\to \mathbb{F}_q$, $f$ is given by degree $q-1$ polynomial.R
+Fact: $\forall$ functions $f:\mathbb{F}_q\to \mathbb{F}_q$, $f$ is given by degree $q-1$ polynomial.
 
 Remark: In $\mathbb{R}$, $f:\mathbb{R}\to \mathbb{R}$, $\exists$ non-polynomial functions. However, in \textbf{finite filed} $\mathbb{F}_q$, $\forall$ functions $f:\mathbb{F}_q\to \mathbb{F}_q$ is given by a polynomial of degree $\le q-1$. It has something to do with the fact that it contains only finite elements.
 \begin{proof}
-    Consider $\alpha_i\in \mathbb{F}_q$ for $i=1,2,\ldots,q-1$. Given $(\alpha_i,f(\alpha_i)).....$
+    Consider $\alpha_i\in \mathbb{F}_q$ for $i=1,2,\ldots,q-1$. Given $(\alpha_i,f(\alpha_i))$ there is a unique polynomial $f(x)\in \mathbb{F}_q[x]$ of degree $\le q-1$ which interpolates these points.
 \end{proof}
 
 \subsection{Reed-Solomon Codes}
@@ -700,7 +700,10 @@ Note that if we choose $f$ to be a low-degree polynomial of degree $k-1$, then w
     \]
 \end{definition}
 For example: $q=3, n=3, k=2, \vec{\alpha}=(0,1,2)$. Then $\mathcal{C}_{RS}(\vec{\alpha},3,2)=\{(f(0),f(1),f(2)): f(x)\in \mathbb{F}_3[x], \deg(f(x))\le 1\}$. List out valid polynomials $\{a_0+a_1 x: a_0,a_1\in\mathbb{F}_3\} = \{0,1,2,x,x+1,x+2,2x,2x+1,2x+2\}$
+
+If we list out possible messages for input $(0,1,2)$
 \begin{align*}
+    \text{Encoding polynomial} &  \to \text{Codeword} \\
     0 & \to (0,0,0) \\
     x & \to (0,1,2) \\
     2x+1 & \to (1,0,2) 
@@ -731,15 +734,25 @@ The distance of $\mathcal{C}_{RS}(\vec{\alpha},n,k)$ is $d=n-k+1$.
 \begin{theorem}
     If $\mathcal{C}$ is an $(n,k,d)_q$-code, then $d\le n-k+1$ or $k\le n-d+1$.
 \end{theorem}
-Draw the picture here !!!!!!!!!!!!!!!!!!
+\includegraphics*[scale= 0.8]{./Images/Hamming bound VS Singleton bound.png}
 
 Hamming bound is tighter than Singleton bound when $q=2$. But when $q>2$, Singleton bound is tighter than Hamming bound. Singleton bound is not dependent on $q$ however, Hamming bound is dependent on $q$. So Singleton bound is a better fit for Reed-Solomon codes.
 \begin{proof}
-    Let $c\in\mathcal{C}$, $c=(c_1,c_2,\ldots,c_n)$. Then let $\phi(c)=(c_1,c_2,\ldots,c_{n-d+1})$. Then consider: $\mathcal{C}'=\{\phi(c):c\in\mathcal{C}\},\mathcal{C}'\subseteq \mathbb{F}_q^{n-d+1}$.
+    Let $c\in\mathcal{C}$, $c=(c_1,c_2,\ldots,c_n)$. Then we throw away the last $d-1$ bits and let $\phi(c)=(c_1,c_2,\ldots,c_{n-d+1})$. Then consider: $\mathcal{C}'=\{\phi(c):c\in\mathcal{C}\},\mathcal{C}'\subseteq \mathbb{F}_q^{n-d+1}$. 
 
-    Claim 1: $|\mathcal{C}|=|\mathcal{C}'|......$
+    Claim 1: $|\mathcal{C}|=|\mathcal{C}'|$ We can show it by contradiction: 
 
-    Claim 2: $|\mathcal{C}'|=q^{n-d+1}$. ..............
+    If the claim is false, then $\exists c_1,c_2\in \mathcal{C}$ such that $\phi(c_1)=\phi(c_2)$. Then $c_1$ and $c_2$ differ in at most $d-1$ positions. So $d(c_1,c_2)\le d-1$. Contradiction. 
+
+    There must be at least a one-bit difference among all $c\in \mathcal{C}$. So the two sets have the same cardinality.
+
+    Claim 2: $|\mathcal{C}'|=q^{n-d+1}$ 
+    
+    This is because $\mathcal{C}$ is a linear subspace of $\mathbb{F}_q^n$, taking out the last $d-1$ bits is still a linear subspace of $\mathbb{F}_q^{n-d+1}$.
+
+    Thus $|\mathcal{C}|=|\mathcal{C}'|=q^{n-d+1}$. So $|\mathcal{C}|\le q^{n-d+1}$. So $d\le n-k+1$ or $k\le n-d+1$.
+
+    We can claim that singleton bound is tight for RS code.
 \end{proof}
 So RS is optimal in the sense that it achieves the Singleton bound by equality.
 \subsubsection{MDS code}
