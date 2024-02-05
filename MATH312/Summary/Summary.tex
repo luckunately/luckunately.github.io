@@ -405,7 +405,7 @@ Before proving the theorem, we need to prove the following lemma:
 \textbf{Key Lemma}: Let $a, b, c \in \mathbb{Z}, (a, b) \neq (0, 0)$. Let $d = \gcd(a, b) = 1$. Then $a|bc \implies a|c$.
 
 Note that the lemma is not true if $d \neq 1$. \begin{proof}
-    By Bezout's theorem, $\gcd(a,b)=1 \implies ax+by=1$ for some $x, y \in \mathbb{Z}$. Then multiply both sides by $c$: $acx+bcy=c$. Then $a|acx+bcy=c$ as defined in the Lemma.
+    By Bezout's theorem, $\gcd(a,b)=1 \implies ax+by=1$ for some $x, y \in \mathbb{Z}$. Then multiply both sides by $c$: $acx+bcy=c$. Then $a|bc \implies a|acx+bcy=c$ as defined in the Lemma.
 \end{proof}
 \subsubsection{Proof of the general solution theorem}
 With the Lemma in hand, we can start proving the theorem:\begin{proof}
@@ -429,13 +429,13 @@ With the Lemma in hand, we can start proving the theorem:\begin{proof}
               Note that $\gcd(\frac{a}{d}, \frac{b}{d}) = 1$. Therefore, $\frac{a}{d} |
                   (y-y_0)$ by the Key Lemma.
 
-              Then $y-y_0 = -\frac{a}{d}t$ for some $t \in \mathbb{Z}$. Substitute it into
+              Then let $y-y_0 = -\frac{a}{d}t$ for some $t \in \mathbb{Z}$. Substitute it into
               the equation: \[
                   \frac{a}{d}(x-x_0) = \frac{b}{d}\frac{a}{d}t
               \]
               Here we have two cases:\begin{itemize}
                   \item If $a=0$, then $by=c$. $x$ can be arbitrary and $y = \frac{c}{b}$. Then
-                        $a(x_0+\frac{b}{d}t) + b(y_0-\frac{a}{d}t) = by_o = ax+by = c\forall
+                        $a(x_0+\frac{b}{d}t) + b(y_0-\frac{a}{d}t) = by_o = ax+by = c,\forall
                             t\in\mathbb{R}$. Note that $b\neq 0$ in this case because $(a,b)\neq(0,0)$.
                         $a\neq 0 \land b=0$ case is similar.
                   \item Now we talk about the general case. Divide both sides by $\frac{a}{d}$: \[
@@ -520,7 +520,7 @@ Let us write the highest power of p appearing in the prime factorization of n
 as $v_p(n)$. For example: $v_2(12) = 2, v_3(12) = 1, v_5(12) = 0$. Then we have
 the following corollary:
 
-If m and n are positive integers, then $m | n \iff v_p(m) \leq v_p(n)$ for all
+If $m$ and $n$ are positive integers, then $m | n \iff v_p(m) \leq v_p(n)$ for all
 primes p.\begin{proof}
     Prove both directions:
     \begin{itemize}
@@ -530,7 +530,7 @@ primes p.\begin{proof}
 \end{proof}
 
 Now back to the Proposition: \begin{proof}
-    By the Corollary above: $\forall$ common divisor m and n is of the form $p_1^{f_1}\ldots p_k^{f_k}$ where $f_i \leq \min(d_i,e_i)$.
+    By the Corollary above: $\forall$ common divisor $m$ and $n$ is of the form $p_1^{f_1}\ldots p_k^{f_k}$ where $f_i \leq \min(d_i,e_i)$.
 
     Therefore, The greatest common divisor is exactly where $f_i = \min(d_i,e_i)$.
     Therefore, $\gcd(n,m) = p_1^{\min(d_1,e_1)}\ldots p_k^{\min(d_k,e_k)}$.
@@ -592,7 +592,7 @@ If $x_1 \equiv x_2 \pmod n, y_1 \equiv y_2 \pmod n$, then \begin{itemize}
     \begin{itemize}
         \item $(x_1+y_1)-(x_2+y_2)=an+bn=(a+b)n\equiv 0 \pmod n$ Thus $x_1+y_1\equiv x_2+y_2 \pmod n$
         \item Subtraction is similar to addition proof
-        \item $x_1=x_2+a_n,y_1=y_2+b_n$ Then $x_1y_1=x_2y_2+a(x_2y_2)+b(x_2n)+abn\equiv x_2y_2 \pmod n$ nfrubgnoeruvbgncuwhpocwhapuh
+        \item $x_1=x_2+an,y_1=y_2+bn$ Then $x_1y_1=x_2y_2+n(a y_2+b x_2+ab)\equiv x_2y_2 \pmod n$
     \end{itemize}
 \end{proof}
 Using the rules above, we can calculate some insanely big numbers: \begin{align*}
