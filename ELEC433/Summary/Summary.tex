@@ -772,4 +772,103 @@ So you can pick any row of $G$ and they are all independent of each other.
 Property: Let $\mathcal{C}$ be MDS $(n,k,d)_q$-code. Then any $k$ position of $c\in\mathcal{C}$ determines $c$ uniquely. So we can recover the message from $k$ points.
 
 It is basically a restatement of the above property
+
+\subsection{Multiplicative group}
+\begin{definition}
+    Let $(\mathbb{F}_q,+,\times)$ be a finite filed with addtion and multiplication.
+    Let $\mathbb{F}_q^*$ be the non-zero elements of $\mathbb{F}_q$ with only multiplication operations.
+    So $(\mathbb{F}_q^*,\times)$ is a \textbf{multiplicative group}.
+    \begin{itemize}
+        \item $\forall a,b \in \mathbb{F}_q^*, a\times b\in \mathbb{F}_q^*$
+        \item $\forall a\in \mathbb{F}_q^*, \exists a^{-1}\in \mathbb{F}_q^*$ such that $a\times a^{-1}=1$
+    \end{itemize}
+\end{definition}
+For example: $\mathbb{F}_5 = \{0,1,2,3,4\}, \mathbb{F}_5^*=\{1,2,3,4\}$
+
+Fact: $\mathbb{F}_q^*$ is a \textbf{cyclic group}. $\exists \gamma \in \mathbb{F}_q^*$ such that $\mathbb{F}_q^*=\{\gamma^0,\gamma^1,\gamma^2,\ldots,\gamma^{q-2}\}$ Call $\gamma$ as primitive element of $\mathbb{F}_q^*$. Note that $\gamma ^{q-1}=1=\gamma^0$.
+
+For example: $\mathbb{F}_5^*=\{1,2,3,4\}=\{2^0,2^1,2^2,2^3\}$ 
+But 4 is not primitive. It is missing 2 and 3. 2 is primitive. It has all elements of $\mathbb{F}_5^*$.
+
+Conjective: For any prime $p$, there exists a primitive element in $\mathbb{F}_p^*$. Beware of the definition of a finite field, $q$ needs to be a prime for $\mathbb{F}_q$ to be a valid finite field. 
+
+Fact: $\forall 0<d<q-1, \sum_{\alpha\in \mathbb{F}_q^*}\alpha^d=0$.
+\begin{proof}
+    Let $\gamma$ be a primitive element of $\mathbb{F}_q$. Solve using the sum of geometric series.
+    \[
+        \sum_{\alpha\in \mathbb{F}_q}\alpha^d = \sum_{\alpha\in \mathbb{F}_q^*}\alpha^d = \sum_{j=0}^{q-2}(\gamma^j)^d = \frac{\gamma^d(1-(\gamma^d)^{q-1})}{1-\gamma^d}=0 
+    \]
+    $r^d\neq 1$ for $0<r<q-1$.
+\end{proof}
+\subsection{Dual view of RS code}
+Proposition: Let $n=q-1$ and let $\gamma$ be a primitive element of $\mathbb{F}_q$. 
+
+$RS_q ((\gamma^0,\gamma^1,\ldots,\gamma^{q-2}),n,k) = \{(c_0,c_1,\ldots,c_{n-1}):C(\gamma^j)=0\}$ where $C(x)=c_0+c_1x+\cdots+c_{n-1}x^{n-1}$
+
+\begin{proof}
+    Let $f(x)=\sum_{i=0}^{k-1}a_i X^i$. An RS codeword is $f(\gamma^0),f(\gamma^1),\ldots,f(\gamma^{n-1}) = (c_0,c_1,\ldots,c_{n-1})$.
+
+    Then $C(\gamma^j)=\sum_{l=0}^{n-1}c_l \gamma^{jl} = \sum_{l=0}^{n-1}f(\gamma^l)\gamma^{jl} = f(\gamma^j)\sum_{l=0}^{n-1}\gamma^{jl} = \sum_{l=0}^{n-1}(\sum_{i=0}^{k-1}a_i \gamma^{jl})= \sum_{i=0}^{k-1}a_i \sum_{l=0}^{n-1}(\gamma^{l})^{i+j} = 0$.
+
+    Show subset heere for some reason, revisit later.!!!!!!!!!!
+\end{proof}
+\subsection{Parity check matrix of RS code}
+Corollory: The parity check matrix for $RS_q((\gamma^0,\gamma^1,\ldots,\gamma^{n-1}),n,k)$ is \[
+    H=\begin{bmatrix}
+        1 & r & r^2 & \cdots & r^{n-1} \\
+        1 & r^2 & r^4 & \cdots & r^{2(n-1)} \\
+        \vdots & \vdots & \vdots & \cdots & \vdots \\
+        1 & r^{n-k} & r^{2(n-k)} & \cdots & r^{(n-k)(n-1)}
+    \end{bmatrix}
+\]
+\begin{proof}
+    The parity check matrix is the generator matrix of the dual code. So we can use the generator matrix of the original code to find the parity check matrix of the dual code.
+    \[
+    H\vec{C}=\vec{0}=\sum_{i=0}^{n-1}c_i\gamma^{ji}=\vec{C}(\gamma^j)=0    
+    \]
+    Not done yet!!!!!!!!
+\end{proof}
+\subsection{Generalized Reed-Solomon Codes}
+\begin{definition}
+    A generalized RS code $GRS_q(\vec{\alpha},n,k, \vec{\lambda})$ where $\forall \lambda_i \in \vec{\lambda} = (\mathbb{F}_q^*)^n$ is defined as follows: \[
+        GRS_q(\vec{\alpha},n,k, \vec{\lambda}) = \{(\lambda_0f(\alpha_1),\lambda_1f(\alpha_2),\ldots,\lambda_{n-1}f(\alpha_n)): f(x)\in \mathbb{F}_q[x], \deg(f(x))\le k-1\}
+    \]
+\end{definition}
+\begin{theorem}
+    For any $\vec{\alpha} and \vec{\lambda}, \exists \vec{\gamma} \in \mathbb{F}_q^*$ such that \[
+        GRS_q(\vec{\alpha},n,k, \vec{\lambda})^{\perp} = GRS_q(\vec{\alpha},n,n-k, \vec{\gamma})
+    \]
+\end{theorem}
+\section{Existance of finite fields}
+\begin{theorem}
+    For any prime power $p^m$, there exists a finite field $\mathbb{F}_{p^m}$ with $p^m$ elements. There are no other finite fields.
+\end{theorem}
+Remark: For $\mathbb{F}_{p^m}$, it has elements from $\mathbb{F}_p [X]$. Addition and multiplication are defined by modulo $p$ and modulo $f(x)$ respectively. Multiplication is related to ``irreducible polynomial''.
+
+For example: $f(x),g(x)\in \mathbb{F}_{p^m}$\[
+    f(x)\cdot g(x) = q(x)E(x)+r(x)
+\]
+Note the similarity to the Euclidean division. $q(x)$ is the quotient and $r(x)$ is the remainder. $r(x)$ has degree less than $f(x)$. Then $E(x)$ is the irreducible polynomial.
+\subsection{Irreducible Polynomial}
+\begin{definition}
+    A polynomial $f(x)\in \mathbb{F}_p[x]$ is called \textbf{irreducible} if for any $g_1(x),g_2(x)\in \mathbb{F}_p[x]$, $f(x)= g_1(x)g_2(x)$, we have $\min\{\deg(g_1(X)),\deg(g_2(x))\}=0$
+\end{definition}
+For example: \begin{itemize}
+    \item $2(x+1)$ is reducible in $\mathbb{F}_3[x]$
+    \item Over $\mathbb{F}_2[x],x^2+1=(x+1)^2$ not irreducible (has a root which is 1)
+    \item Over $\mathbb{F}_2[x], x^2+x+1$ is irreducible (no root)
+\end{itemize}
+Is it enough to check all possible $\alpha \in \mathbb{F}_q$ to see if $f(\alpha)=0$? No, because it is not enough to check all possible $\alpha \in \mathbb{F}_q$ to see if $f(\alpha)=0$. For example, $x^2+1$ is reducible in $\mathbb{F}_3[x]$ but has no root in $\mathbb{F}_3$.
+
+So ``no roots'' $\implies$ ``irreducible'' but ``irreducible'' does not imply ``no roots''.
+\subsection{Finite filed with $p^m$ elements (p is a prime)}
+\begin{theorem}
+    Let $E(x)$ be an irreducible polynomial of degree $m\ge 2, m \in \mathbb{F}_p[x]$ for prime $p$. The set of polynomials in $\mathbb{F}_p[x]$ modulo $E(x)$ denoted by $\mathbb{F}_{p^m}= \mathbb{F}_p[x]/(E(x))$ is a finite field with $p^m$ elements.
+\end{theorem}
+
+
+
+
+
+
 \end{document}
