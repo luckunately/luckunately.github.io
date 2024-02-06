@@ -693,7 +693,71 @@ The case where $b=1$ is of particular interest. Here $x$ is called the inverse o
 Note that $ax \equiv b \pmod n \iff a x = b + n k$ for some $k \in \mathbb{Z}$. For example, $ax-nk=b$ for some $k\in \mathbb{Z}$. We know that $ax-nk=\gcd(a,n)$ by Bezout's theorem. Therefore, $ax-nk=\gcd(a,n)$ for some $k\in \mathbb{Z}$.
 
 If it exists, we are interested in how many there are. 
+\subsubsection{Solving linear congruences}
+Two solutions $x_1$ and $x_2$ are considered the same $\iff \exists y \in \mathbb{Z}$ s.t $ax-b=ny$ or Equivalently $ax-ny=b$.
+
+In particular, if $\gcd(a,n)$ does not divide $b$, then the congruence $ax\equiv b \pmod n$ has no integer solution.
+
+\begin{theorem}
+    If $d=\gcd(a,n)|b$, then the congurence $ax\equiv b \pmod n$ has exactly $d$ solutions
+\end{theorem}
+\begin{proof}
+    Assume that $d=\gcd(a,n)|b$. Then the linear Diophantine equation $ax-b=ny \iff ax-ny=b$ for some $x,y\in \mathbb{Z}$ has a particular solution $(x_0,y_0)$ by Bezout's theorem. 
+
+    General solution: $x=x_0+\frac{n}{d}t, y=y_0-\frac{a}{d}t$ for some $t\in \mathbb{Z}$.
+
+    We are only interested in $x$ here and up to multiples of $n$. In other words, $x_0+\frac{n}{d}t_1$ and $x_0+\frac{n}{d}t_2$ are considered the same if and only if $\frac{n}{d}t_1\equiv \frac{n}{d}t_2 \pmod {n}$ or equivalently, $\frac{n}{d}(t_1-t_2)\equiv 0 \pmod {n}$. (So that the congruence is the same)
+
+    $\frac{n}{d}(t_1-t_2)\equiv 0 \pmod {n}\implies \frac{n}{d}(t_1-t_2)=ns \implies t_1-t_2=ds$ for some $s\in \mathbb{Z}$. Therefore, $t_1-t_2\equiv 0 \pmod d$. Thus we get exactly $d$ solutions by letting $t$ range from $0$ to $d-1$.
+\end{proof}
+
+Conclusion: Every solution is $ax\equiv b \pmod n$ is of the form $x=x_0+\frac{n}{d}t$ for some $t\in \mathbb{Z}$ where $d=\gcd(a,n)$ and $x_0$ is a particular solution. Two solutions $x_1 = x_0+\frac{n}{d}t_1$ and $x_2 = x_0+\frac{n}{d}t_2$ are considered the same if and only if $\frac{n}{d}(t_1-t_2)\equiv 0 \pmod {n} \iff t_1-t_2 \equiv 0 \pmod d$. Thus we get exactly $d$ solutions by letting $t$ range from $0$ to $d-1$.
+\subsubsection{Examples}
+For example, solve $10x\equiv 3 \pmod {12}$. Here $d = \gcd(10,12) = 2$. Since $2\nmid 3$, there are no solutions. The gcd needs to divide the congruence value.
+
+Another example, $10x\equiv 4 \pmod {12}$. Here we expect 2 solutions. To find them, we start by finding a particular solution for $10x -12y = 4$. Since the number is small, we can just guess the solution:
+
+$x_0=4, y_0=3$ is the particular solution. Then the general solution is $x=4+\frac{12}{2}t=4+6t$ for some $t\in \mathbb{Z}$. 
+\begin{itemize}
+    \item $t$ ranges from $0$ to $1$. 
+    \item When $t=0$, $x=4$.
+    \item When $t=1$, $x=10$.
+\end{itemize}
+So the solutions are $x\equiv 4 \pmod {12}$ and $x\equiv 10 \pmod {12}$.
+\subsubsection{Multuplicative inverses}
+Particular interesting case when $b=1$. Then $ax\equiv 1 \pmod n$ is called the inverse of $a$ modulo $n$. We write $x=a^{-1} \pmod n$.
+
+In this case, the congruence has a solution if and only if $\gcd(a,n)=1$, which also means the congruence has exactly one solution.
+
+Not all congruence classes have an inverse. For example, $ax\equiv 1 \pmod {10}$: \begin{align*}
+    1\times 1 & \equiv 1 \pmod {10} \\
+    3\times 7 & \equiv 1 \pmod {10} \\
+    7\times 3 & \equiv 1 \pmod {10} \\
+    9\times 9 & \equiv 1 \pmod {10}
+\end{align*}
+And the rest does not have one. It is because the rest have a gcd with 10 that is greater than 1.
+
+Corollary: Let $p$ be a prime, then every $a\not\equiv 0 \pmod p$ has an inverse modulo $p$. It is because $\gcd(a,p)=1$.
+
+Corollary: Let $p$ be a prime, then $a\equiv a^{-1} \pmod p \iff a \equiv \pm 1 \pmod p$. 
+\begin{proof}
+    Indeed multiplying both sides by $a$, we get $a\equiv a^{-1} \pmod p \implies a^2\equiv 1 \pmod p \iff (a-1)(a+1)\equiv 0 \pmod p \iff a\equiv \pm 1 \pmod p$.
+
+    If $a\not \equiv 1$ then $a-1$ has a multiplicative inverse modulo $p$. Denote this multiplicative inverse by $b$. Time both side by $b$ Then $b(a-1)(a+1)\equiv 0 \pmod p \implies a+1\equiv 0 \pmod p \implies a\equiv -1 \pmod p$. Therefore, $a\equiv b \pmod p$.
+
+    Similarly we can find that $a\not \equiv -1 \implies a\equiv 1 \pmod p$. So we proved the corollary.
+\end{proof}
 
 
-
+For example, solve $17x\equiv 1 \pmod 55$. First, find the gcd of 17 and 55: \begin{align*}
+    55 & = 3\times 17+4 \\
+    17 & = 4\times 4+1 \\
+    4 & = 4\times 1
+\end{align*}
+Now use back substitution: \begin{align*}
+    1 & = 17-4\times 4 \\
+    & = 17-4\times (55-3\times 17) \\
+    & = 13\times 17-4\times 55
+\end{align*}
+Therefore, $13\times 17\equiv 1 \pmod {55}$. So the solution is $x\equiv 13 \pmod {55}$.
 \end{document}
