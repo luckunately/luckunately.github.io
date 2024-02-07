@@ -704,14 +704,36 @@ Note that gc is fast if we keep the young generation (nursery) small.
 \subsection{non-deterministic finalization}
 \begin{itemize}
     \item finalization is the process of freeing the memory
-    \item For example, in C++, the destructor is called when the object goes out of scope, sockets and locks in Java and Python are closed when the object is garbage collected
+    \item For example, in C++, the destructor is called when the object goes out of scope, and sockets and locks in Java and Python are closed when the object is garbage-collected
     \item it is non-deterministic because we don't know when the memory will be freed
 \end{itemize}
 \subsection{Conservative garbage collection}
 Some languages do not distinguish between pointers and integers. They can also do pointer arithmetics with pointers. 
 
-We can use some logic to find the difference, for example, small numebrs are generally not pointers. However, this is not always true. If not pointing inside blocks, then it is not a heap pointer.
+We can use some logic to find the difference, for example, small numbers are generally not pointers. However, this is not always true. If not pointing inside blocks, then it is not a heap pointer.
 
 These tricks are not always reliable. So we can use conservative garbage collection. It is a way to do garbage collection without knowing the exact location of the pointers. We can just assume that the integers are pointers and do garbage collection.
+\section{Virtual memory}
+Virtual memory is needed since we want to run multiple instances simultaneously and use the same memory addresses.
+
+Each program would think that they have the entire memory to itself. 
+\subsection{Virtual memory abstraction}
+\begin{itemize}
+    \item each program has its own virtual memory space
+    \item the virtual memory space is divided into pages
+    \item the pages are mapped to physical memory
+    \item the mapping is done by the operating system
+\end{itemize}
+In a 64-bit architecture, we usually divide into 4KB pages. Thus the last 12 bits of a Virtual Address is the offset of the page. The rest of the bits are the page numbers. 
+
+
+
+
+
+
+
+
+
+
 \end{document}
 

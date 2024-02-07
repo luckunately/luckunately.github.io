@@ -402,7 +402,7 @@ Let $d = \gcd(a,b)$. \begin{enumerate}
           solution'' means that $(x,y)$ is a solution for every integer value of t, and
           every integer solution can be expressed in this form.
 \end{enumerate}
-\subsubsection{Key Lemma}
+\subsubsection{Key Lemma}\label{sec:key-lemma}
 Before proving the theorem, we need to prove the following lemma:
 
 \textbf{Key Lemma}: Let $a, b, c \in \mathbb{Z}, (a, b) \neq (0, 0)$. Let $d = \gcd(a, b) = 1$. Then $a|bc \implies a|c$.
@@ -818,40 +818,94 @@ Here uniqueness means the following: Suppose \begin{align*}
 Then $x\equiv y \pmod {n_1n_2}$.
 \subsubsection{Proof of uniqueness}
 \begin{proof}
-    Assume $x\equiv y \equiv a_1 \pmod {n_1}$ and $x\equiv y \equiv a_2 \pmod {n_2}$. Then $n_1 | (x-y)$ and $n_2 | (x-y)$. 
+    Assume $x\equiv y \equiv a_1 \pmod {n_1}$ and $x\equiv y \equiv a_2 \pmod {n_2}$. Then $n_1 | (x-y)$ and $n_2 | (x-y)$.
 
-    Then $x-y=0\pmod {n_1}$ and $x-y=0\pmod {n_2}$. Then $n_1 | (x-y)$ and $n_2 | (x-y)$. Then $n_1n_2 | (x-y)$. Therefore, $x\equiv y \pmod {n_1n_2}$.
+    Then $x-y=0\pmod {n_1}$ and $x-y=0\pmod {n_2}$. Then $n_1 | (x-y)$ and $n_2 |
+        (x-y)$.
 
-    Note that any common multiple of $n_1,n_2$ is divisible by $\text{lcm}(n_1,n_2)=\frac{n_1 n_2}{\gcd(n_1,n_2)}=n_1n_2$. Therefore, the solution is unique modulo $n_1n_2$. We have proved the uniqueness.
+    Note that any common multiple of $n_1,n_2$ is divisible by \[
+        \text{lcm}(n_1,n_2)=\frac{n_1 n_2}{\gcd(n_1,n_2)}=n_1n_2.
+    \]
+
+    Then $n_1n_2 | (x-y)$. $(x-y)$ is a common divisor.
+
+    Therefore, $x\equiv y \pmod {n_1n_2}$.
 \end{proof}
+Here we can also apply the \hyperref[sec:key-lemma]{Key Lemma} to prove the existence of the solution.
+
 \subsubsection{Proof of existence}
 \begin{proof}
     Let $n=n_1 n_2$. To each congruence class $[x] \pmod n$, associate a pair of integers $(z_1,z_2)$ where $z_1\equiv x \pmod {n_1}$ and $z_2\equiv x \pmod {n_2}$. Pick $0\le z_1 < n_1$ and $0\le z_2 < n_2$.
 
-    Note that there are exactly $n_1 n_2=n$ such pairs.
+    Note that there are exactly $n_1 n_2=n$ such pairs. And there are exactly $n$
+    congruence classes $[x] \pmod n$.
 
-    Moreover, by uniqueness, we never associate the same pair $z_1, z_2$ to two different congruence classes $[x] \pmod n$. 
+    Moreover, by uniqueness, we never associate the same pair $z_1, z_2$ to two
+    different congruence classes $[x] \pmod n$.
 
-    By the Pigeonhole Principle, we conclude that every pair $(a_1,a_2)$ is associated with some congruence class $[x] \pmod n$. Therefore, the solution exists.
+    By the Pigeonhole Principle, we conclude that every pair $(a_1,a_2)$ is
+    associated with some congruence class $[x] \pmod n$. Therefore, the solution
+    exists.
 \end{proof}
 Example illustrating the theorem: $n_1=3,n_2=5$ \begin{align*}
     x & \equiv 2 \pmod 3 \\
     x & \equiv 3 \pmod 5
 \end{align*}
-Where $0\le x\le 14$. Can list out all the combinations to find it, but we need a better algorithm:
+Where $0\le x\le 14$. Can list out all the combinations to find it, but we need a better algorithm for larger numbers.
 \subsubsection{Algorithm}
 Note that we only need to solve two systems of linear congruences: \begin{align*}
-    x & \equiv 1 \pmod {n_1} && z \equiv 0 \pmod {n_1} \\
-    y & \equiv 0 \pmod {n_2} && z \equiv 1 \pmod {n_2}
+    y & \equiv 1 \pmod {n_1} &  & z \equiv 0 \pmod {n_1} \\
+    y & \equiv 0 \pmod {n_2} &  & z \equiv 1 \pmod {n_2}
 \end{align*}
-because we can do $x=a_1 y+a_2 z$ by solving $x\equiv a_1 \pmod {n_1}$ and $x\equiv a_2 \pmod {n_2}$. \begin{align*}
-    x\equiv a_1 ya_2 z \pmod {n_1n_2}\\
-
-    To be continued
+because we can do $x=a_1 y+a_2 z$ to get $x\equiv a_1 \pmod {n_1}$ and $x\equiv a_2 \pmod {n_2}$. by solving:
+\begin{align*}
+    x\equiv a_1y+a_2 z \equiv a_1 \times 1 + a_2 \times 0 \pmod {n_1} \\
+    x\equiv a_1y+a_2 z \equiv a_1 \times 0 + a_2 \times 1 \pmod {n_2}
 \end{align*}
 
 
+Now the problem comes to how do we solve \begin{align*}
+    y & \equiv 1 \pmod {n_1} \\
+    y & \equiv 0 \pmod {n_2}
+\end{align*}
 
+Set $y=n_2 t$ into the first congruence. $n_2 t \equiv 1 \pmod {n_1}$. Since
+$\gcd(n_1,n_2)=1$, we can find $t=t_1$ such that $n_2 t_1 \equiv 1 \pmod
+    {n_1}$. Then $t_1$ is the multiplicative inverse of $n_2$ modulo $n_1$. Then
+$y=n_2 t_1$ is the solution to the first congruence.
 
+Similarly, we can find $z=n_1 t_2$ is the solution to the second congruence.
+
+In Summary, the solution to the system of linear congruences \begin{align*}
+    x & \equiv a_1 \pmod {n_1} \\
+    x & \equiv a_2 \pmod {n_2}
+\end{align*}
+is \[
+    x=a_1 n_2 t_1+a_2 n_1 t_2
+\]
+where $t_1$ is the multiplicative inverse of $n_2$ modulo $n_1$ and $t_2$ is
+the multiplicative inverse of $n_1$ modulo $n_2$.
+
+\subsubsection{Example}
+For example, solve \begin{align*}
+    x & \equiv 2 \pmod 3 \\
+    x & \equiv 3 \pmod 7
+\end{align*}
+Here: $n_1 = 7, n_2 = 3, a_1 = 3, a_2 = 2$. 
+
+First, find the multiplicative inverse of 3 modulo 7. \begin{align*}
+    7 & = 2\times 3+1 \\
+    1 & = 7-2\times 3
+\end{align*}
+Therefore, $3^{-1}\equiv -2 \equiv 5 \pmod 7$.
+
+Then find the multiplicative inverse of 7 modulo 3. \begin{align*}
+    3 & = 1\times 3+0
+\end{align*}
+Therefore, $7^{-1}\equiv 1 \pmod 3$.
+
+Then the solution is \[
+    x\equiv a_1 t_1 n_2+a_2 t_2 n_1\equiv 3\times 5\times 3+2\times 1\times 7\equiv 45+14 \equiv 17 \pmod {21}
+\]
 
 \end{document}
