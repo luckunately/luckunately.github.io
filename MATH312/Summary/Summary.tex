@@ -320,7 +320,10 @@ Solve linear equations in the form of $ax + by = c$ where $a, b, c \in
 $x, y$. Note that real solutions are easy to find and there are infinitely many
 of them.
 
-Bezout's identity proved that an integer solution exists if and only if $\gcd(a, b) | c$. $\gcd(a, b)$ is the smallest positive integer that can be written as an integer linear combination of $a$ and $b$. So all linear combinations of $a$ and $b$ are multiples of $\gcd(a, b)$.
+Bezout's identity proved that an integer solution exists if and only if
+$\gcd(a, b) | c$. $\gcd(a, b)$ is the smallest positive integer that can be
+written as an integer linear combination of $a$ and $b$. So all linear
+combinations of $a$ and $b$ are multiples of $\gcd(a, b)$.
 
 Now we want to find all the integer solutions.\begin{itemize}
     \item Describe the set of all integer solutions.
@@ -429,8 +432,8 @@ With the Lemma in hand, we can start proving the theorem:\begin{proof}
               Note that $\gcd(\frac{a}{d}, \frac{b}{d}) = 1$. Therefore, $\frac{a}{d} |
                   (y-y_0)$ by the Key Lemma.
 
-              Then let $y-y_0 = -\frac{a}{d}t$ for some $t \in \mathbb{Z}$. Substitute it into
-              the equation: \[
+              Then let $y-y_0 = -\frac{a}{d}t$ for some $t \in \mathbb{Z}$. Substitute it
+              into the equation: \[
                   \frac{a}{d}(x-x_0) = \frac{b}{d}\frac{a}{d}t
               \]
               Here we have two cases:\begin{itemize}
@@ -520,8 +523,8 @@ Let us write the highest power of p appearing in the prime factorization of n
 as $v_p(n)$. For example: $v_2(12) = 2, v_3(12) = 1, v_5(12) = 0$. Then we have
 the following corollary:
 
-If $m$ and $n$ are positive integers, then $m | n \iff v_p(m) \leq v_p(n)$ for all
-primes p.\begin{proof}
+If $m$ and $n$ are positive integers, then $m | n \iff v_p(m) \leq v_p(n)$ for
+all primes p.\begin{proof}
     Prove both directions:
     \begin{itemize}
         \item $\implies$: Suppose $m | n$. Then $n = mk$ for some $k \in \mathbb{Z}$. Then $v_p(n) = v_p(mk) = v_p(m) + v_p(k) \ge v_p(m)$.
@@ -551,7 +554,8 @@ Corollary: $\gcd(n,m) \times \text{lcm}(n,m) = nm$. \begin{proof}
 \end{definition}
 Note that $\forall a ,n \in \mathbb{Z}, n \ge 2, a\equiv b \pmod{n}$ for some $b \in \mathbb{Z}, 0\le b \le n-1$.
 
-Congruences mod n may be thought of as a way of focusing on the remainder and casting out (ignoring) the quotient (multiples of n).
+Congruences mod n may be thought of as a way of focusing on the remainder and
+casting out (ignoring) the quotient (multiples of n).
 
 \subsection{Congruence Class}
 \begin{definition}
@@ -567,28 +571,28 @@ For example: \begin{align*}
 Note that $[a]_n = [b]_n \iff a \equiv b \pmod{n}$.
 \subsection{Properties of congruences}
 \begin{align*}
-    a & \equiv a \pmod{n} \forall a, n \in \mathbb{Z}\\
-    a & \equiv b \pmod{n} \implies b \equiv a \pmod{n}\\
-    a & \equiv b \pmod{n} \land b \equiv c \pmod{n} \implies a \equiv c \pmod{n}\\
-    a & \equiv b \pmod{n} \land c \equiv d \pmod{n} \implies a+c \equiv b+d \pmod{n}\\
-    a & \equiv b \pmod{n} \land c \equiv d \pmod{n} \implies ac \equiv bd \pmod{n}\\
-    a & \equiv b \pmod{n} \implies ac \equiv bc \pmod{n}\\
+    a & \equiv a \pmod{n} \forall a, n \in \mathbb{Z}                                \\
+    a & \equiv b \pmod{n} \implies b \equiv a \pmod{n}                               \\
+    a & \equiv b \pmod{n} \land b \equiv c \pmod{n} \implies a \equiv c \pmod{n}     \\
+    a & \equiv b \pmod{n} \land c \equiv d \pmod{n} \implies a+c \equiv b+d \pmod{n} \\
+    a & \equiv b \pmod{n} \land c \equiv d \pmod{n} \implies ac \equiv bd \pmod{n}   \\
+    a & \equiv b \pmod{n} \implies ac \equiv bc \pmod{n}                             \\
     a & \equiv b \pmod{n} \implies a^k \equiv b^k \pmod{n} \forall k \in \mathbb{N}
 \end{align*}
 Note that it is reflective, symmetric and transitive. It is also closed under addition, multiplication and exponentiation.
 \subsubsection{Arithmetics on congruence classes}
 Arithmetics between congruence classes: \begin{align*}
-    [a]_n + [b]_n & = [a+b]_n \\
+    [a]_n + [b]_n      & = [a+b]_n        \\
     [a]_n \times [b]_n & = [a \times b]_n \\
-    [a]_n^k & = [a^k]_n
+    [a]_n^k            & = [a^k]_n
 \end{align*}
 If $x_1 \equiv x_2 \pmod n, y_1 \equiv y_2 \pmod n$, then \begin{itemize}
     \item $x_1 + y_1 \equiv x_2 + y_2 \pmod n$
     \item $x_1y_1 \equiv x_2y_2 \pmod n$
     \item $x_1 - y_1 \equiv x_2 - y_2 \pmod n$
-\end{itemize} 
+\end{itemize}
 \begin{proof}
-    Suppose $x_1-x_2=an,y_1-y_2=bn$ for some $a,b \in \mathbb{Z}$. Then 
+    Suppose $x_1-x_2=an,y_1-y_2=bn$ for some $a,b \in \mathbb{Z}$. Then
     \begin{itemize}
         \item $(x_1+y_1)-(x_2+y_2)=an+bn=(a+b)n\equiv 0 \pmod n$ Thus $x_1+y_1\equiv x_2+y_2 \pmod n$
         \item Subtraction is similar to addition proof
@@ -597,25 +601,29 @@ If $x_1 \equiv x_2 \pmod n, y_1 \equiv y_2 \pmod n$, then \begin{itemize}
 \end{proof}
 Using the rules above, we can calculate some insanely big numbers: \begin{align*}
     48^{100}+15\times 70002 \pmod 7 & \equiv (-1)^{100}+1\times 2 \pmod 7 \\
-    & \equiv 1+2 \pmod 7 \\
-    & \equiv 3 \pmod 7
+                                    & \equiv 1+2 \pmod 7                  \\
+                                    & \equiv 3 \pmod 7
 \end{align*}
 Note that if $d\equiv e \pmod n$, does not imply $a^d\equiv a^e \pmod n$. For example, $2\equiv 9 \pmod 7$, but $2^2\not\equiv 2^9 \pmod 7$.
 \subsubsection{Modular exponentiation}
-Modular exponentiation like raising an integer to a high power modulo n, is used in cryptography. 
+Modular exponentiation like raising an integer to a high power modulo n, is
+used in cryptography.
 
-For large $x,y\equiv a^x \pmod n$ is easy to compute. On the other hand, given $y$, recovering $x$ is hard. Without additional information, it is a ``Discrete Logarithm Problem''.
+For large $x,y\equiv a^x \pmod n$ is easy to compute. On the other hand, given
+$y$, recovering $x$ is hard. Without additional information, it is a ``Discrete
+Logarithm Problem''.
 
-A quick algorithm for computing $a^x \pmod n$ is called ``the method of repeated squaring''. For example, $a^{13} \pmod n$ can be computed as follows: 
+A quick algorithm for computing $a^x \pmod n$ is called ``the method of
+repeated squaring''. For example, $a^{13} \pmod n$ can be computed as follows:
 
-For example: find $7^51\pmod 17$ 
+For example: find $7^51\pmod 17$
 \begin{align*}
-    7^1 & \equiv 7 \pmod {17} \\
-    7^2 & \equiv 7\times 7 \equiv 49 \equiv 15 \equiv -2 \pmod {17} \\
-    7^4 & \equiv (-2)^2 \equiv 4 \pmod {17} \\
-    7^8 & \equiv 4^2 \equiv 16 \equiv -1 \pmod {17} \\
-    7^{16} & \equiv (-1)^2 \equiv 1 \pmod {17} \\
-    7^{32} & \equiv 1^2 \equiv 1 \pmod {17} \\
+    7^1    & \equiv 7 \pmod {17}                                                                                               \\
+    7^2    & \equiv 7\times 7 \equiv 49 \equiv 15 \equiv -2 \pmod {17}                                                         \\
+    7^4    & \equiv (-2)^2 \equiv 4 \pmod {17}                                                                                 \\
+    7^8    & \equiv 4^2 \equiv 16 \equiv -1 \pmod {17}                                                                         \\
+    7^{16} & \equiv (-1)^2 \equiv 1 \pmod {17}                                                                                 \\
+    7^{32} & \equiv 1^2 \equiv 1 \pmod {17}                                                                                    \\
     7^{51} & \equiv 7^{32}\times 7^{16}\times 7^2\times 7^1 \equiv 1\times 1\times (-2)\times 7 \equiv -14 \equiv 3 \pmod {17}
 \end{align*}
 
@@ -624,14 +632,16 @@ For example: find $7^51\pmod 17$
     Let $b\in \mathbb{Z},b\ge 2$. Then $\forall m \in \mathbb{N}$ can be written as \[
         m=a_k b^k+a_{k-1}b^{k-1}+\cdots+a_1b+a_0
     \]
-    
-    where $k\in \mathbb{N},a_0,a_1,\ldots,a_k\in \mathbb{Z},0\le a_i\le b-1$ for all $i$.
+
+    where $k\in \mathbb{N},a_0,a_1,\ldots,a_k\in \mathbb{Z},0\le a_i\le b-1$ for
+    all $i$.
 
     Moreover, this representation is unique.
 \end{theorem}
 The theorem gives a representation of $m$ in base b. $a_k$ is the highest digit and $a_0$ is the lowest digit. If $b=10$, then it is the normal decimal representation. We just simply leave out the subscript $b=10$.
 
-For example, $51=32+16+2+1=1\times 2^5+1\times 2^4+0\times 2^3+0\times 2^2+1\times 2^1+1\times 2^0=110011_2$.
+For example, $51=32+16+2+1=1\times 2^5+1\times 2^4+0\times 2^3+0\times
+    2^2+1\times 2^1+1\times 2^0=110011_2$.
 
 \begin{proof}
     Prove by strong induction on $n$.
@@ -640,13 +650,15 @@ For example, $51=32+16+2+1=1\times 2^5+1\times 2^4+0\times 2^3+0\times 2^2+1\tim
 
     \textbf{Inductive Step:} Assume $n\ge b$ and the existence part of the theorem holds for any integer between $1$ and $n-1$. We want to show that the existence part of the theorem holds for $n$.
 
-    Divide $n$ by $b$: $n=bq+r$ where $0\le r<b$. Then $0\le q<n$. By the inductive hypothesis, $q$ can be written as \[
+    Divide $n$ by $b$: $n=bq+r$ where $0\le r<b$. Then $0\le q<n$. By the inductive
+    hypothesis, $q$ can be written as \[
         q=c_s b^s+c_{s-1}b^{s-1}+\cdots+c_1b+c_0
     \]
-    Now $n=qb+r=c_s b^{s+1}+c_{s-1}b^s+\cdots+c_1b^2+c_0b+r$. Therefore, $n$ can be written as \[
+    Now $n=qb+r=c_s b^{s+1}+c_{s-1}b^s+\cdots+c_1b^2+c_0b+r$. Therefore, $n$ can be
+    written as \[
         n=a_k b^k+a_{k-1}b^{k-1}+\cdots+a_1b+a_0
     \]
-    This is the representation of $n$ in base $b$.  
+    This is the representation of $n$ in base $b$.
 
     For uniqueness, again by induction:
 
@@ -659,77 +671,103 @@ For example, $51=32+16+2+1=1\times 2^5+1\times 2^4+0\times 2^3+0\times 2^2+1\tim
         n & = c_s b^s+c_{s-1}b^{s-1}+\cdots+c_1b+c_0
     \end{align*}
     Then \begin{align*}
-        a_0 = n \pmod b = c_0 &\land  0\le a_0, c_0 \le b-1 \\
+        a_0 = n \pmod b = c_0                           & \land  0\le a_0, c_0 \le b-1                      \\
         \frac{1}{b}(n-a_0)=a_k b^{k-1}+\cdots+a_2 b+a_1 & = \frac{1}{b}(n-c_0)=c_s b^{s-1}+\cdots+c_2 b+c_1
     \end{align*}
     By induction assumption, $k-1=m-1 \land a_i=c_i$ for all $i$. Therefore, $k=s \land a_i=c_i$ for all $i$.
 \end{proof}
 \subsubsection{Exponentiation arithmetic}
-Back to repeated squaring, the goal is to compute $a^x \pmod n$. 
+Back to repeated squaring, the goal is to compute $a^x \pmod n$.
 
 Pre-compute: $a,a^2,a^4,a^8,\ldots,a^{2^k} \pmod n$
 
-Now write $x$ in base 2: $x=2^{k_1}+2^{k_2}+\cdots+2^{k_m}$ where $k_1>k_2>\cdots>k_m\ge 0$.
+Now write $x$ in base 2: $x=2^{k_1}+2^{k_2}+\cdots+2^{k_m}$ where
+$k_1>k_2>\cdots>k_m\ge 0$.
 
-Then $a^x=a^{2^{k_1}}\times a^{2^{k_2}}\times \cdots \times a^{2^{k_m}} \pmod n$.   
+Then $a^x=a^{2^{k_1}}\times a^{2^{k_2}}\times \cdots \times a^{2^{k_m}} \pmod
+    n$.
 
-For example: Compute the last two digits of $53^{29}$. Equivalently, it is $53^{29} \pmod {100}$.
+For example: Compute the last two digits of $53^{29}$. Equivalently, it is
+$53^{29} \pmod {100}$.
 
-Start with 29 in base 2: $29=16+8+4+1$. Then $53^{29}=53^{16}\times 53^8\times 53^4\times 53^1 \pmod {100}$.
+Start with 29 in base 2: $29=16+8+4+1$. Then $53^{29}=53^{16}\times 53^8\times
+    53^4\times 53^1 \pmod {100}$.
 
 \begin{align*}
-    53^1 & = 53 \pmod {100} \\
-    53^2 & = 2809 \equiv 9 \pmod {100} \\
-    53^4 & = (53^2)^2 \equiv 81 \pmod {100} \\
-    53^8 & \equiv 81^2 = 6561 \equiv 61 \pmod {100} \\
-    53^{16} & \equiv 61^2 = 3721 \equiv 21 \pmod {100} \\
+    53^1    & = 53 \pmod {100}                                      \\
+    53^2    & = 2809 \equiv 9 \pmod {100}                           \\
+    53^4    & = (53^2)^2 \equiv 81 \pmod {100}                      \\
+    53^8    & \equiv 81^2 = 6561 \equiv 61 \pmod {100}              \\
+    53^{16} & \equiv 61^2 = 3721 \equiv 21 \pmod {100}              \\
     53^{29} & = 21\times 61\times 81\times 53 \equiv 13 \pmod {100}
 \end{align*}
 \subsection{Linear congruences}
 $ax\equiv b \pmod n$ is a linear congruence. We want to find all solutions of $x$ given $a,b,n$.
 
-The case where $b=1$ is of particular interest. Here $x$ is called the inverse of $a$ modulo $n$. We write $x=a^{-1} \pmod n$.
+The case where $b=1$ is of particular interest. Here $x$ is called the inverse
+of $a$ modulo $n$. We write $x=a^{-1} \pmod n$.
 
-Note that $ax \equiv b \pmod n \iff a x = b + n k$ for some $k \in \mathbb{Z}$. For example, $ax-nk=b$ for some $k\in \mathbb{Z}$. We know that $ax-nk=\gcd(a,n)$ by Bezout's theorem. Therefore, $ax-nk=\gcd(a,n)$ for some $k\in \mathbb{Z}$.
+Note that $ax \equiv b \pmod n \iff a x = b + n k$ for some $k \in \mathbb{Z}$.
+For example, $ax-nk=b$ for some $k\in \mathbb{Z}$. We know that
+$ax-nk=\gcd(a,n)$ by Bezout's theorem. Therefore, $ax-nk=\gcd(a,n)$ for some
+$k\in \mathbb{Z}$.
 
-If it exists, we are interested in how many there are. 
+If it exists, we are interested in how many there are.
 \subsubsection{Solving linear congruences}
-Two solutions $x_1$ and $x_2$ are considered the same $\iff \exists y \in \mathbb{Z}$ s.t $ax-b=ny$ or Equivalently $ax-ny=b$.
+Two solutions $x_1$ and $x_2$ are considered the same $\iff \exists y \in
+    \mathbb{Z}$ s.t $ax-b=ny$ or Equivalently $ax-ny=b$.
 
-In particular, if $\gcd(a,n)$ does not divide $b$, then the congruence $ax\equiv b \pmod n$ has no integer solution.
+In particular, if $\gcd(a,n)$ does not divide $b$, then the congruence
+$ax\equiv b \pmod n$ has no integer solution.
 
 \begin{theorem}
     If $d=\gcd(a,n)|b$, then the congurence $ax\equiv b \pmod n$ has exactly $d$ solutions
 \end{theorem}
 \begin{proof}
-    Assume that $d=\gcd(a,n)|b$. Then the linear Diophantine equation $ax-b=ny \iff ax-ny=b$ for some $x,y\in \mathbb{Z}$ has a particular solution $(x_0,y_0)$ by Bezout's theorem. 
+    Assume that $d=\gcd(a,n)|b$. Then the linear Diophantine equation $ax-b=ny \iff ax-ny=b$ for some $x,y\in \mathbb{Z}$ has a particular solution $(x_0,y_0)$ by Bezout's theorem.
 
-    General solution: $x=x_0+\frac{n}{d}t, y=y_0-\frac{a}{d}t$ for some $t\in \mathbb{Z}$.
+    General solution: $x=x_0+\frac{n}{d}t, y=y_0-\frac{a}{d}t$ for some $t\in
+        \mathbb{Z}$.
 
-    We are only interested in $x$ here and up to multiples of $n$. In other words, $x_0+\frac{n}{d}t_1$ and $x_0+\frac{n}{d}t_2$ are considered the same if and only if $\frac{n}{d}t_1\equiv \frac{n}{d}t_2 \pmod {n}$ or equivalently, $\frac{n}{d}(t_1-t_2)\equiv 0 \pmod {n}$. (So that the congruence is the same)
+    We are only interested in $x$ here and up to multiples of $n$. In other words,
+    $x_0+\frac{n}{d}t_1$ and $x_0+\frac{n}{d}t_2$ are considered the same if and
+    only if $\frac{n}{d}t_1\equiv \frac{n}{d}t_2 \pmod {n}$ or equivalently,
+    $\frac{n}{d}(t_1-t_2)\equiv 0 \pmod {n}$. (So that the congruence is the same)
 
     $\frac{n}{d}(t_1-t_2)\equiv 0 \pmod {n}\implies \frac{n}{d}(t_1-t_2)=ns \implies t_1-t_2=ds$ for some $s\in \mathbb{Z}$. Therefore, $t_1-t_2\equiv 0 \pmod d$. Thus we get exactly $d$ solutions by letting $t$ range from $0$ to $d-1$.
 \end{proof}
 
-Conclusion: Every solution is $ax\equiv b \pmod n$ is of the form $x=x_0+\frac{n}{d}t$ for some $t\in \mathbb{Z}$ where $d=\gcd(a,n)$ and $x_0$ is a particular solution. Two solutions $x_1 = x_0+\frac{n}{d}t_1$ and $x_2 = x_0+\frac{n}{d}t_2$ are considered the same if and only if $\frac{n}{d}(t_1-t_2)\equiv 0 \pmod {n} \iff t_1-t_2 \equiv 0 \pmod d$. Thus we get exactly $d$ solutions by letting $t$ range from $0$ to $d-1$.
+Conclusion: Every solution is $ax\equiv b \pmod n$ is of the form
+$x=x_0+\frac{n}{d}t$ for some $t\in \mathbb{Z}$ where $d=\gcd(a,n)$ and $x_0$
+is a particular solution. Two solutions $x_1 = x_0+\frac{n}{d}t_1$ and $x_2 =
+    x_0+\frac{n}{d}t_2$ are considered the same if and only if
+$\frac{n}{d}(t_1-t_2)\equiv 0 \pmod {n} \iff t_1-t_2 \equiv 0 \pmod d$. Thus we
+get exactly $d$ solutions by letting $t$ range from $0$ to $d-1$.
 \subsubsection{Examples}
-For example, solve $10x\equiv 3 \pmod {12}$. Here $d = \gcd(10,12) = 2$. Since $2\nmid 3$, there are no solutions. The gcd needs to divide the congruence value.
+For example, solve $10x\equiv 3 \pmod {12}$. Here $d = \gcd(10,12) = 2$. Since
+$2\nmid 3$, there are no solutions. The gcd needs to divide the congruence
+value.
 
-Another example, $10x\equiv 4 \pmod {12}$. Here we expect 2 solutions. To find them, we start by finding a particular solution for $10x -12y = 4$. Since the number is small, we can just guess the solution:
+Another example, $10x\equiv 4 \pmod {12}$. Here we expect 2 solutions. To find
+them, we start by finding a particular solution for $10x -12y = 4$. Since the
+number is small, we can just guess the solution:
 
-$x_0=4, y_0=3$ is the particular solution. Then the general solution is $x=4+\frac{12}{2}t=4+6t$ for some $t\in \mathbb{Z}$. 
+$x_0=4, y_0=3$ is the particular solution. Then the general solution is $x=4+\frac{12}{2}t=4+6t$ for some $t\in \mathbb{Z}$.
 \begin{itemize}
-    \item $t$ ranges from $0$ to $1$. 
+    \item $t$ ranges from $0$ to $1$.
     \item When $t=0$, $x=4$.
     \item When $t=1$, $x=10$.
 \end{itemize}
 So the solutions are $x\equiv 4 \pmod {12}$ and $x\equiv 10 \pmod {12}$.
 \subsubsection{Multuplicative inverses}
-Particular interesting case when $b=1$. Then $ax\equiv 1 \pmod n$ is called the inverse of $a$ modulo $n$. We write $x=a^{-1} \pmod n$.
+Particular interesting case when $b=1$. Then $ax\equiv 1 \pmod n$ is called the
+inverse of $a$ modulo $n$. We write $x=a^{-1} \pmod n$.
 
-In this case, the congruence has a solution if and only if $\gcd(a,n)=1$, which also means the congruence has exactly one solution.
+In this case, the congruence has a solution if and only if $\gcd(a,n)=1$, which
+also means the congruence has exactly one solution.
 
-Not all congruence classes have an inverse. For example, $ax\equiv 1 \pmod {10}$: \begin{align*}
+Not all congruence classes have an inverse. For example, $ax\equiv 1 \pmod
+    {10}$: \begin{align*}
     1\times 1 & \equiv 1 \pmod {10} \\
     3\times 7 & \equiv 1 \pmod {10} \\
     7\times 3 & \equiv 1 \pmod {10} \\
@@ -737,27 +775,83 @@ Not all congruence classes have an inverse. For example, $ax\equiv 1 \pmod {10}$
 \end{align*}
 And the rest does not have one. It is because the rest have a gcd with 10 that is greater than 1.
 
-Corollary: Let $p$ be a prime, then every $a\not\equiv 0 \pmod p$ has an inverse modulo $p$. It is because $\gcd(a,p)=1$.
+Corollary: Let $p$ be a prime, then every $a\not\equiv 0 \pmod p$ has an
+inverse modulo $p$. It is because $\gcd(a,p)=1$.
 
-Corollary: Let $p$ be a prime, then $a\equiv a^{-1} \pmod p \iff a \equiv \pm 1 \pmod p$. 
+Corollary: Let $p$ be a prime, then $a\equiv a^{-1} \pmod p \iff a \equiv \pm 1
+    \pmod p$.
 \begin{proof}
     Indeed multiplying both sides by $a$, we get $a\equiv a^{-1} \pmod p \implies a^2\equiv 1 \pmod p \iff (a-1)(a+1)\equiv 0 \pmod p \iff a\equiv \pm 1 \pmod p$.
 
-    If $a\not \equiv 1$ then $a-1$ has a multiplicative inverse modulo $p$. Denote this multiplicative inverse by $b$. Time both side by $b$ Then $b(a-1)(a+1)\equiv 0 \pmod p \implies a+1\equiv 0 \pmod p \implies a\equiv -1 \pmod p$. Therefore, $a\equiv b \pmod p$.
+    If $a\not \equiv 1$ then $a-1$ has a multiplicative inverse modulo $p$. Denote
+    this multiplicative inverse by $b$. Time both side by $b$ Then
+    $b(a-1)(a+1)\equiv 0 \pmod p \implies a+1\equiv 0 \pmod p \implies a\equiv -1
+        \pmod p$. Therefore, $a\equiv b \pmod p$.
 
-    Similarly we can find that $a\not \equiv -1 \implies a\equiv 1 \pmod p$. So we proved the corollary.
+    Similarly we can find that $a\not \equiv -1 \implies a\equiv 1 \pmod p$. So we
+    proved the corollary.
 \end{proof}
-
 
 For example, solve $17x\equiv 1 \pmod 55$. First, find the gcd of 17 and 55: \begin{align*}
     55 & = 3\times 17+4 \\
-    17 & = 4\times 4+1 \\
-    4 & = 4\times 1
+    17 & = 4\times 4+1  \\
+    4  & = 4\times 1
 \end{align*}
 Now use back substitution: \begin{align*}
-    1 & = 17-4\times 4 \\
-    & = 17-4\times (55-3\times 17) \\
-    & = 13\times 17-4\times 55
+    1 & = 17-4\times 4               \\
+      & = 17-4\times (55-3\times 17) \\
+      & = 13\times 17-4\times 55
 \end{align*}
 Therefore, $13\times 17\equiv 1 \pmod {55}$. So the solution is $x\equiv 13 \pmod {55}$.
+\subsection{Chinese Remainder Theorem}
+\begin{theorem}
+    Suppose $n_1,n_2 \in \mathbb{N}$ and $\gcd(n_1,n_2)=1$ (Relatively prime). Then for any integers $a_1, a_2, \exists x\in \mathbb{Z}$ s.t \begin{align*}
+        x & \equiv a_1 \pmod {n_1} \\
+        x & \equiv a_2 \pmod {n_2}
+    \end{align*}
+    Moreover, the solution is unique modulo $n_1n_2$.
+\end{theorem}
+Here uniqueness means the following: Suppose \begin{align*}
+    x & \equiv a_1 \pmod {n_1} &  & y \equiv a_1 \pmod {n_1} \\
+    x & \equiv a_2 \pmod {n_2} &  & y \equiv a_2 \pmod {n_2}
+\end{align*}
+Then $x\equiv y \pmod {n_1n_2}$.
+\subsubsection{Proof of uniqueness}
+\begin{proof}
+    Assume $x\equiv y \equiv a_1 \pmod {n_1}$ and $x\equiv y \equiv a_2 \pmod {n_2}$. Then $n_1 | (x-y)$ and $n_2 | (x-y)$. 
+
+    Then $x-y=0\pmod {n_1}$ and $x-y=0\pmod {n_2}$. Then $n_1 | (x-y)$ and $n_2 | (x-y)$. Then $n_1n_2 | (x-y)$. Therefore, $x\equiv y \pmod {n_1n_2}$.
+
+    Note that any common multiple of $n_1,n_2$ is divisible by $\text{lcm}(n_1,n_2)=\frac{n_1 n_2}{\gcd(n_1,n_2)}=n_1n_2$. Therefore, the solution is unique modulo $n_1n_2$. We have proved the uniqueness.
+\end{proof}
+\subsubsection{Proof of existence}
+\begin{proof}
+    Let $n=n_1 n_2$. To each congruence class $[x] \pmod n$, associate a pair of integers $(z_1,z_2)$ where $z_1\equiv x \pmod {n_1}$ and $z_2\equiv x \pmod {n_2}$. Pick $0\le z_1 < n_1$ and $0\le z_2 < n_2$.
+
+    Note that there are exactly $n_1 n_2=n$ such pairs.
+
+    Moreover, by uniqueness, we never associate the same pair $z_1, z_2$ to two different congruence classes $[x] \pmod n$. 
+
+    By the Pigeonhole Principle, we conclude that every pair $(a_1,a_2)$ is associated with some congruence class $[x] \pmod n$. Therefore, the solution exists.
+\end{proof}
+Example illustrating the theorem: $n_1=3,n_2=5$ \begin{align*}
+    x & \equiv 2 \pmod 3 \\
+    x & \equiv 3 \pmod 5
+\end{align*}
+Where $0\le x\le 14$. Can list out all the combinations to find it, but we need a better algorithm:
+\subsubsection{Algorithm}
+Note that we only need to solve two systems of linear congruences: \begin{align*}
+    x & \equiv 1 \pmod {n_1} && z \equiv 0 \pmod {n_1} \\
+    y & \equiv 0 \pmod {n_2} && z \equiv 1 \pmod {n_2}
+\end{align*}
+because we can do $x=a_1 y+a_2 z$ by solving $x\equiv a_1 \pmod {n_1}$ and $x\equiv a_2 \pmod {n_2}$. \begin{align*}
+    x\equiv a_1 ya_2 z \pmod {n_1n_2}\\
+
+    To be continued
+\end{align*}
+
+
+
+
+
 \end{document}
