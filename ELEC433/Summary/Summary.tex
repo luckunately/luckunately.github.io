@@ -810,10 +810,10 @@ $RS_q ((\gamma^0,\gamma^1,\ldots,\gamma^{q-2}),n,k) = \{(c_0,c_1,\ldots,c_{n-1})
 
     Then $C(\gamma^j)=\sum_{l=0}^{n-1}c_l \gamma^{jl} = \sum_{l=0}^{n-1}f(\gamma^l)\gamma^{jl} = f(\gamma^j)\sum_{l=0}^{n-1}\gamma^{jl} = \sum_{l=0}^{n-1}(\sum_{i=0}^{k-1}a_i \gamma^{jl})= \sum_{i=0}^{k-1}a_i \sum_{l=0}^{n-1}(\gamma^{l})^{i+j} = 0$.
 
-    Show subset heere for some reason, revisit later.!!!!!!!!!!
+    Show subset here for some reason, revisit later.!!!!!!!!!!
 \end{proof}
 \subsection{Parity check matrix of RS code}
-Corollory: The parity check matrix for $RS_q((\gamma^0,\gamma^1,\ldots,\gamma^{n-1}),n,k)$ is \[
+Corollary: The parity check matrix for $RS_q((\gamma^0,\gamma^1,\ldots,\gamma^{n-1}),n,k)$ is \[
     H=\begin{bmatrix}
         1 & r & r^2 & \cdots & r^{n-1} \\
         1 & r^2 & r^4 & \cdots & r^{2(n-1)} \\
@@ -853,14 +853,16 @@ Note the similarity to the Euclidean division. $q(x)$ is the quotient and $r(x)$
 \begin{definition}
     A polynomial $f(x)\in \mathbb{F}_p[x]$ is called \textbf{irreducible} if for any $g_1(x),g_2(x)\in \mathbb{F}_p[x]$, $f(x)= g_1(x)g_2(x)$, we have $\min\{\deg(g_1(X)),\deg(g_2(x))\}=0$
 \end{definition}
+It is basically a polynomial that cannot be factored into two polynomials of lower degree. It can only be factored into a scalar and a polynomial of the same degree.
+
 For example: \begin{itemize}
-    \item $2(x+1)$ is reducible in $\mathbb{F}_3[x]$
+    \item $2(x+1)$ is irreducible in $\mathbb{F}_3[x]$
     \item Over $\mathbb{F}_2[x],x^2+1=(x+1)^2$ not irreducible (has a root which is 1)
     \item Over $\mathbb{F}_2[x], x^2+x+1$ is irreducible (no root)
 \end{itemize}
-Is it enough to check all possible $\alpha \in \mathbb{F}_q$ to see if $f(\alpha)=0$? No, because it is not enough to check all possible $\alpha \in \mathbb{F}_q$ to see if $f(\alpha)=0$. For example, $x^2+1$ is reducible in $\mathbb{F}_3[x]$ but has no root in $\mathbb{F}_3$.
+Is it enough to check all possible $\alpha \in \mathbb{F}_q$ to see if $f(\alpha)=0$? No, because it is not enough to check all possible $\alpha \in \mathbb{F}_q$ to see if $f(\alpha)=0$. For example, $(x^2+x+1)^2 = (x^2+x+1)\times(x^2+x+1)$ is reducible in $\mathbb{F}_2[x]$ but has no root in $\mathbb{F}_3$.
 
-So ``no roots'' $\implies$ ``irreducible'' but ``irreducible'' does not imply ``no roots''.
+So ``roots'' $\implies$ ``reducible'' but ``Not roots'' does not imply ``irreducible''.
 \subsection{Finite filed with $p^m$ elements (p is a prime)}
 \begin{theorem}
     Let $E(x)$ be an irreducible polynomial of degree $m\ge 2, m \in \mathbb{F}_p[x]$ for prime $p$. The set of polynomials in $\mathbb{F}_p[x]$ modulo $E(x)$ denoted by $\mathbb{F}_{p^m}= \mathbb{F}_p[x]/(E(x))$ is a finite field with $p^m$ elements.
