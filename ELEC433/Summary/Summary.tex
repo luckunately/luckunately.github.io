@@ -839,6 +839,23 @@ Corollary: The parity check matrix for $RS_q((\gamma^0,\gamma^1,\ldots,\gamma^{n
         GRS_q(\vec{\alpha},n,k, \vec{\lambda})^{\perp} = GRS_q(\vec{\alpha},n,n-k, \vec{\gamma})
     \]
 \end{theorem}
+\subsection{Decoding of RS code}
+Question: Consider $RS_q(\vec{\alpha},n,k)$ and assume the number of error $e\le \lfloor \frac{n-k}{2} \rfloor = \lfloor \frac{d-1}{2} \rfloor \impliedby d=n+1-k$. 
+
+There are lots of possibilities for the error. How to decode the message? How do we decide which polynomial is the correct one?
+
+Question: How to do it efficiently?
+\subsubsection{Berlekamp-Welch Algorithm}
+Idea: Consider an error locator polynomial $L(c)=\Pi_{i: \tilde{c_i\neq f(\alpha_i)}}(x-\alpha_i)$. Observe that ...\dots
+
+For index $i$ where error happened, both sides euqal zero. For index $i$ where no error happened, $\tilde{c_i}=f(\alpha_i)$. 
+
+
+
+
+
+
+
 \section{Existance of finite fields}
 \begin{theorem}
     For any prime power $p^m$, there exists a finite field $\mathbb{F}_{p^m}$ with $p^m$ elements. There are no other finite fields.
