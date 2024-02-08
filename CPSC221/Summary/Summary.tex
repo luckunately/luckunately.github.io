@@ -121,82 +121,6 @@ Generally, we use induction to prove it:\begin{enumerate}
     \item Inductive step: show that the loop invariant holds for the $(k+1)$th iteration.
     \item Termination: show that the loop invariant holds after the last iteration.
 \end{enumerate}
-\subsection{Selection Sort}
-\begin{lstlisting}[language=C++]
-void selectionSort(Vector<int> & arr) {
-    for(int i=0; i<arr.size(); i++){
-        int min = indexOfMin(arr, i);
-        swap(arr[i], arr[min]);
-    }
-}
-\end{lstlisting}
-This algorithm finds the smallest element in the array and swap it with the first element. Then it finds the second smallest element and swap it with the second element. And so on.
-
-For each iteration, we need to compare $n-i$ elements to find the smallest element. So a total of $\sum_{i=0}^{n-1}n-i=\frac{n(n-1)}{2}$ comparisons. Swap is just a function to perform each iteration, which could be seen as $O(n)$. So the running time is $O(n^2)$.
-
-Note that the running time is independent of the input. So it is a \textbf{deterministic} algorithm. Running time is the same for best, average, and worst case.
-
-Space complexity is $O(1)$ because we only need to store the array and use a few variables on the stack to keep track of the indices.
-\subsubsection{Invariant proof of selection sort}
-\begin{proof}
-    Claim that the loop invariant is that the first $i$ elements are sorted. All elements before $i$ are smaller than or equal to all elements after $i$.
-
-    Base case: before the first iteration, $i=0$, so the first $i$ elements are empty, so the invariant holds. 
-
-    Inductive hypothesis: assume that the invariant holds before the $k$th iteration.
-
-    Inductive step: after the $k$th iteration, the smallest element in the array is swapped with the $k$th element. So the first $k$ elements are sorted. All elements before $k$ are smaller than or equal to all elements after $k$.
-
-    Termination: after the last iteration, $i=n$, so the first $i$ elements are the whole array, which is sorted. All elements before $i$ are smaller than or equal to all elements after $i$.
-\end{proof}
-\subsection{Insertion Sort}
-\begin{lstlisting}[language=C++]
-void slide(Vector<int> & arr, int p) {
-    //need arr is in ascending order up to p exclusive
-    int temp = arr[p];
-    int j = p;
-    while(j>0 && arr[j-1]>temp){
-        arr[j] = arr[j-1];
-        j--;
-    }
-    arr[j] = temp;
-}
-void insertionSort(Vector<int> & arr) {
-    for(int i=1; i<arr.size(); i++){
-        slide(arr, i);
-    }
-}
-\end{lstlisting}
-\subsubsection{Slide}
-Slide checks the pth element and moves to the front of the array if it is smaller than the previous elements. It is a $O(n)$ operation (worst case) and $\Omega(1)$ (best case) space complexity.
-
-loop invariant:  \begin{itemize}
-    \item the first $p$ elements are sorted.
-    \item $arr[0:j-1]\cup arr[j+1:p] \cup temp$ is the same value \textbf{set} as $arr[0:p]$.
-\end{itemize}
-\subsubsection{Insertion Sort}
-Insertion sort is a $O(n^2)$ algorithm since it calls slide $n-1$ times where slide is $O(n)$.
-
-Best case is a sorted array, so the running time is $O(n)$.
-
-Worst case is a reverse sorted array, so the running time is $O(n^2)$.
-
-If random data is given, the running time is closer to the worst case than the best case. Around $\frac{n(n-1)}{4}$ comparisons and $\frac{n(n-1)}{4}$ swaps.
-
-Insertion sort is good for small data sets and nearly sorted data. Also, it barely uses any space (memory), so it is good for embedded systems.
-
-\subsubsection{correctness proof}
-\begin{proof}
-    \textbf{Base case:} before the first iteration, $i=1$, so the first $i$ elements are sorted. All elements before $i$ are smaller than or equal to all elements after $i$.
-
-    \textbf{Inductive hypothesis:} assume that the invariant holds before the $k$th iteration.
-
-    \textbf{Inductive step:} after the $k$th iteration, the $k$th element is inserted into the first $k$ elements. So the first $k+1$ elements are sorted. All elements before $k+1$ are smaller than or equal to all elements after $k+1$.
-
-    \textbf{Termination:} after the last iteration, $i=n$, so the first $i$ elements are the whole array, which is sorted. All elements before $i$ are smaller than or equal to all elements after $i$.
-
-    All of the above is true because of the loop invariant of slide.
-\end{proof}
 
 \section{Memory}
 4 area of memory: \begin{enumerate}
@@ -476,14 +400,94 @@ Array size is fixed, so the front and the end cannot move physically. Copying th
 The idea of a circular array is that the end of the array ``wraps around'' to the beginning of the array. We use the modulo operator to calculate the index of the next element.
 
 The only problem it resizing. When resizing, we need to copy the other. But note that we should put the front of the queue at the beginning of the array instead of the original order of the queue. It is because the capacity changed, we need to start from the beginning of the array.
-\section{Merge Sort}
+\section{Sort}
+\subsection{Selection Sort}
+\begin{lstlisting}[language=C++]
+void selectionSort(Vector<int> & arr) {
+    for(int i=0; i<arr.size(); i++){
+        int min = indexOfMin(arr, i);
+        swap(arr[i], arr[min]);
+    }
+}
+\end{lstlisting}
+This algorithm finds the smallest element in the array and swap it with the first element. Then it finds the second smallest element and swap it with the second element. And so on.
+
+For each iteration, we need to compare $n-i$ elements to find the smallest element. So a total of $\sum_{i=0}^{n-1}n-i=\frac{n(n-1)}{2}$ comparisons. Swap is just a function to perform each iteration, which could be seen as $O(n)$. So the running time is $O(n^2)$.
+
+Note that the running time is independent of the input. So it is a \textbf{deterministic} algorithm. Running time is the same for best, average, and worst case.
+
+Space complexity is $O(1)$ because we only need to store the array and use a few variables on the stack to keep track of the indices.
+\subsubsection{Invariant proof of selection sort}
+\begin{proof}
+    Claim that the loop invariant is that the first $i$ elements are sorted. All elements before $i$ are smaller than or equal to all elements after $i$.
+
+    Base case: before the first iteration, $i=0$, so the first $i$ elements are empty, so the invariant holds. 
+
+    Inductive hypothesis: assume that the invariant holds before the $k$th iteration.
+
+    Inductive step: after the $k$th iteration, the smallest element in the array is swapped with the $k$th element. So the first $k$ elements are sorted. All elements before $k$ are smaller than or equal to all elements after $k$.
+
+    Termination: after the last iteration, $i=n$, so the first $i$ elements are the whole array, which is sorted. All elements before $i$ are smaller than or equal to all elements after $i$.
+\end{proof}
+\subsection{Insertion Sort}
+\begin{lstlisting}[language=C++]
+void slide(Vector<int> & arr, int p) {
+    //need arr is in ascending order up to p exclusive
+    int temp = arr[p];
+    int j = p;
+    while(j>0 && arr[j-1]>temp){
+        arr[j] = arr[j-1];
+        j--;
+    }
+    arr[j] = temp;
+}
+void insertionSort(Vector<int> & arr) {
+    for(int i=1; i<arr.size(); i++){
+        slide(arr, i);
+    }
+}
+\end{lstlisting}
+\subsubsection{Slide}
+Slide checks the pth element and moves to the front of the array if it is smaller than the previous elements. It is a $O(n)$ operation (worst case) and $\Omega(1)$ (best case) space complexity.
+
+loop invariant:  \begin{itemize}
+    \item the first $p$ elements are sorted.
+    \item $arr[0:j-1]\cup arr[j+1:p] \cup temp$ is the same value \textbf{set} as $arr[0:p]$.
+\end{itemize}
+\subsubsection{Insertion Sort}
+Insertion sort is a $O(n^2)$ algorithm since it calls slide $n-1$ times where slide is $O(n)$.
+
+Best case is a sorted array, so the running time is $O(n)$.
+
+Worst case is a reverse sorted array, so the running time is $O(n^2)$.
+
+If random data is given, the running time is closer to the worst case than the best case. Around $\frac{n(n-1)}{4}$ comparisons and $\frac{n(n-1)}{4}$ swaps.
+
+Insertion sort is good for small data sets and nearly sorted data. Also, it barely uses any space (memory), so it is good for embedded systems.
+
+\subsubsection{correctness proof}
+\begin{proof}
+    \textbf{Base case:} before the first iteration, $i=1$, so the first $i$ elements are sorted. All elements before $i$ are smaller than or equal to all elements after $i$.
+
+    \textbf{Inductive hypothesis:} assume that the invariant holds before the $k$th iteration.
+
+    \textbf{Inductive step:} after the $k$th iteration, the $k$th element is inserted into the first $k$ elements. So the first $k+1$ elements are sorted. All elements before $k+1$ are smaller than or equal to all elements after $k+1$.
+
+    \textbf{Termination:} after the last iteration, $i=n$, so the first $i$ elements are the whole array, which is sorted. All elements before $i$ are smaller than or equal to all elements after $i$.
+
+    All of the above is true because of the loop invariant of slide.
+\end{proof}
+
+\subsection{Merge sort}
+
+
 Merge sort is a divide and conquer algorithm. It divides the input into smaller parts, solves the smaller parts, and then combines the solutions to solve the original problem.
 
 The running time of merge sort is $O(n\log n)$, which is the best possible running time for a comparison-based sorting algorithm.
 
 \includegraphics*{./Images/Merge Sort.jpg}
 
-\subsection{implementation}
+\subsubsection{implementation}
 \begin{lstlisting}[language=C++]
 void MergeSort(vector<T> & arr){
     Msort (arr, 0, arr.size()-1);
@@ -522,13 +526,13 @@ void Merge(vector<T> & arr, int low, int mid, int high){
     }
 }
 \end{lstlisting}
-\subsection{Analysis}
+\subsubsection{Analysis}
 For merge, worst case we need to compare $n-1$ times, and best case $n/2$ times. So the running time is $O(n)$.
 
 For Msort, the running time is $O(\log n)$ since we are dividing the array into half each time.
 
 So the overall running time is $O(n\log n)$.
-\subsection{Correctness}
+\subsubsection{Correctness}
 \begin{proof}
     Base case: if the array has only one element, then it is already sorted.
 
@@ -538,5 +542,28 @@ So the overall running time is $O(n\log n)$.
 
     Termination: after the last merge, the whole array is sorted.
 \end{proof}
+\subsection{Lower bound of sorting}
+A CORRECT algorithm must transform every possible input into the correct output. 
+
+For comparison-based sorting algorithms, the specific sequence can be represented as a binary tree. \begin{itemize}
+    \item The height of the tree is the worst-case running time of the algorithm.
+    \item The number of leaves is the number of possible outputs. Note that it is because each input case needs to be transformed into a unique output case. 
+    \item The height of the tree is at least $\log_2 n!$ because each layer can only have at most $2^h$ leaves where $h$ is the height of the layer.
+\end{itemize}
+\subsubsection{Lower bound of comparison-based sorting}
+A perfect tree with $h$ levels has $2^{h+1}-1$ nodes and $2^h$ leaves on the bottom level. So need to solve for $n! \geq 2^h$.
+\begin{align*}
+    h &= \lceil \log_2 n! \rceil \\
+    &\geq \sum_{i=1}^{n} \log_2 i \\
+    &\geq \sum_{i=1}^{n/2} \log_2 \frac{n}{2} \\
+    &= \frac{n}{2}\log_2 \frac{n}{2} \\
+    \in \Omega(n\log n)
+\end{align*}
+So the longest decision path can be no shorter than $n\log n$.
+
+Note that non-comparison-based sorting algorithms can have a lower bound of $n$. But that has more restrictions on the input.
+
+
+  
 
 \end{document}

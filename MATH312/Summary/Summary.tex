@@ -764,7 +764,7 @@ Particular interesting case when $b=1$. Then $ax\equiv 1 \pmod n$ is called the
 inverse of $a$ modulo $n$. We write $x=a^{-1} \pmod n$.
 
 In this case, the congruence has a solution if and only if $\gcd(a,n)=1$, which
-also means the congruence has exactly one solution.
+also means that the congruence has exactly one solution.
 
 Not all congruence classes have an inverse. For example, $ax\equiv 1 \pmod
     {10}$: \begin{align*}
@@ -776,7 +776,11 @@ Not all congruence classes have an inverse. For example, $ax\equiv 1 \pmod
 And the rest does not have one. It is because the rest have a gcd with 10 that is greater than 1.
 
 Corollary: Let $p$ be a prime, then every $a\not\equiv 0 \pmod p$ has an
-inverse modulo $p$. It is because $\gcd(a,p)=1$.
+inverse modulo $p$. 
+\begin{proof}
+    It is because $\gcd(a,p)=1$. By Bezout's theorem, $ax-py=1$ for some $x,y\in \mathbb{Z}$. Therefore, $ax\equiv 1 \pmod p$. Therefore, $x$ is the inverse of $a$ modulo $p$.
+\end{proof}
+
 
 Corollary: Let $p$ be a prime, then $a\equiv a^{-1} \pmod p \iff a \equiv \pm 1
     \pmod p$.
@@ -784,7 +788,7 @@ Corollary: Let $p$ be a prime, then $a\equiv a^{-1} \pmod p \iff a \equiv \pm 1
     Indeed multiplying both sides by $a$, we get $a\equiv a^{-1} \pmod p \implies a^2\equiv 1 \pmod p \iff (a-1)(a+1)\equiv 0 \pmod p \iff a\equiv \pm 1 \pmod p$.
 
     If $a\not \equiv 1$ then $a-1$ has a multiplicative inverse modulo $p$. Denote
-    this multiplicative inverse by $b$. Time both side by $b$ Then
+    this multiplicative inverse by $b$. Time both sides by $b$ Then
     $b(a-1)(a+1)\equiv 0 \pmod p \implies a+1\equiv 0 \pmod p \implies a\equiv -1
         \pmod p$. Therefore, $a\equiv b \pmod p$.
 
@@ -792,7 +796,7 @@ Corollary: Let $p$ be a prime, then $a\equiv a^{-1} \pmod p \iff a \equiv \pm 1
     proved the corollary.
 \end{proof}
 
-For example, solve $17x\equiv 1 \pmod 55$. First, find the gcd of 17 and 55: \begin{align*}
+For example, solve $17x\equiv 1 \pmod {55}$. First, find the gcd of 17 and 55: \begin{align*}
     55 & = 3\times 17+4 \\
     17 & = 4\times 4+1  \\
     4  & = 4\times 1
