@@ -912,4 +912,56 @@ Then the solution is \[
     x\equiv a_1 t_1 n_2+a_2 t_2 n_1\equiv 3\times 5\times 3+2\times 1\times 7\equiv 45+14 \equiv 17 \pmod {21}
 \]
 
+Another example, revisit: Find $17^{-1}\equiv 55$.
+
+Use the fact that $55=11\times 5, \gcd(11,5)=1$. Then we can solve: \begin{align*}
+    17 x & \equiv 1 \pmod {11} & \implies 6x\equiv 1 \pmod {11} \\
+    17 x & \equiv 1 \pmod {5} & \implies 2x\equiv 1 \pmod {5}
+\end{align*}
+
+Easily find that $x\equiv 2 \pmod {11}$ and $x\equiv 3 \pmod {5}$. Then we need to recover $x$. Know that: \[
+    x\equiv a_1 t_1 n_2 + a_2 t_2 n_1 \pmod {n_1n_2}
+\]
+And we know that $n_1 = 5, n_2 = 11, a_1 = 3, a_2 = 2$. Then we can find that \begin{align*}
+    t_1 & \equiv n_2^{-1} & \equiv 11^{-1} & \equiv 1 \pmod 5 \\
+    t_2 & \equiv n_1^{-1} & \equiv 5^{-1}  & \equiv -2 \pmod {11}
+\end{align*}
+Then $x \equiv 3\times 1\times 11+2\times (-2)\times 5 \equiv 33+90 \equiv 123 \equiv 13 \pmod {55}$.
+\subsection{More general version of CRT}
+\begin{theorem}
+    The system of $r$ congruences: \begin{align*}
+        x & \equiv a_1 \pmod {n_1} \\
+        x & \equiv a_2 \pmod {n_2} \\
+          & \vdots                 \\
+        x & \equiv a_r \pmod {n_r}
+    \end{align*}
+    has a unique solution modulo $N=n_1n_2\ldots n_r$ if $n_1,n_2,\ldots,n_r$ are pairwise relatively prime.
+\end{theorem}
+\begin{proof}
+    Induction on $r$. The base case $r =1 $ is clear and $r=2$ is the Chinese Remainder Theorem, discussed above.
+
+    Inductive step: Let $b$ be the unique solution to the system of \begin{align*}
+        x \equiv a_{r-1} \pmod {n_{r-1}} \\
+        x \equiv a_r \pmod {n_r}
+    \end{align*}
+
+\end{proof}
+
+In practice, to solve the system of linear congruences, we can use the following recursion. Let $N=n_1n_2\ldots n_r$. Then \begin{align*}
+    x & \equiv a_1 \pmod {n_1} \\
+    x & \equiv a_2 \pmod {n_2} \\
+      & \vdots                 \\
+    x & \equiv a_r \pmod {n_r}
+\end{align*}
+is equivalent to \begin{align*}
+    x & \equiv a_1 \pmod {n_1} \\
+    x & \equiv a_2 \pmod {n_2} \\
+      & \vdots                 \\
+    x & \equiv a_{r-1} \pmod {n_{r-1}} \\
+    x & \equiv a_r \pmod {n_r}
+\end{align*}
+euub egawul eBHFVH
+
+
+
 \end{document}
