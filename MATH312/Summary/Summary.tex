@@ -890,6 +890,7 @@ is \[
 where $t_1$ is the multiplicative inverse of $n_2$ modulo $n_1$ and $t_2$ is
 the multiplicative inverse of $n_1$ modulo $n_2$.
 
+So basically: $t_1\equiv n_2^{-1} \pmod {n_1}$ and $t_2\equiv n_1^{-1} \pmod {n_2}$.
 \subsubsection{Example}
 For example, solve \begin{align*}
     x & \equiv 2 \pmod 3 \\
@@ -912,7 +913,7 @@ Then the solution is \[
     x\equiv a_1 t_1 n_2+a_2 t_2 n_1\equiv 3\times 5\times 3+2\times 1\times 7\equiv 45+14 \equiv 17 \pmod {21}
 \]
 
-Another example, revisit: Find $17^{-1}\equiv 55$.
+Another example, revisit: Find $17^{-1}\pmod {55}$.
 
 Use the fact that $55=11\times 5, \gcd(11,5)=1$. Then we can solve: \begin{align*}
     17 x & \equiv 1 \pmod {11} & \implies 6x\equiv 1 \pmod {11} \\
@@ -937,31 +938,60 @@ Then $x \equiv 3\times 1\times 11+2\times (-2)\times 5 \equiv 33+90 \equiv 123 \
     \end{align*}
     has a unique solution modulo $N=n_1n_2\ldots n_r$ if $n_1,n_2,\ldots,n_r$ are pairwise relatively prime.
 \end{theorem}
+\subsubsection{proof}
 \begin{proof}
     Induction on $r$. The base case $r =1 $ is clear and $r=2$ is the Chinese Remainder Theorem, discussed above.
 
-    Inductive step: Let $b$ be the unique solution to the system of \begin{align*}
-        x \equiv a_{r-1} \pmod {n_{r-1}} \\
-        x \equiv a_r \pmod {n_r}
+    Inductive step: Assume that the theorem holds for $r-1$ numbers. We want to show that the theorem holds for $r$.
+    
+    Let $b$ be the unique solution to the system of \begin{align*}
+        x &\equiv a_{r-1} \pmod {n_{r-1}} \\
+        x &\equiv a_r \pmod {n_r}
     \end{align*}
 
+    Then we can reduce the system of $r$ congruences to a system of $r-1$ congruences: \begin{align*}
+        x &\equiv a_1 \pmod {n_1} \\
+        x &\equiv a_2 \pmod {n_2} \\
+          &\vdots                 \\
+        x &\equiv a_{r-2} \pmod {n_{r-2}} \\
+        x &\equiv b \pmod {n_{r-1}n_r}
+    \end{align*}
+    Note that there are only $r-1$ congruences now and all $n_i$ are relatively prime to each other. 
+    
+    By induction assumption, the system has a unique solution modulo $N=n_1n_2\ldots n_{r-2}n_{r-1}n_r$. Therefore, the system of $r$ congruences has a unique solution modulo $N=n_1n_2\ldots n_r$.
 \end{proof}
+\subsubsection{Algorithm}
+In practice, to solve the system of linear congruences, we use the recursive step as shown in the proof. 
 
-In practice, to solve the system of linear congruences, we can use the following recursion. Let $N=n_1n_2\ldots n_r$. Then \begin{align*}
-    x & \equiv a_1 \pmod {n_1} \\
-    x & \equiv a_2 \pmod {n_2} \\
-      & \vdots                 \\
-    x & \equiv a_r \pmod {n_r}
+Alternatively, there is a formula that allows us to find x in one step.
+
+Let $N = n_1n_2\ldots n_r$. $N_i = N/n_i$. Then the solution to the system of linear congruences is \[
+    x = \sum_{i=1}^r a_i N_i t_i
+\]
+where $t_i$ is the multiplicative inverse of $N_i$ modulo $n_i$.
+
+To see that $x\equiv a_i \pmod {n_i}$, note that $N_i t_i \equiv 1 \pmod {n_i}$ and $N_i t_i \equiv 0 \pmod {n_j}$ for all $j\ne i$.
+
+For example, solve \begin{align*}
+    x & \equiv 1 \pmod 2 \\
+    x & \equiv 2 \pmod 3 \\
+    x & \equiv 3 \pmod 5 \\
+    x & \equiv 4 \pmod 7 \\
+    x & \equiv 5 \pmod {11}
 \end{align*}
-is equivalent to \begin{align*}
-    x & \equiv a_1 \pmod {n_1} \\
-    x & \equiv a_2 \pmod {n_2} \\
-      & \vdots                 \\
-    x & \equiv a_{r-1} \pmod {n_{r-1}} \\
-    x & \equiv a_r \pmod {n_r}
+\begin{align*}
+    N & = 2\times 3\times 5\times 7\times 11 = 2310 \\
+    N_1 & = 2310/2 = 1155 \\
+    t_1 & \equiv (3\times 5 \times 7 \times 11)^{-1} \equiv (1^4)^{-1} \equiv 1 \pmod 2 \\
+    N_2 & = 2310/3 = 770 \\ 
+    t_2 & \equiv (2\times 5 \times 7 \times 11)^{-1} \equiv ((-1)\times (-1)\times 1 \times (-1))^{-1} \equiv 2 \pmod 3 \\
+    N_3 & = 2310/5 = 462 \\ 
+    t_3 & \equiv (2\times 3 \times 7 \times 11)^{-1} \equiv (2\times 3 \times 2 \times 1)^{-1} \equiv 3 \pmod 5 \\
+    N_4 & = 2310/7 = 330 \\
+    t_4 & \equiv (2\times 3 \times 5 \times 11)^{-1} \equiv (2\times 3 \times (-2) \times 4)^{-1} \equiv 1 \pmod 7 \\
+    N_5 & = 2310/11 = 210 \\
+    t_5 & \equiv (2\times 3 \times 5 \times 7)^{-1} \equiv (2\times 3 \times 5 \times 7)^{-1} \equiv (10\times 21)^{-1} \equiv 1 \pmod {11}
 \end{align*}
-euub egawul eBHFVH
-
-
+Thus $x = 1\times 1155\times 1 + 2\times 770\times 2 + 3\times 462\times 3 + 4\times 330\times 1 + 5\times 210\times 1 \equiv 1523 \pmod {2310}$.
 
 \end{document}

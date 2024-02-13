@@ -831,25 +831,32 @@ Corollary: The parity check matrix for $RS_q((\gamma^0,\gamma^1,\ldots,\gamma^{n
 \subsection{Generalized Reed-Solomon Codes}
 \begin{definition}
     A generalized RS code $GRS_q(\vec{\alpha},n,k, \vec{\lambda})$ where $\forall \lambda_i \in \vec{\lambda} = (\mathbb{F}_q^*)^n$ is defined as follows: \[
-        GRS_q(\vec{\alpha},n,k, \vec{\lambda}) = \{(\lambda_0f(\alpha_1),\lambda_1f(\alpha_2),\ldots,\lambda_{n-1}f(\alpha_n)): f(x)\in \mathbb{F}_q[x], \deg(f(x))\le k-1\}
+        GRS_q(\vec{\alpha},n,k, \vec{\lambda}) = \{(\lambda_0f(\alpha_1),\ldots,\lambda_{n-1}f(\alpha_n)): f(x)\in \mathbb{F}_q[x], \deg(f(x))\le k-1\}
     \]
+    where $\gamma_i = (\lambda_i \Pi_{j\neq _i}(\alpha_i-\alpha_j))^{-1}$ is a primitive element of $\mathbb{F}_q^*$.
 \end{definition}
 \begin{theorem}
-    For any $\vec{\alpha} and \vec{\lambda}, \exists \vec{\gamma} \in \mathbb{F}_q^*$ such that \[
+    For any $\vec{\alpha}$ and $\vec{\lambda}, \exists \vec{\gamma} \in \mathbb{F}_q^*$ such that \[
         GRS_q(\vec{\alpha},n,k, \vec{\lambda})^{\perp} = GRS_q(\vec{\alpha},n,n-k, \vec{\gamma})
     \]
 \end{theorem}
 \subsection{Decoding of RS code}
 Question: Consider $RS_q(\vec{\alpha},n,k)$ and assume the number of error $e\le \lfloor \frac{n-k}{2} \rfloor = \lfloor \frac{d-1}{2} \rfloor \impliedby d=n+1-k$. 
 
-There are lots of possibilities for the error. How to decode the message? How do we decide which polynomial is the correct one?
-
-Question: How to do it efficiently?
+There are lots of possibilities for the error. How to decode the message? How do we decide which polynomial is the correct one? How to do it efficiently?
 \subsubsection{Berlekamp-Welch Algorithm}
-Idea: Consider an error locator polynomial $L(c)=\Pi_{i: \tilde{c_i\neq f(\alpha_i)}}(x-\alpha_i)$. Observe that ...\dots
+Idea: Consider an error locator polynomial $L(c)=\Pi_{i: \tilde{c_i}\neq f(\alpha_i)}(x-\alpha_i)$. 
 
-For index $i$ where error happened, both sides euqal zero. For index $i$ where no error happened, $\tilde{c_i}=f(\alpha_i)$. 
+Observe that $\forall i, \tilde{c_i}=f(\alpha_i)L(\alpha_i)$. So $L(x)$ is a polynomial of degree $\le e$. \begin{itemize}
+    \item For index $i$ where error happened, both sides euqal zero.
+    \item For index $i$ where no error happened, $\tilde{c_i}=f(\alpha_i)$.
+\end{itemize}
 
+Algorithm: \begin{enumerate}
+    \item Find a monic (leading coefficient is 1) polynomial $L(x)$ and a polynomial $Q(x)$ with degree $\le e+k-1$ such that $\tilde{c_i}L(\alpha_i)=Q(\alpha_i)$ for all $i$.
+    \item Let $f(x)=\frac{Q(x)}{L(x)}$. Then $f(x)$ is the correct polynomial if $\Delta(C(f),\tilde{c})\le e$. Otherwise, fail
+\end{enumerate}
+Refer to her notes for details.
 
 
 
@@ -867,8 +874,9 @@ For example: $f(x),g(x)\in \mathbb{F}_{p^m}$\[
 \]
 Note the similarity to the Euclidean division. $q(x)$ is the quotient and $r(x)$ is the remainder. $r(x)$ has degree less than $f(x)$. Then $E(x)$ is the irreducible polynomial.
 \subsection{Irreducible Polynomial}
+An irreducible polynomial is like a prime number in the polynomial field. It is the building block of the finite field.
 \begin{definition}
-    A polynomial $f(x)\in \mathbb{F}_p[x]$ is called \textbf{irreducible} if for any $g_1(x),g_2(x)\in \mathbb{F}_p[x]$, $f(x)= g_1(x)g_2(x)$, we have $\min\{\deg(g_1(X)),\deg(g_2(x))\}=0$
+    A polynomial $f(x)\in \mathbb{F}_p[x]$ is called \textbf{irreducible} if for any $g_1(x),g_2(x)\in \mathbb{F}_p[x]$, $f(x)= g_1(x)g_2(x)$, it implies that $\min\{\deg(g_1(X)),\deg(g_2(x))\}=0$
 \end{definition}
 It is basically a polynomial that cannot be factored into two polynomials of lower degree. It can only be factored into a scalar and a polynomial of the same degree.
 
@@ -884,10 +892,23 @@ So ``roots'' $\implies$ ``reducible'' but ``Not roots'' does not imply ``irreduc
 \begin{theorem}
     Let $E(x)$ be an irreducible polynomial of degree $m\ge 2, m \in \mathbb{F}_p[x]$ for prime $p$. The set of polynomials in $\mathbb{F}_p[x]$ modulo $E(x)$ denoted by $\mathbb{F}_{p^m}= \mathbb{F}_p[x]/(E(x))$ is a finite field with $p^m$ elements.
 \end{theorem}
+\begin{itemize}
+    \item Addition: $f(x)+g(x) = (f(x)+g(x))\pmod {E(x)}$ is just plain addition in $\mathbb{F}_p[x]$
+    \item Multiplication: $f(x)\cdot g(x) = (f(x)\cdot g(x))\pmod {E(x)}$ is a unique remainder $r(x)$ when $f(x)\cdot g(x)$ is divided by $E(x)$. $r(x)$ has degree less than $E(x)$. So $f(x)\cdot g(x)=q(x)E(x)+r(x)$
+    \item Additive inverse: $f(x) \to (-f(x))\pmod {E(x)}$
+    \item Multiplicative inverse: $f(x) \to g(x)=f(x)^{-1}\pmod {E(x)}$ such that $f(x)\cdot g(x)=1\pmod {E(x)}$
+\end{itemize}
 
+For example: for $p=2$ $E(x)=1+x+x^2$ is irreducible in $\mathbb{F}_2[x]$. Then $\mathbb{F}_{2^2}=\mathbb{F}_2[x]/(1+x+x^2)$ is a finite field with 4 elements $\{0,1,x,x+1\}$.
 
+The multiplicative inverse of $\{1,x,x+1\}$ is $\{1,x+1,x\}$ respectively. 
 
-
+\subsection{Find the irreducible polynomial}
+Fact: $\forall m \in \mathbb{Z}$ and prime $p$, $\exists$ an irreducible polynomial of degree $m$, $f\in \mathbb{F}_p[x]$.
+\begin{theorem}
+    If $E(x)$ is a degree $m$ irreducible polynomial in $\mathbb{F}_p[x]$, then $E(x)|x^{p^m}-x$.
+\end{theorem}
+For example: For $p=2=m$, $E(x)=x^2+x+1$ is irreducible in $\mathbb{F}_2[x]$. Then $E(x)|x^4-x = x(x^3-1)=x(x-1)(x^2+x+1)$.
 
 
 \end{document}

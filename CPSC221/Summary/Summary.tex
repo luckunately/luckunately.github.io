@@ -563,7 +563,101 @@ So the longest decision path can be no shorter than $n\log n$.
 
 Note that non-comparison-based sorting algorithms can have a lower bound of $n$. But that has more restrictions on the input.
 
+\section{Trees}
+A tree will have a parent node connecting to multiple child nodes. The connection is called an edge. 
 
+Most basic implementation: \begin{lstlisting}[language=C++]
+template <typename T>
+class Tree {
+    public:
+        // ... all the other methods
+    private:
+        struct Node {
+            T value;
+            vector<Node *> children;
+        };
+        Node * root;
+};
+
+\end{lstlisting}
+
+\subsection{Terminology}
+\begin{itemize}
+    \item \textbf{Root}: the top node of the tree.
+    \item \textbf{Leaf}: a node with no children.
+    \item \textbf{Internal node}: a node with at least one child.
+    \item \textbf{Path}: a sequence of nodes where each node is connected to the next node.
+    \item \textbf{Height}: the length of the longest path from the root to a leaf.
+    \item \textbf{Depth}: the length of the path from the root to a node.
+    \item \textbf{Level}: the set of all nodes at the same depth.
+    \item \textbf{Subtree}: a tree that is a subset of another tree.
+    \item \textbf{Ancestor}: a node on the path from the root to a node.
+    \item \textbf{Descendant}: a node that is on the path from a node to a leaf.
+    \item \textbf{Siblings}: nodes that share the same parent.
+    \item \textbf{Degree}: the number of children of a node.
+    \item \textbf{Binary tree}: a tree where each node has at most two children.\begin{itemize}
+        \item A \textbf{perfect binary tree} is a binary tree where all leaves are at the same level and all internal nodes have two children. So there will be $2^{h+1}-1$ nodes and $2^h$ leaves where $h$ is the height of the tree.
+        \item A \textbf{complete binary tree} is a binary tree where all levels are completely filled except for the last level, which is filled from left to right. 
+        \item A \textbf{full binary tree} is a binary tree where all nodes have either 0 or 2 children.
+    \end{itemize}
+    \item A tree is a \textbf{connected graph} with no cycles.\begin{itemize}
+        \item There is a unique path between any two nodes.
+        \item All nodes are connected to the root through a path.
+        \item A tree
+    \end{itemize}
+\end{itemize}
+\subsection{Tree traversals}
+\subsubsection{Preorder}
+\begin{lstlisting}[language=C++]
+void Preorder(Node * current){
+    if(current == NULL){
+        return;
+    }
+    cout << current->value << endl;
+    for(int i=0; i<current->children.size(); i++){
+        Preorder(current->children[i]);
+    }
+}
+\end{lstlisting}
+\subsubsection{Postorder}
+\begin{lstlisting}[language=C++]
+void Postorder(Node * current){
+    if(current == NULL){
+        return;
+    }
+    for(int i=0; i<current->children.size(); i++){
+        Postorder(current->children[i]);
+    }
+    cout << current->value << endl;
+}
+\end{lstlisting}
+\subsubsection{Inorder (only for binary tree)}
+\begin{lstlisting}[language=C++]
+void Inorder(Node * current){
+    if(current == NULL){
+        return;
+    }
+    Inorder(current->left);
+    cout << current->value << endl;
+    Inorder(current->right);
+}
+\end{lstlisting}
+\subsubsection{Find the height of a tree}
+\begin{lstlisting}[language=C++]
+int Height(Node * current){
+    if(current == NULL){
+        return -1;
+    }
+    int max = -1;
+    for(int i=0; i<current->children.size(); i++){
+        int h = Height(current->children[i]);
+        if(h > max){
+            max = h;
+        }
+    }
+    return max+1;
+}
+\end{lstlisting}
   
 
 \end{document}
