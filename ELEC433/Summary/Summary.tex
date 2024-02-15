@@ -640,7 +640,7 @@ Fact: The square Vandemnoode matrix is invertible. $V\cdot V^T=I$.
 
 Before starting, need to show a linear algebra fact: 
 
-    ($V\cot \vec{a}\implies \vec{a}=\vec{0}$) implies that $V$ is invertible.
+    ($V\dot \vec{a}\implies \vec{a}=\vec{0}$) implies that $V$ is invertible.
 
 \begin{proof}
     Suppose that $a$ is a non-zero vector such that $V\cdot a=0$. Then $\exists a^{-1}\in \mathbb{F}_q$ such that $a\cdot a^{-1}=1$. So $0=V\cdot a\cdot a^{-1}=V\cdot 1=V$. Then $V$ must be zero.  
@@ -857,8 +857,14 @@ Algorithm: \begin{enumerate}
     \item Let $f(x)=\frac{Q(x)}{L(x)}$. Then $f(x)$ is the correct polynomial if $\Delta(C(f),\tilde{c})\le e$. Otherwise, fail
 \end{enumerate}
 Refer to her notes for details.
-
-
+\subsection{Pros and Cons of RS code}
+Pros: \begin{itemize}
+    \item achieves Singleton bound $k\le n-d+1$. RS code meets equity of formula.
+    \item has an efficient decoding algorithm
+\end{itemize}
+Cons: \begin{itemize}
+    \item RS code requires $q\ge n \ge k$ and $q$ is a prime. So it is not suitable for all parameters. For example, RS code exists for large alphabet size $q$.
+\end{itemize}
 
 
 
@@ -892,6 +898,8 @@ So ``roots'' $\implies$ ``reducible'' but ``Not roots'' does not imply ``irreduc
 \begin{theorem}
     Let $E(x)$ be an irreducible polynomial of degree $m\ge 2, m \in \mathbb{F}_p[x]$ for prime $p$. The set of polynomials in $\mathbb{F}_p[x]$ modulo $E(x)$ denoted by $\mathbb{F}_{p^m}= \mathbb{F}_p[x]/(E(x))$ is a finite field with $p^m$ elements.
 \end{theorem}
+Note that $\mathbb{F}_{p^m}$ is a finite field. It is a set of polynomials of degree less than $m$ modulo $E(x)$. It is a set of polynomials of degree less than $m$ with coefficients in $\mathbb{F}_p$. It is because anything higher than $m$ can be reduced by $E(x)$.
+
 \begin{itemize}
     \item Addition: $f(x)+g(x) = (f(x)+g(x))\pmod {E(x)}$ is just plain addition in $\mathbb{F}_p[x]$
     \item Multiplication: $f(x)\cdot g(x) = (f(x)\cdot g(x))\pmod {E(x)}$ is a unique remainder $r(x)$ when $f(x)\cdot g(x)$ is divided by $E(x)$. $r(x)$ has degree less than $E(x)$. So $f(x)\cdot g(x)=q(x)E(x)+r(x)$
@@ -909,6 +917,28 @@ Fact: $\forall m \in \mathbb{Z}$ and prime $p$, $\exists$ an irreducible polynom
     If $E(x)$ is a degree $m$ irreducible polynomial in $\mathbb{F}_p[x]$, then $E(x)|x^{p^m}-x$.
 \end{theorem}
 For example: For $p=2=m$, $E(x)=x^2+x+1$ is irreducible in $\mathbb{F}_2[x]$. Then $E(x)|x^4-x = x(x^3-1)=x(x-1)(x^2+x+1)$.
+
+\section{BCH Codes (Bose, Chaudhuri, Hocquenghem)}
+\begin{definition}
+    Let $n=2^m-1$ and $r$ be a primitive element in $\mathbb{F}_2^m$. Then the BCH code $\mathcal{C}_{BCH}(n,d)$ is defined as follows: \[
+        \mathcal{C}_{BCH}(n,d)=\{(c_0,c_1,\ldots,c_{n-1}): \sum_{i=0}^{n-1}c_i r^i=0\}
+    \]
+\end{definition}
+Remark: \begin{itemize}
+    \item $BCH(n,d)=RS_{2^m}((r^0,\ldots,r^{n-1}),n,n-d+1)$ 
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \end{document}

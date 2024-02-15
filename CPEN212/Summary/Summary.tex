@@ -726,14 +726,162 @@ Each program would think that they have the entire memory to itself.
 \end{itemize}
 In a 64-bit architecture, we usually divide into 4KB pages. Thus the last 12 bits of a Virtual Address is the offset of the page. The rest of the bits are the page numbers. 
 
+\subsubsection{levels of page tables}
+Page tables can be divided into levels.
 
+\begin{itemize}
+    \item PT0: 47-39
+    \item PT1: 38-30
+    \item PT2: 29-21
+    \item PT3: 20-12
+    \item offset: 11-0
+\end{itemize}
+Each cell in $PT_i$ is a pointer to the next level $PT_{i+1}$, which is a new page. The last level is the physical memory.
+\subsection{PTE (Page Table Entry)}
+There are lots of other bits in the entry of the virtual page table to indicate something else:\begin{itemize}
+    \item valid bit: if the page is valid (if it is not valid, then it is not in the physical memory)
+    \item dirty bit: if the page is modified (if it is modified, then we need to write it back to the disk when we swap it out)
+    \item read-only bit: if the page is read-only (if it is read-only, then we can't write to it)
+    \item user-accessible bit: if the page is accessible by the user (if it is not accessible, then we can't access it)
+    \item non-executable bit: if the page is non-executable (if it is non-executable, then we can't execute code in it)
+    \item physical page number: the address of the page in the physical memory
+    \item recently used bit: if the page is used recently (if it is used recently, then we can keep it in the physical memory, otherwise, it becomes a candidate for swapping out)
+\end{itemize}
+If there is insufficient permission, then we will get a segmentation fault.
+\subsection{VM uses}
+\subsubsection{more memory}
+We have limited physical memory. We can use virtual memory to use the disk as memory. We can swap the pages in and out of the physical memory. This is called paging.
 
+Upon more memory requests, we either terminate some programs to free up the RAM or move some pages to the disk to free up the RAM.
 
+Use the idea of \textbf{locality} to make use of the physical memory. We can use the pages that are used recently and the pages that are used together.
 
+\subsubsection{Page fault}
+When we access a page that is not in the physical memory, we get a page fault. The operating system will then load the page from the disk to the physical memory and then continue the program.
 
+It will evict some pages from the physical memory to make space for the new page. It will use the idea of locality to decide which pages to evict.
 
+\subsubsection{shared memory}
+We can use virtual memory to share memory between processes. We can map the same page to different processes. This is called shared memory.
 
+So same physical memory can be mapped to different processes with different VM. This is useful for inter-process communication.
 
+This saves the memory space and the time to copy the data. For example, multiple processes can share the same library. So we only need to load the library once.
+
+Note that they should be read-only, otherwise, we will have a problem with the synchronization or haxx attack.
+
+At the same time, it can share the same file as IO. For example, we can map the file to the memory and then read and write to the memory. This is called memory-mapped IO.
+
+\subsection{Speed up memory access}
+VA to PA translation is needed for each memory access. It is slow. We can use a TLB (Translation Lookaside Buffer) to speed it up.
+\subsubsection{TLB(Translation Lookaside Buffer)}
+It is a separate cache for the page table. It caches the recently used page table entries. It is much faster than the page table.
+
+\begin{itemize}
+    \item if the VA is in the TLB, then we can use the PA directly
+    \item if the VA is not in the TLB, then we need to use the page table to find the PA
+\end{itemize}
+TLB requires \textbf{coherence} mechanism. If the page table is updated, then the TLB should be updated as well. Otherwise, we will have a problem with the inconsistency. It is called a \textbf{TLB shootdown}.
+
+\begin{itemize}
+    \item upon a TLB miss, we evict a TLB entry and load the new entry
+    \item upon a context switch, we flush the TLB (different processes have different page tables)
+\end{itemize}
+
+\section{Processes}
+If we run top in a Linux terminal, we can see a list of processes. Each process has its own memory space. The memory space is divided into segments. The segments are: \begin{itemize}
+    \item \textbf{PID}: process ID
+    \item \textbf{USER}: the user who runs the process
+    \item \textbf{PR}: priority of the process (the higher the number, the lower the priority)
+    \item \textbf{NI}: the nice value of the process (if it is negative, then it has a higher priority)
+    \item \textbf{VIRT}: virtual memory used by the process
+    \item \textbf{RES}: resident memory used by the process (the physical memory used by the process)
+    \item \textbf{SHR}: shared memory used by the process (the memory shared with other processes)
+    \item \textbf{S}: status of the process (R: running, S: sleeping, D: waiting, Z: zombie, etc.)
+    \item \textbf{\%CPU}: percentage of CPU used by the process
+    \item \textbf{\%MEM}: percentage of memory used by the process
+    \item \textbf{TIME+}: time used by the process
+    \item \textbf{COMMAND}: the command that runs the process
+\end{itemize}
+\subsection{Process abstraction}
+OS kernel handles the process abstraction. It is the kernel that creates, schedules, and terminates the processes.
+\subsubsection{OS kernel}
+Heart of a running system:\begin{itemize}
+    \item \textbf{interface} between the hardware and the software
+    \item provides \textbf{abstraction} of the hardware (e.g., file system, network, memory, \textbf{processes, threads, VM} etc.)
+    \item resident in memory in each program's address space (kernel space)
+    \item runs at an elevated privilege level (ring 0)
+    \item interacts with programs via \textbf{system calls} and \textbf{interrupts/signals}
+\end{itemize}
+\subsubsection{Process}
+Processes run under an OS kernel. Each has its own \textbf{virtual addresses space} and \textbf{logical control flow}. They are isolated from each other. They can communicate with each other via \textbf{inter-process communication} (IPC).
+
+\begin{itemize}
+    \item single \textbf{instance} of a running program has its own process ID (PID)
+    \item each process thinks it has the entire memory to itself
+    \item kernel \textbf{schedules} the processes on CPU. It can \textbf{interrupt} the processes. Switching between processes is called \textbf{context switch}
+\end{itemize}
+\subsubsection{Threads}
+Threads are processes that share the same virtual memory space. They are isolated from each other. They can communicate with each other via \textbf{thread communication} (TC). However, they have their own \textbf{logical control flow}.
+
+Threads have its own \textbf{stack} and \textbf{registers}. They share the same \textbf{heap} and \textbf{code}.
+\subsubsection{logical control flow}
+logical control flow is the sequence of instructions that the process executes. It is the \textbf{program counter} (PC). It is the address of the next instruction to be executed.
+
+This is why threads are isolated from each other. They have their own logical control flow. They can execute different instructions at the same time. Thus different stacks and registers are needed.
+\subsubsection{Context switch}
+upon a context switch:\begin{itemize}
+    \item Interrupt the CPU 
+    \item Save the registers and the PC of the current process (architectural state). Usually saved in the kernel stack.
+    \item Load the registers and the PC of the next process
+    \item Resume the CPU
+\end{itemize}
+\subsection{Process tree}
+Processes can create other processes. The created processes are called \textbf{child processes}. The process that creates the child process is called the \textbf{parent process}.
+
+Processes can \textbf{wait} for children to finish, \textbf{kill} children, and \textbf{communicate} with children. And it will be notified when the child process dies.
+
+\textbf{interface} provided by OS to applications: \begin{itemize}
+    \item fork(): create a child process by duplicating the current process
+    \item exec(): replace the current process with a new program
+\end{itemize}
+to spawn a new process, we can use fork() to create a child process and then use exec() to replace the child process with a new program.
+
+\subsubsection{fork()}
+upon a fork() syscall:\begin{itemize}
+    \item declaration: \begin{lstlisting}[language=C]
+        pid_t fork(void);
+    \end{lstlisting}
+    \item success: returns the PID of the child process to the parent process and 0 to the child process (the child process is a copy of the parent process, so they will see the exact same instruction, but different return value)
+    \item failure: returns -1 to the parent process (no child process is created)
+\end{itemize}
+
+child is an exact duplicate of the parent process except that:\begin{itemize}
+    \item the child has a different PID
+    \item the child and the parent have a separate memory space
+    \item the child's parent PID (PPID) is the parent's PID
+\end{itemize}
+
+\begin{lstlisting}
+int main() {
+    printf("Child does not print this, PC has passed\n");
+    pid_t pid = fork();
+    prinf("PID is %d\n", pid);
+    prinf("PPID is %d\n", getppid());
+}
+\end{lstlisting}
+Note that the above code would produce the following output:\begin{lstlisting}
+    Child does not print this, PC has passed
+    PID is 1234
+    PPID is 1233
+    PID is 0
+    PPID is 1234
+\end{lstlisting}
+So there is only one line of "Child does not print this, PC has passed" in the output. This is because the child process is a copy of the parent process. So it will not execute the line that is after the fork() syscall.
+
+The child process will have a different PID and PPID. The child process will have a PID of 0. This is how we can distinguish the child process from the parent process.
+
+Note that the order of the output is not guaranteed. The parent process and the child process can run in any order. So the output can be different each time we run the program. This is due to the scheduling of the OS and speculatively execution of the CPU.
 
 \end{document}
 
