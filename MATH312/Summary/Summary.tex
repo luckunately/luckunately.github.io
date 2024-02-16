@@ -548,6 +548,8 @@ Now back to the Proposition: \begin{proof}
 Corollary: $\gcd(n,m) \times \text{lcm}(n,m) = nm$. \begin{proof}
     $\max(d_i,e_i)+\min(d_i,e_i) = d_i+e_i$. Therefore, $\gcd(n,m) \times \text{lcm}(n,m) = nm$.
 \end{proof}
+
+
 \section{Congruences}
 \begin{definition}
     Let $a, b, n \in \mathbb{Z}, n \ge 2$. We say that $a$ is \textbf{congruent} to $b$ modulo $n$ if $n | (a-b)$. We write $a \equiv b \pmod{n}$.
@@ -1070,8 +1072,29 @@ Now back to the proof of the theorem.
 
     Conversely, if $a_i\equiv a_j \pmod d$ for all $i,j$, then we can find $x_i$ such that $x_i\equiv a_i \pmod {n_i}$. Then $x_i\equiv a_i \pmod d$. Then $x_i\equiv a_j \pmod d$. Then $x_i\equiv x_j \pmod d$. Then $x_i=x_j+dn$ for some $n\in \mathbb{Z}$. Then $x_i\equiv x_j \pmod {dn_i}$. Then $x_i\equiv x_j \pmod N$. Therefore, the solution is unique modulo $N$.
 \end{proof}
+\subsection{Divisibility criteria}
+$n=(a_m a_{m-1}\ldots a_1 a_0)_b=a_m b^m+a_{m-1}b^{m-1}+\cdots+a_1b+a_0$.
 
+\subsubsection{Base 10 divisibility criteria}
+The idea is to find a pattern in the congruence of each power of $10$ modulo $n$.
 
+For example:\begin{itemize}
+    \item $10^k\equiv 1 \pmod 9, \forall k\ge 0$. Note that it is true for modulo 3 as well.\begin{itemize}
+        \item Consider $n=114000$ Then $1+1+4+0+0+0=6$ and $6\equiv 0 \pmod 3$, but $6\not\equiv 0 \pmod 9$. Therefore, $n\not\equiv 0 \pmod 9$.
+    \end{itemize}
+    \item For divisibility by 11, $10^0 \equiv 1, 10^1\equiv -1, 10^2\equiv 1, 10^3\equiv -1, \ldots$. Then $10^k\equiv (-1)^k \pmod {11}$.\begin{itemize}
+        \item Consider $n=123456$. Then $6-5+4-3+2-1=3$, not congruent to 0 mod 11. So n is not divisible by 11.
+    \end{itemize}
+\end{itemize}
+In particular, $(a_m a_{m-1}\ldots a_1 a_0)$ is divisible by $2^k$ if and only if $(a_k a_{k-1}\ldots a_1 a_0)$ is divisible by $2^k$. Similarly, $(a_m a_{m-1}\ldots a_1 a_0)$ is divisible by $5^k$ if and only if $(a_k a_{k-1}\ldots a_1 a_0)$ is divisible by $5^k$.
+
+This is because $10^k\equiv 0 \pmod {2^k}$ if and only if $10^k\equiv 0 \pmod {5^k}$.
+For example, $n=114000$ is divisible by $2^4,5^3$ not $2^5,5^4$.\begin{itemize}
+    \item So for $2^4$, $114000\equiv 4\times 10^3 \equiv 0 \pmod {2^4}$.
+    \item For $2^5$, $114000\equiv 10^4+ 4 \times 10^3 \equiv 16 \pmod {2^5}$. Thus not divisible by $2^5$.
+    \item For $5^3$, $114000\equiv 0 \pmod {5^3}$.
+    \item For $5^4$, $114000\equiv 10^3+4\times 10^2 \equiv 400 \pmod {5^4}$. Thus not divisible by $5^4$.
+\end{itemize}
 
 
 
