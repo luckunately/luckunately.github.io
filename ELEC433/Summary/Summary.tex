@@ -25,8 +25,8 @@
 
 \maketitle
 \section{Introduction to Hamming Codes}
-ECC solves the problem of transmission errors. The idea is to add redundancy
-to the message so that the receiver can detect and correct errors.
+ECC solves the problem of transmission errors. The idea is to add redundancy to
+the message so that the receiver can detect and correct errors.
 
 Assume that we have a message of length $k$, then we encode it to a codeword
 $C$ of length $n$. If the codeword is decrypted, then we call it $\tilde{C}$.
@@ -549,9 +549,11 @@ Parity check matrix for $(2^r-1,2^r-r-1,3)_2$-code is \[H_r=\begin{bmatrix}
         0 & 0 & 0 & 1 & 1 & 1 & 1 \\
         0 & 1 & 1 & 0 & 0 & 1 & 1 \\
         1 & 0 & 1 & 0 & 1 & 0 & 1
-    \end{bmatrix}\] when r = 3. Note that the columns increase by 1 in binary. The parity matrix is not unique. It is different from the one with the identity matrix and $A$ matrix. Note that as long as they span the same space, they are the same.
+    \end{bmatrix}\] when r = 3. Note that the columns increase by 1 in binary. The parity matrix is
+not unique. It is different from the one with the identity matrix and $A$
+matrix. Note that as long as they span the same space, they are the same.
 
-The generator matrix $G$ for simplex code $(2^r-1, r, 2^{r-1})$ is 
+The generator matrix $G$ for simplex code $(2^r-1, r, 2^{r-1})$ is
 \[G=H_r^T = \begin{bmatrix}
         0 & 0 & 1 \\
         0 & 1 & 0 \\
@@ -560,8 +562,9 @@ The generator matrix $G$ for simplex code $(2^r-1, r, 2^{r-1})$ is
         1 & 0 & 1 \\
         1 & 1 & 0 \\
         1 & 1 & 1
-    \end{bmatrix}\] 
-    So using the $n,k,d$ from the original code, simplex code should be $(n, n-k,2^{r-1})$ need to prove the last one later.
+    \end{bmatrix}\]
+So using the $n,k,d$ from the original code, simplex code should be $(n,
+    n-k,2^{r-1})$ need to prove the last one later.
 
 Since every column of $G$ is a codeword, the simplex codeword space is a linear
 combination of the $G$ columns. \[\mathcal{C}= \begin{bmatrix}
@@ -571,10 +574,10 @@ combination of the $G$ columns. \[\mathcal{C}= \begin{bmatrix}
         1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
         1 & 0 & 1 & 1 & 0 & 1 & 0 & 0 \\
         1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 \\
-        1 & 1 & 0 & 1 & 0 & 0 & 1 & 0 
+        1 & 1 & 0 & 1 & 0 & 0 & 1 & 0
     \end{bmatrix}\]
 
-    Not the fact that all non-zero codewords have weight $2^{r-1}$.
+Not the fact that all non-zero codewords have weight $2^{r-1}$.
 \subsubsection{Hadamard Code}
 The generator matrix is $G=\begin{bmatrix}
         \vec{0} & H_r
@@ -588,7 +591,8 @@ simplex codeword space. Note that it is all zero, the weight is the same.
 The only difference is that the weight is exactly the half of length. So it
 introduces \textbf{symmetry}.
 
-Proposition: $\mathcal{C}_{sim,r}$ and $\mathcal{C}_{had,r}$ both have distnace $2^{r-1}$.
+Proposition: $\mathcal{C}_{sim,r}$ and $\mathcal{C}_{had,r}$ both have distnace
+$2^{r-1}$.
 \section{Polynomial Over finite fields}
 Idea: When we have a 2nd-degree polynomial, we can find it using 3 points. So
 if we use this polynomial to encode a message to get 4 points, then we can
@@ -612,9 +616,9 @@ For example, over $\mathbb{F}_3, f(x) = x^2-1, g(x) = x^3+2x^2+2x$ \begin{itemiz
 \end{itemize}
 \subsection{Roots of Polynomials}
 Facts: A nonzero polynomial of degree $\le d$ has at most $d$ roots in
-$\mathbb{F}_q$. \[|\{x\in\mathbb{F}_q:f(x)=0\}|\le d\] 
+$\mathbb{F}_q$. \[|\{x\in\mathbb{F}_q:f(x)=0\}|\le d\]
 
-For example in $\mathbb{F}_3$: 
+For example in $\mathbb{F}_3$:
 \begin{itemize}
     \item $f(x)=x^2-1$ has 2 roots: 1 and 2.
     \item $f(x)=x^2+2x+1 = (x+1)^2$ has 1 root: 2. Not that in $\mathbb{F}_3$, $-1=2$, since $1+2=1-1=0\pmod 3$. So $f(2)=0$
@@ -626,49 +630,54 @@ Now we can prove the fact:
 \end{proof}
 \subsection{Vandemnoode Matrices}
 \begin{definition}
-    A Vandemnoode matrix is of the form: 
-    
+    A Vandemnoode matrix is of the form:
+
     \[V=\begin{bmatrix}
-       1 & \alpha_1 & \alpha_1^2 & \cdots & \alpha_1^{m} \\
-       \vdots & \vdots & \vdots & \cdots & \vdots \\
-         1 & \alpha_{n-1} & \alpha_{n-1}^2 & \cdots & \alpha_{n-1}^{m} 
-    \end{bmatrix}_{n\times (m+1)}\]
-    
-    for distinct $\alpha_1,\alpha_2,\ldots,\alpha_{n-1}\in \mathbb{F}_q$. $v_{ij}=\alpha_i^{j}$.
+            1      & \alpha_1     & \alpha_1^2     & \cdots & \alpha_1^{m}     \\
+            \vdots & \vdots       & \vdots         & \cdots & \vdots           \\
+            1      & \alpha_{n-1} & \alpha_{n-1}^2 & \cdots & \alpha_{n-1}^{m}
+        \end{bmatrix}_{n\times (m+1)}\]
+
+    for distinct $\alpha_1,\alpha_2,\ldots,\alpha_{n-1}\in \mathbb{F}_q$.
+    $v_{ij}=\alpha_i^{j}$.
 \end{definition}
 Fact: The square Vandemnoode matrix is invertible. $V\cdot V^T=I$.
 
-Before starting, need to show a linear algebra fact: 
+Before starting, need to show a linear algebra fact:
 
-    ($V\dot \vec{a}\implies \vec{a}=\vec{0}$) implies that $V$ is invertible.
+($V\dot \vec{a}\implies \vec{a}=\vec{0}$) implies that $V$ is invertible.
 
 \begin{proof}
-    Suppose that $a$ is a non-zero vector such that $V\cdot a=0$. Then $\exists a^{-1}\in \mathbb{F}_q$ such that $a\cdot a^{-1}=1$. So $0=V\cdot a\cdot a^{-1}=V\cdot 1=V$. Then $V$ must be zero.  
-    
+    Suppose that $a$ is a non-zero vector such that $V\cdot a=0$. Then $\exists a^{-1}\in \mathbb{F}_q$ such that $a\cdot a^{-1}=1$. So $0=V\cdot a\cdot a^{-1}=V\cdot 1=V$. Then $V$ must be zero.
+
     Thus it is only possible that $V\cdot a=0$ if $a=0$. So $V$ is invertible.
 \end{proof}
 Now we can prove the fact:
 \begin{proof}
     Let $m=n-1$ so that it is a square matrix. We want to show that $V\cot \vec{a}\implies \vec{a}=\vec{0}$
     \[
-    V\cdot \vec{a} = \begin{bmatrix}
-        \sum_{i=0}^{n-1} a_i\alpha_1^i \\
-        \sum_{i=0}^{n-1} a_i\alpha_2^i \\
-        \vdots \\
-        \sum_{i=0}^{n-1} a_i\alpha_{n}^i \\
-    \end{bmatrix} =\begin{bmatrix}
-        f(\alpha_1) \\
-        f(\alpha_2) \\
-        \vdots \\
-        f(\alpha_n)
-    \end{bmatrix} = \begin{bmatrix}
-        0 \\
-        0 \\
-        \vdots \\
-        0
-    \end{bmatrix}
+        V\cdot \vec{a} = \begin{bmatrix}
+            \sum_{i=0}^{n-1} a_i\alpha_1^i   \\
+            \sum_{i=0}^{n-1} a_i\alpha_2^i   \\
+            \vdots                           \\
+            \sum_{i=0}^{n-1} a_i\alpha_{n}^i \\
+        \end{bmatrix} =\begin{bmatrix}
+            f(\alpha_1) \\
+            f(\alpha_2) \\
+            \vdots      \\
+            f(\alpha_n)
+        \end{bmatrix} = \begin{bmatrix}
+            0      \\
+            0      \\
+            \vdots \\
+            0
+        \end{bmatrix}
     \]
-    Note that $f(x)=a_0+a_1x+a_2x^2+\cdots+a_{n-1}x^{n-1}$ is a polynomial of degree $n-1$ with $n$ roots. If $f(x)\neq 0$, then $f(x)$ has at most $n-1$ roots which means $V\cdot a\neq 0$. Contradiction. So $f(x)=0$. So $a_0=a_1=\cdots=a_{n-1}=0$. So $\vec{a}=\vec{0}$. Thus Vandemnoode matrix is invertible.
+    Note that $f(x)=a_0+a_1x+a_2x^2+\cdots+a_{n-1}x^{n-1}$ is a polynomial of
+    degree $n-1$ with $n$ roots. If $f(x)\neq 0$, then $f(x)$ has at most $n-1$
+    roots which means $V\cdot a\neq 0$. Contradiction. So $f(x)=0$. So
+    $a_0=a_1=\cdots=a_{n-1}=0$. So $\vec{a}=\vec{0}$. Thus Vandemnoode matrix is
+    invertible.
 
 \end{proof}
 \subsection{Polynomial Interpolation over ${\mathbb{F}_q}$}
@@ -677,22 +686,30 @@ Now we can prove the fact:
 \end{theorem} \begin{proof}
     $f(x)= a_0+a_1 x +a_2 x^2+\cdots + a_d x^d$
     \[
-    V\cdot \vec{a}=\vec{y}\implies \vec{a}=V^{-1}\cdot \vec{y}, \vec{a}\in \mathbb{F}_q
+        V\cdot \vec{a}=\vec{y}\implies \vec{a}=V^{-1}\cdot \vec{y}, \vec{a}\in \mathbb{F}_q
     \]
-    V is invertible and $y$ is the given points. 
+    V is invertible and $y$ is the given points.
 \end{proof}
 
-Fact: $\forall$ functions $f:\mathbb{F}_q\to \mathbb{F}_q$, $f$ is given by degree $q-1$ polynomial.
+Fact: $\forall$ functions $f:\mathbb{F}_q\to \mathbb{F}_q$, $f$ is given by
+degree $q-1$ polynomial.
 
-Remark: In $\mathbb{R}$, $f:\mathbb{R}\to \mathbb{R}$, $\exists$ non-polynomial functions. However, in \textbf{finite filed} $\mathbb{F}_q$, $\forall$ functions $f:\mathbb{F}_q\to \mathbb{F}_q$ is given by a polynomial of degree $\le q-1$. It has something to do with the fact that it contains only finite elements.
+Remark: In $\mathbb{R}$, $f:\mathbb{R}\to \mathbb{R}$, $\exists$ non-polynomial
+functions. However, in \textbf{finite filed} $\mathbb{F}_q$, $\forall$
+functions $f:\mathbb{F}_q\to \mathbb{F}_q$ is given by a polynomial of degree
+$\le q-1$. It has something to do with the fact that it contains only finite
+elements.
 \begin{proof}
     Consider $\alpha_i\in \mathbb{F}_q$ for $i=1,2,\ldots,q-1$. Given $(\alpha_i,f(\alpha_i))$ there is a unique polynomial $f(x)\in \mathbb{F}_q[x]$ of degree $\le q-1$ which interpolates these points.
 \end{proof}
 
 \subsection{Reed-Solomon Codes}
-Basic idea: codewords are of the form $(f(\alpha_1),f(\alpha_2),\ldots,f(\alpha_n))$ for some polynomial $f(x)$ of degree $\le n-1$.
+Basic idea: codewords are of the form
+$(f(\alpha_1),f(\alpha_2),\ldots,f(\alpha_n))$ for some polynomial $f(x)$ of
+degree $\le n-1$.
 
-Note that if we choose $f$ to be a low-degree polynomial of degree $k-1$, then we can recover the message from $k$ points. So we can correct $n-k$ errors.
+Note that if we choose $f$ to be a low-degree polynomial of degree $k-1$, then
+we can recover the message from $k$ points. So we can correct $n-k$ errors.
 \subsubsection{Definition}
 \begin{definition}
     Let $q\ge n \ge k$ be integers. Let $\vec{\alpha}=\alpha_1,\alpha_2,\ldots,\alpha_n\in \mathbb{F}_q$ be distinct. The Reed-Solomon code $\mathcal{C}_{RS}(\vec{\alpha}, n,k)$ over $\mathbb{F}_q$ with evaluation points $\vec{\alpha}$ is defined as follows: \[
@@ -703,26 +720,29 @@ For example: $q=3, n=3, k=2, \vec{\alpha}=(0,1,2)$. Then $\mathcal{C}_{RS}(\vec{
 
 If we list out possible messages for input $(0,1,2)$
 \begin{align*}
-    \text{Encoding polynomial} &  \to \text{Codeword} \\
-    0 & \to (0,0,0) \\
-    x & \to (0,1,2) \\
-    2x+1 & \to (1,0,2) 
+    \text{Encoding polynomial} & \to \text{Codeword} \\
+    0                          & \to (0,0,0)         \\
+    x                          & \to (0,1,2)         \\
+    2x+1                       & \to (1,0,2)
 \end{align*}
 Note that the Reed-Solomon code is still linear. It is a linear subspace of $\mathbb{F}_q^n$. \[
     C_1+C_2 = (f_1(\alpha_1)+f_2(\alpha_1),\ldots,f_1(\alpha_n)+f_2(\alpha_n))=(f_3(\alpha_1),f_3(\alpha_2),\ldots,f_3(\alpha_n))
 \]
 \subsubsection{Generator Matrix}
-Generator matrix of $\mathcal{C}_{RS}(\vec{\alpha},n,k)$ is a $k\times n$ matrix $G$ such that $\mathcal{C}_{RS}(\vec{\alpha},n,k)=\{G\cdot X: X\in \mathbb{F}_q^k\}$.
+Generator matrix of $\mathcal{C}_{RS}(\vec{\alpha},n,k)$ is a $k\times n$
+matrix $G$ such that $\mathcal{C}_{RS}(\vec{\alpha},n,k)=\{G\cdot X: X\in
+    \mathbb{F}_q^k\}$.
 
 We can achieve this by using the Vandemnoode matrix. \[
     G_{RS}=V=\begin{bmatrix}
-        1 & \alpha_1 & \alpha_1^2 & \cdots & \alpha_1^{k-1} \\
-        1 & \alpha_2 & \alpha_2^2 & \cdots & \alpha_2^{k-1} \\
-        \vdots & \vdots & \vdots & \cdots & \vdots \\
-        1 & \alpha_n & \alpha_n^2 & \cdots & \alpha_n^{k-1} \\
+        1      & \alpha_1 & \alpha_1^2 & \cdots & \alpha_1^{k-1} \\
+        1      & \alpha_2 & \alpha_2^2 & \cdots & \alpha_2^{k-1} \\
+        \vdots & \vdots   & \vdots     & \cdots & \vdots         \\
+        1      & \alpha_n & \alpha_n^2 & \cdots & \alpha_n^{k-1} \\
     \end{bmatrix}_{k\times n}
 \]
-Same idea: $f(\vec{\alpha})=V\cdot \vec{a}$ for some $\vec{a}\in \mathbb{F}_q^k$.
+Same idea: $f(\vec{\alpha})=V\cdot \vec{a}$ for some $\vec{a}\in
+    \mathbb{F}_q^k$.
 \subsubsection{Distance of RS code}
 The distance of $\mathcal{C}_{RS}(\vec{\alpha},n,k)$ is $d=n-k+1$.
 \begin{proof}
@@ -736,21 +756,29 @@ The distance of $\mathcal{C}_{RS}(\vec{\alpha},n,k)$ is $d=n-k+1$.
 \end{theorem}
 \includegraphics*[scale= 0.8]{./Images/Hamming bound VS Singleton bound.png}
 
-Hamming bound is tighter than Singleton bound when $q=2$. But when $q>2$, Singleton bound is tighter than Hamming bound. Singleton bound is not dependent on $q$ however, Hamming bound is dependent on $q$. So Singleton bound is a better fit for Reed-Solomon codes.
+Hamming bound is tighter than Singleton bound when $q=2$. But when $q>2$,
+Singleton bound is tighter than Hamming bound. Singleton bound is not dependent
+on $q$ however, Hamming bound is dependent on $q$. So Singleton bound is a
+better fit for Reed-Solomon codes.
 \begin{proof}
-    Let $c\in\mathcal{C}$, $c=(c_1,c_2,\ldots,c_n)$. Then we throw away the last $d-1$ bits and let $\phi(c)=(c_1,c_2,\ldots,c_{n-d+1})$. Then consider: $\mathcal{C}'=\{\phi(c):c\in\mathcal{C}\},\mathcal{C}'\subseteq \mathbb{F}_q^{n-d+1}$. 
+    Let $c\in\mathcal{C}$, $c=(c_1,c_2,\ldots,c_n)$. Then we throw away the last $d-1$ bits and let $\phi(c)=(c_1,c_2,\ldots,c_{n-d+1})$. Then consider: $\mathcal{C}'=\{\phi(c):c\in\mathcal{C}\},\mathcal{C}'\subseteq \mathbb{F}_q^{n-d+1}$.
 
-    Claim 1: $|\mathcal{C}|=|\mathcal{C}'|$ We can show it by contradiction: 
+    Claim 1: $|\mathcal{C}|=|\mathcal{C}'|$ We can show it by contradiction:
 
-    If the claim is false, then $\exists c_1,c_2\in \mathcal{C}$ such that $\phi(c_1)=\phi(c_2)$. Then $c_1$ and $c_2$ differ in at most $d-1$ positions. So $d(c_1,c_2)\le d-1$. Contradiction. 
+    If the claim is false, then $\exists c_1,c_2\in \mathcal{C}$ such that
+    $\phi(c_1)=\phi(c_2)$. Then $c_1$ and $c_2$ differ in at most $d-1$ positions.
+    So $d(c_1,c_2)\le d-1$. Contradiction.
 
-    There must be at least a one-bit difference among all $c\in \mathcal{C}$. So the two sets have the same cardinality.
+    There must be at least a one-bit difference among all $c\in \mathcal{C}$. So
+    the two sets have the same cardinality.
 
-    Claim 2: $|\mathcal{C}'|=q^{n-d+1}$ 
-    
-    This is because $\mathcal{C}$ is a linear subspace of $\mathbb{F}_q^n$, taking out the last $d-1$ bits is still a linear subspace of $\mathbb{F}_q^{n-d+1}$.
+    Claim 2: $|\mathcal{C}'|=q^{n-d+1}$
 
-    Thus $|\mathcal{C}|=|\mathcal{C}'|=q^{n-d+1}$. So $|\mathcal{C}|\le q^{n-d+1}$. So $d\le n-k+1$ or $k\le n-d+1$.
+    This is because $\mathcal{C}$ is a linear subspace of $\mathbb{F}_q^n$, taking
+    out the last $d-1$ bits is still a linear subspace of $\mathbb{F}_q^{n-d+1}$.
+
+    Thus $|\mathcal{C}|=|\mathcal{C}'|=q^{n-d+1}$. So $|\mathcal{C}|\le q^{n-d+1}$.
+    So $d\le n-k+1$ or $k\le n-d+1$.
 
     We can claim that singleton bound is tight for RS code.
 \end{proof}
@@ -759,9 +787,10 @@ So RS is optimal in the sense that it achieves the Singleton bound by equality.
 \begin{definition}
     A linear $(n,k,d)_q$-code is called a maximum distance separable (MDS) code if $d=n-k+1$.
 \end{definition}
-So RS code is MDS. 
+So RS code is MDS.
 
-Property: MDS $\iff$ every $k\times k$ submatrix of the generator matrix $G$ is invertible (full rank).
+Property: MDS $\iff$ every $k\times k$ submatrix of the generator matrix $G$ is
+invertible (full rank).
 
 So you can pick any row of $G$ and they are all independent of each other.
 
@@ -769,7 +798,9 @@ So you can pick any row of $G$ and they are all independent of each other.
     $d=n-k+1\iff$ can fill in any $n-k$ erasures. $\iff$ any k remaining rows of $G$ forms a full rank matrix. $\iff$ every $k\times k$ submatrix of $G$ is invertible.
 \end{proof}
 
-Property: Let $\mathcal{C}$ be MDS $(n,k,d)_q$-code. Then any $k$ position of $c\in\mathcal{C}$ determines $c$ uniquely. So we can recover the message from $k$ points.
+Property: Let $\mathcal{C}$ be MDS $(n,k,d)_q$-code. Then any $k$ position of
+$c\in\mathcal{C}$ determines $c$ uniquely. So we can recover the message from
+$k$ points.
 
 It is basically a restatement of the above property
 
@@ -785,46 +816,59 @@ It is basically a restatement of the above property
 \end{definition}
 For example: $\mathbb{F}_5 = \{0,1,2,3,4\}, \mathbb{F}_5^*=\{1,2,3,4\}$
 
-Fact: $\mathbb{F}_q^*$ is a \textbf{cyclic group}. In cyclic group, $\exists \gamma \in \mathbb{F}_q^*$ such that $\mathbb{F}_q^*=\{\gamma^0,\gamma^1,\gamma^2,\ldots,\gamma^{q-2}\}$ Call $\gamma$ as primitive element of $\mathbb{F}_q^*$. Note that $\gamma ^{q-1}=1=\gamma^0$ because it is a group $\implies \gamma^{q-1}\times \gamma = \gamma^0\times \gamma = \gamma$.
+Fact: $\mathbb{F}_q^*$ is a \textbf{cyclic group}. In cyclic group, $\exists
+    \gamma \in \mathbb{F}_q^*$ such that
+$\mathbb{F}_q^*=\{\gamma^0,\gamma^1,\gamma^2,\ldots,\gamma^{q-2}\}$ Call
+$\gamma$ as primitive element of $\mathbb{F}_q^*$. Note that $\gamma
+    ^{q-1}=1=\gamma^0$ because it is a group $\implies \gamma^{q-1}\times \gamma =
+    \gamma^0\times \gamma = \gamma$.
 
-For example: $\mathbb{F}_5^*=\{1,2,3,4\}=\{2^0,2^1,2^2,2^3\}$ 
-But 4 is not primitive. It is missing 2 and 3. 2 is primitive. It has all elements of $\mathbb{F}_5^*$.
+For example: $\mathbb{F}_5^*=\{1,2,3,4\}=\{2^0,2^1,2^2,2^3\}$ But 4 is not
+primitive. It is missing 2 and 3. 2 is primitive. It has all elements of
+$\mathbb{F}_5^*$.
 
-Conjective: For any prime $p$, there exists a primitive element in $\mathbb{F}_p^*$. Beware of the definition of a finite field, $q$ needs to be a prime for $\mathbb{F}_q$ to be a valid finite field. 
+Conjective: For any prime $p$, there exists a primitive element in
+$\mathbb{F}_p^*$. Beware of the definition of a finite field, $q$ needs to be a
+prime for $\mathbb{F}_q$ to be a valid finite field.
 
 Fact: $\forall 0<d<q-1, \sum_{\alpha\in \mathbb{F}_q^*}\alpha^d=0$.
 \begin{proof}
     Let $\gamma$ be a primitive element of $\mathbb{F}_q$. Solve using the sum of geometric series.
     \[
-        \sum_{\alpha\in \mathbb{F}_q}\alpha^d = \sum_{\alpha\in \mathbb{F}_q^*}\alpha^d = \sum_{j=0}^{q-2}(\gamma^j)^d = \frac{\gamma^d(1-(\gamma^d)^{q-1})}{1-\gamma^d}=0 
+        \sum_{\alpha\in \mathbb{F}_q}\alpha^d = \sum_{\alpha\in \mathbb{F}_q^*}\alpha^d = \sum_{j=0}^{q-2}(\gamma^j)^d = \frac{\gamma^d(1-(\gamma^d)^{q-1})}{1-\gamma^d}=0
     \]
     $r^d\neq 1$ for $0<r<q-1$.
 \end{proof}
 \subsection{Dual view of RS code}
-Proposition: Let $n=q-1$ and let $\gamma$ be a primitive element of $\mathbb{F}_q$. 
+Proposition: Let $n=q-1$ and let $\gamma$ be a primitive element of
+$\mathbb{F}_q$.
 
 $RS_q ((\gamma^0,\gamma^1,\ldots,\gamma^{q-2}),n,k) = \{(c_0,c_1,\ldots,c_{n-1}):C(\gamma^j)=0\}$ where $C(x)=c_0+c_1x+\cdots+c_{n-1}x^{n-1}$
 
 \begin{proof}
     Let $f(x)=\sum_{i=0}^{k-1}a_i X^i$. An RS codeword is $f(\gamma^0),f(\gamma^1),\ldots,f(\gamma^{n-1}) = (c_0,c_1,\ldots,c_{n-1})$.
 
-    Then $C(\gamma^j)=\sum_{l=0}^{n-1}c_l \gamma^{jl} = \sum_{l=0}^{n-1}f(\gamma^l)\gamma^{jl} = f(\gamma^j)\sum_{l=0}^{n-1}\gamma^{jl} = \sum_{l=0}^{n-1}(\sum_{i=0}^{k-1}a_i \gamma^{jl})= \sum_{i=0}^{k-1}a_i \sum_{l=0}^{n-1}(\gamma^{l})^{i+j} = 0$.
+    Then $C(\gamma^j)=\sum_{l=0}^{n-1}c_l \gamma^{jl} =
+        \sum_{l=0}^{n-1}f(\gamma^l)\gamma^{jl} = f(\gamma^j)\sum_{l=0}^{n-1}\gamma^{jl}
+        = \sum_{l=0}^{n-1}(\sum_{i=0}^{k-1}a_i \gamma^{jl})= \sum_{i=0}^{k-1}a_i
+        \sum_{l=0}^{n-1}(\gamma^{l})^{i+j} = 0$.
 
     Show subset here for some reason, revisit later.!!!!!!!!!!
 \end{proof}
 \subsection{Parity check matrix of RS code}
-Corollary: The parity check matrix for $RS_q((\gamma^0,\gamma^1,\ldots,\gamma^{n-1}),n,k)$ is \[
+Corollary: The parity check matrix for
+$RS_q((\gamma^0,\gamma^1,\ldots,\gamma^{n-1}),n,k)$ is \[
     H=\begin{bmatrix}
-        1 & r & r^2 & \cdots & r^{n-1} \\
-        1 & r^2 & r^4 & \cdots & r^{2(n-1)} \\
-        \vdots & \vdots & \vdots & \cdots & \vdots \\
-        1 & r^{n-k} & r^{2(n-k)} & \cdots & r^{(n-k)(n-1)}
+        1      & r       & r^2        & \cdots & r^{n-1}        \\
+        1      & r^2     & r^4        & \cdots & r^{2(n-1)}     \\
+        \vdots & \vdots  & \vdots     & \cdots & \vdots         \\
+        1      & r^{n-k} & r^{2(n-k)} & \cdots & r^{(n-k)(n-1)}
     \end{bmatrix}
 \]
 \begin{proof}
     The parity check matrix is the generator matrix of the dual code. So we can use the generator matrix of the original code to find the parity check matrix of the dual code.
     \[
-    H\vec{C}=\vec{0}=\sum_{i=0}^{n-1}c_i\gamma^{ji}=\vec{C}(\gamma^j)=0    
+        H\vec{C}=\vec{0}=\sum_{i=0}^{n-1}c_i\gamma^{ji}=\vec{C}(\gamma^j)=0
     \]
     Not done yet!!!!!!!!
 \end{proof}
@@ -833,7 +877,8 @@ Corollary: The parity check matrix for $RS_q((\gamma^0,\gamma^1,\ldots,\gamma^{n
     A generalized RS code $GRS_q(\vec{\alpha},n,k, \vec{\lambda})$ where $\forall \lambda_i \in \vec{\lambda} = (\mathbb{F}_q^*)^n$ is defined as follows: \[
         GRS_q(\vec{\alpha},n,k, \vec{\lambda}) = \{(\lambda_0f(\alpha_1),\ldots,\lambda_{n-1}f(\alpha_n)): f(x)\in \mathbb{F}_q[x], \deg(f(x))\le k-1\}
     \]
-    where $\gamma_i = (\lambda_i \Pi_{j\neq _i}(\alpha_i-\alpha_j))^{-1}$ is a primitive element of $\mathbb{F}_q^*$.
+    where $\gamma_i = (\lambda_i \Pi_{j\neq _i}(\alpha_i-\alpha_j))^{-1}$ is a
+    primitive element of $\mathbb{F}_q^*$.
 \end{definition}
 \begin{theorem}
     For any $\vec{\alpha}$ and $\vec{\lambda}, \exists \vec{\gamma} \in \mathbb{F}_q^*$ such that \[
@@ -841,20 +886,28 @@ Corollary: The parity check matrix for $RS_q((\gamma^0,\gamma^1,\ldots,\gamma^{n
     \]
 \end{theorem}
 \subsection{Decoding of RS code}
-Question: Consider $RS_q(\vec{\alpha},n,k)$ and assume the number of error $e\le \lfloor \frac{n-k}{2} \rfloor = \lfloor \frac{d-1}{2} \rfloor \impliedby d=n+1-k$. 
+Question: Consider $RS_q(\vec{\alpha},n,k)$ and assume the number of error
+$e\le \lfloor \frac{n-k}{2} \rfloor = \lfloor \frac{d-1}{2} \rfloor \impliedby
+    d=n+1-k$.
 
-There are lots of possibilities for the error. How to decode the message? How do we decide which polynomial is the correct one? How to do it efficiently?
+There are lots of possibilities for the error. How to decode the message? How
+do we decide which polynomial is the correct one? How to do it efficiently?
 \subsubsection{Berlekamp-Welch Algorithm}
-Idea: Consider an error locator polynomial $L(c)=\Pi_{i: \tilde{c_i}\neq f(\alpha_i)}(x-\alpha_i)$. 
+Idea: Consider an error locator polynomial $L(c)=\Pi_{i: \tilde{c_i}\neq
+        f(\alpha_i)}(x-\alpha_i)$.
 
-Observe that $\forall i, \tilde{c_i}=f(\alpha_i)L(\alpha_i)$. So $L(x)$ is a polynomial of degree $\le e$. \begin{itemize}
+Observe that $\forall i, \tilde{c_i}=f(\alpha_i)L(\alpha_i)$. So $L(x)$ is a
+polynomial of degree $\le e$. \begin{itemize}
     \item For index $i$ where error happened, both sides euqal zero.
     \item For index $i$ where no error happened, $\tilde{c_i}=f(\alpha_i)$.
 \end{itemize}
 
 Algorithm: \begin{enumerate}
-    \item Find a monic (leading coefficient is 1) polynomial $L(x)$ and a polynomial $Q(x)$ with degree $\le e+k-1$ such that $\tilde{c_i}L(\alpha_i)=Q(\alpha_i)$ for all $i$.
-    \item Let $f(x)=\frac{Q(x)}{L(x)}$. Then $f(x)$ is the correct polynomial if $\Delta(C(f),\tilde{c})\le e$. Otherwise, fail
+    \item Find a monic (leading coefficient is 1) polynomial $L(x)$ and a polynomial
+          $Q(x)$ with degree $\le e+k-1$ such that $\tilde{c_i}L(\alpha_i)=Q(\alpha_i)$
+          for all $i$.
+    \item Let $f(x)=\frac{Q(x)}{L(x)}$. Then $f(x)$ is the correct polynomial if
+          $\Delta(C(f),\tilde{c})\le e$. Otherwise, fail
 \end{enumerate}
 Refer to her notes for details.
 \subsection{Pros and Cons of RS code}
@@ -863,11 +916,9 @@ Pros: \begin{itemize}
     \item has an efficient decoding algorithm
 \end{itemize}
 Cons: \begin{itemize}
-    \item RS code requires $q\ge n \ge k$ and $q$ is a prime. So it is not suitable for all parameters. For example, RS code exists for large alphabet size $q$.
+    \item RS code requires $q\ge n \ge k$ and $q$ is a prime. So it is not suitable for
+          all parameters. For example, RS code exists for large alphabet size $q$.
 \end{itemize}
-
-
-
 
 \section{Existance of finite fields}
 \begin{theorem}
@@ -878,9 +929,12 @@ Remark: For $\mathbb{F}_{p^m}$, it has elements from $\mathbb{F}_p [X]$. Additio
 For example: $f(x),g(x)\in \mathbb{F}_{p^m}$\[
     f(x)\cdot g(x) = q(x)E(x)+r(x)
 \]
-Note the similarity to the Euclidean division. $q(x)$ is the quotient and $r(x)$ is the remainder. $r(x)$ has degree less than $f(x)$. Then $E(x)$ is the irreducible polynomial.
+Note the similarity to the Euclidean division. $q(x)$ is the quotient and
+$r(x)$ is the remainder. $r(x)$ has degree less than $f(x)$. Then $E(x)$ is the
+irreducible polynomial.
 \subsection{Irreducible Polynomial}
-An irreducible polynomial is like a prime number in the polynomial field. It is the building block of the finite field.
+An irreducible polynomial is like a prime number in the polynomial field. It is
+the building block of the finite field.
 \begin{definition}
     A polynomial $f(x)\in \mathbb{F}_p[x]$ is called \textbf{irreducible} if for any $g_1(x),g_2(x)\in \mathbb{F}_p[x]$, $f(x)= g_1(x)g_2(x)$, it implies that $\min\{\deg(g_1(X)),\deg(g_2(x))\}=0$
 \end{definition}
@@ -893,7 +947,8 @@ For example: \begin{itemize}
 \end{itemize}
 Is it enough to check all possible $\alpha \in \mathbb{F}_q$ to see if $f(\alpha)=0$? No, because it is not enough to check all possible $\alpha \in \mathbb{F}_q$ to see if $f(\alpha)=0$. For example, $(x^2+x+1)^2 = (x^2+x+1)\times(x^2+x+1)$ is reducible in $\mathbb{F}_2[x]$ but has no root in $\mathbb{F}_3$.
 
-So ``roots'' $\implies$ ``reducible'' but ``Not roots'' does not imply ``irreducible''.
+So ``roots'' $\implies$ ``reducible'' but ``Not roots'' does not imply
+``irreducible''.
 \subsection{Finite filed with $p^m$ elements (p is a prime)}
 \begin{theorem}
     Let $E(x)$ be an irreducible polynomial of degree $m\ge 2, m \in \mathbb{F}_p[x]$ for prime $p$. The set of polynomials in $\mathbb{F}_p[x]$ modulo $E(x)$ denoted by $\mathbb{F}_{p^m}= \mathbb{F}_p[x]/(E(x))$ is a finite field with $p^m$ elements.
@@ -901,22 +956,68 @@ So ``roots'' $\implies$ ``reducible'' but ``Not roots'' does not imply ``irreduc
 Note that $\mathbb{F}_{p^m}$ is a finite field. It is a set of polynomials of degree less than $m$ modulo $E(x)$. It is a set of polynomials of degree less than $m$ with coefficients in $\mathbb{F}_p$. It is because anything higher than $m$ can be reduced by $E(x)$.
 
 \begin{itemize}
-    \item Addition: $f(x)+g(x) = (f(x)+g(x))\pmod {E(x)}$ is just plain addition in $\mathbb{F}_p[x]$
-    \item Multiplication: $f(x)\cdot g(x) = (f(x)\cdot g(x))\pmod {E(x)}$ is a unique remainder $r(x)$ when $f(x)\cdot g(x)$ is divided by $E(x)$. $r(x)$ has degree less than $E(x)$. So $f(x)\cdot g(x)=q(x)E(x)+r(x)$
+    \item Addition: $f(x)+g(x) = (f(x)+g(x))\pmod {E(x)}$ is just plain addition in
+          $\mathbb{F}_p[x]$
+    \item Multiplication: $f(x)\cdot g(x) = (f(x)\cdot g(x))\pmod {E(x)}$ is a unique
+          remainder $r(x)$ when $f(x)\cdot g(x)$ is divided by $E(x)$. $r(x)$ has degree
+          less than $E(x)$. So $f(x)\cdot g(x)=q(x)E(x)+r(x)$
     \item Additive inverse: $f(x) \to (-f(x))\pmod {E(x)}$
-    \item Multiplicative inverse: $f(x) \to g(x)=f(x)^{-1}\pmod {E(x)}$ such that $f(x)\cdot g(x)=1\pmod {E(x)}$
+    \item Multiplicative inverse: $f(x) \to g(x)=f(x)^{-1}\pmod {E(x)}$ such that
+          $f(x)\cdot g(x)=1\pmod {E(x)}$
 \end{itemize}
 
-For example: for $p=2$ $E(x)=1+x+x^2$ is irreducible in $\mathbb{F}_2[x]$. Then $\mathbb{F}_{2^2}=\mathbb{F}_2[x]/(1+x+x^2)$ is a finite field with 4 elements $\{0,1,x,x+1\}$.
+For example: for $p=2$ $E(x)=1+x+x^2$ is irreducible in $\mathbb{F}_2[x]$. Then
+$\mathbb{F}_{2^2}=\mathbb{F}_2[x]/(1+x+x^2)$ is a finite field with 4 elements
+$\{0,1,x,x+1\}$.
 
-The multiplicative inverse of $\{1,x,x+1\}$ is $\{1,x+1,x\}$ respectively. 
+The multiplicative inverse of $\{1,x,x+1\}$ is $\{1,x+1,x\}$ respectively.
 
+\begin{theorem}
+    For every prime power $p^m$, there exists a finite field $\mathbb{F}_{p^m}$ with $p^m$ elements. There are no other finite fields.
+\end{theorem}
+When $m=1$, it is a prime filed $\mathbb{F}_p$. When $m>1$, it is an extension field $\mathbb{F}_{p^m}$.
+
+Note that $\mathbb{F}_{2^2}=\{0,1,x,x+1\}\neq \mathbb{F}_4 = \{0,1,2,3\}$. They
+are different fields. $\mathbb{F}_{2^2}$ is a field with 4 elements ($\Sigma =
+    2$ with degree of at most 1). $\mathbb{F}_4$ is a field with 4 elements
+($\Sigma = 4$ with degree of at most 0).
 \subsection{Find the irreducible polynomial}
-Fact: $\forall m \in \mathbb{Z}$ and prime $p$, $\exists$ an irreducible polynomial of degree $m$, $f\in \mathbb{F}_p[x]$.
+Fact: $\forall m \in \mathbb{Z}$ and prime $p$, $\exists$ an irreducible
+polynomial of degree $m$, $f\in \mathbb{F}_p[x]$.
 \begin{theorem}
     If $E(x)$ is a degree $m$ irreducible polynomial in $\mathbb{F}_p[x]$, then $E(x)|x^{p^m}-x$.
 \end{theorem}
 For example: For $p=2=m$, $E(x)=x^2+x+1$ is irreducible in $\mathbb{F}_2[x]$. Then $E(x)|x^4-x = x(x^3-1)=x(x-1)(x^2+x+1)$.
+
+\subsubsection{Multiplicative group of $\mathbb{F}_{p^m}$}
+Fact: $\mathbb{F}_{p^m}^*$ is a cyclic group. It has a generator $\gamma$ such that $\mathbb{F}_{p^m}^*=\{\gamma^0,\gamma^1,\ldots,\gamma^{p^m-2}\}$.
+
+A good way to draw a picture in the head is to think of a circle and the circle
+is divided into $p^m-1$ equal parts. Then $\gamma^0$ is the starting point and
+$\gamma^{p^m-2}$ is the ending point. For each power of a generator, rotates
+the circle by a certain degree. There are a few that could be the generator,
+and it rotates the circle by a different degree.
+
+\subsection{Polynomial Interpolation over $\mathbb{F}_{p^m}$}
+Make a distinction to start with:\begin{itemize}
+    \item $\mathbb{F}_p[X] \implies f(x)=a_0+a_1x+\cdots+a_{n-1}x^{n-1}, a_i\in \mathbb{F}_p$. So the coefficients are from $\mathbb{F}_p$, which are numbers only.
+    \item $\mathbb{F}_{p^m}[X] \implies f(x)=a_0+a_1x+\cdots+a_{n-1}x^{n-1}, a_i\in \mathbb{F}_{p^m}$. So the coefficients are from $\mathbb{F}_{p^m}$, which are polynomials with degree less than $m$.
+\end{itemize}
+For example, consider $\mathbb{F}_{2^3}$
+
+We can list out the members of the group and the corresponding multiplicative
+group.
+\begin{align*}
+    \mathbb{F}_{2^3}   & = \{ & 0,         & 1,        & x,        & x+1,      & x^2,      & x^2+1,    & x^2+x,    & x^2+x+1\}  \\
+    \mathbb{F}_{2^3}^* & = \{ & \emptyset, & \gamma^0, & \gamma^1, & \gamma^2, & \gamma^3, & \gamma^4, & \gamma^5, & \gamma^6\}
+\end{align*}
+
+Now evaluate $f(x)=x^2 +1$ at $x = \gamma^3$. we get
+$f(\gamma^3)={(\gamma^3)}^2+1=\gamma^6+1=x^2+1+1=x^2=\gamma^2$. So
+$f(\gamma^3)=\gamma^2$.
+
+Note the cyclic behavior here. And distinguish the $x$ used as the function input
+and the $x$ is used as a variable in the polynomial.
 
 \section{BCH Codes (Bose, Chaudhuri, Hocquenghem)}
 \begin{definition}
@@ -925,20 +1026,7 @@ For example: For $p=2=m$, $E(x)=x^2+x+1$ is irreducible in $\mathbb{F}_2[x]$. Th
     \]
 \end{definition}
 Remark: \begin{itemize}
-    \item $BCH(n,d)=RS_{2^m}((r^0,\ldots,r^{n-1}),n,n-d+1)$ 
+    \item $BCH(n,d)=RS_{2^m}((r^0,\ldots,r^{n-1}),n,n-d+1)\cap \mathbb{F}_2^n$
 \end{itemize}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 \end{document}

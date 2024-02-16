@@ -1028,9 +1028,9 @@ then put them all together using CRT.
 \subsubsection{More generalized CRT}
 Now consider a system of $\gcd = d > 1$.
 
-solve $x\equiv 2 \pmod 4, x\equiv 1 \pmod 12$. There is no solution since the first congruence implies $x$ is even and the second congruence implies $x$ is odd.
+solve $x\equiv 2 \pmod 4, x\equiv 1 \pmod {12}$. There is no solution since the first congruence implies $x$ is even and the second congruence implies $x$ is odd.
 
-solve $x\equiv 1 \pmod 8, x\equiv 1 \pmod 12$. Obviously, $x=1,25$ are solutions to it. Here it has solutions, but it is not unique under modulo $8\times 12=96$.
+solve $x\equiv 1 \pmod 8, x\equiv 1 \pmod {12}$. Obviously, $x=1,25$ are solutions to it. Here it has solutions, but it is not unique under modulo $8\times 12=96$.
 
 \begin{theorem}
     The system of linear congruences \begin{align*}
@@ -1050,9 +1050,12 @@ To prove it we need the following Lemma:\[
     Let $z=x-y$. Then the lemma can be rewritten as \[
         z\equiv 0 \pmod n \iff az \equiv 0 \pmod {an}
     \]
-    It is equivalent to $\exists w\in \mathbb{Z}$ s.t $z=wn$ which is also equivalent to $\exists w\in \mathbb{Z}$ s.t $az=awn$.
+    
+    Forward direction: $\exists w\in \mathbb{Z}$ s.t $z=wn \implies \exists w\in \mathbb{Z}$ s.t $az=awn$.
 
-    CHECK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    Backward direction: $\exists w\in \mathbb{Z}$ s.t $az=awn \implies \exists w\in \mathbb{Z}$ s.t $z=wn$.
+
+    Therefore, the lemma is proved.
 \end{proof}
 
 Now back to the proof of the theorem.
