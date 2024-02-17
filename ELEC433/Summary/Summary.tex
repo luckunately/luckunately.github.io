@@ -413,6 +413,10 @@ Observations:\begin{itemize}
     \item The parity check matrix is not unique.
 \end{itemize}
 A parity check matrix like the above is called a \textbf{systematic parity check matrix} where $I_{(n-k)}$ is the identity matrix of size $(n-k)$ and $B$ is a $(n-k)\times k$ matrix. It is called systematic because the message is part of the codeword.
+
+Note that the minimum distance of a code is equal to the number of linearly dependent columns in the parity matrix: \begin{proof}
+    Since we know $H\cdot \vec{c}=0,\forall \vec{c}\in C$, we start by assuming the minimum weight of a non-zero code $c^*$ is $d$. Since it is non-zero, the columns with 1 in $c^*$ must be linearly dependent to get the sum to be zero. Thus, the minimum number of linearly dependent columns is $d$. Thus, the minimum distance of the code is $d$.
+\end{proof}
 \subsubsection{Relationship between G and H}
 Question:
 
@@ -439,7 +443,7 @@ Then we can write the codeword as $C = G \cdot X = \begin{bmatrix}
 \]
 So $B+A=0$ note that the addition is the addition defined in the field
 $\mathbb{F} = \{0,1\}$. So $B + A = 0 \implies B = A$ in a binary sense.
-\subsubsection{usful facts about linear code:}
+\subsubsection{useful facts about linear code:}
 Let $\mathcal{C}$ be a linear code of dimension $k$ and length $n$ over
 $\mathbb{F}=\{0,1\}^n$. Let $G$ be a generator matrix for $\mathcal{C}$ and $H$
 be a parity check matrix for $\mathcal{C}$.
@@ -455,7 +459,7 @@ be a parity check matrix for $\mathcal{C}$.
           each column of $G$ has $H$ as a kernel. So each column of $G$ is a codeword.
     \item The distance of $\mathcal{C}$ is the same as the minimum weight of the non-zero
           codewords in $\mathcal{C}$. This is because $\min d(C_1,C_2) = \min
-              d(C_1-C2,0)=\min wt(C_1\oplus C_2)=\min wt(C_1-C_2)$. Now if one of $C_1$ and
+              d(C_1-C_2,0)=\min wt(C_1\oplus C_2)=\min wt(C_1-C_2)$. Now if one of $C_1$ and
           $C_2$ is 0, then $C_1-C_2=C_1$ (if $C_2$ is zero here)
     \item let $\mathcal{C}$ have distance $d$. \begin{itemize}
               \item there are some $d$ columns of $H$ that are linearly dependednt.
