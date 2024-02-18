@@ -883,5 +883,41 @@ The child process will have a different PID and PPID. The child process will hav
 
 Note that the order of the output is not guaranteed. The parent process and the child process can run in any order. So the output can be different each time we run the program. This is due to the scheduling of the OS and speculatively execution of the CPU.
 
+\subsubsection{zombie process}
+When a child process dies and the parent is still running, the child process becomes a zombie process. It is still in the process table, but it is not running. It is waiting for the parent to collect its exit status.
+
+The parent can use the wait() syscall to collect the exit status of the child process. The child process will be removed from the process table after the parent collects the exit status.
+
+If the parent dies before the child, the child becomes an orphan process. It is then adopted by the init process. The init process will collect the exit status of the child process and remove it from the process table.
+
+\subsection{Signals}
+Signals are a way to notify a process that an event has occurred from the kernel or another process. It is a way to do IPC (inter-process communication).
+
+It is mediated by the OS kernel. Can be caused by \begin{itemize}
+    \item exceptions (SEGV, FPE, etc.)
+    \item user actions (KILL)
+\end{itemize}
+
+The kernel or process takes action depending on signals. \begin{itemize}
+    \item KILL and STOP must be handled by the kernel
+    \item others can be handled by \textbf{signal handlers}
+\end{itemize}
+\subsubsection{signal handlers}
+Programs can register signal handlers with the OS. \begin{itemize}
+    \item We register via the \textbf{signal()} syscall
+    \item We can register a function to handle the signal, so it is a user-defined code. 
+    \item The function is called when the signal is received
+    \item It is kind of like an interrupt handler in microcontrollers
+\end{itemize}
+For example:
+
+\includegraphics*[scale=0.8]{./Images/Signal handelr.png}
+
+Note that the signal handler is a separate function that runs in parallel. Before executing, it will check with the OS to see if the caller has permission to do certain tasks. If not, it will not execute the signal handler.
+
+
+
+
+
 \end{document}
 
