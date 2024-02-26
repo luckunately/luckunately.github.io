@@ -46,7 +46,7 @@ for exit is 93. We then use svc 0 to make the system call.
 \end{itemize}
 
 To compile this and run (on Linux/arm64): \begin{lstlisting}
-    as -0 foo.o foo.s
+    as -o foo.o foo.s
     ld -o foo foo.o
     ./foo
     echo \$?
@@ -72,7 +72,7 @@ _start:
     mov x8, 93
     mov x0, 42
     svc 0
-txt: .ascii "goodbye, cruel world!\textbackslash n"
+txt: .ascii "goodbye, cruel world!\n"
 len = . - txt
 \end{lstlisting}
 This program prints "goodbye, cruel world!" and exits with code 42. Here, we
