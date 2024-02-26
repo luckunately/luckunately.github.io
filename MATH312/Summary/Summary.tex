@@ -1,4 +1,4 @@
-\documentclass[letterpaper,12pt]{article}
+\documentclass[letterpaper,12pt,oneside]{article}
 \setlength{\headheight}{14.49998pt}
 \usepackage{fancyhdr}
 \usepackage{lipsum,graphicx}
@@ -1095,6 +1095,92 @@ For example, $n=114000$ is divisible by $2^4,5^3$ not $2^5,5^4$.\begin{itemize}
     \item For $5^3$, $114000\equiv 0 \pmod {5^3}$.
     \item For $5^4$, $114000\equiv 10^3+4\times 10^2 \equiv 400 \pmod {5^4}$. Thus not divisible by $5^4$.
 \end{itemize}
+
+For mod 11, $10^k\equiv (-1)^k \pmod {11}$. For example, $n=123456$ is not divisible by 11 because $10^6\equiv 1 \pmod {11}$ and $1-2+3-4+5-6\equiv 7 \pmod {11}$. This is because $10\equiv -1 \pmod 11$
+
+With the same idea, divisibility by 101: Use the congruence $10^2 \equiv -1 \pmod {101}$.
+
+\begin{align*}
+    n = (a_0+10a_1)+10^2(a_2+10a_3)+\cdots+10^{2k}(a_k+10a_{k+1})\\\equiv (a_0+10a_1)-10^2(a_2+10a_3)+\cdots \pmod {101}\\
+    = (a_0+10a_1)-(a_2+10a_3)+ (a_4 +10 a_5)\cdots \pmod {101}\\
+    = (a_1 a_0)-(a_3 a_2)+ (a_5 a_4)\cdots \pmod {101}
+\end{align*}
+
+For example: n=123456789 is not divisible by 101 because $10^2\equiv -1 \pmod {101}$ and $89 - 67 + 45 - 23 + 1\equiv 22+22+1 \equiv 45 \pmod {101}$.
+
+Similarly for 1001: $10^3\equiv -1 \pmod {1001}$. Now break up into 3-digit bits. $n\equiv (a_2 a_1 a_0)-(a_5 a_4 a_3)+(a_8 a_7 a_6)\cdots \pmod {1001}$. For example, $n=234934$ is not divisible by 1001 because $934-234\equiv 700 \pmod {1001}$.
+
+Note that $1001 = 7 \times 11 \times 13$. Therefore, $n$ is divisible by 1001 if and only if $n$ is divisible by 7, 11, and 13.
+
+\begin{itemize}
+    \item Is $n=234934$ divisible by 7? $234-934\equiv 700\equiv 0 \pmod 7$.
+    \item Is $n=234934$ divisible by 11? $934-234\equiv 700\equiv 7 \pmod {11}$.
+    \item Is $n=234934$ divisible by 13? $934-234\equiv 700\equiv 7\times 2^5 \times 5^2 \pmod {13}$.
+\end{itemize}
+   Therefore, $n=234934$ is not divisible by 1001.
+
+\section{Wilson's Theorem}
+\subsection{Wilson's Theorem}
+\begin{theorem}
+    Let $p$ be a prime. Then $(p-1)!\equiv -1 \pmod p$.
+\end{theorem}
+\begin{proof}
+    When $p=2$, this is obvious. 
+
+    Assume now that $p>3\implies$ p is odd. 
+
+    Consider the set $S=\{1,2,\ldots,p-1\}$. Then $S$ is a group under multiplication modulo $p$. Note that $\forall s \in S, \exists s^{-1} \in S$ such that $ss^{-1}\equiv 1 \pmod p$. 
+
+    However, none of them is its own inverse except 1. It is because  $x^2\equiv 1 \pmod p \iff (x-1)(x+1)\equiv 0 \pmod p$. Then $x\equiv \pm 1 \pmod p$.
+
+    Then we can pair up the elements in $S$ into pairs $(s,s^{-1})$. Then the product of each pair is congruent to 1 modulo $p$. However, the last term would not have a pair since there are odd numbers of terms in $S$ and 1 is its own pair.
+
+    Therefore, $(p-1)!\equiv 1\times 2\times \cdots \times (p-2)\times (p-1) \equiv 1\times 2\times \cdots \times (p-2)\times 1 \equiv -1 \pmod p$.
+
+    Only the term $\pm 1$ is its own inverse and left out. Therefore, the product of all the elements in $S$ is congruent to -1 modulo $p$.
+\end{proof}
+For example: $10!=1\times (2\times 6)\times (3 \times 4)\times (5\times 9)\times (7\times 8)\times 10\equiv -1 \pmod {11}$.
+\subsection{Fermat's Little Theorem}
+\begin{theorem}
+    Let $p$ be a prime and $a$ be an integer such that $p\nmid a$. Then $a^{p-1}\equiv 1 \pmod p$.
+\end{theorem}
+\begin{proof}
+    Claim: $a,2a,3a,\ldots,(p-1)a$ are all distinct modulo $p$.
+
+    if $ia\equiv ja \pmod p$, then $ia-ja\equiv 0 \pmod p \implies (i-j)a\equiv 0 \pmod p$. Since $p\nmid a$, then $p\mid (i-j)$. Since $0<i,j<p$, then $i=j$.
+
+    Thus the $p-1$ distinct congruences $a,2a,3a,\ldots,(p-1)a$ are all distinct modulo $p$. Which is equivalent to the $p-1$ distinct congruences $1,2,3,\ldots,p-1$.
+
+    Then we can multiply all the congruences together to get \[
+        a\times 2a\times 3a\times \cdots \times (p-1)a\equiv 
+        a^{p-1}(p-1)!\equiv (p-1)!\pmod p
+    \]
+    Then by Wilson's Theorem, $(p-1)!\equiv -1 \pmod p$. Therefore, $a^{p-1}\equiv 1 \pmod p$.
+\end{proof}
+\subsubsection{Corollaries}
+Corollary 1: Let $p$ be a prime and $a$ be an integer. Then $a^p\equiv a \pmod p$.
+\begin{proof}
+    If $a \equiv 0 \pmod p$, then $a^p\equiv 0 \equiv a \pmod p$. If $a\not\equiv 0 \pmod p$, then $a^{p-1}\equiv 1 \pmod p$. Then $a^p\equiv a \pmod p$.
+\end{proof}
+Corollary 2: Let $p$ be a prime and $a$ be an integer. If $d \equiv e \pmod {p-1}$, then $a^d\equiv a^e \pmod p$.
+
+Note that Corollary 1 is a special case of Corollary 2 when $d=p,e=1 \implies a^p\equiv a^1 \pmod p$.
+\begin{proof}
+    May assume $d \ge e, d-e = k (p-1)$ for some $k\in \mathbb{Z},k\ge 0$. Then $a^d\equiv a^{e+k(p-1)}\equiv a^e(a^{p-1})^k\equiv a^e \pmod p$.
+
+    We used Fermat's Little Theorem in the last step where $a^{p-1}\equiv 1 \pmod p \implies (a^{p-1})^k\equiv 1^k\equiv 1 \pmod p$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
