@@ -658,6 +658,52 @@ int Height(Node * current){
     return max+1;
 }
 \end{lstlisting}
-  
+\subsection{Space complexity}
+Other than the data stored in the nodes, we need more pointers to keep track of the tree. Hence, there is some space complexity. Some pointers points to another node, some points to NULL. 
+
+Theorem: A finite tree of $n$ nodes has exactly $n+1$ null pointers.
+
+\begin{proof}
+    Base case: a tree with only one node has exactly one null pointer.
+
+    Inductive hypothesis: assume that a tree with $k$ nodes has exactly $k+1$ null pointers.
+
+    Inductive step: add a node to the tree. The new node has exactly $k+1$ null pointers. The new tree has exactly $k+2$ null pointers.
+
+    Termination: after adding all $n$ nodes, the tree has exactly $n+1$ null pointers.
+\end{proof}
+
+
+
+
+
+
+\section{Dictionary/Map}
+A dictionary is a data structure that stores a set of key-value pairs. \begin{itemize}
+    \item Values may be any (homogeneous) type.
+    \item Keys may be any (homogeneous) \textbf{comparable} type.
+    \item This is a motivation for an efficient search algorithm.
+\end{itemize}
+Since values rarely affect our design choices, we ignore them and focus on the keys that is handled by \textbf{Sets}
+\section{Sets}
+A set is a data structure that stores a set of keys. \begin{itemize}
+    \item Keys may be any (homogeneous) \textbf{comparable} type.
+\end{itemize}
+\subsection{Set implementation}
+\includegraphics*[scale = 0.8]{./Images/Set implementations.jpg}
+\subsection{Binary Search Tree}
+A binary search tree is a binary tree where each node has a key and a value. \begin{itemize}
+    \item The left subtree of a node contains only nodes with keys less than the node's key.
+    \item The right subtree of a node contains only nodes with keys greater than the node's key.
+    \item The left and right subtree must also be binary search trees.
+    \item Binary search trees are fully \textbf{ordered}.
+\end{itemize}
+Worst-case run time: height of the tree + 1. So the worst case is $O(\log n)$.
+
+
+
+
+
+
 
 \end{document}
