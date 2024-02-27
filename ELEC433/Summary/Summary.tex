@@ -1025,12 +1025,80 @@ and the $x$ is used as a variable in the polynomial.
 
 \section{BCH Codes (Bose, Chaudhuri, Hocquenghem)}
 \begin{definition}
-    Let $n=2^m-1$ and $r$ be a primitive element in $\mathbb{F}_2^m$. Then the BCH code $\mathcal{C}_{BCH}(n,d)$ is defined as follows: \[
+    Let $n=2^m-1, q = n + 1$ and $r$ be a primitive element in $\mathbb{F}_2^m$. Then the BCH code $\mathcal{C}_{BCH}(n,d)$ is defined as follows: \[
         \mathcal{C}_{BCH}(n,d)=\{(c_0,c_1,\ldots,c_{n-1}): \sum_{i=0}^{n-1}c_i r^i=0\}
     \]
 \end{definition}
 Remark: \begin{itemize}
-    \item $BCH(n,d)=RS_{2^m}((r^0,\ldots,r^{n-1}),n,n-d+1)\cap \mathbb{F}_2^n$
+    \item BCH$(n,d)=RS_{2^m}((r^0,\ldots,r^{n-1}),n,n-d+1)\cap \mathbb{F}_2^n$
+    \item BCH is a subset of RS code
+    \item Distance of BCH code is $d$
+    \item Decoding: use Reed-Solomon decoding algorithm
+    \item Dimension: BCH(n,d) is a linear code where $k\ge n-\lceil \frac{d-1}{2} \rceil \log_2(n+1)$
 \end{itemize}
+\subsection{Dimension of BCH code}
+Idea: count the number of constraints $\{C(\gamma^j)=0 \forall 0<j <d \}$.
+
+\begin{proof}
+    Fact: $\exists$ bijection $\Phi: \mathbb{F}_{2^m} \to \mathbb{F}_{2}^m$ such that $\Phi(0) = 0, \Phi(a+b) = \Phi(a)+\Phi(b), \Phi(ab) = \Phi(a)\Phi(b)$.
+
+    Now we have $\Phi(C(\gamma^j))=\Phi (\sum_{i=0}^{n-1} C_i(\gamma^j)^i) = \sum_{i=0}^{n-1}\Phi( C_i\gamma^{ij}) = \sum_{i=0}^{n-1}C_i\Phi( \gamma^{ij})=0$.
+
+
+    wrlghaluvhbiauwh
+\end{proof}
+
+\subsection{Rate and distance of BCH code}
+\begin{itemize}
+    \item Rate: $R=\frac{k}{n}= \frac{n-\lceil \frac{d-1}{2} \rceil \log_2(n+1)}{n}\approx 1-\frac{d}{n}\frac{\log_2 n}{2}\implies \frac{d}{n}\approx \frac{2}{\log_2 n}(1-R)$
+\end{itemize}
+
+\section{Reed-Muller Codes}
+\subsection{Multi-variate Polynomials}
+\begin{definition}
+    A multi-variate polynomial $f(x_1,x_2,\ldots,x_n)$ is a polynomial in $n$ variables $x_1,x_2,\ldots,x_n$.
+
+    Let $\mathbb{F}_q[x_1,x_2,\ldots,x_n]$ be the set of all multi-variate polynomials in $n$ variables with coefficients in $\mathbb{F}_q$.
+\end{definition}
+For example: $f(X_1, X_2)= X_1^2+X_1X_2+X_2^2$ is a multi-variate polynomial in two variables.
+
+\begin{itemize}
+    \item Monomial: the term without coefficient. For example: $X_1^2X_2^3$ is a monomial.
+    \item The total degree of a multi-variate polynomial is the sum of the degrees of all monomials.
+    \item The degree of $X_i$ in $X_1^{a_1}X_2^{a_2}\cdots X_n^{a_n}$ is $a_i$.
+    \item The degree of a polynomial is the maximum degree of all monomials with non-zero coefficients. For example: the degree of $X_1^2+X_1^2 X_2+X_2^2$ is 3 since the monomial $X_1^2X_2$ has degree 3.
+\end{itemize}
+\subsection{Reed-Muller Codes definition}
+\begin{definition}
+    The m-variate, Reed-Muller code of order $r$ over $\mathbb{F}_q$ is defined as follows: \[
+        RM(q,m,r)= \{f(\alpha_1),\cdots, f(\alpha)_{q^m}: f\in\mathbb{F}_q[x_1,x_2,\ldots,x_n] \}
+    \]
+    where $\deg(f)\le r, \deg_{x_i}(f)\le q-1$ for $i=1,2,\ldots,m$, and $\alpha_1,\alpha_2,\ldots,\alpha_{q^m}$ are distinct elements in $\mathbb{F}_q^m$.
+\end{definition}
+
+For example: $q=2,m=2,r=1$. Then $RM(2,2,1)=\{f(\alpha_1,\alpha_2): f\in\mathbb{F}_2[x_1,x_2], \deg(f)\le 1, \deg_{x_1}(f)\le 1, \deg_{x_2}(f)\le 1\}$
+
+Here $\alpha_1=(0,0), \alpha_2=(0,1), \alpha_3=(1,0), \alpha_4=(1,1)$. All polynomial: $0,1,x_1,x_2,x_1+x_2,x_1+x_2+1,x_1+1,x_2+1$ total of 8 of them. All code word:\begin{align*}
+    (0,0,0,0)^T\\
+    (1,1,1,1)^T\\
+    (0,0,1,1)^T\\
+    (1,1,0,0)^T\\
+    (0,1,0,1)^T\\
+    (1,0,1,0)^T\\
+    (0,1,1,0)^T\\
+    (1,0,0,1)^T
+\end{align*}
+Need to align them here !!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}
