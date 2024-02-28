@@ -672,6 +672,10 @@ Refer to Miezko's slides for an animation of this process.
 \begin{itemize}
     \item Stop and Copy would require us to only use half of the memory space. This is a big overhead. But it is not that bad. Most of the time, the objects we left in the heap does not live for too long. So a much more frequent garbage collection is not that bad given that we get huge chunk of free space instead of fragmented space.
     \item It is \textbf{Not Concurrent}. It stops the program since it moves the pointers.
+    \item Note the use of two pointers \textbf{scan} and \textbf{free}. \begin{itemize}
+        \item scan: if all pointers inside the node are visited, and the pointed blocks are moved to the to-space, then we can move the pointer to the next node. We paint the node black following the tri-colour abstraction.
+        \item free: if the node is reachable. Paint the node grey if so and move on. 
+    \end{itemize}
 \end{itemize}
 \subsection{refcount vs mark and sweep s stop and copy}
 \includegraphics*[scale=0.7]{Images/refcount vs mark and sweep s stop and copy.png}
@@ -737,6 +741,8 @@ Page tables can be divided into levels.
     \item offset: 11-0
 \end{itemize}
 Each cell in $PT_i$ is a pointer to the next level $PT_{i+1}$, which is a new page. The last level is the physical memory.
+
+Each entry of the page table contains the physical address of the next level page table. The actual data page is stored in the last level, accessed by the offset which contains bytes.
 \subsection{PTE (Page Table Entry)}
 There are lots of other bits in the entry of the virtual page table to indicate something else:\begin{itemize}
     \item valid bit: if the page is valid (if it is not valid, then it is not in the physical memory)
