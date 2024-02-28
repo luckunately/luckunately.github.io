@@ -670,13 +670,85 @@ Theorem: A finite tree of $n$ nodes has exactly $n+1$ null pointers.
 
     Inductive step: add a node to the tree. The new node has exactly $k+1$ null pointers. The new tree has exactly $k+2$ null pointers.
 
-    Termination: after adding all $n$ nodes, the tree has exactly $n+1$ null pointers.
+    Termination: After adding all $n$ nodes, the tree has exactly $n+1$ null pointers.
 \end{proof}
+In a binary tree with n values:\begin{itemize}
+    \item there are exactly n nodes.
+    \item exactly 1 of those nodes has no parent
+    \item every other node has exactly 1 parent
+    \item every non-null pointer points from \textbf{a parent} to \textbf{a child}
+    \item so there are exactly $n-1$ non-null pointers
+    \item The total number of pointers in a tree is exactly 2n since each node holds two pointers
+    \item So the number of null pointers in a \textbf{binary tree} is exactly $2n-(n-1)=n+1$
+\end{itemize}
+
+\subsubsection{General tree}
+Think about a k-ary tree. Each node has k children. So the number of null pointers is $kn-(n-1)=kn-n+1$. So the number of null pointers is $n(k-1)+1$.
+\subsection{Binary Search Tree}
+A binary search tree is a binary tree where each node has a key and a value. \begin{itemize}
+    \item The left subtree of a node contains only nodes with keys less than the node's key.
+    \item The right subtree of a node contains only nodes with keys greater than the node's key.
+    \item The left and right subtree must also be binary search trees.
+    \item Binary search trees are fully \textbf{ordered}.
+\end{itemize}
 
 
+\subsubsection{Search}
+\begin{lstlisting}[language=C++]
+Node * Search(Node * current, T key){
+    if(current == NULL){
+        return NULL;
+    }
+    if(current->key == key){
+        return current;
+    }
+    if(key < current->key){
+        return Search(current->left, key);
+    }else{
+        return Search(current->right, key);
+    }
+}
+\end{lstlisting}
+Worst-case run time: height of the tree + 1. So the worst case is $O(\log n)$.
+\subsubsection{Insertion}
+The BST property must be maintained! The cost is about the same as the cost for the search algorithm.
+\begin{lstlisting}[language=C++]
+Node * Insert(Node * current, T key, U value){
+    if(current == NULL){
+        return new Node(key, value);
+    }
+    if(key < current->key){
+        current->left = Insert(current->left, key, value);
+    }else{
+        current->right = Insert(current->right, key, value);
+    }
+    return current;
+}
+\end{lstlisting}
+Note the base case returns a new node when the current node is NULL. This is because we need to create a new node when we reach the end of the tree. And we updates the left or right pointer of the parent node to the new node.
 
-
-
+\subsubsection{Find the minimum and maximum}
+\begin{lstlisting}[language=C++]
+Node * FindMin(Node * current){
+    if(current == NULL){
+        return NULL;
+    }
+    if(current->left == NULL){
+        return current;
+    }
+    return FindMin(current->left);
+}
+Node * FindMax(Node * current){
+    if(current == NULL){
+        return NULL;
+    }
+    if(current->right == NULL){
+        return current;
+    }
+    return FindMax(current->right);
+}
+\end{lstlisting}
+Note that the left-most node is the minimum and the right-most node is the maximum. It could be that the left-most node still contains a right child, but that child will be larger than the left-most node. Similarly for the right-most node.
 
 \section{Dictionary/Map}
 A dictionary is a data structure that stores a set of key-value pairs. \begin{itemize}
@@ -691,15 +763,6 @@ A set is a data structure that stores a set of keys. \begin{itemize}
 \end{itemize}
 \subsection{Set implementation}
 \includegraphics*[scale = 0.8]{./Images/Set implementations.jpg}
-\subsection{Binary Search Tree}
-A binary search tree is a binary tree where each node has a key and a value. \begin{itemize}
-    \item The left subtree of a node contains only nodes with keys less than the node's key.
-    \item The right subtree of a node contains only nodes with keys greater than the node's key.
-    \item The left and right subtree must also be binary search trees.
-    \item Binary search trees are fully \textbf{ordered}.
-\end{itemize}
-Worst-case run time: height of the tree + 1. So the worst case is $O(\log n)$.
-
 
 
 

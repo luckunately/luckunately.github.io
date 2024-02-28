@@ -1119,7 +1119,7 @@ Note that $1001 = 7 \times 11 \times 13$. Therefore, $n$ is divisible by 1001 if
 \end{itemize}
    Therefore, $n=234934$ is not divisible by 1001.
 
-\section{Wilson's Theorem}
+\section{Fermat's Theorems}
 \subsection{Wilson's Theorem}
 \begin{theorem}
     Let $p$ be a prime. Then $(p-1)!\equiv -1 \pmod p$.
@@ -1131,13 +1131,17 @@ Note that $1001 = 7 \times 11 \times 13$. Therefore, $n$ is divisible by 1001 if
 
     Consider the set $S=\{1,2,\ldots,p-1\}$. Then $S$ is a group under multiplication modulo $p$. Note that $\forall s \in S, \exists s^{-1} \in S$ such that $ss^{-1}\equiv 1 \pmod p$. 
 
-    However, none of them is its own inverse except 1. It is because  $x^2\equiv 1 \pmod p \iff (x-1)(x+1)\equiv 0 \pmod p$. Then $x\equiv \pm 1 \pmod p$.
+    However, none of them is its own inverse except 1. It is because  $x^2\equiv 1 \pmod p \iff (x-1)(x+1)\equiv 0 \pmod p$. Then $x\equiv \pm 1 \pmod p$. A property of prime number modulo discussed in the previous section.
 
-    Then we can pair up the elements in $S$ into pairs $(s,s^{-1})$. Then the product of each pair is congruent to 1 modulo $p$. However, the last term would not have a pair since there are odd numbers of terms in $S$ and 1 is its own pair.
+    Then we can pair up the elements in $S$ into pairs $(s,s^{-1})$. Then the product of each pair is congruent to 1 modulo $p$. Note that $p$ is odd, then $p-1$ is even. 
+
+    Claim: all numbers in $S$ except 1 and the last term are paired up. 
+
+    Note that the last term is $p-1$. Then $p-1\equiv -1 \pmod p$. Then $p-1$ is its own inverse. Only the term $\pm 1$ is its own inverse and left out.
 
     Therefore, $(p-1)!\equiv 1\times 2\times \cdots \times (p-2)\times (p-1) \equiv 1\times 2\times \cdots \times (p-2)\times 1 \equiv -1 \pmod p$.
 
-    Only the term $\pm 1$ is its own inverse and left out. Therefore, the product of all the elements in $S$ is congruent to -1 modulo $p$.
+     Therefore, the product of all the elements in $S$ is congruent to -1 modulo $p$.
 \end{proof}
 For example: $10!=1\times (2\times 6)\times (3 \times 4)\times (5\times 9)\times (7\times 8)\times 10\equiv -1 \pmod {11}$.
 \subsection{Fermat's Little Theorem}
@@ -1155,7 +1159,7 @@ For example: $10!=1\times (2\times 6)\times (3 \times 4)\times (5\times 9)\times
         a\times 2a\times 3a\times \cdots \times (p-1)a\equiv 
         a^{p-1}(p-1)!\equiv (p-1)!\pmod p
     \]
-    Then by Wilson's Theorem, $(p-1)!\equiv -1 \pmod p$. Therefore, $a^{p-1}\equiv 1 \pmod p$.
+    by Wilson's Theorem, $(p-1)!\equiv -1 \pmod p$. Therefore, $a^{p-1}\equiv 1 \pmod p$.
 \end{proof}
 \subsubsection{Corollaries}
 Corollary 1: Let $p$ be a prime and $a$ be an integer. Then $a^p\equiv a \pmod p$.
