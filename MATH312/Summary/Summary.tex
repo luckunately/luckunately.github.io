@@ -10,6 +10,8 @@
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
 \title{Summary of Math 312}
 \author{Tom Wang}
 \date{Spring, 2024}
@@ -1174,13 +1176,89 @@ Note that Corollary 1 is a special case of Corollary 2 when $d=p,e=1 \implies a^
 
     We used Fermat's Little Theorem in the last step where $a^{p-1}\equiv 1 \pmod p \implies (a^{p-1})^k\equiv 1^k\equiv 1 \pmod p$.
 \end{proof}
+\subsubsection{Example}
+Find $2^{180}\pmod {89}$.
 
+Note that $89$ is a prime. Then $2^{88}\equiv 1 \pmod {89}$ by Fermat's Little Theorem. Then $2^{180}\equiv 2^{88\times 2+4}\equiv (2^{88})^2\times 2^4\equiv 1^2\times 16\equiv 16 \pmod {89}$.
+\subsection{Euler's Theorem}
+\subsubsection{Euler's phi-function}
+\begin{definition}
+    Let $n\in \mathbb{N}$. The Euler's phi-function $\phi(n)$ is the number of positive integers less than $n$ that are relatively prime to $n$.
+\end{definition}
+For example: \begin{align*}
+    \phi (1) & = 1 && \{1\} \\
+    \phi (2) & = 1 && \{1\} \\
+    \phi (3) & = 2 && \{1,2\} \\
+    \phi (4) & = 2 && \{1,3\} \\
+    \phi (5) & = 4 && \{1,2,3,4\} \\
+    \phi (6) & = 2 && \{1,5\} \\
+    \phi (7) & = 6 && \{1,2,3,4,5,6\} \\
+    \phi (8) & = 4 && \{1,3,5,7\} \\
+    \phi (9) & = 6 && \{1,2,4,5,7,8\} \\
+    \phi (10) & = 4 && \{1,3,7,9\} \\
+    \phi (11) & = 10 && \{1,2,3,4,5,6,7,8,9,10\} 
+\end{align*}
+Similarly, we can conclude that $\phi(p)=p-1$ for any prime $p$.
+\subsubsection{Euler's Theorem}
+\begin{theorem}
+    Let $n\in \mathbb{N}$ and $a\in \mathbb{Z}$ such that $\gcd(a,n)=1$. Then $a^{\phi(n)}\equiv 1 \pmod n$.
+\end{theorem}
+Note that Fermat's Little Theorem is a special case of Euler's Theorem when $n$ is a prime.
 
+For example: $3^{\phi(10)}\equiv 3^4\equiv 1 \pmod {10}$. It is due to the fact that $\gcd(3,10)=1$ and $\phi(10)=4$.
 
+\begin{lemma}
+    $\gcd(a,n)=1 \land \gcd(b,n)=1 \iff \gcd(ab,n)=1$.
+\end{lemma}
+\begin{proof}
+    $\gcd(a,n)=1 \land \gcd(b,n)=1 \implies \exists x,y\in \mathbb{Z}$ such that $ax+ny=1$ and $\exists u,v\in \mathbb{Z}$ such that $bu+nv=1$. Then $ab(xu)+n(axv+nyu+bv)=1$. Therefore, $\gcd(ab,n)=1$.
 
+    $\gcd(ab,n)=1 \implies \exists x,y\in \mathbb{Z}$ such that $abx+ny=1$. Then $\gcd(a,n)=1$ and $\gcd(b,n)=1$.
+\end{proof}
+\subsubsection{Proof of Euler's Theorem}
+\begin{proof}
+    We use a similar proof to Fermat's Little Theorem.
 
+    Let $S=\{a_1,a_2,\ldots,a_{\phi(n)}\}$ be the set of all positive integers less than $n$ that are relatively prime to $n$. Then $S$ is a group under multiplication modulo $n$.
 
+    Claim: $aS=\{aa_1,aa_2,\ldots,aa_{\phi(n)}\}$ is the same set as $S$ if $a$ is relatively prime to $n$.
 
+    If $aa_i\equiv aa_j \pmod n$, then $a_i\equiv a_j \pmod n$ because a is invertible modulo $n$. Then $a_i=a_j$ since $S$ is a set of distinct elements. Therefore, $aS=S$. $aS$ is another group under multiplication modulo $n$. The product of all elements in $aS$ should be congruent to the product of all elements in $S$.
+
+    Then we can multiply all the elements in $S$ together to get \[
+        a_1a_2\cdots a_{\phi(n)}\equiv a^{\phi(n)}(a_{1}a_{2}\cdots a_{\phi(n)})\equiv (a_{1}a_{2}\cdots a_{\phi(n)})\pmod n
+    \]
+
+    Thus $a^{\phi(n)}\equiv 1 \pmod n$.
+\end{proof}
+
+\begin{lemma}
+    Suppose $n=p^r$ for some prime $p$ and $r\in \mathbb{N}$. Then \[\phi(n)=p^r-p^{r-1}=p^{r-1}(p-1)=n(1-\frac{1}{p})=n\frac{p-1}{p}.\]
+\end{lemma}
+\begin{proof}
+    We know that$\phi(n)=n-$ the number of multiples of $p$ less than $n$. 
+
+    The number of multiples of $p$ less than $n$ is $\frac{n}{p}$ since $n=p^r$. Then $\phi(n)=n-\frac{n}{p}=n(1-\frac{1}{p})=n\frac{p-1}{p}$.
+\end{proof}
+\begin{lemma}
+    If $\gcd(m,n)=1$, then $\phi(mn)=\phi(m)\phi(n)$.
+\end{lemma}
+\begin{proof}
+    By the Chinese Remainder Theorem, there is a bijection between $a\pmod {mn}$ and $(a_1\pmod m,a_2\pmod n)$, where 
+    
+    \[\begin{cases}
+        a\equiv a_1 \pmod m \\
+        a\equiv a_2 \pmod n
+    \end{cases}\]
+
+    Then $\gcd(a,mn)=1 \iff \gcd(a_1,m)=1 \land \gcd(a_2,n)=1$. 
+    
+    There are $\phi(m)$ choices for $a_1$ and $\phi(n)$ choices for $a_2$. 
+    
+    Then there are $\phi(m)\phi(n)$ choices for $a$. 
+    
+    Then $\phi(mn)=\phi(m)\phi(n)$.
+\end{proof}
 
 
 

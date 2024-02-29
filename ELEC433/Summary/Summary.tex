@@ -1078,17 +1078,19 @@ For example: $f(X_1, X_2)= X_1^2+X_1X_2+X_2^2$ is a multi-variate polynomial in 
 
 For example: $q=2,m=2,r=1$. Then $RM(2,2,1)=\{f(\alpha_1,\alpha_2): f\in\mathbb{F}_2[x_1,x_2], \deg(f)\le 1, \deg_{x_1}(f)\le 1, \deg_{x_2}(f)\le 1\}$
 
-Here $\alpha_1=(0,0), \alpha_2=(0,1), \alpha_3=(1,0), \alpha_4=(1,1)$. All polynomial: $0,1,x_1,x_2,x_1+x_2,x_1+x_2+1,x_1+1,x_2+1$ total of 8 of them. All code word:\begin{align*}
-    (0,0,0,0)^T\\
-    (1,1,1,1)^T\\
-    (0,0,1,1)^T\\
-    (1,1,0,0)^T\\
-    (0,1,0,1)^T\\
-    (1,0,1,0)^T\\
-    (0,1,1,0)^T\\
-    (1,0,0,1)^T
+Here $\alpha_1=(0,0), \alpha_2=(0,1), \alpha_3=(1,0), \alpha_4=(1,1)$. So the codewords are $(f(0,0),f(0,1),f(1,0),f(1,1))^T$, a 4 bits vector.
+\begin{align*}
+    \text{All polynomials} & \to \text{Codewords} \\
+    0                      & \to (0,0,0,0)^T         \\
+    1                      & \to (1,1,1,1)^T         \\
+    x_1                    & \to (0,0,1,1)^T         \\
+    x_2                    & \to (0,1,0,1)^T         \\
+    x_1+1                  & \to (1,1,0,0)^T         \\
+    x_2+1                  & \to (1,0,1,0)^T         \\
+    x_1+x_2                & \to (0,1,1,0)^T         \\
+    x_1+x_2+1              & \to (1,0,0,1)^T
 \end{align*}
-Need to align them here !!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
 
 
