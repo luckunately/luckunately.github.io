@@ -10,6 +10,7 @@
 \usepackage{listings}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
 
 \title{Summary of ELEC 433}
 \author{Tom Wang}
@@ -1090,17 +1091,104 @@ Here $\alpha_1=(0,0), \alpha_2=(0,1), \alpha_3=(1,0), \alpha_4=(1,1)$. So the co
     x_1+x_2                & \to (0,1,1,0)^T         \\
     x_1+x_2+1              & \to (1,0,0,1)^T
 \end{align*}
+\subsection{Binary Reed-Muller Codes}
+\begin{definition}
+    The binary Reed-Muller code of order $r$ is defined as follows: \[
+        RM(q,m,r)=RM(2,m,r)
+    \]
+\end{definition}
+\subsubsection{Generator matrix}
+The generator matrix of $RM(2,m,r)$ is a $q^m\times 2^m$ matrix $G$ such that $RM(2,m,r)=\{G\cdot X: X\in \mathbb{F}_2^m\}$.
 
 
+Define it recursively, base case:
 
+Let $G_2=\begin{bmatrix}
+    1 & 0 \\
+    1 & 1 
+\end{bmatrix}$ be the generator matrix of $RM(2,1,1)$. 
 
+Then $RM(2,1,1)=\{G_2\cdot X: X\in \mathbb{F}_2\}$.
 
+$G4 = \begin{bmatrix}
+    G_2 & 0 \\
+    G_2 & G_2
+\end{bmatrix} = \begin{bmatrix}
+    1 & 0 & 0 & 0 \\
+    1 & 1 & 0 & 0 \\
+    1 & 0 & 1 & 0 \\
+    1 & 1 & 1 & 1
+\end{bmatrix} $
 
+$G_8 = \begin{bmatrix}
+    G_4 & 0 \\
+    G_4 & G_4
+\end{bmatrix} = \begin{bmatrix} 
+    1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+    1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 \\
+    1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+    1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 \\
+    1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+    1 & 1 & 1 & 1 & 1 & 1 & 1 & 1
+\end{bmatrix}$
 
+Then inductively: $G_{2^m} = \begin{bmatrix}
+    G_{2^{m-1}} & 0 \\
+    G_{2^{m-1}} & G_{2^{m-1}}
+\end{bmatrix}$
 
+Each column is a codeword in the generator matrix. They all correspond to a combination of the input vector $X_1, X_2, \ldots, X_m$. 
 
+For example, for $G_8$ RM(2,3,3): 
 
+The generator matrix contains all codewords under the degree of the code. 
 
+Note that $RM(a,m,m)$ contains all possible codewords in the space which does not do error correction. It is discussed here to derive the subspace codes. 
+
+\subsubsection{Properties of Binary Reed-Muller Codes}
+
+RMK: Over $\mathbb{F}_2, \forall x \in \mathbb{F}_2, x^2=x \impliedby (1^2 = 1, 0^2 = 0)$.
+
+So we can assume that all monomials have each variable raised to the power of at most 1. $X_1^3X_2^2$ can be reduced to $X_1X_2$.
+
+RMK: Any $f\in[X_1,X_2,\ldots,X_m]$ of degree $\le r$ can be written as a linear combination of monomials of degree $\le r$.\[
+    f\in[X_1,X_2,\ldots,X_m]=\sum_{S\subseteq [m],|S|\le r}a_S \Pi_{i\in S}X_i
+\]
+Proposition: The dimension of $RM(2,m,r)$ is $\sum_{i=0}^{r}\binom{m}{i}$.
+
+Distance of $RM(2,m,r)$: $d=2^{m-r}$.
+\begin{lemma}
+    Schwartz-Zippel Lemma: Let $f(x_1,x_2,\ldots,x_m)$ be a polynomial of degree $d$ over $\mathbb{F}_q$. Let $S\subseteq \mathbb{F}_q^m$ be a set of points. Then \[
+        \Pr[f(x_1,x_2,\ldots,x_m)=0, x\in S]\le \frac{d}{|S|}
+    \]
+\end{lemma}
+\subsubsection{Rate v.s. Distance}
+Consider RM(2,m,r). \begin{itemize}
+    \item $n=2^m$
+    \item $k=\sum_{i=0}^{r}\binom{m}{i}$
+    \item $d=2^{m-r}$
+    \item Relative distance $\delta = \frac{d}{n} = \frac{2^{m-r}}{2^m} = 2^{-r}$
+    \item Keep $r$ constant: $R=\frac{k}{n} = \frac{\sum_{i=0}^{r}\binom{m}{i}}{2^m}$. $\lim_{r << m \implies \frac{r}{m}\to 0} \approx \frac{2^{mH_2 (\frac{r}{m})}}{2^m}$ where $H_2$ is the binary entropy function.
+    \item $H_2(x) = -x\log_2(x)-(1-x)\log_2(1-x)$ 
+    \item So for distance to be large, rate has to approach 0.
+\end{itemize}
+\subsection{Low degree Reed-Muller Codes}
+\begin{definition}
+    The m-variate, Reed-Muller code of order $r$ over $\mathbb{F}_q$ is defined as follows: \[
+        RM(q,m,r)= \{f(\alpha_1),\ldots, f(\alpha_{q^m}): f\in\mathbb{F}_q[x_1,x_2,\ldots,x_n],\deg (f)\subseteq r \}
+    \]
+\end{definition}
+RMK: When $r<q$, $\deg_{x_i}(f)\le \deg(f)\le r\le q$. We can drop the condition $\deg_{x_i}(f)\le q-1$ since it is redundant. 
+
+\begin{itemize}
+    \item Dimension of RM(q,m,r) is $\binom{m+r}{m}$
+    \item Distance of RM(q,m,r) is $d\ge (q-r)q^{m-1}$
+\end{itemize}
+If we fix $m=2$, then $q=\sqrt{n}\implies \delta = \frac{d}{n} = \frac{q-r}{q}=1-\frac{r}{\sqrt{n}} \implies R=\frac{\binom{2+r}{r}}{n}=\frac{(r+2)(r+1)}{2n}\ge \frac{r^2}{2n}=\frac{(1-\delta)^2}{2}$
+
+Note that we can have a positive rate and distance at the same time now which is a large improvement. 
 
 
 \end{document}
