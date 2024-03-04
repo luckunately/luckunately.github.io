@@ -1232,15 +1232,15 @@ For example: $3^{\phi(10)}\equiv 3^4\equiv 1 \pmod {10}$. It is due to the fact 
     Thus $a^{\phi(n)}\equiv 1 \pmod n$.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:phi power}
     Suppose $n=p^r$ for some prime $p$ and $r\in \mathbb{N}$. Then \[\phi(n)=p^r-p^{r-1}=p^{r-1}(p-1)=n(1-\frac{1}{p})=n\frac{p-1}{p}.\]
 \end{lemma}
 \begin{proof}
-    We know that$\phi(n)=n-$ the number of multiples of $p$ less than $n$. 
+    We know that$\phi(n)=n$ minus the number of multiples of $p$ less than $n$. 
 
     The number of multiples of $p$ less than $n$ is $\frac{n}{p}$ since $n=p^r$. Then $\phi(n)=n-\frac{n}{p}=n(1-\frac{1}{p})=n\frac{p-1}{p}$.
 \end{proof}
-\begin{lemma}
+\begin{lemma}\label{lem:phi morphism}
     If $\gcd(m,n)=1$, then $\phi(mn)=\phi(m)\phi(n)$.
 \end{lemma}
 \begin{proof}
@@ -1259,11 +1259,77 @@ For example: $3^{\phi(10)}\equiv 3^4\equiv 1 \pmod {10}$. It is due to the fact 
     
     Then $\phi(mn)=\phi(m)\phi(n)$.
 \end{proof}
+\subsubsection{Find the $\phi$ function}
+\begin{theorem}
+    Let $n=p_1^{r_1}p_2^{r_2}\ldots p_k^{r_k}$ be the prime factorization of $n$ where $p_1,p_2,\ldots,p_k$ are distinct primes and $r_1,r_2,\ldots,r_k$ are positive integers.
+    
+    Then \[\phi(n)=n(1-\frac{1}{p_1})(1-\frac{1}{p_2})\ldots (1-\frac{1}{p_k})=p_1^{r_1-1}(p_1-1)p_2^{r_2-1}(p_2-1)\ldots p_k^{r_k-1}(p_k-1)\]
+\end{theorem}
 
+Basically, it is a direct application of the previous 2 lemmas. 
 
+\begin{proof}
+    Using the previous \hyperref[lem:phi morphism]{phi morphism lemma} and \hyperref[lem:phi power]{phi power lemma} recursively, we can find that \[\phi(n)=\phi(p_1^{r_1})\phi(p_2^{r_2})\ldots \phi(p_k^{r_k})=p_1^{r_1-1}(p_1-1)p_2^{r_2-1}(p_2-1)\ldots p_k^{r_k-1}(p_k-1)\]
+\end{proof}
 
+For example: $\phi(100)=\phi(2^2)\phi(5^2)=2^1(2-1)5^1(5-1)=40$.
 
+Note that we need the prime decomposition of $n$ to find $\phi(n)$. Otherwise, it is hard to find $\phi(n)$ directly.
 
+\subsection{Primality Testing}
+Given a positive integer $n$, how can we determine whether $n$ is prime?
+\begin{itemize}
+    \item factoring means $n$ into a product of $ab$ where $1<a,b<n$.
+    \item testing $n$ for primality means checking whether $n$ has any divisors other than 1 and $n$. Or in other words, check whether or not a factorization of $n$ exists.
+\end{itemize}
+
+There are fast tests for primality but no fast factorization algorithms are known.
+
+This discrepancy is the foundation for RSA cryptography. 
+\subsubsection{Fermat's Primality Test}
+One way to know if a number is not prime is to find a witness to its compositeness.
+
+If there exisits an integer $b$ in $[1,n-1]$ such that $b^{n-1}\not\equiv 1 \pmod n$, then $n$ is not prime.
+
+We can do it fast since we can do repeating squaring to find $b^{n-1}$ in $O(\log n)$ time.
+
+Note that we cannot compute $b^{n-1}$ using Euler's Theorem since we do not know the prime factorization of $n$.
+
+So if $b$ exists we know something, but we cannot find it. 
+
+Example: $n=15,b=2$. Then $2^{15-1}=2^{14}\equiv 2^{4\times 3 +2}\equiv 16^3 \times 2^2 \equiv 4 \pmod {15}$. Then 15 is not prime.
+
+Claim: $n$ is \textbf{pseudo-prime} to base $b$ if $b^{n-1}\equiv 1 \pmod n$.
+
+A pseudo prime of 1 base does not imply it is a prime for all bases. For example, 341 is a pseudo prime to base 2, but it is not a prime.\[
+    2^{341-1}\equiv 2^{340}\equiv 1 \pmod {341}
+\]
+while $341=11\times 31$.
+
+\begin{proof}
+    By CRT, we can show that $\begin{cases}
+        2^{341-1}\equiv 1 \pmod {11} \\
+        2^{341-1}\equiv 1 \pmod {31}
+    \end{cases}$
+\end{proof}
+By Fermat's Little Theorem:\begin{align*}
+    2^{10}\equiv 1 \pmod {11} & \implies 2^{340}\equiv 1 \pmod {11} \\
+    2^{5}\equiv 1 \pmod {31} & \implies 2^{340}\equiv 1 \pmod {31}
+\end{align*}
+
+We can find that 341 is not a pseudo prime to base 3.\[
+    3^{340}\equiv (3^{30})^{11} \times 3^{10}\equiv 1^{11}\times 3^{10}\equiv 3^{10}\equiv {3^3}^3\times 3\equiv (-4)^3\times 3\equiv 25 \pmod {341}
+\]
+
+Procedure for Fermat's Primality Test:\begin{enumerate}
+    \item Choose a random integer $b$ in $[2,n-2]$.
+    \item Compute $b^{n-1}\pmod n$.
+    \item If $b^{n-1}\not\equiv 1 \pmod n$, then $n$ is not prime.
+    \item If $b^{n-1}\equiv 1 \pmod n$, then $n$ is a pseudo prime to base $b$.
+    \item Repeat the test with a different $b$.
+    \item If $n$ is a pseudo prime to enough bases, then $n$ is probably prime.
+    \item It is possible that $n$ is a pseudo prime to all bases and still not prime. Such numbers are called \textbf{Carmichael numbers}.
+\end{enumerate}
 
 
 \end{document}
