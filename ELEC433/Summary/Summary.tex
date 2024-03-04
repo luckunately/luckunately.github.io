@@ -1072,7 +1072,7 @@ For example: $f(X_1, X_2)= X_1^2+X_1X_2+X_2^2$ is a multi-variate polynomial in 
 \subsection{Reed-Muller Codes definition}
 \begin{definition}
     The m-variate, Reed-Muller code of order $r$ over $\mathbb{F}_q$ is defined as follows: \[
-        RM(q,m,r)= \{f(\alpha_1),\cdots, f(\alpha)_{q^m}: f\in\mathbb{F}_q[x_1,x_2,\ldots,x_n] \}
+        RM(q,m,r)= \{f(\alpha_1),\ldots, f(\alpha_{q^m}): f\in\mathbb{F}_q[x_1,x_2,\ldots,x_n] \}
     \]
     where $\deg(f)\le r, \deg_{x_i}(f)\le q-1$ for $i=1,2,\ldots,m$, and $\alpha_1,\alpha_2,\ldots,\alpha_{q^m}$ are distinct elements in $\mathbb{F}_q^m$.
 \end{definition}
@@ -1158,12 +1158,15 @@ RMK: Any $f\in[X_1,X_2,\ldots,X_m]$ of degree $\le r$ can be written as a linear
 \]
 Proposition: The dimension of $RM(2,m,r)$ is $\sum_{i=0}^{r}\binom{m}{i}$.
 
-Distance of $RM(2,m,r)$: $d=2^{m-r}$.
+Distance of $RM(2,m,r)$: $d=2^{m-r}$. $n=2^m$.
 \begin{lemma}
     Schwartz-Zippel Lemma: Let $f(x_1,x_2,\ldots,x_m)$ be a polynomial of degree $d$ over $\mathbb{F}_q$. Let $S\subseteq \mathbb{F}_q^m$ be a set of points. Then \[
         \Pr[f(x_1,x_2,\ldots,x_m)=0, x\in S]\le \frac{d}{|S|}
     \]
 \end{lemma}
+
+
+Do not know what this lemma is !!!!!!!!!!!!!!!!!!!!!!!!!!
 \subsubsection{Rate v.s. Distance}
 Consider RM(2,m,r). \begin{itemize}
     \item $n=2^m$
@@ -1171,8 +1174,8 @@ Consider RM(2,m,r). \begin{itemize}
     \item $d=2^{m-r}$
     \item Relative distance $\delta = \frac{d}{n} = \frac{2^{m-r}}{2^m} = 2^{-r}$
     \item Keep $r$ constant: $R=\frac{k}{n} = \frac{\sum_{i=0}^{r}\binom{m}{i}}{2^m}$. $\lim_{r << m \implies \frac{r}{m}\to 0} \approx \frac{2^{mH_2 (\frac{r}{m})}}{2^m}$ where $H_2$ is the binary entropy function.
-    \item $H_2(x) = -x\log_2(x)-(1-x)\log_2(1-x)$ 
-    \item So for distance to be large, rate has to approach 0.
+    \item $H_2(x) = -x\log_2(x)-(1-x)\log_2(1-x), x\in[0,1]$
+    \item So for distance to be large, the rate has to approach 0. Needs to do a trade-off between rate and distance.
 \end{itemize}
 \subsection{Low degree Reed-Muller Codes}
 \begin{definition}

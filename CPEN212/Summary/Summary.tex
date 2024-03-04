@@ -460,18 +460,19 @@ Heap and stack grow towards each other. The stack grows downwards. The heap grow
               \item Hard to implement but easy to use
           \end{itemize}
     \item manual: allocate and deallocate pairs. \begin{itemize}
-              \item malloc()+free() or new()+delete() comes in pairs. (It is a contract that must be obeyed)
+              \item malloc()+free() or new()+delete() comes in pairs. (It is a contract that must
+                    be obeyed)
               \item easy to implement but hard to use. (lots of bugs)
           \end{itemize}
 \end{itemize}
 \subsection{Memory allocation}
 \begin{itemize}
     \item want high utilization and low fragmentation\begin{itemize}
-        \item physical memory is limited among all processes
-        \item OS only gives big chunks of memory to processes (usually 4KB pages)
-        \item most allocs are small, few words to a few KB
-    \end{itemize}
-    \item want high allocation throughput. Minimize the management overhead. 
+              \item physical memory is limited among all processes
+              \item OS only gives big chunks of memory to processes (usually 4KB pages)
+              \item most allocs are small, few words to a few KB
+          \end{itemize}
+    \item want high allocation throughput. Minimize the management overhead.
 \end{itemize}
 
 Recall the stack allocation:\begin{itemize}
@@ -488,27 +489,36 @@ Recall the stack allocation:\begin{itemize}
     \item how to allocate a block? which free block to use?
 \end{itemize}
 \subsubsection{tracking allocation size}
-For each block, we can store the size of the block which can be used to find the start and the end of the current block. Thus we can find the neighboring blocks.
+For each block, we can store the size of the block which can be used to find
+the start and the end of the current block. Thus we can find the neighboring
+blocks.
 
-Note that the blocks can also request the size of both neighboring blocks. Just having the size at the start of the block is not enough. We need the size at both the end and the start of the block.
+Note that the blocks can also request the size of both neighboring blocks. Just
+having the size at the start of the block is not enough. We need the size at
+both the end and the start of the block.
 
 \includegraphics*{./Images/Memory track size.png}
 
-Note that we may or may not contain the padding there to follow the alignment rules of the system. At the same time, we can omit the lower bits of the size to store the status of the block since size should always occupy the whole line in the system no matter what the system is working with. Lastly, the a there can indicate the status of the block. 1 means allocated, 0 means free.
+Note that we may or may not contain the padding there to follow the alignment
+rules of the system. At the same time, we can omit the lower bits of the size
+to store the status of the block since size should always occupy the whole line
+in the system no matter what the system is working with. Lastly, the a there
+can indicate the status of the block. 1 means allocated, 0 means free.
 \subsubsection{finding a free block}
 let $p$ = heap start: for each block $b$ at $p$:\begin{itemize}
     \item if $b$ is free \textbf{and} $b$ is big enough, return $b$
     \item else $p$ = $p$ + size of $b$
     \item keep going until the end of the heap \begin{itemize}
-        \item either we find a free block
-        \item or we run out of memory
-        \item or ask OS for more memory
-        \end{itemize}
-    \end{itemize}
-This is a ``first fit'' strategy. It is simple and fast, but it can lead to fragmentation. 
+              \item either we find a free block
+              \item or we run out of memory
+              \item or ask OS for more memory
+          \end{itemize}
+\end{itemize}
+This is a ``first fit'' strategy. It is simple and fast, but it can lead to fragmentation.
 
 We can have ``next fit'' as well:\begin{itemize}
-    \item keep track of the last block we allocated, return the next free and big enough block after that
+    \item keep track of the last block we allocated, return the next free and big enough
+          block after that
     \item can be faster than first fit
     \item but still can lead to fragmentation (even worse than first fit)
 \end{itemize}
@@ -520,53 +530,89 @@ Also we can have ``best fit'':\begin{itemize}
 \subsubsection{coalescing and boundary tags}
 \includegraphics*[scale = 0.7]{./Images/Coalescing.png}
 
-As shown in the figure, if we just free the 4-byte block, we will have two free blocks connecting together which we can merge by coalescing. This is done by checking the status of the neighboring blocks. If they are free, we can merge them together. This is called coalescing. 
+As shown in the figure, if we just free the 4-byte block, we will have two free
+blocks connecting together which we can merge by coalescing. This is done by
+checking the status of the neighboring blocks. If they are free, we can merge
+them together. This is called coalescing.
 
-Note that we can use either the header or the boundary tag to track the neighboring blocks. So it does not matter if the free neighboring block is at the higher address or the lower address. We can always find it by checking the status and the size of the neighboring blocks.
+Note that we can use either the header or the boundary tag to track the
+neighboring blocks. So it does not matter if the free neighboring block is at
+the higher address or the lower address. We can always find it by checking the
+status and the size of the neighboring blocks.
 
-In some cases, we might need to connect both neighboring blocks together if it happens that they are both free.
+In some cases, we might need to connect both neighboring blocks together if it
+happens that they are both free.
 \subsection{explicit freelist}
-The above section is an example of an implicit freelist. The freelist is implicit because it is not explicitly stored. It is stored in the heap itself. We need to find them by checking the status of the neighboring blocks.
+The above section is an example of an implicit freelist. The freelist is
+implicit because it is not explicitly stored. It is stored in the heap itself.
+We need to find them by checking the status of the neighboring blocks.
 
-We can also have an explicit freelist. We can have a linked list of free blocks. Each free block contains a pointer to the next free block. This is called an explicit freelist because the freelist is explicitly stored in the heap. 
+We can also have an explicit freelist. We can have a linked list of free
+blocks. Each free block contains a pointer to the next free block. This is
+called an explicit freelist because the freelist is explicitly stored in the
+heap.
 
 \includegraphics{Images/Doble-linked explicit freelist.png}
 \subsubsection{data structure}
-For a double-linked list, we can have a pointer to the next free block and a pointer to the previous free block. This is called a doubly linked list. It is useful when we want to remove a block from the list. We can just change the pointers of the previous and the next block to remove the current block from the list.
+For a double-linked list, we can have a pointer to the next free block and a
+pointer to the previous free block. This is called a doubly linked list. It is
+useful when we want to remove a block from the list. We can just change the
+pointers of the previous and the next block to remove the current block from
+the list.
 
 \includegraphics{Images/explicit freelist data structure.png}
 
-This way, we can find the free block by just following the pointers. We can also remove the block from the list by changing the pointers. We can also add a block to the list by changing the pointers.
+This way, we can find the free block by just following the pointers. We can
+also remove the block from the list by changing the pointers. We can also add a
+block to the list by changing the pointers.
 \subsubsection{Coalescing}
-Note that coalescing is not achieved by the explicit freelist since it does not know the neighboring blocks. We need to use the implicit freelist to coalesce the blocks. So we still need to header and footer to track the neighboring blocks.
+Note that coalescing is not achieved by the explicit freelist since it does not
+know the neighboring blocks. We need to use the implicit freelist to coalesce
+the blocks. So we still need to header and footer to track the neighboring
+blocks.
 
 \subsubsection{Optimizing boundary tags}
-Consider when we use the boundary tags? We use it when we want to coalesce the blocks. So we can optimize the boundary tags by only using it when we want to coalesce the blocks which would only happen for the free blocks. 
+Consider when we use the boundary tags? We use it when we want to coalesce the
+blocks. So we can optimize the boundary tags by only using it when we want to
+coalesce the blocks which would only happen for the free blocks.
 
-To know if the previous block is free, we use another bit in the header to indicate if the previous block is free. Note that lower bits of size can be omitted because of alignment with bytes reason.
+To know if the previous block is free, we use another bit in the header to
+indicate if the previous block is free. Note that lower bits of size can be
+omitted because of alignment with bytes reason.
 
 \includegraphics{Images/Optimizing boundary tags.png}
 \subsection{segregated free lists}
-If we mix all sizes of free blocks in one list, then it becomes hard to track the sizes and find the best one to use and do coalescing. 
+If we mix all sizes of free blocks in one list, then it becomes hard to track
+the sizes and find the best one to use and do coalescing.
 
-It is better to keep a list for some special size of blocks. Usually, $2^k$ bytes or Fibonacci bytes. The reason for choosing these two is that they add up to each other, making them easy to do coalesce. 
+It is better to keep a list for some special size of blocks. Usually, $2^k$
+bytes or Fibonacci bytes. The reason for choosing these two is that they add up
+to each other, making them easy to do coalesce.
 
 \subsubsection{buddy allocator}
 \begin{itemize}
-    \item what if one FL is empty? Just steal another block from the FL with larger sizes and break it into two.
-    \item what if we coaleasce? Just put the coalesced block into the FL with larger sizes.
+    \item what if one FL is empty? Just steal another block from the FL with larger sizes
+          and break it into two.
+    \item what if we coaleasce? Just put the coalesced block into the FL with larger
+          sizes.
 \end{itemize}
 \subsubsection{slab allocator}
 \begin{itemize}
-    \item what if common sizes are not powers of 2? Fro example, we use size of 3 all the time. Then we waste internal fragmentation overhead of 25\%.
-    \item We can fix it by using slab allocator. We can allocate a slab of memory and divide it into blocks of the same size. Then we can use the blocks to allocate memory. For example, we have so many size 3 right? Just pick a 256 block and break them to allocate size 3. Overhead is only $\frac{255}{256}=0.4$\%.
+    \item what if common sizes are not powers of 2? Fro example, we use size of 3 all the
+          time. Then we waste internal fragmentation overhead of 25\%.
+    \item We can fix it by using slab allocator. We can allocate a slab of memory and
+          divide it into blocks of the same size. Then we can use the blocks to allocate
+          memory. For example, we have so many size 3 right? Just pick a 256 block and
+          break them to allocate size 3. Overhead is only $\frac{255}{256}=0.4$\%.
 \end{itemize}
 \section{Garbage collection}
-To automatically free the memory that is no longer used. It is used in languages like Java and Python.
+To automatically free the memory that is no longer used. It is used in
+languages like Java and Python.
 
 Explore a few ways to achieve it:
 \subsection{Delete upon destruction}
-When variables go out of scope, the destructor is called. Why don't we just free the memory there? 
+When variables go out of scope, the destructor is called. Why don't we just
+free the memory there?
 \begin{lstlisting}[language=C++]
     template <typename T> class ptr{
         T* p;
@@ -590,34 +636,48 @@ When variables go out of scope, the destructor is called. Why don't we just free
         //c is destroyed upon exiting bar()
     }
 \end{lstlisting}
-Note that it works well with foo(), however, it can cause trouble with foo1(). The reason is that we can't free the memory until we exit foo1(). But we have already deleted it upon exiting bar(). So we can't use it anymore.
+Note that it works well with foo(), however, it can cause trouble with foo1().
+The reason is that we can't free the memory until we exit foo1(). But we have
+already deleted it upon exiting bar(). So we can't use it anymore.
 
 So we need a better way of doing it.
 \subsection{Reference counting}
-Why don't we just count the number of references to the memory? When the number of references is zero, we can free the memory.
+Why don't we just count the number of references to the memory? When the number
+of references is zero, we can free the memory.
 \begin{itemize}
     \item upon initialization, set the reference count to 1
-    \item upon assignment, increment the reference count of the new pointer and decrement the reference count of the old pointer
-    \item upon destruction, decrement the reference count and free the memory if the reference count is zero
+    \item upon assignment, increment the reference count of the new pointer and decrement
+          the reference count of the old pointer
+    \item upon destruction, decrement the reference count and free the memory if the
+          reference count is zero
 \end{itemize}
 Note that we store the number inside the memory itself instead of the pointers. This is because if we store it in the pointers, for each update, we need to update all of the pointers to keep them present. This is not efficient.
 \subsubsection{Overhead}
 \begin{itemize}
-    \item Space overhead: each smart memory has a reference count. Then smart pointers have two pointers, one to the memory and one to the reference count. 
-    \item Performance overhead: each access is just 1 pointer dereference. However, each copy/destroy is 1 pointer dereference and 1 arithmetic operation.
+    \item Space overhead: each smart memory has a reference count. Then smart pointers
+          have two pointers, one to the memory and one to the reference count.
+    \item Performance overhead: each access is just 1 pointer dereference. However, each
+          copy/destroy is 1 pointer dereference and 1 arithmetic operation.
 \end{itemize}
 \subsubsection{Limitations}
-circular references: if two objects refer to each other, then the reference count will never reach zero. 
+circular references: if two objects refer to each other, then the reference
+count will never reach zero.
 
 \includegraphics*[scale = 0.6]{./Images/Circular Reference.jpg}
 
-In the picture there, it is possible that we lost the reference to the memory while the reference count is not zero. This is a memory leak.
+In the picture there, it is possible that we lost the reference to the memory
+while the reference count is not zero. This is a memory leak.
 \subsection{reachability}
-So the real problem is reachability. If the memory is not reachable, then we can free it. So we need to find a way to check if the memory is reachable.
+So the real problem is reachability. If the memory is not reachable, then we
+can free it. So we need to find a way to check if the memory is reachable.
 
-Observation: once a memory is not reachable, it will never be reachable again. So we can free it.
+Observation: once a memory is not reachable, it will never be reachable again.
+So we can free it.
 
-Now we need to know how to check if the memory is reachable. We can use a graph to represent the memory. Each node is a memory block. Each edge is a reference from one block to another. Then we can use graph traversal to check if the memory is reachable.
+Now we need to know how to check if the memory is reachable. We can use a graph
+to represent the memory. Each node is a memory block. Each edge is a reference
+from one block to another. Then we can use graph traversal to check if the
+memory is reachable.
 \subsubsection{A tracing garbage collector}
 \begin{itemize}
     \item start from the roots (global variables, local variables, etc.)
@@ -628,7 +688,8 @@ Now we need to know how to check if the memory is reachable. We can use a graph 
 \subsubsection{The tri-colour abstraction}
 \begin{itemize}
     \item white: not visited
-    \item grey: visited but not finished (A data that contains multiple references to other data, and we did not visit all of them)
+    \item grey: visited but not finished (A data that contains multiple references to
+          other data, and we did not visit all of them)
     \item black: visited and finished
 \end{itemize}
 Using this abstraction, we can use some graph algorithms to do the garbage collection. In the end, all the block that we mark as white can be freed.
@@ -642,54 +703,86 @@ Using this abstraction, we can use some graph algorithms to do the garbage colle
 \end{itemize}
 \subsubsection{mark and sweep implementation}
 \begin{itemize}
-    \item Note that we need a bit in the memory to indicate if the memory is marked. We can just steal another bit from the size. Since we already have one for allocation status and one for the previous block, it requires it to be 8-byte aligned. So we can just steal the lower bit of the size to indicate if the memory is marked. A negligible overhead.
-    \item We also need to distinguish between pointers and integers. We can use the lower bit of the pointer to indicate if it is a pointer or an integer. 
-    
-    \includegraphics[scale = 0.6]{./Images/Pointer and Integer distinguishing.png}
+    \item Note that we need a bit in the memory to indicate if the memory is marked. We
+          can just steal another bit from the size. Since we already have one for
+          allocation status and one for the previous block, it requires it to be 8-byte
+          aligned. So we can just steal the lower bit of the size to indicate if the
+          memory is marked. A negligible overhead.
+    \item We also need to distinguish between pointers and integers. We can use the lower
+          bit of the pointer to indicate if it is a pointer or an integer.
 
-    Note that we chose integers to be even numbers. This is to make sure that pointer arithmetics with integers keep the lower bit to be 1 which keeps consistency with the pointers.
+          \includegraphics[scale = 0.6]{./Images/Pointer and Integer distinguishing.png}
 
-    drawback of this approach is the smaller range of integers. 
+          Note that we chose integers to be even numbers. This is to make sure that
+          pointer arithmetics with integers keep the lower bit to be 1 which keeps
+          consistency with the pointers.
 
-    Note that this might not be a problem in some programming languages where the data structure makes clear of where the pointers are. Java and Python are examples of this.
-    \item Backtracking during traversal: the current way of doing it would store all the pointers as we mark, which will take up a lot of memory space. However, by the time we are doing the garbage collection, we are close to running out of memory, which could be a problem. 
-    
-    One of the way to solve it is by reversing the pointers. We use a temprory pointer to store the current branch and reverse the visiting node to point to the parent node. This way we can always trace back to the parent node without storing all the pointers.
+          drawback of this approach is the smaller range of integers.
 
-    \includegraphics[scale = 0.6]{Images/BackTracking.png}
+          Note that this might not be a problem in some programming languages where the
+          data structure makes clear of where the pointers are. Java and Python are
+          examples of this.
+    \item Backtracking during traversal: the current way of doing it would store all the
+          pointers as we mark, which will take up a lot of memory space. However, by the
+          time we are doing the garbage collection, we are close to running out of
+          memory, which could be a problem.
 
-    Refer to Miezko's slides for an animation of this process.
+          One of the way to solve it is by reversing the pointers. We use a temprory
+          pointer to store the current branch and reverse the visiting node to point to
+          the parent node. This way we can always trace back to the parent node without
+          storing all the pointers.
 
-    This approach only takes $O(1)$ space. However, it is slower than the previous approach and it stops the program for a longer time since pointers are moved, the program cannot visit all the nodes in progress. No \textbf{concurrent} garbage collection.
+          \includegraphics[scale = 0.6]{Images/BackTracking.png}
+
+          Refer to Miezko's slides for an animation of this process.
+
+          This approach only takes $O(1)$ space. However, it is slower than the previous
+          approach and it stops the program for a longer time since pointers are moved,
+          the program cannot visit all the nodes in progress. No \textbf{concurrent}
+          garbage collection.
 \end{itemize}
 \subsection{Stop and Copy}
-Mark and sweep is nice, but it creates fragmentation. Free space is \textbf{not contiguous}.
+Mark and sweep is nice, but it creates fragmentation. Free space is \textbf{not
+    contiguous}.
 
-Stop and copy is a way to solve this problem. It is a two-space collector. It has two spaces: from-space and to-space. It copies the reachable memory blocks from from-space to to-space. Then it swaps the two spaces.
+Stop and copy is a way to solve this problem. It is a two-space collector. It
+has two spaces: from-space and to-space. It copies the reachable memory blocks
+from from-space to to-space. Then it swaps the two spaces.
 
 Refer to Miezko's slides for an animation of this process.
 
 \begin{itemize}
-    \item Stop and Copy would require us to only use half of the memory space. This is a big overhead. But it is not that bad. Most of the time, the objects we left in the heap does not live for too long. So a much more frequent garbage collection is not that bad given that we get huge chunk of free space instead of fragmented space.
-    \item It is \textbf{Not Concurrent}. It stops the program since it moves the pointers.
+    \item Stop and Copy would require us to only use half of the memory space. This is a
+          big overhead. But it is not that bad. Most of the time, the objects we left in
+          the heap does not live for too long. So a much more frequent garbage collection
+          is not that bad given that we get huge chunk of free space instead of
+          fragmented space.
+    \item It is \textbf{Not Concurrent}. It stops the program since it moves the
+          pointers.
     \item Note the use of two pointers \textbf{scan} and \textbf{free}. \begin{itemize}
-        \item scan: if all pointers inside the node are visited, and the pointed blocks are moved to the to-space, then we can move the pointer to the next node. We paint the node black following the tri-colour abstraction.
-        \item free: if the node is reachable. Paint the node grey if so and move on. 
-    \end{itemize}
+              \item scan: if all pointers inside the node are visited, and the pointed blocks are
+                    moved to the to-space, then we can move the pointer to the next node. We paint
+                    the node black following the tri-colour abstraction.
+              \item free: if the node is reachable. Paint the node grey if so and move on.
+          \end{itemize}
 \end{itemize}
 \subsection{refcount vs mark and sweep s stop and copy}
 \includegraphics*[scale=0.7]{Images/refcount vs mark and sweep s stop and copy.png}
 \subsection{mark and compact}
-Wonder if there is a way to use the entire heap nad still avoid fragmentation (compact)?
+Wonder if there is a way to use the entire heap nad still avoid fragmentation
+(compact)?
 
-Idea: save the working pointers somewhere else so that we can use the whole sapce. \begin{itemize}
+Idea: save the working pointers somewhere else so that we can use the whole
+sapce. \begin{itemize}
     \item keep an extra space to store them.
-    \item keep the pointers in the heap itself as a break table and move it accordingly if needed. 
+    \item keep the pointers in the heap itself as a break table and move it accordingly
+          if needed.
 \end{itemize}
 Refer to miezko's slides for an animation of this process.
 
 \subsection{ephemeral garbage collection}
-Observation: most allocs have short lifetimes. Why not just garbage collect the young objects?
+Observation: most allocs have short lifetimes. Why not just garbage collect the
+young objects?
 
 Split heap into generations:\begin{itemize}
     \item young generation (nursery): for new objects
@@ -700,27 +793,38 @@ Split heap into generations:\begin{itemize}
 Note that gc is fast if we keep the young generation (nursery) small.
 \subsection{Weak references}
 \begin{itemize}
-    \item a weak reference is a reference that does not prevent the object from being garbage collected
+    \item a weak reference is a reference that does not prevent the object from being
+          garbage collected
     \item it is useful for caches, observers, etc.
-    \item The object is reachable, but the event is not happening anymore. So we can free the memory.
+    \item The object is reachable, but the event is not happening anymore. So we can free
+          the memory.
     \item it is used in languages like Java and Python
 \end{itemize}
 \subsection{non-deterministic finalization}
 \begin{itemize}
     \item finalization is the process of freeing the memory
-    \item For example, in C++, the destructor is called when the object goes out of scope, and sockets and locks in Java and Python are closed when the object is garbage-collected
+    \item For example, in C++, the destructor is called when the object goes out of
+          scope, and sockets and locks in Java and Python are closed when the object is
+          garbage-collected
     \item it is non-deterministic because we don't know when the memory will be freed
 \end{itemize}
 \subsection{Conservative garbage collection}
-Some languages do not distinguish between pointers and integers. They can also do pointer arithmetics with pointers. 
+Some languages do not distinguish between pointers and integers. They can also
+do pointer arithmetics with pointers.
 
-We can use some logic to find the difference, for example, small numbers are generally not pointers. However, this is not always true. If not pointing inside blocks, then it is not a heap pointer.
+We can use some logic to find the difference, for example, small numbers are
+generally not pointers. However, this is not always true. If not pointing
+inside blocks, then it is not a heap pointer.
 
-These tricks are not always reliable. So we can use conservative garbage collection. It is a way to do garbage collection without knowing the exact location of the pointers. We can just assume that the integers are pointers and do garbage collection.
+These tricks are not always reliable. So we can use conservative garbage
+collection. It is a way to do garbage collection without knowing the exact
+location of the pointers. We can just assume that the integers are pointers and
+do garbage collection.
 \section{Virtual memory}
-Virtual memory is needed since we want to run multiple instances simultaneously and use the same memory addresses.
+Virtual memory is needed since we want to run multiple instances simultaneously
+and use the same memory addresses.
 
-Each program would think that they have the entire memory to itself. 
+Each program would think that they have the entire memory to itself.
 \subsection{Virtual memory abstraction}
 \begin{itemize}
     \item each program has its own virtual memory space
@@ -728,7 +832,7 @@ Each program would think that they have the entire memory to itself.
     \item the pages are mapped to physical memory
     \item the mapping is done by the operating system
 \end{itemize}
-In a 64-bit architecture, we usually divide into 4KB pages. Thus the last 12 bits of a Virtual Address is the offset of the page. The rest of the bits are the page numbers. 
+In a 64-bit architecture, we usually divide into 4KB pages. Thus the last 12 bits of a Virtual Address is the offset of the page. The rest of the bits are the page numbers.
 
 \subsubsection{levels of page tables}
 Page tables can be divided into levels.
@@ -742,46 +846,72 @@ Page tables can be divided into levels.
 \end{itemize}
 Each cell in $PT_i$ is a pointer to the next level $PT_{i+1}$, which is a new page. The last level is the physical memory.
 
-Each entry of the page table contains the physical address of the next level page table. The actual data page is stored in the last level, accessed by the offset which contains bytes.
+Each entry of the page table contains the physical address of the next level
+page table. The actual data page is stored in the last level, accessed by the
+offset which contains bytes.
 \subsection{PTE (Page Table Entry)}
-There are lots of other bits in the entry of the virtual page table to indicate something else:\begin{itemize}
-    \item valid bit: if the page is valid (if it is not valid, then it is not in the physical memory)
-    \item dirty bit: if the page is modified (if it is modified, then we need to write it back to the disk when we swap it out)
-    \item read-only bit: if the page is read-only (if it is read-only, then we can't write to it)
-    \item user-accessible bit: if the page is accessible by the user (if it is not accessible, then we can't access it)
-    \item non-executable bit: if the page is non-executable (if it is non-executable, then we can't execute code in it)
+There are lots of other bits in the entry of the virtual page table to indicate
+something else:\begin{itemize}
+    \item valid bit: if the page is valid (if it is not valid, then it is not in the
+          physical memory)
+    \item dirty bit: if the page is modified (if it is modified, then we need to write it
+          back to the disk when we swap it out)
+    \item read-only bit: if the page is read-only (if it is read-only, then we can't
+          write to it)
+    \item user-accessible bit: if the page is accessible by the user (if it is not
+          accessible, then we can't access it)
+    \item non-executable bit: if the page is non-executable (if it is non-executable,
+          then we can't execute code in it)
     \item physical page number: the address of the page in the physical memory
-    \item recently used bit: if the page is used recently (if it is used recently, then we can keep it in the physical memory, otherwise, it becomes a candidate for swapping out)
+    \item recently used bit: if the page is used recently (if it is used recently, then
+          we can keep it in the physical memory, otherwise, it becomes a candidate for
+          swapping out)
 \end{itemize}
 If there is insufficient permission, then we will get a segmentation fault.
 \subsection{VM uses}
 \subsubsection{more memory}
-We have limited physical memory. We can use virtual memory to use the disk as memory. We can swap the pages in and out of the physical memory. This is called paging.
+We have limited physical memory. We can use virtual memory to use the disk as
+memory. We can swap the pages in and out of the physical memory. This is called
+paging.
 
-Upon more memory requests, we either terminate some programs to free up the RAM or move some pages to the disk to free up the RAM.
+Upon more memory requests, we either terminate some programs to free up the RAM
+or move some pages to the disk to free up the RAM.
 
-Use the idea of \textbf{locality} to make use of the physical memory. We can use the pages that are used recently and the pages that are used together.
+Use the idea of \textbf{locality} to make use of the physical memory. We can
+use the pages that are used recently and the pages that are used together.
 
 \subsubsection{Page fault}
-When we access a page that is not in the physical memory, we get a page fault. The operating system will then load the page from the disk to the physical memory and then continue the program.
+When we access a page that is not in the physical memory, we get a page fault.
+The operating system will then load the page from the disk to the physical
+memory and then continue the program.
 
-It will evict some pages from the physical memory to make space for the new page. It will use the idea of locality to decide which pages to evict.
+It will evict some pages from the physical memory to make space for the new
+page. It will use the idea of locality to decide which pages to evict.
 
 \subsubsection{shared memory}
-We can use virtual memory to share memory between processes. We can map the same page to different processes. This is called shared memory.
+We can use virtual memory to share memory between processes. We can map the
+same page to different processes. This is called shared memory.
 
-So same physical memory can be mapped to different processes with different VM. This is useful for inter-process communication.
+So same physical memory can be mapped to different processes with different VM.
+This is useful for inter-process communication.
 
-This saves the memory space and the time to copy the data. For example, multiple processes can share the same library. So we only need to load the library once.
+This saves the memory space and the time to copy the data. For example,
+multiple processes can share the same library. So we only need to load the
+library once.
 
-Note that they should be read-only, otherwise, we will have a problem with the synchronization or haxx attack.
+Note that they should be read-only, otherwise, we will have a problem with the
+synchronization or haxx attack.
 
-At the same time, it can share the same file as IO. For example, we can map the file to the memory and then read and write to the memory. This is called memory-mapped IO.
+At the same time, it can share the same file as IO. For example, we can map the
+file to the memory and then read and write to the memory. This is called
+memory-mapped IO.
 
 \subsection{Speed up memory access}
-VA to PA translation is needed for each memory access. It is slow. We can use a TLB (Translation Lookaside Buffer) to speed it up.
+VA to PA translation is needed for each memory access. It is slow. We can use a
+TLB (Translation Lookaside Buffer) to speed it up.
 \subsubsection{TLB(Translation Lookaside Buffer)}
-It is a separate cache for the page table. It caches the recently used page table entries. It is much faster than the page table.
+It is a separate cache for the page table. It caches the recently used page
+table entries. It is much faster than the page table.
 
 \begin{itemize}
     \item if the VA is in the TLB, then we can use the PA directly
@@ -791,11 +921,14 @@ TLB requires \textbf{coherence} mechanism. If the page table is updated, then th
 
 \begin{itemize}
     \item upon a TLB miss, we evict a TLB entry and load the new entry
-    \item upon a context switch, we flush the TLB (different processes have different page tables)
+    \item upon a context switch, we flush the TLB (different processes have different
+          page tables)
 \end{itemize}
 
 \section{Processes}
-If we run top in a Linux terminal, we can see a list of processes. Each process has its own memory space. The memory space is divided into segments. The segments are: \begin{itemize}
+If we run top in a Linux terminal, we can see a list of processes. Each process
+has its own memory space. The memory space is divided into segments. The
+segments are: \begin{itemize}
     \item \textbf{PID}: process ID
     \item \textbf{USER}: the user who runs the process
     \item \textbf{PR}: priority of the process (the higher the number, the lower the priority)
@@ -810,42 +943,62 @@ If we run top in a Linux terminal, we can see a list of processes. Each process 
     \item \textbf{COMMAND}: the command that runs the process
 \end{itemize}
 \subsection{Process abstraction}
-OS kernel handles the process abstraction. It is the kernel that creates, schedules, and terminates the processes.
+OS kernel handles the process abstraction. It is the kernel that creates,
+schedules, and terminates the processes.
 \subsubsection{OS kernel}
 Heart of a running system:\begin{itemize}
     \item \textbf{interface} between the hardware and the software
-    \item provides \textbf{abstraction} of the hardware (e.g., file system, network, memory, \textbf{processes, threads, VM} etc.)
+    \item provides \textbf{abstraction} of the hardware (e.g., file system, network,
+          memory, \textbf{processes, threads, VM} etc.)
     \item resident in memory in each program's address space (kernel space)
     \item runs at an elevated privilege level (ring 0)
-    \item interacts with programs via \textbf{system calls} and \textbf{interrupts/signals}
+    \item interacts with programs via \textbf{system calls} and
+          \textbf{interrupts/signals}
 \end{itemize}
 \subsubsection{Process}
-Processes run under an OS kernel. Each has its own \textbf{virtual addresses space} and \textbf{logical control flow}. They are isolated from each other. They can communicate with each other via \textbf{inter-process communication} (IPC).
+Processes run under an OS kernel. Each has its own \textbf{virtual addresses
+    space} and \textbf{logical control flow}. They are isolated from each other.
+They can communicate with each other via \textbf{inter-process communication}
+(IPC).
 
 \begin{itemize}
     \item single \textbf{instance} of a running program has its own process ID (PID)
     \item each process thinks it has the entire memory to itself
-    \item kernel \textbf{schedules} the processes on CPU. It can \textbf{interrupt} the processes. Switching between processes is called \textbf{context switch}
+    \item kernel \textbf{schedules} the processes on CPU. It can \textbf{interrupt} the
+          processes. Switching between processes is called \textbf{context switch}
 \end{itemize}
 \subsubsection{Threads}
-Threads are processes that share the same virtual memory space. They are isolated from each other. They can communicate with each other via \textbf{thread communication} (TC). However, they have their own \textbf{logical control flow}.
+Threads are processes that share the same virtual memory space. They are
+isolated from each other. They can communicate with each other via
+\textbf{thread communication} (TC). However, they have their own
+\textbf{logical control flow}.
 
-Threads have its own \textbf{stack} and \textbf{registers}. They share the same \textbf{heap} and \textbf{code}.
+Threads have its own \textbf{stack} and \textbf{registers}. They share the same
+\textbf{heap} and \textbf{code}.
 \subsubsection{logical control flow}
-logical control flow is the sequence of instructions that the process executes. It is the \textbf{program counter} (PC). It is the address of the next instruction to be executed.
+logical control flow is the sequence of instructions that the process executes.
+It is the \textbf{program counter} (PC). It is the address of the next
+instruction to be executed.
 
-This is why threads are isolated from each other. They have their own logical control flow. They can execute different instructions at the same time. Thus different stacks and registers are needed.
+This is why threads are isolated from each other. They have their own logical
+control flow. They can execute different instructions at the same time. Thus
+different stacks and registers are needed.
 \subsubsection{Context switch}
 upon a context switch:\begin{itemize}
-    \item Interrupt the CPU 
-    \item Save the registers and the PC of the current process (architectural state). Usually saved in the kernel stack.
+    \item Interrupt the CPU
+    \item Save the registers and the PC of the current process (architectural state).
+          Usually saved in the kernel stack.
     \item Load the registers and the PC of the next process
     \item Resume the CPU
 \end{itemize}
 \subsection{Process tree}
-Processes can create other processes. The created processes are called \textbf{child processes}. The process that creates the child process is called the \textbf{parent process}.
+Processes can create other processes. The created processes are called
+\textbf{child processes}. The process that creates the child process is called
+the \textbf{parent process}.
 
-Processes can \textbf{wait} for children to finish, \textbf{kill} children, and \textbf{communicate} with children. And it will be notified when the child process dies.
+Processes can \textbf{wait} for children to finish, \textbf{kill} children, and
+\textbf{communicate} with children. And it will be notified when the child
+process dies.
 
 \textbf{interface} provided by OS to applications: \begin{itemize}
     \item fork(): create a child process by duplicating the current process
@@ -858,7 +1011,9 @@ upon a fork() syscall:\begin{itemize}
     \item declaration: \begin{lstlisting}[language=C]
         pid_t fork(void);
     \end{lstlisting}
-    \item success: returns the PID of the child process to the parent process and 0 to the child process (the child process is a copy of the parent process, so they will see the exact same instruction, but different return value)
+    \item success: returns the PID of the child process to the parent process and 0 to
+          the child process (the child process is a copy of the parent process, so they
+          will see the exact same instruction, but different return value)
     \item failure: returns -1 to the parent process (no child process is created)
 \end{itemize}
 
@@ -883,21 +1038,35 @@ Note that the above code would produce the following output:\begin{lstlisting}
     PID is 0
     PPID is 1234
 \end{lstlisting}
-So there is only one line of "Child does not print this, PC has passed" in the output. This is because the child process is a copy of the parent process. So it will not execute the line that is after the fork() syscall.
+So there is only one line of "Child does not print this, PC has passed" in the
+output. This is because the child process is a copy of the parent process. So
+it will not execute the line that is after the fork() syscall.
 
-The child process will have a different PID and PPID. The child process will have a PID of 0. This is how we can distinguish the child process from the parent process.
+The child process will have a different PID and PPID. The child process will
+have a PID of 0. This is how we can distinguish the child process from the
+parent process.
 
-Note that the order of the output is not guaranteed. The parent process and the child process can run in any order. So the output can be different each time we run the program. This is due to the scheduling of the OS and speculatively execution of the CPU.
+Note that the order of the output is not guaranteed. The parent process and the
+child process can run in any order. So the output can be different each time we
+run the program. This is due to the scheduling of the OS and speculatively
+execution of the CPU.
 
 \subsubsection{zombie process}
-When a child process dies and the parent is still running, the child process becomes a zombie process. It is still in the process table, but it is not running. It is waiting for the parent to collect its exit status.
+When a child process dies and the parent is still running, the child process
+becomes a zombie process. It is still in the process table, but it is not
+running. It is waiting for the parent to collect its exit status.
 
-The parent can use the wait() syscall to collect the exit status of the child process. The child process will be removed from the process table after the parent collects the exit status.
+The parent can use the wait() syscall to collect the exit status of the child
+process. The child process will be removed from the process table after the
+parent collects the exit status.
 
-If the parent dies before the child, the child becomes an orphan process. It is then adopted by the init process. The init process will collect the exit status of the child process and remove it from the process table.
+If the parent dies before the child, the child becomes an orphan process. It is
+then adopted by the init process. The init process will collect the exit status
+of the child process and remove it from the process table.
 
 \subsection{Signals}
-Signals are a way to notify a process that an event has occurred from the kernel or another process. It is a way to do IPC (inter-process communication).
+Signals are a way to notify a process that an event has occurred from the
+kernel or another process. It is a way to do IPC (inter-process communication).
 
 It is mediated by the OS kernel. Can be caused by \begin{itemize}
     \item exceptions (SEGV, FPE, etc.)
@@ -911,7 +1080,7 @@ The kernel or process takes action depending on signals. \begin{itemize}
 \subsubsection{signal handlers}
 Programs can register signal handlers with the OS. \begin{itemize}
     \item We register via the \textbf{signal()} syscall
-    \item We can register a function to handle the signal, so it is a user-defined code. 
+    \item We can register a function to handle the signal, so it is a user-defined code.
     \item The function is called when the signal is received
     \item It is kind of like an interrupt handler in microcontrollers
 \end{itemize}
@@ -919,7 +1088,160 @@ For example:
 
 \includegraphics*[scale=0.8]{./Images/Signal handelr.png}
 
-Note that the signal handler is a separate function that runs in parallel. Before executing, it will check with the OS to see if the caller has permission to do certain tasks. If not, it will not execute the signal handler.
+Note that the signal handler is a separate function that runs in parallel.
+Before executing, it will check with the OS to see if the caller has permission
+to do certain tasks. If not, it will not execute the signal handler.
+\subsubsection{Signal handling}
+Issues with signal handling:\begin{itemize}
+    \item Signals are \textbf{not queued}.
+          \begin{itemize}
+
+              \item If a signal is received during $I/O$, the $I/O$ will be interrupted. The signal
+                    handler will be executed.
+              \item To resume, we need to set the ``SA\_RESTART'' flag in the ``sigaction'' struct.
+                    This is to make sure that the $I/O$ will be resumed after the signal handler is
+                    executed.
+          \end{itemize}
+
+    \item Signals are \textbf{not synchronized}.
+          \begin{itemize}
+
+              \item Imagine updating the list of children while receiving a signal of another child
+                    dying. If not synchronized, we will have \textbf{data race}
+              \item Need to block signals via ``sigprocmask'' syscall while accessing shared data
+              \item new signals may occur while running the signal handler. We need to
+                    \textbf{block} the signals while running the signal handler.
+          \end{itemize}
+    \item Some functions are signal-unsafe.
+          \begin{itemize}
+                \item For example, ``printf'' is not signal-safe. It uses a buffer to store the
+                      output. If the signal handler is executed while the buffer is being updated, the
+                      buffer will be corrupted.
+                \item We can use ``write'' instead of ``printf'' to avoid this problem.
+          \end{itemize}
+\end{itemize}
+
+Blocking and unblocking signals:\begin{lstlisting}[language=C]
+sigset_t mask;
+sigemptyset(&mask);
+// create an empty set to store the signals
+sigaddset(&mask, SIGCHLD);
+// block signals before forking
+sigprocmask(SIG_BLOCK, &mask, NULL);
+pid_t pid = fork();
+if (pid == 0) {
+    // child process
+    // unblock signals in the child process
+    sigprocmask(SIG_UNBLOCK, &mask, NULL);
+    // do something
+    exit(0);
+}
+else {
+    // parent process
+    // add the child to the list, then unblock signals
+    sigprocmask(SIG_UNBLOCK, &mask, NULL);
+}
+\end{lstlisting}
+Note that we need to add the child to the list before unblocking the signals. 
+
+Question: can we delay blocking until after forking? No, we can't. The child process will inherit the signal mask from the parent process. So we need to block the signals before forking.
+
+\subsubsection{Signal Summary}
+\begin{itemize}
+    \item Allow processes to be \textbf{notified} of events
+    \item Mediated through \textbf{kernel exceptions mechanism}
+    \item \textbf{KILL and STOP} are handled by the kernel
+    \item \textbf{Others} can be handled by \textbf{signal handlers}
+    \item Signals are \textbf{not queued}, cannot be used to \textbf{count events}
+    \item Most libc functions are \textbf{not signal-safe}  
+    \item Need to \textbf{block signals} while accessing shared data to avoid \textbf{data race}
+\end{itemize}
+\subsection{Exceptions}
+\subsubsection{Control flow}
+The life of CPU is controlled by the program counter (PC). It is the address of the next instruction to be executed.
+
+Besides the usual increment of PC we can have \begin{itemize}
+    \item Conditional/Unconditional jump/branches (if/else, loops, etc.)
+    \item Call/Return (function calls)
+\end{itemize}
+It is possible that there are unexpected control flow changes:\begin{itemize}
+    \item key press (interrupt)
+    \item incoming nextwork packet (interrupt)
+    \item illegal instruction fetched (exception)
+    \item illegal memory access (exception)
+    \item page fault (exception)
+    \item divide by zero (exception)
+    \item etc.
+\end{itemize}
+\subsubsection{Exception handling}
+\includegraphics*[scale=0.8]{./Images/Exception Handeling.png}
+
+Note that this exception is hardware-based, not software-based exceptions like in Java.
+
+There are two types of exceptions:
+\begin{itemize}
+    \item synchronous: caused by the program itself (e.g., divide by zero, illegal instruction, etc.)
+    \item asynchronous: caused by external events (e.g., key press, incoming network packet, hardware timer, etc.)
+\end{itemize}
+There are inconsistent terminology use in the industry:\begin{itemize}
+    \item exception: synchronous or just everything
+    \item interrupt: asynchronous or just everything
+    \item trap: synchronous or just specific debug support
+\end{itemize}
+To communicate effectively, better to specify whether it is synchronous or asynchronous.
+\subsubsection{Privilege level}
+Exception handlers need more permissions than the program itself. They need to \begin{itemize}
+    \item access hardware devices directly
+    \item switch/update the page table
+    \item etc.
+\end{itemize}
+
+Normally, the exception handler runs at OS kernel level (ring 0). 
+
+CPU has multiple privilege levels. \begin{itemize}
+    \item For example in ARM64: EL0 (user), EL1 (kernel), EL2 (hypervisor), EL3 (secure monitor)
+    \item Some \textbf{instructions} can only be executed at certain privilege levels
+    \item Some \textbf{memory} can only be accessed at certain privilege levels
+    \item CPU will fault if the privilege level is not high enough (e.g., trying to access kernel memory from user space, segmentation fault)
+\end{itemize}.
+\subsubsection{Abstraction}
+\begin{itemize}
+    \item Processor \textbf{interrupts} the program
+    \item \textbf{Saves} the program counter and the registers
+    \item Control is \textbf{transferred} to the exception handler in OS (Interrupt Service Routine, ISR)
+    \item what happens next is \textbf{OS-specific} (e.g., kill the process, handle the network packet, write to the disk, context switch, page fault, etc.)
+\end{itemize}
+\subsubsection{Exception during exception}
+What if an exception occurs while handling an exception? \begin{itemize}
+    \item For example, page fault while handling a page fault
+    \item some architecture need handler for this case
+    \item interrupt hardware ensures exceptions are not lost (e.g., nested page fault)
+    \item once device quiesced, it can be re-enabled
+    \item sometimes parts of handlers are re-entrant
+    \item some exceptions cannot be masked (e.g., NMI)
+\end{itemize}
+
+
+\subsection{Debugger breakpoint}
+Debugger can set breakpoints on \begin{itemize}
+    \item hardware: CPU will generate an exception when the program counter reaches the breakpoint\begin{itemize}
+        \item set CPU control register to breakpoint address
+        \item when the program counter reaches the breakpoint, the CPU will generate an exception
+        \item the exception handler will be called
+        \item hardware watchpoints are similar
+        \item the exception runs at \textbf{escalated privilege level} usually OS level
+    \end{itemize}
+    \item software: the program will generate an exception when the program counter reaches the breakpoint\begin{itemize}
+        \item replace the instruction at the breakpoint with a special instruction (trap, int 3, etc.)
+        \item control transfer is non-local, but still within the program
+        \item no hardware support needed
+    \end{itemize}
+\end{itemize}
+
+
+
+
+
 
 
 
