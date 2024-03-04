@@ -10,8 +10,12 @@
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
-\newtheorem{corollary}{Corollary}
-\newtheorem{lemma}{Lemma}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+
+
+
 \title{Summary of Math 312}
 \author{Tom Wang}
 \date{Spring, 2024}
@@ -1327,9 +1331,60 @@ Procedure for Fermat's Primality Test:\begin{enumerate}
     \item If $b^{n-1}\not\equiv 1 \pmod n$, then $n$ is not prime.
     \item If $b^{n-1}\equiv 1 \pmod n$, then $n$ is a pseudo prime to base $b$.
     \item Repeat the test with a different $b$.
-    \item If $n$ is a pseudo prime to enough bases, then $n$ is probably prime.
+    \item If $n$ is a pseudo prime to enough bases, then $n$ is \textbf{probably} prime.
     \item It is possible that $n$ is a pseudo prime to all bases and still not prime. Such numbers are called \textbf{Carmichael numbers}.
 \end{enumerate}
+Note that it is a probabilistic test instead of an extensive test. It is not possible to go through all the bases to test the primality of a number.
+\subsubsection{Carmichael Numbers}
+\begin{proposition}
+    Suppose $n=p_1 p_2 \cdots p_r$ where $p_1,p_2,\ldots,p_r$ are distinct primes. If $p_i -1\mid n-1$ for all $i$, then $n$ is a Carmichael number.
+\end{proposition}
+\begin{proof}
+    Let $b$ be any integer not divisible by $p_i,\forall i$. In other words, $\gcd(b,n)=1$. Then by Fermat's Little Theorem, $b^{p_i-1}\equiv 1 \pmod {p_i}$. Then $b^{n-1}\equiv 1 \pmod {p_i}$.
+
+    Then $b^{n-1}\equiv 1 \pmod {p_i}$ for all $i$. 
+    
+    Let $x=b^{n-1}-1$. Then $x\equiv 1 \pmod {p_i},\forall i$. By Chinese remainder theorem, $x\equiv 1 \pmod n$. Then $b^{n-1}\equiv 1 \pmod n$.
+    
+    Then $n$ is a Carmichael number.
+\end{proof}
+For example $561=3\times 11\times 17$. Then $3-1,11-1,17-1\mid 561-1$. Then 561 is a Carmichael number.
+
+Another example: $6601=7\times 23\times 41$. Then $7-1,23-1,41-1\mid 6601-1$. Then 6601 is a Carmichael number.
+\subsubsection{Miller-Rabin Primality Test}
+The Miller-Rabin Primality Test is a more efficient probabilistic primality test than Fermat's Primality Test. It is a refined version of Fermat's Primality Test which captures the idea of Carmichael numbers.
+
+Say we want to test $n$ for primality. \begin{enumerate}
+    \item Start out the same way as Fermat's Primality Test. Choose a random integer $b$ in $[2,n-2]$. Then compute $b^{n-1}\pmod n$.
+    \item If $b^{n-1}\not\equiv 1 \pmod n$, then $n$ is not prime.
+    \item If $b^{n-1}\equiv 1 \pmod n$, then we probe a bit deeper by computing $x\equiv b^{(n-1)/2}\pmod n$. (Here we are assuming that $n-1$ is even. If $n-1$ is odd, then $n$ is not prime since $b\ge 2$)
+    \item Note that $x^2=b^{n-1}\equiv 1 \pmod n$. If $n$ is a prime, then $x\equiv \pm 1 \pmod n$. 
+    \item If $x\equiv 1 \pmod n$, and $\frac{n-1}{2}$ is odd, We cannot say anything here, pick another $b$ and repeat the test.
+    \item If $x\equiv -1 \pmod n$, then $n$ is \textbf{probably} prime. We cannot say anything here, pick another $b$ and repeat the test.
+    \item However, if $x\equiv 1 \pmod n$, and $\frac{n-1}{2}$ is even, then we can dig deeper by computing $y\equiv b^{(n-1)/4}\pmod n$.
+    \item Same idea: If $y\equiv - 1 \pmod n$, or $y\equiv 1 \pmod n$ and $\frac{n-1}{4}$ is odd, then pick another $b$ and repeat the test.
+    \item If $y\equiv 1 \pmod n$, and $\frac{n-1}{4}$ is even, then repeat checking. 
+\end{enumerate}
+Use the smallest Carmichael Number 561 again. Perform the Miller-Rabin Primality Test with $b=5$: \begin{itemize}
+    \item $5^{560}\equiv 1 \pmod {561}$.
+    \item $5^{280}\equiv 67 \pmod {561}$. (By performing repeating squaring, a pain to do but the easiest method we can find already)
+\end{itemize}
+Note that $561 = 3 \times 11 \times 17$. \begin{itemize}
+    \item Assume $\gcd(b,561)=1$. 
+    \item $b^{280}\equiv (b^2)^{140}\equiv 1 \pmod 3$ 
+    \item $b^{280}\equiv (b^10)^{28}\equiv 1 \pmod {11}$
+    \item $b^{280}\equiv b^8 \pmod {17}$
+    \item When $b=5$, $5^{280}\equiv 5^8 \equiv 25^4\equiv 8^4\equiv 64^2\equiv (-4)^2\equiv 16\equiv -1 \pmod {17}$
+    \item Now with CRT: $\begin{cases}
+        x\equiv 1 \pmod 3 \\
+        x\equiv 1 \pmod {11} \\
+        x\equiv -1 \pmod {17}
+    \end{cases}
+    \implies x\equiv 67 \pmod {561}$
+\end{itemize}
+
+
+
 
 
 \end{document}
