@@ -563,6 +563,25 @@ So the longest decision path can be no shorter than $n\log n$.
 
 Note that non-comparison-based sorting algorithms can have a lower bound of $n$. But that has more restrictions on the input.
 
+
+
+\section{Dictionary/Map}
+A dictionary is a data structure that stores a set of key-value pairs. \begin{itemize}
+    \item Values may be any (homogeneous) type.
+    \item Keys may be any (homogeneous) \textbf{comparable} type.
+    \item This is a motivation for an efficient search algorithm.
+\end{itemize}
+Since values rarely affect our design choices, we ignore them and focus on the keys that is handled by \textbf{Sets}
+\section{Sets}
+A set is a data structure that stores a set of keys. \begin{itemize}
+    \item Keys may be any (homogeneous) \textbf{comparable} type.
+\end{itemize}
+\subsection{Set implementation}
+\includegraphics*[scale = 0.8]{./Images/Set implementations.jpg}
+
+
+
+
 \section{Trees}
 A tree will have a parent node connecting to multiple child nodes. The connection is called an edge. 
 
@@ -749,23 +768,125 @@ Node * FindMax(Node * current){
 }
 \end{lstlisting}
 Note that the left-most node is the minimum and the right-most node is the maximum. It could be that the left-most node still contains a right child, but that child will be larger than the left-most node. Similarly for the right-most node.
+\subsubsection{Deletion}
+After removal, the BST property must be maintained! The cost is about the same as the cost for the search algorithm.
 
-\section{Dictionary/Map}
-A dictionary is a data structure that stores a set of key-value pairs. \begin{itemize}
-    \item Values may be any (homogeneous) type.
-    \item Keys may be any (homogeneous) \textbf{comparable} type.
-    \item This is a motivation for an efficient search algorithm.
+$\begin{cases}
+    \text{Case 1:}  \text{The node has no children.} &\implies \text{Remove directly, assign null to parents} \\
+    \text{Case 2:}  \text{The node has one child.} &\implies \text{Replace the node with its subtree}\\
+    \text{Case 3:}  \text{The node has two children.} &\implies \text{Need a lot more care}\\
+\end{cases}$
+
+When a node has two children, we find its \textbf{in-order predecessor}:\begin{itemize}
+    \item The in-order predecessor is the maximum node in the left subtree. (Right most node in the left subtree)
+    \item It is the largest node that is smaller than the node to be deleted.
+    \item The predecessor cannot have a right child because it is the maximum node in the left subtree.
 \end{itemize}
-Since values rarely affect our design choices, we ignore them and focus on the keys that is handled by \textbf{Sets}
-\section{Sets}
-A set is a data structure that stores a set of keys. \begin{itemize}
-    \item Keys may be any (homogeneous) \textbf{comparable} type.
+At the same time, we can find the \textbf{in-order successor}:\begin{itemize}
+    \item The in-order successor is the minimum node in the right subtree. (Left most node in the right subtree)
+    \item It is the smallest node that is larger than the node to be deleted.
+    \item The successor cannot have a left child because it is the minimum node in the right subtree.
 \end{itemize}
-\subsection{Set implementation}
-\includegraphics*[scale = 0.8]{./Images/Set implementations.jpg}
 
+We can choose either the predecessor or the successor to replace the node to be deleted. It is a design choice. Just be consistent. 
 
+\begin{lstlisting}[language=C++]
+Node * Delete(Node * current, T key){
+    if(current == NULL){
+        return NULL;
+    }
+    if(key < current->key){
+        current->left = Delete(current->left, key);
+    }else if(key > current->key){
+        current->right = Delete(current->right, key);
+    }else{
+        if(current->left == NULL 
+        && current->right == NULL){
+            delete current;
+            return NULL;
+        }
+        if(current->left == NULL){
+            Node * temp = current;
+            current = current->right;
+            delete temp;
+        }else if(current->right == NULL){
+            Node * temp = current;
+            current = current->left;
+            delete temp;
+        }else{
+            Node * temp = FindMax(current->left);
+            current->key = temp->key;
+            current->value = temp->value;
+            current->left = Delete(current->left, 
+            temp->key);
+        }
+    }
+    return current;
+}
+\end{lstlisting}
+The above code finds the predecessor to replace the node to be deleted. 
+\subsubsection{BST efficiency}
+The efficiency of operations depends on the height of the tree. If a tree is complete, then the height is $\lfloor \log_2 n \rfloor$.\begin{itemize}
+    \item Search, insertion, and deletion are all $O(\log n)$. Where $n$ is the number of nodes in the tree since it just needs to traverse the height of the tree.
+\end{itemize}
+\subsubsection{Balanced BST}
+Note that if a BST is not balanced, the worst case, it is just a sorted linked list with $O(n)$ height and a bunch of wasted NULL pointers. So we need to balance the BST to make it efficient.
 
+A binary tree is balanced if:\begin{itemize}
+    \item The left and right subtrees of every node differ in height by at most 1.
+    \item Leaves are all \textbf{about} the same depth.
+    \item The exact specification varies
+    \item Sometimes trees are balanced by comparing the height of nodes: The height of a node's left subtree and the height of a node's right subtree differ by at most 1. (AVL tree)
+    \item Sometimes trees are balanced by comparing the number of nodes: The number of nodes in a node's left subtree and the number of nodes in a node's right subtree differ by at most 1. (Red-black tree)
+\end{itemize}
+It would be ideal if a BST was always close to complete. 
+\subsection{AVL tree}
+An AVL tree is a balanced BST\begin{itemize}
+    \item The height of the left and right subtrees of every node differ by at most 1.
+    \item Rebalancing is done by \textbf{rotations} when an insertion or deletion causes the tree to become unbalanced.
+    \item AVL tree nodes contain an extra field to store the height of the node.
+\end{itemize}
+\subsubsection{AVL tree height}
+The height of an AVL tree is $O(\log n)$ where $n$ is the number of nodes in the tree. 
+\begin{theorem}
+    The height of an AVL tree with $n$ nodes is $O(\log n)$.
+\end{theorem}
+\begin{proof}
+    Let $N_h$ represent the minimum number of nodes in an AVL tree of height $h$.
+
+    Since AVL trees are balanced, the minimum number of nodes in an AVL tree of height $h$ is the sum of the minimum number of nodes in the left and right subtrees plus 1. So $N_h = N_{h-1} + N_{h-2} + 1$.
+    \begin{align*}
+        N_h &= N_{h-1} + N_{h-2} + 1 \\
+        &= 1+ (1+N_{h-2}+N_{h-3}) + N_{h-2} + 1 \\
+        &= 2 + 2N_{h-2} + N_{h-3} \\
+        &> 2N_{h-2} + N_{h-3} \\
+        N_h &> 2N_{h-2} \\
+        &> 2(2N_{h-4}) \\
+        &> 2^2N_{h-4} \\
+        &> 2^3N_{h-6} \\
+        &> \cdots \\
+        &> 2^{\frac{h}{2}}N_0 \\
+        &> 2^{\frac{h}{2}} \\
+        \log N_h &> \frac{h}{2} \\
+        h &< 2\log N_h \\
+        h &\in O(\log n)
+    \end{align*}
+\end{proof}
+\subsubsection{Rotation}
+\begin{itemize}
+    \item Left rotation: For example, I try to rotate node 32. 
+    
+    \includegraphics*[scale = 0.8]{./Images/Left Rotation Before.jpg}
+    \includegraphics*[scale = 0.8]{./Images/Left Rotation After.jpg}
+
+    Become the left child of the current right child and adopt the left child of the current right child as the right child.
+    \item Right rotation: For example, I try to rotate node 47.
+    
+    \includegraphics*[scale = 0.8]{./Images/Right Rotation Before.jpg}
+    \includegraphics*[scale = 0.8]{./Images/Right Rotation After.jpg}
+
+    Become the right child of the current left child and adopt the right child of the current left child as the left child.
+\end{itemize}
 
 
 
