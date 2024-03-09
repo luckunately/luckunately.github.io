@@ -1364,6 +1364,8 @@ Say we want to test $n$ for primality. \begin{enumerate}
     \item However, if $x\equiv 1 \pmod n$, and $\frac{n-1}{2}$ is even, then we can dig deeper by computing $y\equiv b^{(n-1)/4}\pmod n$.
     \item Same idea: If $y\equiv - 1 \pmod n$, or $y\equiv 1 \pmod n$ and $\frac{n-1}{4}$ is odd, then pick another $b$ and repeat the test.
     \item If $y\equiv 1 \pmod n$, and $\frac{n-1}{4}$ is even, then repeat checking. 
+    \item The only stop criterion is when we conclude that $n$ is composite.
+    \item We never conclude with 100\% certainty that $n$ is prime. We can only say that $n$ is \textbf{probably} prime. It is a probabilistic test!
 \end{enumerate}
 Use the smallest Carmichael Number 561 again. Perform the Miller-Rabin Primality Test with $b=5$: \begin{itemize}
     \item $5^{560}\equiv 1 \pmod {561}$.
@@ -1372,7 +1374,7 @@ Use the smallest Carmichael Number 561 again. Perform the Miller-Rabin Primality
 Note that $561 = 3 \times 11 \times 17$. \begin{itemize}
     \item Assume $\gcd(b,561)=1$. 
     \item $b^{280}\equiv (b^2)^{140}\equiv 1 \pmod 3$ 
-    \item $b^{280}\equiv (b^10)^{28}\equiv 1 \pmod {11}$
+    \item $b^{280}\equiv (b^{10})^{28}\equiv 1 \pmod {11}$
     \item $b^{280}\equiv b^8 \pmod {17}$
     \item When $b=5$, $5^{280}\equiv 5^8 \equiv 25^4\equiv 8^4\equiv 64^2\equiv (-4)^2\equiv 16\equiv -1 \pmod {17}$
     \item Now with CRT: $\begin{cases}
@@ -1382,8 +1384,23 @@ Note that $561 = 3 \times 11 \times 17$. \begin{itemize}
     \end{cases}
     \implies x\equiv 67 \pmod {561}$
 \end{itemize}
+\subsubsection{Rabin's Theorem}
+\begin{theorem}
+    Fix a composite integer $n$. Pick $a,b\in [2,n-2]$ at random. Then the probability that $n$ fails Miller's test is greater than or equal to $\frac{1}{4}$.
 
+    In other words, Miller's test will detect that $n$ is composite with probability at least $\frac{1}{4}$ for all possible choices
+\end{theorem}
+Equivalently, if we run Miller's test $k$ times, with $k$ different choices of $b$, and $n$ passes each of the test, then the probability that $n$ is composite is less than or equal to $\frac{3}{4^k}$.
+\subsection{Pollard's Factorization Method}
+Goal: Factor a given (large) integer $n$.
 
+Compute $r_k\equiv 2^{k!} \pmod n$ recursively, using the formula $r_k\equiv r_{k-1}^{k} \pmod n$. For each $k$ compute $\gcd(r_{k-1},n)=g_k$. Note that $1\le g_k \le r_{k-1} \le n-2$ and $g_k$ divides $n$. So if $g_k > 1$, then we have found a factor of $n$ which is greater than 1.
+
+The idea here is that if $n$ has a prime factor $p$ such that $p-1$ divides $k!$, then $2^{k!}\equiv 1 \pmod p$. By Fermat's theorem,  $2^{k!}\equiv 1 \pmod n$ and $g_k>1$. 
+
+In ohter words, p divides both $r_{k-1}$ and $n$ implies that $p$ divides $n$.
+
+To be added!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 
