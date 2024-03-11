@@ -8,6 +8,8 @@
 \usepackage{bbm}
 \usepackage{listings}
 \usepackage{times}
+\usepackage[noend]{algpseudocode}
+\usepackage{algorithm}
 
 
 \newtheorem{theorem}{Theorem}
@@ -887,6 +889,129 @@ The height of an AVL tree is $O(\log n)$ where $n$ is the number of nodes in the
 
     Become the right child of the current left child and adopt the right child of the current left child as the left child.
 \end{itemize}
+A sample implementation of rotations:\begin{lstlisting}[language=C++]
+AVLNode * LeftRotate(AVLNode * current){
+    AVLNode * new_root = current->right;
+    current->right = new_root->left;
+    new_root->left = current;
+    current->height = 1 + max(Height(current->left), 
+    Height(current->right));
+    new_root->height = 1 + max(Height(new_root->left), 
+    Height(new_root->right));
+    return new_root;
+}
+AVLNode * RightRotate(AVLNode * current){
+    AVLNode * new_root = current->left;
+    current->left = new_root->right;
+    new_root->right = current;
+    current->height = 1 + max(Height(current->left), 
+    Height(current->right));
+    new_root->height = 1 + max(Height(new_root->left), 
+    Height(new_root->right));
+    return new_root;
+}
+    \end{lstlisting}
+\subsubsection{AVL nodes}
+AVL Nodes are almost them same as a binary tree node. The only difference is that it contains an extra field to store the height info of the node. There are lots of ways to store the height info.
+\begin{lstlisting}[language=C++]
+enum BalanceFactor {LEFT_HEAVY=-1,
+ BALANCED=0, RIGHT_HEAVY=1};
+template <typename T>
+class AVLNode {
+    public:
+        T value;
+        AVLNode * left;
+        AVLNode * right;
+        int height;
+        BalanceFactor balance;
+};
+AVLNode (T value, AVLNode * left = NULL, 
+AVLNode * right = NULL){
+    this->value = value;
+    this->left = left;
+    this->right = right;
+    this->height = 0;
+    this->balance = BALANCED;
+}
+\end{lstlisting}
+There are four types of imbalance in an AVL tree. \begin{itemize}
+    \item Left-Left (LL): the left subtree of the left child is taller than the right subtree of the left child.
+    \item Left-Right (LR): the right subtree of the left child is taller than the left subtree of the left child.
+    \item Right-Left (RL): the left subtree of the right child is taller than the right subtree of the right child.
+    \item Right-Right (RR): the right subtree of the right child is taller than the left subtree of the right child.
+\end{itemize}
+\includegraphics*[scale = 0.5]{./Images/Type of imbalance.jpg}
+
+
+\subsubsection{Insertion}
+For each insertion, we need to check the balance of the tree. If the tree is unbalanced, we need to do a rotation to balance the tree.
+
+\begin{algorithmic}
+    \If{root is NULL}
+        \State {Create new node containing the value, assign it to root and return true.}
+    \Else 
+        \If{value is equal to \texttt{root->value}}
+        \State {value exists already Return false.}
+        \EndIf
+    \EndIf
+
+    \If{value is less than \texttt{root->value}}
+        \State {recursively insert value into left subtree.}
+        \If{left subtree height is greater than right subtree height by 2}           
+                \State {Perform a right rotation.}
+        \EndIf
+    \Else
+        \State {recursively insert value into right subtree.}
+        \If{right subtree height is greater than left subtree height by 2}           
+                \State {Perform a left rotation.}
+        \EndIf
+    \EndIf
+\end{algorithmic}
+\begin{lstlisting}[language=C++]
+AVLNode * Insert(AVLNode * current, T key){
+if(current == NULL){
+    return new AVLNode(key);
+}
+if (key == current->value){
+    throw "Duplicate key";
+}
+if(key < current->key){
+    current->left = Insert(current->left, key);
+}else{
+    current->right = Insert(current->right, key);
+}
+current->height = 1 + max(Height(current->left), 
+Height(current->right));
+current->balance = Balance(current);
+if(current->balance == LEFT_HEAVY){
+    if(current->left->balance == LEFT_HEAVY){
+        return RightRotate(current);
+    }else{
+        current->left = LeftRotate(current->left);
+        return RightRotate(current);
+    }
+}else if(current->balance == RIGHT_HEAVY){
+    if(current->right->balance == RIGHT_HEAVY){
+        return LeftRotate(current);
+    }else{
+        current->right = RightRotate(current->right);
+        return LeftRotate(current);
+    }
+}
+return current;
+}
+\end{lstlisting}
+For each insertion, we need to perform a BST insertion $O(\log n)$ and then check the balance of the tree. If the tree is unbalanced, we need to do a rotation to balance the tree. The rotation is $O(1)$ since at most 2 rotations are needed. So the overall running time is $O(\log n)$.
+\subsubsection{Deletion}
+Same idea as insertion. \begin{itemize}
+    \item begin with a standard BST deletion (using the in-order predecessor or successor)
+    \item local root balance is adjusted for removing a node
+    \item if the local root becomes unbalanced, a rotation is performed
+\end{itemize}
+Complexity is $O(\log n)$ since we need to perform a BST deletion $O(\log n)$ and then check the balance of the tree. If the tree is unbalanced, we need to do a rotation to balance the tree. The rotation is $O(1)$ since at most 2 rotations are needed. So the overall running time is $O(\log n)$.
+
+
+
 
 
 

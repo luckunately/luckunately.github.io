@@ -1390,18 +1390,44 @@ Note that $561 = 3 \times 11 \times 17$. \begin{itemize}
 
     In other words, Miller's test will detect that $n$ is composite with probability at least $\frac{1}{4}$ for all possible choices
 \end{theorem}
-Equivalently, if we run Miller's test $k$ times, with $k$ different choices of $b$, and $n$ passes each of the test, then the probability that $n$ is composite is less than or equal to $\frac{3}{4^k}$.
+Equivalently, if we run Miller's test $k$ times, with $k$ different choices of $b$, and $n$ passes each of the test, then the probability that $n$ is composite is less than or equal to $(\frac{3}{4})^k$.
 \subsection{Pollard's Factorization Method}
 Goal: Factor a given (large) integer $n$.
 
-Compute $r_k\equiv 2^{k!} \pmod n$ recursively, using the formula $r_k\equiv r_{k-1}^{k} \pmod n$. For each $k$ compute $\gcd(r_{k-1},n)=g_k$. Note that $1\le g_k \le r_{k-1} \le n-2$ and $g_k$ divides $n$. So if $g_k > 1$, then we have found a factor of $n$ which is greater than 1.
-
+\begin{enumerate}
+    \item Choose $r_0\equiv 2^{0!}\pmod n$.
+    \item Compute the next one using the formula $r_k\equiv r_{k-1}^{k} \pmod n$.
+    \item For each $k$ compute $\gcd(r_{k}-1,n)=g_k$. Note that $1\le g_k \le r_{k-1} \le n-2$ and $g_k$ divides $n$.
+    \item For each $k$  So if $g_k > 1$, then we have found a factor of $n$ which is greater than 1.
+    \item Repeat the process till we find a factor of $n$.
+\end{enumerate}
 The idea here is that if $n$ has a prime factor $p$ such that $p-1$ divides $k!$, then $2^{k!}\equiv 1 \pmod p$. By Fermat's theorem,  $2^{k!}\equiv 1 \pmod n$ and $g_k>1$. 
 
-In ohter words, p divides both $r_{k-1}$ and $n$ implies that $p$ divides $n$.
+In ohter words, p divides both $r_{k}-1$ and $n$ implies that $p$ divides $g_k = \gcd(r_{k}-1,n)$. 
 
-To be added!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+The method works well if $p-1 \mid k!$ for some prime factor $p$ of $n$ for small $k$. Informally, this means that $p-1$ has ``small'' prime factors. Thus the weakness of this algorithm is that we do not know which $k$ will work.
 
+\subsubsection{Example}
+Factor 689 using Pollard's method:\begin{align*}
+    r_1 & \equiv 2 \pmod {689} && \gcd(r_1-1, 689)=1 \\
+    r_2 & \equiv 2^2 \equiv 4 \pmod {689} && \gcd(r_2-1, 689)=1 \\
+    r_3 & \equiv 4^3 \equiv 64 \pmod {689} && \gcd(r_3-1, 689)=1 \\
+    r_4 & \equiv 64^4 \equiv 66 \pmod {689} && \gcd(r_4-1, 689)=13 \\
+    \gcd(65,689) & = 13 && 689=13\times 53
+\end{align*}
+Factor 10403: \begin{align*}
+    &r_2\equiv 2^2\equiv 4 \pmod {10403} && \gcd(r_2-1,10403)=1 \\
+    &r_3\equiv 4^3\equiv 64 \pmod {10403} && \gcd(r_3-1,10403)=1 \\
+    &r_4\equiv 64^4\equiv 7580 \pmod {10403} && \gcd(r_4-1,10403)=1 \\ 
+    &r_5\equiv 7580^5\equiv 4438 \pmod {10403} && \gcd(r_5-1,10403)=1 \\
+    &r_6\equiv 4438^6\equiv 6862 \pmod {10403} && \gcd(r_6-1,10403)=1 \\
+    &r_7\equiv 6862^7\equiv 137 \pmod {10403} && \gcd(r_7-1,10403)=1 \\
+    &r_8\equiv 137^8\equiv 196 \pmod {10403} && \gcd(r_8-1,10403)=1 \\
+    &r_9\equiv 196^9\equiv 3619 \pmod {10403} && \gcd(r_9-1,10403)=1 \\
+    &r_{10}\equiv 3619^{10}\equiv 9798 \pmod {10403} && \gcd(r_{10}-1,10403)=101 \\
+    &\gcd(9799,10403)  = 101 && 10403=101\times 103
+\end{align*}
+$p=101$ is a prime factor of 10403. Then $p-1=100$. Then $100=2^2 5^2\mid 10!$. Then $p-1\mid 10!$ when $k=10$.
 
 
 \end{document}
