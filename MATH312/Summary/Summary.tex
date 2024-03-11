@@ -1279,6 +1279,69 @@ Basically, it is a direct application of the previous 2 lemmas.
 For example: $\phi(100)=\phi(2^2)\phi(5^2)=2^1(2-1)5^1(5-1)=40$.
 
 Note that we need the prime decomposition of $n$ to find $\phi(n)$. Otherwise, it is hard to find $\phi(n)$ directly.
+\subsubsection{More on $\phi$ funciton}
+\begin{theorem}
+    $\sum_{d|n}\phi(d)=n$. 
+    
+    Here the sum is taken over all positive divisors of $n$.
+\end{theorem}
+Note the use of the formula with the prime decomposition of $n$: \[\phi(n)=p_1^{r_1-1}(p_1-1)p_2^{r_2-1}(p_2-1)\ldots p_k^{r_k-1}(p_k-1)\]
+
+For example: $n=6$ then $\sum_{d|6}\phi(d)=\phi(1)+\phi(2)+\phi(3)+\phi(6)=1+1+2+2=6$.
+
+For example: $n=12$ then $\sum_{d|12}\phi(d)=\phi(1)+\phi(2)+\phi(3)+\phi(4)+\phi(6)+\phi(12)=1+1+2+2+2+4=12$.
+
+For example: $n=81=3^4$ then $\sum_{d|81}\phi(d)=\phi(1)+\phi(3)+\phi(9)+\phi(27)+\phi(81)=1+2+6+18+54=81$.
+
+Now try to prove it:\begin{proof}
+    Subdivide the integers $[0,n-1]$ into classes $C_e$ where $C_e=\{x\in [0,n-1]:\gcd(x,n)=e\}$ for $e=1,2,\ldots,n$. Note that $|C_e|=\phi(e)$ since $x\in C_e \iff \gcd(x,n)=e$.
+
+    More generally, the number of elements in $C_e$ is $\phi(\frac{n}{e})$. 
+    
+    It is because $\gcd(x,n)=e \iff e|n \land e | x \iff \gcd(\frac{x}{e},\frac{n}{e})=1$. Then the number of elements in $C_e$ is $\phi(\frac{n}{e})$.
+
+    Since the classes $C_e$ are disjoint and their union is $[0,n-1]$, then $|C_1|+|C_2|+\cdots+|C_n|=n$. Then we conclude \[
+        n=\sum_{e|n}|C_e|=\sum_{e|n}\phi(\frac{n}{2})=\sum_{d|n}\phi(d)
+    \]
+    Here $d=\frac{n}{e}$ ranges over the positive divisors of $n$.
+\end{proof}
+
+To illustrate the proof, consider $n=12$. Then \begin{align*}
+    C_{12} & = \{0\} && \phi(\frac{12}{12})=1 \\
+    C_6 & = \{6\} && \phi(\frac{12}{6})=2 \\
+    C_4 & = \{4,8\} && \phi(\frac{12}{4})=2 \\
+    C_3 & = \{3,9\} && \phi(\frac{12}{3})=2 \\
+    C_2 & = \{2,10\} && \phi(\frac{12}{2})=2 \\
+    C_1 & = \{1,5,7,11\} && \phi(\frac{12}{1})=4 \\
+\end{align*}
+Then $|C_{12}|+|C_6|+|C_4|+|C_3|+|C_2|+|C_1|=1+1+2+2+2+4=12$.
+
+Note that how the sets are disjoint. 
+\subsubsection{Multuplicative}
+The Euler $\phi$ function is multiplicative. That is, if $\gcd(m,n)=1$, then $\phi(mn)=\phi(m)\phi(n)$.
+
+Here ``arithmetic'' means defined on the set of positive integers, ``multiplicative'' means $f(mn)=f(m)f(n)$ for all $m,n$ such that $\gcd(m,n)=1$.
+\begin{theorem}
+    If $f(n)$ is a multiplicative arithmetic function, then so is $F(n)=\sum_{d|n}f(d)$.
+
+    Here the sum is taken over all positive divisors of $n$.
+\end{theorem}
+Example: If $f(n)$ is the Euler $\phi$ function, then $F(n)=\sum_{d|n}\phi(d)=n$ by the previous theorem
+
+\begin{corollary}
+    The following two arithmetic functions are multiplicative:
+
+    $\sigma(n) = $ sum of all positive divisors of $n$.
+
+    $\tau(n) = $ number of positive divisors of $n$.
+\end{corollary}
+\begin{proof}
+    TO BE aDDED!!!!!!!!!!!!!!!!!!!!!
+
+    what happend here?
+
+    test
+\end{proof}
 
 \subsection{Primality Testing}
 Given a positive integer $n$, how can we determine whether $n$ is prime?

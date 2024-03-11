@@ -1238,14 +1238,72 @@ Debugger can set breakpoints on \begin{itemize}
     \end{itemize}
 \end{itemize}
 
+\section{Caches}
+\subsection{The need for Cache}
+\begin{itemize}
+    \item Temporal locality: if a memory location is accessed, it is likely to be accessed again soon
+    \item Spatial locality: if a memory location is accessed, nearby memory locations are likely to be accessed soon
+\end{itemize}
+So we keep cache as a \textbf{small, fast memory} to be used repeatedly. 
 
+Have \textbf{cache line} to store a range of data brought from the memory at once to exploit spatial locality.
+\subsection{Cache hierarchy}
+Memory latency $\approx \sqrt{\text{cache size}}$. So we have a hierarchy of caches to reduce the latency.
 
+\begin{itemize}
+    \item L1 cache: small, fast, close to the CPU
+    \item L2 cache: larger, slower, further from the CPU
+    \item L3 cache: even larger, even slower, even further from the CPU
+    \item main memory: large, slow, far from the CPU
+\end{itemize}
+\subsection{Cache organization}
+\begin{itemize}
+    \item \textbf{Direct-mapped cache}: each memory block can only be stored in one cache line
+    \item \textbf{Fully associative cache}: each memory block can be stored in any cache line
+    \item \textbf{Set-associative cache}: each memory block can be stored in a set of cache lines
+\end{itemize}
+\subsection{Replacement policy}
+Ideal policy: Bélády's optimal algorithm. Replace the cache line that will not be used for the longest time.
 
+However, we can't predict the future. So we use approximation algorithms.
+\begin{itemize}
+    \item \textbf{Random}: randomly choose a cache line to replace
+    \item \textbf{FIFO}: replace the cache line that has been in the cache the longest
+    \item \textbf{LRU (Least Recently Used)}: replace the cache line that has not been used for the longest time
+    \item \textbf{LFU (Least Frequently Used)}: replace the cache line that has been used the least
+\end{itemize}
+\subsection{Using cache effectively}
+focus on the reuse of L1 cache, then L2 cache, then L3 cache, then main memory.
 
+Take an example: find reuse in matrix multiplication. We can use the idea of blocking to make use of the cache.
 
+Tiling: divide the matrix into small tiles that fit in the cache. Then we can reuse the cache effectively.
+\begin{itemize}
+    \item Small tile that fits in L1
+    \item Middle tile that fits in L2
+    \item Large tile that fits in L3
+\end{itemize}
+\subsubsection{Multicore reuse}
+Note that in multicore systems, L3 is shared while L1 and L2 are private. So we can use L3 to communicate between cores.
 
+Make sure that each core is visiting the same L3 tile. This way no conflicting cache lines in L3. 
+\subsection{Cache coherence}
+Invariant: single writer, multiple readers. If a writer writes to a cache line, all the readers should see the update.
 
-
-
+Considerations: \begin{itemize}
+    \item If two cores modify the same cache line, they will ping-pong the cache line between the cores. This is called \textbf{cache line bouncing}.
+    \item \textbf{True sharing}: two cores modify the same cache line and the same byte.
+    \item \textbf{False sharing}: two cores modify the same cache line but different bytes.
+\end{itemize}
+\subsection{Cache prefetching}
+Problem: cache misses create long delays. Solution: prefetch the data before it is needed.
+\begin{itemize}
+    \item Add \textbf{prefetch instructions} to the program, so the CPU will fetch the data before it is needed. But we need to know the access pattern before compile time. This is not always possible.
+    \item Use \textbf{hardware prefetchers} to predict the access pattern. The CPU will fetch the data before it is needed. This is more flexible.\begin{itemize}
+        \item The prefetching might not have a high hit rate. So we need to be careful with the prefetching.
+        \item It might evict useful data from the cache. So we turn off the prefetching if it has a low hit rate/confidence. 
+        \item Prefetching needs \textbf{off-chip memory bandwidth}. So if not high outcome, would rather use the bandwidth for other purposes.
+    \end{itemize}
+\end{itemize}
 \end{document}
 
