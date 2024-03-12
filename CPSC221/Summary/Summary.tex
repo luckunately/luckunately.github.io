@@ -1010,9 +1010,136 @@ Same idea as insertion. \begin{itemize}
 \end{itemize}
 Complexity is $O(\log n)$ since we need to perform a BST deletion $O(\log n)$ and then check the balance of the tree. If the tree is unbalanced, we need to do a rotation to balance the tree. The rotation is $O(1)$ since at most 2 rotations are needed. So the overall running time is $O(\log n)$.
 
+\section{B-trees}
+Observations: \begin{itemize}
+    \item AVL trees are great for small data sets.
+    \item AVL balance invariant guarantees worst case $O(\log n)$ find, insert, delete.
+    \item But nodes are allocated one at a time in dynamic memory. No guarantee that parents/children are close in memory. Thus, cache misses are likely.
+    \item Realities: For large data sets, \textbf{disk accesses} dominate running time.
+\end{itemize}
+\subsection{Disk access}
+Suppose we have a very large data set stored in a BST that it does not fit in RAM. Thus part of the tree must be on disk. 
 
+Different level of memory are accessed in blocks\begin{itemize}
+    \item BST nodes may all reside in different pages on disk.
+    \item A tree operation may require many disk accesses.
+\end{itemize}
 
+Goal: put more relevant data together in the same block.\begin{itemize}
+    \item Increase the number of keys in each node.
+    \item Minimize the number of disk accesses.
+\end{itemize}
+\subsection{B-trees nodes}
+A B-tree node defines an m-ary tree \begin{itemize}
+    \item Each node has up to $m-1$ keys and up to $m$ children.
+    \item Nodes are still fully ordered.
+    \item Additional pointer: parent, left sibling, right sibling.
+\end{itemize}
+Ideally, maximize the size of a B-tree node to fill a disk block. In practice, branching factors are greater than 10000 usually. 
+\subsection{B-tree properties}
+B-tree of order $m$ is an ordered m-ary tree\begin{itemize}
+    \item Internal nodes: $d$ keys and $d+1$ children where $m/2 \leq d \leq m-1$.
+    \item All leaves are at the same level.
+    \item All leaves hold no more than $m-1$ keys.
+    \item All non-root internal nodes have at least $m/2$ children.
+    \item The root has at least 2 children unless it is a leaf.
+\end{itemize}
+\includegraphics*{./Images/B-tree example.png}
+\subsection{B-tree operations}
+\subsubsection{Search}
+\begin{algorithmic}
+    \State {Start at the root.}
+    \State {Find the smallest key greater than or equal to the search key.}
+    \State {If the key is found, return the key.}
+    \State {If the key is not found, follow the child pointer to the next node.}
+    \State {Repeat until the key is found or the leaf is reached.}
+\end{algorithmic}
+\begin{lstlisting}[language=C++]
+T Search(BNode * current, T key){
+    while(current != NULL){
+        int i = 0;
+        while(i < current->keys.size() 
+        && key > current->keys[i]){
+            // Linear search within a node
+            i++;
+        }
+        if(i < current->keys.size() 
+        && key == current->keys[i]){
+            return current->keys[i];
+        }
+        // Find the child on RAM or disk.
+        current = current->children[i];
+    }
+    return NULL;
+}
+\end{lstlisting}
+The linear search within a node makes use of spatial locality. 
 
+\begin{itemize}
+    \item For each node visit, we need to perform a linear search $O(m)$.
+    \item Worst case we need to search $O(\text{height})$ nodes.
+    \item Then the running time is $O(m\times \text{height})$.
+    \item The height of a B-tree is $O(\log n)$.
+    \item So the running time is $O(m\log n)$.
+    \item $m$ is usually a constant, so the running time is $O(\log n)$.
+\end{itemize}
+\subsubsection{Insertion}
+List BST, we first search for the insertion location. Then we insert the key into the leaf node. If the leaf node is full, we need to split the node.
+\begin{lstlisting}[language=C++]
+void Insert(BNode * current, T key){
+    BNode * leaf = FindLeaf(current, key);
+    leaf->keys.push_back(key);
+    sort(leaf->keys.begin(), leaf->keys.end());
+    if(leaf->keys.size() == m){
+        Split(leaf);
+    }
+}
+\end{lstlisting}
+\subsubsection{Remove}
+\begin{itemize}
+    \item Find node containning the key.
+    \item If the key is in a leaf node, remove the key.
+    \item If the key is in an internal node, replace the key with the predecessor or successor.
+    \item If the leaf node is less than half full, borrow a key from a sibling or merge with a sibling.
+\end{itemize}
+\section{Hashing}
+Use arrays to store data. The key is used to calculate the index of the array.
 
-
+Fix the array size based on the amount of data to be stored. \begin{itemize}
+    \item map the key to an index in the array.
+    \item store the value at that index.
+    \item Need a good hash function to map keys to indices.
+\end{itemize}
+\subsection{Hash table}
+A hash table consists of an array to store data\begin{itemize}
+    \item Data often consists of complex types or pointers to such objects.
+    \item One attribute of the object is designated as the table's key.
+\end{itemize}
+A hash function maps a key to an array index in 2 steps\begin{itemize}
+    \item The key should be converted to an integer.
+    \item And then that integer is mapped to an array index using some function (often the modulo function).
+\end{itemize}
+\subsubsection{Collosions}
+A hash function may map two different keys to the same index(\textbf{collision}). \begin{itemize}
+    \item A good hash function minimizes collisions.
+    \item Collisions can be resolved by chaining or open addressing.
+    \item Necessary to have a policy for resolving collisions since collisions are not avoidable due to the pigeonhole principle.
+\end{itemize}
+\subsubsection{Hash function}
+Hash functions should have the following properties:\begin{itemize}
+    \item Fast to compute.
+    \item Deterministic: no randomness.
+    \item Uniform distribution: keys are mapped to indices uniformly.
+\end{itemize}
+\subsection{General principle}
+\begin{itemize}
+    \item Use the entire search key in the hash function.
+    \item If the has function uses modulo $m$, then $m$ should be a prime number.
+    \item A simple and ususally effictive has function is \begin{itemize}
+        \item Convert the key to an integer.
+        \item Use the modulo function to map the integer to an index.
+        \item $h(k) = k \mod m$ where $m$ is the size of the array.
+        \item $m$ should be a prime number.
+    \end{itemize}
+\end{itemize}
 \end{document}
