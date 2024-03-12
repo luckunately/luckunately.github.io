@@ -1135,11 +1135,47 @@ Hash functions should have the following properties:\begin{itemize}
 \begin{itemize}
     \item Use the entire search key in the hash function.
     \item If the has function uses modulo $m$, then $m$ should be a prime number.
-    \item A simple and ususally effictive has function is \begin{itemize}
+    \item A simple and usually effective function is \begin{itemize}
         \item Convert the key to an integer.
         \item Use the modulo function to map the integer to an index.
         \item $h(k) = k \mod m$ where $m$ is the size of the array.
         \item $m$ should be a prime number.
     \end{itemize}
+\end{itemize}
+\subsection{Hash Table Efficiency}
+When analyzing the efficiency of hashing, it is necessary to consider \textit{load factor}, $\lambda$\begin{itemize}
+    \item $\lambda = \frac{n}{m}$ where $n$ is the number of keys and $m$ is the size of the array.
+    \item As the table fills up, the number of collisions increases, $\lambda$ increases.
+    \item The table size should be selected so that $\lambda$ is does not exceed a certain value like 0.5. 
+\end{itemize}
+
+\subsection{Collision handling}
+\subsubsection{Open addressing}
+Idea: when a collision occurs, find another open slot in the array. \begin{itemize}
+    \item Linear probing: search for the next open slot.\begin{itemize}
+        \item The hash table is searched sequentially starting from the original hash value.
+        \item The search wraps around to the beginning of the table if necessary.
+        \item Linear probing leads to primary clustering. Gathering of keys in the same area. Reducing the efficiency of the hash table.
+        \item Searching goes through the same sequence of slots.
+    \end{itemize}
+    \item Quadratic probing: search for the next open slot using a quadratic function.
+    \item Double hashing: use a second hash function to find the next open slot. \begin{itemize}
+        \item Double hashing produces \textit{key dependent} probing sequences. Call it $h_2$ and $h_1$ is the original hash function. Then the next slot is $h_1(key) + i \times h_2(key)$, where $i$ is the number of probes.
+        \item $h_2(key)\neq 0, h_2(key)\neq h_1(key)$. A typical $h_2$ is $p-(key \mod p)$ where $p$ is a prime number less than the size of the array.
+    \end{itemize}
+\end{itemize}
+Removal is difficult in open addressing. We need to mark the slot as deleted and then reinsert the key since if we just remove the key, the empty slot will break the probing sequence.
+
+We put a tombstone in the slot to mark it as deleted which helps to maintain the probing sequence.
+
+However, it will add extra overhead after a large amount of insertions and deletions.
+
+So it makes sense to rehash the table after a large amount of insertions and deletions.
+\subsubsection{Separate Chaining}
+Each entry in the hash table is a pointer to a linked list. \begin{itemize}
+    \item When a collision occurs, the new key is added to the linked list
+    \item The linked list is searched for the key.
+    \item Performance degrades less rapidly as the load factor increases compared to open addressing.
+    \item Note that it adds extra overhead for the pointers. And the worst case is $O(n)$.
 \end{itemize}
 \end{document}
