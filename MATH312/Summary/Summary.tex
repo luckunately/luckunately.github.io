@@ -1395,23 +1395,64 @@ However, it does not work the other way around. If $m$ is prime, $2^m-1$ may or 
 
 In fact only 51 \textbf{Mersenne prime} is known, largest known is $2^{82589933}-1$.
 \begin{align*}
-    p = 2 & 2^2-1=3 & \text{Mersenne prime}\\
-    p = 3 & 2^3-1=7 & \text{Mersenne prime}\\
-    p = 5 & 2^5-1=31 & \text{Mersenne prime}\\
-    p = 7 & 2^7-1=127 & \text{Mersenne prime}\\
-    p = 11 & 2^{11}-1=2047=23\times 89 & \text{Composite}\\
-    p = 13 & 2^{13}-1=8191 & \text{Mersenne prime}\\
-    p = 17 & 2^{17}-1=131071 & \text{Mersenne prime}\\
-    p = 19 & 2^{19}-1=524287 & \text{Mersenne prime}\\
-    p = 23 & 2^{23}-1=47\times 178481 & \text{Composite}\\
-    p = 29 & 2^{29}-1=233\times 1103\times 2089 & \text{Composite}\\
-    p = 31 & 2^{31}-1=2147483647 & \text{Mersenne prime}
+    p = 2 &\implies 2^2-1=3 & \text{Mersenne prime}\\
+    p = 3 &\implies 2^3-1=7 & \text{Mersenne prime}\\
+    p = 5 &\implies 2^5-1=31 & \text{Mersenne prime}\\
+    p = 7 &\implies 2^7-1=127 & \text{Mersenne prime}\\
+    p = 11 &\implies 2^{11}-1=2047=23\times 89 & \text{Composite}\\
+    p = 13 &\implies 2^{13}-1=8191 & \text{Mersenne prime}\\
+    p = 17 &\implies 2^{17}-1=131071 & \text{Mersenne prime}\\
+    p = 19 &\implies 2^{19}-1=524287 & \text{Mersenne prime}\\
+    p = 23 &\implies 2^{23}-1=47\times 178481 & \text{Composite}\\
+    p = 29 &\implies 2^{29}-1=233\times 1103\times 2089 & \text{Composite}\\
+    p = 31 &\implies 2^{31}-1=2147483647 & \text{Mersenne prime}
 \end{align*}
+\begin{theorem}
+    Even numbers of the form $n=2^{m-1}(2^m-1)$ where $2^m-1$ is prime are perfect numbers.
+
+    Prime numbers of the form $2^m-1$ are called \textbf{Mersenne primes}.
+\end{theorem}
+\subsubsection{Euler's Perfect Number Theorem}
+\begin{theorem}
+    Let $n$ be an even perfect number, then there exists a prime number $m\ge 2$ such that $n=2^{m-1}(2^m-1)$ and $2^m-1$ is prime.
+\end{theorem}
+\begin{proof}
+    Write $n=2^s t$ where $t$ is odd. Our goal is to show that $t=2^{s+1}-1$ is prime. Note that if we set $m=s+1$, then $n=2^{m-1}t$ and $2^m-1=t$. We can do it since $n$ is even, $s \ge 1$ and $t$ is odd.
+
+    Since $n$ is perfect, then $\sigma(n)=2n$. Then $\sigma(n)=\sigma(2^s)\sigma(t)=(2^{s+1}-1)\sigma(t)=2n=2^{s+1}t$. 
+
+    We conclude that $2^{s+1} | \sigma(t)$ since $2^{s+1}-1$ and $2^{s+1}$ are relatively prime. Then $\sigma(t)=2^{s+1}q$ for some $q\in \mathbb{N}$.
+
+    Substitute it in we obtain $(2^{s+1}-1)q=t$. Thus $1\le q<t, q|t$. 
+
+    Claim that $q=1$. If $q>1$, then $t$ has a proper divisor $q$ such that $q<t$. Then$\sigma(t)\ge 1+q+t=2t+q>2t$. On the other hand, $\sigma(t)=2^{s+1}q=q+t$ since $(2^{s+1}-1)q=t$. Then we have a contradiction.
+
+    Therefore $q=1$ and $t=2^{s+1}-1$ is prime. Moreover, $\sigma(t)=2^{s+1}q=2^{s+1}=t+1$
+
+    So $t$ is a prime. In Summary, $n=2^{s+1}-1$ is prime and $n=2^{s+1}(2^{s+1}-1)$.
+\end{proof}
+Euler's Theorem shows that the problems of finding all even perfect numbers and finding all Mersenne primes are equivalent.
+\subsubsection{Mobius Inversion Formula}
+Let $f(n)$ be a multiplicative function. We know that $F(n)=\sum_{d|n}f(d)$ is also multiplicative. Can we recover $f(n)$ from $F(n)$?
+
+Mobius function: $\mu(n)=\begin{cases}
+    1 & \text{if } n=1 \\
+    0 & \text{if } n \text{ has a square factor} \\
+    (-1)^k & \text{if } n \text{ is a product of } k \text{ distinct primes}
+\end{cases}$
+Let the prime decomposition of $n$ be $n=p_1^{a_1}\cdots p_r^{a_r}$, then $\mu(n)=0$ if $a_i\ge 2$ for some $i$ and $\mu(n)=(-1)^r$ if $n$ is a product of $r$ distinct primes where $a_i=1$ for all $i$.
+
+Mobius Inversion Formula: \[
+    f(n)=\sum_{d|n}F(d)\mu(\frac{n}{d})
+\]
+For example: $f(n)=1$ for every $n$, then $F(n)=\sum_{d|n}1=\tau(n)$. Then by the inversion formula: fefefefefef
+
+Similarly, taking $f(n)=n$, we obtain efefefefefeffefe
 \subsection{Primality Testing}
 Given a positive integer $n$, how can we determine whether $n$ is prime?
 \begin{itemize}
     \item factoring means $n$ into a product of $ab$ where $1<a,b<n$.
-    \item testing $n$ for primality means checking whether $n$ has any divisors other than 1 and $n$. Or in other words, check whether or not a factorization of $n$ exists.
+    \item testing $n$ for primality means checking whether $n$ has any divisors other than 1 and $n$. In other words, check whether or not a factorization of $n$ exists.
 \end{itemize}
 
 There are fast tests for primality but no fast factorization algorithms are known.
