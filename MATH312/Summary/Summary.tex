@@ -1321,13 +1321,32 @@ Note that how the sets are disjoint.
 The Euler $\phi$ function is multiplicative. That is, if $\gcd(m,n)=1$, then $\phi(mn)=\phi(m)\phi(n)$.
 
 Here ``arithmetic'' means defined on the set of positive integers, ``multiplicative'' means $f(mn)=f(m)f(n)$ for all $m,n$ such that $\gcd(m,n)=1$.
+\begin{lemma}
+    If $n=p_1^{r_1}p_2^{r_2}\ldots p_k^{r_k}$ is the prime factorization of $n$ where $p_1,p_2,\ldots,p_k$ are distinct primes and $r_1,r_2,\ldots,r_k$ are positive integers, then \[
+        f(n)=\prod_{i=1}^k f(p_i^{r_i})
+    \]
+\end{lemma}
+This can be proved by recursively applying the multiplicative property of $f(n)$.
+
 \begin{theorem}
     If $f(n)$ is a multiplicative arithmetic function, then so is $F(n)=\sum_{d|n}f(d)$.
 
     Here the sum is taken over all positive divisors of $n$.
 \end{theorem}
 Example: If $f(n)$ is the Euler $\phi$ function, then $F(n)=\sum_{d|n}\phi(d)=n$ by the previous theorem
+\begin{proof}
+    Consider the prime decomposition os $m= p_1^{a_1}p_2^{a_2}\ldots p_k^{a_k}$ and $n= q_1^{b_1}q_2^{b_2}\ldots q_l^{b_l}$ where $p_1,p_2,\ldots,p_k,q_1,q_2,\ldots,q_l$ are distinct primes and $a_1,a_2,\ldots,a_k,b_1,b_2,\ldots,b_l$ are positive integers given that $\gcd(m,n)=1$.
 
+    Any divisor $d$ of $mn$ has a subset of $\{p_1,\ldots,p_k,q_1,\ldots,q_l\}$ as its prime factors. \begin{itemize}
+        \item Collect the $p_i$'s into a set $A$ and let the product of the elements in $A$ be $d_1$.
+        \item Collect the $q_i$'s into a set $B$ and let the product of the elements in $B$ be $d_2$.
+    \end{itemize}
+    Now $d=d_1 d_2, d_1|m, d_2|n$. Moreover, $d_1$ and $d_2$ are relatively prime, uniquely determined by $d$. 
+
+    Then $F(mn)=\sum_{d|mn}f(d)=\sum_{d_1|m,d_2|n}f(d_1d_2)=\sum_{d_1|m,d_2|n}f(d_1)f(d_2)=\sum_{d_1|m}f(d_1)\sum_{d_2|n}f(d_2)=F(m)F(n)$.
+
+    It shows that $F(n)$ is multiplicative.
+\end{proof}
 \begin{corollary}
     The following two arithmetic functions are multiplicative:
 
@@ -1335,14 +1354,59 @@ Example: If $f(n)$ is the Euler $\phi$ function, then $F(n)=\sum_{d|n}\phi(d)=n$
 
     $\tau(n) = $ number of positive divisors of $n$.
 \end{corollary}
+Example: $n=100=2^2\times 5^2$. 
+
+Then $\sigma(100)=\sigma(2^2)\sigma(5^2)=(1+2+4)(1+5+25)=\frac{2^3-1}{2-1}\frac{5^3-1}{5-1}=217$.
+
+$\tau(100)=\tau(2^2)\tau(5^2)=3\times 3=9$.
 \begin{proof}
-    TO BE aDDED!!!!!!!!!!!!!!!!!!!!!
+    If $f(n)=1$, then $F(n)=\sum_{d|n}f(d)=\tau(n)$.
 
-    what happend here?
-
-    test
+    If $f(n)=n$, then $F(n)=\sum_{d|n}d=\sigma(n)$.
 \end{proof}
+Knowing that $F(n)$ is multiplicative, we can write $F(n)=\prod_{i=1}^k F(p_i^{r_i})$ where $n=p_1^{r_1}p_2^{r_2}\ldots p_k^{r_k}$ is the prime factorization of $n$.
 
+This is by using the multiplicative property of $F(n)$ and the prime factorization of $n$.
+
+It leads to the following formula:\[
+    \tau(n)=\prod_{i=1}^k \tau(p_i^{r_i})=(r_1+1)(r_2+1)\ldots (r_k+1)
+\]
+This is because $\tau(p_i^{r_i})=r_i+1$, which is the number of divisors of $p_i^{r_i}$. Divisors of $p_i^{r_i}$ are $1,p_i,p_i^2,\ldots,p_i^{r_i}$.
+\subsubsection{Perfect numbers}
+\begin{theorem}
+    Let $n$ be a positive integer. Then $n$ is a perfect number if and only if $\sigma(n)=2n$.
+
+    Equivalently, $n$ is the sum of its proper divisors.
+\end{theorem}
+For example: $n=6$ is perfect because $\sigma(6)=1+2+3+6=12=\frac{2^2-1}{2-1}=\frac{3^2-1}{3-1}=2\times 6$.Or the other way: the proper divisors of 6 are 1,2,3. Then $1+2+3=6$.
+\begin{theorem}
+    Suppose $m\ge 2$ is a prime and $p=2^m-1$ is also a prime. Then $n=2^{m-1}p$ is a perfect number.
+\end{theorem}
+\begin{proof}
+    $\sigma(n)=\sigma(2^{m-1})\sigma(p)=\frac{2^m-1}{2-1}\frac{p^2-1}{p-1}=(2^m-1)(p+1)=2^m p=2n$
+\end{proof}
+\begin{lemma}
+    If $2^m-1$ is prime, then $m$ is prime.
+\end{lemma}
+\begin{proof}
+    If $m=ab$ is composite, $a,b\ge 2$, then $2^m-1=2^{ab}-1=(2^a)^b -1 =(2^a-1)((2^a)^{b-1}+(2^a)^{b-2}+\cdots+2^a+1)$ is also composite.
+\end{proof}
+However, it does not work the other way around. If $m$ is prime, $2^m-1$ may or may not be prime.
+
+In fact only 51 \textbf{Mersenne prime} is known, largest known is $2^{82589933}-1$.
+\begin{align*}
+    p = 2 & 2^2-1=3 & \text{Mersenne prime}\\
+    p = 3 & 2^3-1=7 & \text{Mersenne prime}\\
+    p = 5 & 2^5-1=31 & \text{Mersenne prime}\\
+    p = 7 & 2^7-1=127 & \text{Mersenne prime}\\
+    p = 11 & 2^{11}-1=2047=23\times 89 & \text{Composite}\\
+    p = 13 & 2^{13}-1=8191 & \text{Mersenne prime}\\
+    p = 17 & 2^{17}-1=131071 & \text{Mersenne prime}\\
+    p = 19 & 2^{19}-1=524287 & \text{Mersenne prime}\\
+    p = 23 & 2^{23}-1=47\times 178481 & \text{Composite}\\
+    p = 29 & 2^{29}-1=233\times 1103\times 2089 & \text{Composite}\\
+    p = 31 & 2^{31}-1=2147483647 & \text{Mersenne prime}
+\end{align*}
 \subsection{Primality Testing}
 Given a positive integer $n$, how can we determine whether $n$ is prime?
 \begin{itemize}
