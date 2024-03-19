@@ -1410,6 +1410,70 @@ To save the Issues, we urge for linkers:\begin{itemize}
     
     \includegraphics*[scale=0.6]{./Images/Static linking executable.png}
 \end{itemize}
+\subsection{Dynamic linking}
+\begin{itemize}
+    \item resolution and relocation are done at \textbf{runtime}
+    \item the linker creates a \textbf{shared object file} (e.g. \texttt{.so})\begin{itemize}
+        \item the shared object file contains the object files of the program
+        \item the shared object file contains the object files of the libraries
+    \end{itemize}
+    \item the loader loads the shared object file into memory and resolves the symbols at runtime
+    \item the loader relocates the symbols at runtime
+    \item the loader runs the program
+\end{itemize}
+\subsubsection{Challenges for dynamic linking}
+\begin{itemize}
+    \item do not \textbf{copy} the library code.\begin{itemize}
+        \item To solve the problem, map existing library \textbf{somewhere} in out virtual address space
+        \item Put actual addresses in library's symtab
+    \end{itemize}
+    \item do not \textbf{edit} the code memory.\begin{itemize}
+        \item startup would take too long
+        \item only worse because we would keep missing in the caches
+        \item want to make code non-writable to avoid attacks
+        \item To solve the problem, pick \textbf{unique offset} for each symbol. 
+        \item Create an \textbf{indirection table} to map the symbol to the actual address
+        \item Make all function calls \textbf{indirect} through the table via \textbf{PLT} e.g. (blr)
+        \item dynamic linking: fill the table with the actual addresses
+        \item Illustration of indirection via global offset table (GOT):
+        
+        \includegraphics*[scale=0.6]{./Images/Global offset table.png}
+    \end{itemize}
+\end{itemize}
+\subsubsection{Lazy binding}
+GOT still has to fill the offset table, which takes a long load time. So we use lazy binding to fill the GOT only when the function is called.
 
+Lazy binding:\begin{itemize}
+    \item initially, each offset table entry calls the \textbf{resolver} function
+    \item the resolver function finds the actual address of the symbol in ELF file
+    \item the loader puts the resolver address in the GOT
+    \item the first time the function is called, the resolver is called
+    \item resolver fins address in the lib's symtab, fills the GOT with the actual address
+\end{itemize}
+However, large overhead for the first call. Solve it with another indirection table, \textbf{PLT} (Procedure Linkage Table).
+\subsubsection{Procedure Linkage Table (PLT)}
+\begin{itemize}
+    \item linker \textbf{generates} a PLT entry for each function call
+    \item updates PC-relative bl offsets to call the PLT entry
+    \item also generates the resolver code (PLT resolver)
+\end{itemize}
+\begin{enumerate}
+    \item our code jumps to PLT entry for the function
+    \item PLT entry loads address from GOT, jumps to It
+    \item initially, GOT points to PLT resolver
+    \item PLT resolver finds the actual address of the function, fills the GOT with the actual address
+    \item next time, GOT points to the actual address
+\end{enumerate}
+\subsubsection{plugin}
+Idea: want to load and link additional libraries at runtime.
+
+\includegraphics*[scale = 0.7]{./Images/Plugins Eaxmple.png}
+
+\textbf{Interposition:} replace a function in a library with a function in another library. e.g. replace \texttt{malloc} with \texttt{my\_malloc}.
+
+\textbf{Runtime Interposition}: \begin{itemize}
+    \item can tell dynamic linker to preload a library \texttt{LD\_PRELOAD=/some/lib.so ./a.out}
+    \item first checks \texttt{lib.so} then other libraries $to$ can intercept calls to any function.
+\end{itemize}
 \end{document}
 
