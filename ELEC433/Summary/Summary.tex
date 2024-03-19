@@ -1227,7 +1227,7 @@ RMK: The lemma is equivalent as saying when $\alpha = (\alpha_1,\alpha_2,\ldots,
 \end{proof}
 
 
-
+where is proof?
 
 
 
@@ -1237,12 +1237,55 @@ RMK: The lemma is equivalent as saying when $\alpha = (\alpha_1,\alpha_2,\ldots,
 
 \end{proof}
 
+\section{Stochastic noise channel}
+\begin{definition}
+    A stochastic noise channel is a channel where the output is a random variable $Y$ given the input $X$. The probability of $Y$ given $X$ is $P(Y|X)$.
+\end{definition}
+Noise can be:\begin{itemize}
+    \item flipping up to $t$ bits
+    \item erasing up to $e$ bits
+\end{itemize}
+We want to decode the message correctly with a high probability no matter what the noise is.
 
+Shannon: what if the noise is stochastic?
+\subsection{Some common stochastic noise channels}
+Common assumption: Noise is independent and identically distributed (i.i.d.) over each transmission\begin{itemize}
+    \item Binary symmetric channel (BSC): $P(Y=1|X=0)=P(Y=0|X=1)=p$ if $X$ is the input $Y$ is the output. Whether you send 0 or 1, there is a probability $p$ that it will be flipped.
+    
+    $\forall i \in [n], Y_i = X_y \oplus Z_i$ where $Z_i$ is a random variable with $P(Z_i=1)=p, P(Z_i=0)=1-p$. The noise $Z$ is independent of the input $X$.
+    \item Binary erasure channel (BEC): $P(Y=1|X=1)=P(Y=0|X=0)=1-\epsilon, P(Y=?|X=0)=P(?=0|X=1)=\epsilon$. Here ? means the bit is erased.
+    
+    $\forall i \in [n], Y_i = X_i$ with probability $1-\epsilon$, $Y_i=?$ with probability $\epsilon$.
 
+    iid noise assumption $\implies$ $P(Y^n|X^n)=\prod_{i=1}^{n}P(Y_i|X_i)$
 
+    RMK: A stochastic noise channel is fully characterized by the channel transition probability $P(Y|X)$.
+    \item Additive white Gaussian noise (AWGN): $Y=X+N$ where $N\sim \mathcal{N}(0,\sigma^2)$\begin{itemize}
+        \item Map $\{0,1\} \to \{-1,1\}$
+        \item Let $Z_i\sim \mathcal{N}(0,\sigma^2)$ be the noise.  The Gaussian noise with zero mean and variance $\sigma^2$, independent of the input $X$.
+        \item Then $Y_i=X_i+Z_i, \forall i\in[n]$. $P(Y|X)$ is the Gaussian distribution. \[P(Y|X)=P(Z=Y-X)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(Y-X)^2}{2\sigma^2}}\]. This is the probability density function of the Gaussian distribution.
+        \item Given $X_i=1, Y_i\sim \mathcal{N}(1,\sigma^2)$ Shift the mean from 0 to 1.
+        \item Given $X_i=-1, Y_i\sim \mathcal{N}(-1,\sigma^2)$ Shift the mean from 0 to -1.
+    \end{itemize}
+\end{itemize}
+\subsection{New performance criteria for stochastic noise channel}
+Since the noise is stochastic, we cannot guarantee that the message will have up to $t$ errors or $e$ erasures. We are motivated to define the ``probability of error'' and the ``probability of erasure''.
 
+probability of error $P_e = \Pr[\hat{X}\neq X]$
 
+probability of erasure $P_{\epsilon} = \Pr[\hat{X}=?]$
 
+We want to design a code such that $P_e$ and $P_{\epsilon}$ are small.
+
+\subsubsection{Tradeoff between $R$ V.S. $P_e$ and $P_{\epsilon}$ for repetition code}
+ENC: $\begin{cases}
+    u \to x^n = u\otimes 1^n \\
+    0 \to 0^n \\
+    1 \to 1^n
+\end{cases}$
+
+\subsubsection{maximum likelihood decoding}
+Given $Y^n$, find $\hat{X}^n$ that maximizes $P(Y^n|\hat{X}^n)$. If the probability is equal, break the tie arbitrarily and uniformly.
 
 
 \end{document}

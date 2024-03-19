@@ -402,6 +402,25 @@ Array size is fixed, so the front and the end cannot move physically. Copying th
 The idea of a circular array is that the end of the array ``wraps around'' to the beginning of the array. We use the modulo operator to calculate the index of the next element.
 
 The only problem it resizing. When resizing, we need to copy the other. But note that we should put the front of the queue at the beginning of the array instead of the original order of the queue. It is because the capacity changed, we need to start from the beginning of the array.
+
+\subsection{Priority Queue}
+A priority queue is a data structure that stores a sequence of elements. Each element has a priority. Enqueue adds an element to the priority queue. Dequeue removes the element with the highest priority.
+
+\begin{itemize}
+    \item Prioritisation is a weaker condition then ordering
+    \item Order of insertion is not important
+    \item A priority queue is an ADT that maintains a multiset of items: allows duplicates
+    \item Two or more distinct items in a priority queue may have the same priority
+    \item If all items have the same priority, the priority queue behavior is subject to the implementation
+\end{itemize}
+\subsubsection{Complexity}
+\begin{itemize}
+    \item Enqueue: $O(\log n)$
+    \item Dequeue: $O(\log n)$
+    \item Peek: $O(1)$
+\end{itemize}
+\subsubsection{Implementation}
+See heap section for the implementation of priority queue.
 \section{Sort}
 \subsection{Selection Sort}
 \begin{lstlisting}[language=C++]
@@ -1178,4 +1197,101 @@ Each entry in the hash table is a pointer to a linked list. \begin{itemize}
     \item Performance degrades less rapidly as the load factor increases compared to open addressing.
     \item Note that it adds extra overhead for the pointers. And the worst case is $O(n)$.
 \end{itemize}
+\section{Heaps}
+A heap is a binary tree with the following properties:\begin{itemize}
+    \item It is a complete binary tree.\begin{itemize}
+        \item All levels are filled except possibly the last level.
+        \item The last level is filled from left to right.
+    \end{itemize}
+    \item It is partially ordered:\begin{itemize}
+        \item For a max heap, the value of each node is greater than or equal to the value of its children.
+        \item For a min heap, the value of each node is less than or equal to the value of its children.
+    \end{itemize}
+\end{itemize}
+It is totally possible that two binary heaps have the same values but different structures.
+\subsection{Implementation}
+A heap can be implemented using an array. \begin{itemize}
+    \item The root is at index 1.
+    \item The left child of a node at index $i$ is at index $2i+1$.
+    \item The right child of a node at index $i$ is at index $2i+2$.
+    \item The parent of a node at index $i$ is at index $i/2$.
+\end{itemize}
+\begin{lstlisting}[language=C++]
+template <class LIT>
+class MinHeap{
+    private:
+        int size;
+        int capacity;
+        LIT * arr;
+    public:
+        ...
+};
+
+template <class LIT>
+MinHeap<LIT>::MinHeap(int capacity){
+    this->capacity = capacity;
+    this->size = 0;
+    this->arr = new LIT[capacity];
+}
+\end{lstlisting}
+\subsubsection{Insertion}
+To maintain the heap property, we need to perform a \textbf{percolate up} operation. \begin{itemize}
+    \item Insert the new value at the end of the array.
+    \item Compare the new value with its parent.
+    \item If the new value is less than its parent, swap the new value with its parent.
+    \item Repeat until the new value is greater than or equal to its parent.
+\end{itemize}
+Finding the last index is $O(1)$ and percolating up is $O(\log n)$. So the overall running time is $O(\log n)$.
+\subsubsection{Deletion}
+To maintain the heap property, we need to perform a \textbf{percolate down} operation. \begin{itemize}
+    \item Replace the root with the last value in the array.
+    \item Compare the new root with its children.
+    \item If the new root is greater than its children, swap the new root with the smaller child. (This is for a min heap, for a max heap, swap with the larger child)
+    \item Repeat until the new root is less than or equal to its children. (This is for a min heap, for a max heap, repeat until the new root is greater than or equal to its children)
+\end{itemize}
+Finding the last index is $O(1)$ and percolating down is $O(\log n)$. So the overall running time is $O(\log n)$.
+\subsubsection{Resize}
+When the array is full, we need to resize the array. The resizing operation is $O(n)$. Very similar to the resizing operation in a dynamic array.
+\subsection{Build a heap}
+To create a heap from an unordered array, repeatedly call \textbf{heapifyDown}\begin{itemize}
+    \item Any subtree in a heap is itself a heap.
+    \item Call heapifyDown on elements in the upper $\frac{1}{2}$ of the array. Since the lower half are leaf nodes which are already heaps.
+    \item Start from index $\frac{n}{2}$ and go down to 0. (From the last non-leaf node to the root)
+\end{itemize}
+\begin{lstlisting}[language=C++]
+template <class LIT>
+void MinHeap<LIT>::BuildHeap(){
+    for(int i=size/2; i>=0; i--){
+        PercolateDown(i);
+    }
+}
+\end{lstlisting}
+\subsubsection{Complexity of build heap}
+\begin{itemize}
+    \item The cost for heapifyDown is $O(\log n)$ which is the height of the tree. We need to perform heapifyDown for each non-leaf node which is $\frac{n}{2}$.
+    \item It would look like $O(n\log n)$ but it is actually $O(n)$.
+    \item It is because heapifyDown must still follow a single path down to the bottom level. 
+    \item There are exactly a maximum of $n-1$ edges that can perform heapifyDown since each node can only perform heapifyDown once.
+\end{itemize}
+\subsection{Heap sort}
+\begin{itemize}
+    \item Build a heap from the array.
+    \item Repeatedly remove the root from the heap and insert it into the end of the array.
+    \item The array is now sorted.
+\end{itemize}
+\begin{lstlisting}[language=C++]
+template <class LIT>
+void MinHeap<LIT>::HeapSort(){
+    for(int i=size-1; i>0; i--){
+        swap(arr[0], arr[i]);
+        size--;
+        PercolateDown(0);
+    }
+}
+\end{lstlisting}
+\includegraphics*{./Images/Heap Sort example.png}
+
+\includegraphics*[scale = 0.8]{./Images/Heap Sort V.S. Merge Sort.png}
+
+Note that Merge Sort is recursive and requires additional space on the call stack. Heap Sort is iterative and does not require additional space on the call stack.
 \end{document}
