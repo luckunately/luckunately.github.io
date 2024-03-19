@@ -1305,5 +1305,111 @@ Problem: cache misses create long delays. Solution: prefetch the data before it 
         \item Prefetching needs \textbf{off-chip memory bandwidth}. So if not high outcome, would rather use the bandwidth for other purposes.
     \end{itemize}
 \end{itemize}
+\section{Linking}
+\subsection{The need for linking}
+When compiling a program, we need to link the object files together to create an executable file.\begin{enumerate}
+    \item compiles the source code into object files e.g. \texttt{gcc -c file.c}
+    \item link the object files into an executable file e.g. \texttt{gcc file1.o file2.o -o file}
+    \item load the executable file into memory and run it
+\end{enumerate}
+\subsubsection{the hidden pieces}
+\begin{itemize}
+    \item \textbf{crt0}: the C runtime startup code. It initializes the program and calls the main function.\begin{itemize}
+        \item defines \texttt{\_start}
+        \item sets up the stack
+        \item initializes the C runtime. e.g. \texttt{malloc}, \texttt{free}, \texttt{printf}, \textbf{stack canaries}, \textbf{stdio}, \textbf{errno}, etc.
+        \item runs C++ constructors for global objects
+        \item calls \texttt{main}
+    \end{itemize}
+    \item \textbf{libc}: the C standard library. It provides the standard C functions. e.g. \texttt{printf}, \texttt{malloc}, \texttt{free}, etc.
+\end{itemize}
+\subsubsection{Advantages of linking}
+\begin{itemize}
+    \item \textbf{reusability}: we can reuse the object files in different programs
+    \item \textbf{modularity}: we can split the program into different object files
+    \item \textbf{efficiency}: we can compile the object files separately and only recompile the changed object files
+    \item \textbf{separation of concerns}: we can separate the implementation from the interface
+    \item \textbf{dependency management}: we can manage the dependencies between the object files
+\end{itemize}
+\subsection{Object files}
+By running \texttt{objdump -t xxx.o}, we can see the symbol table of the object file. It contains the symbols and their addresses.
+
+\includegraphics*[scale = 0.8]{./Images/crazylist object.png}
+
+\includegraphics*[scale = 0.7]{./Images/main object.png}
+
+Note that addresses start at zero. The addresses are relative to the start of the object file. The addresses are not the actual addresses in the memory. Otherwise, we get conflicts and segmentation faults.
+
+To save the Issues, we urge for linkers:\begin{itemize}
+    \item \textbf{resolve the addresses}: replace the relative addresses with the actual addresses
+    \item \textbf{resolve the symbols}: replace the symbols with the actual addresses
+    \item \textbf{combine the object files}: combine the object files into an executable file
+    \item \textbf{resolve the relocations}: replace the relative addresses with the actual addresses
+\end{itemize}
+\subsection{Static linking}
+\begin{itemize}
+    \item resolution and relocation are done at \textbf{link time}
+    \item the linker combines the object files into an executable file\begin{itemize}
+        \item relocatable object files: \texttt{.o}\begin{itemize}
+            \item code/data/debug info $\to$ combined with other \texttt{.o} files $\to$ executable
+            \item static libraries: \texttt{.a} (archive)\begin{itemize}
+                \item collection of \texttt{.o} files
+                \item \texttt{ar} to create and manipulate
+                \item \texttt{ranlib} to create an index
+                \end{itemize}
+            
+        \end{itemize}
+        \item shared object files: \texttt{.so} (shared object)\begin{itemize}
+            \item linked $.o$ files $\to$ dynamic libraries before or during runtime
+            \end{itemize}
+    \end{itemize}
+\end{itemize}
+\subsubsection{Meta Data}
+\includegraphics*{./Images/Meta Data of Executable.png}
+\begin{itemize}
+    \item \textbf{ELF header}: the header of the executable file. It contains the meta data of the executable file. e.g. the type of the file, the architecture of the file, the entry point of the file, word size, endianness etc.
+    \item \textbf{program header}: the header of the program. It contains the meta data of the program. e.g. the type of the program, the offset of the program, the virtual address of the program, the physical address of the program, the size of the program, the alignment of the program, etc.
+    \item \textbf{.text section}: the code of the program. It contains the instructions of the program. It is read-only.
+    \item \textbf{.rodata section}: the read-only data of the program. It contains the constants of the program. It is read-only.
+    \item \textbf{.data section}: the data of the program. It contains the global variables of the program. It is read-write.
+    \item \textbf{.bss section}: the uninitialized data of the program. It contains the uninitialized global variables of the program. It is read-write.
+    \item \textbf{.symtab section}: the symbol table of the program. It contains the symbols of the program. e.g. the functions of the program, the variables of the program, etc.
+    \item \textbf{various rel, plt, got sections}: the relocation, procedure linkage table, global offset table sections of the program. They contain the relocation, procedure linkage table, global offset table of the program. They are used for dynamic linking.
+    \item \textbf{.debug section}: the debug information of the program. It contains the debug information of the program. e.g. the source code of the program, the line numbers of the program, the types of the program, etc. Only present in the debug version of the program, e.g. the program compiled with the -g flag.
+    \item \textbf{section header}: section types/locations $\to$ linker $\to$ program
+\end{itemize}
+\subsubsection{Symbol resolution}
+\begin{itemize}
+    \item find references to \textbf{unresolved symbols} in the object files, e.g. \texttt{printf} (functions from libraries/libc)
+    \item find matching entries in the \textbf{symbol table} of the object files, e.g. \texttt{printf} $\to$ \texttt{printf@GLIBC\_2.2.5}
+    \item replace each reference with a \textbf{unique definition} (or fail) \begin{itemize}
+        \item if the symbol is not found, the linker will fail
+        \item if the symbol is found, the linker will replace the reference with the definition
+        \item if the symbol is found in multiple object files, the linker will fail
+    \end{itemize}
+\end{itemize}
+\subsubsection{symbol resolution procedure}
+\begin{enumerate}
+    \item load \textbf{symbol table} from each object file
+    \item for each \textbf{referenced} but \textbf{unresolved symbol} in the object files\begin{itemize}
+        \item find a \textbf{matching definition} in the symbol tables
+        \item replace the reference with the definition
+        \item if the symbol is not found, the linker will fail
+        \item if the symbol is found in multiple object files, the linker will fail
+    \end{itemize}
+\end{enumerate}
+\subsubsection{Relocation}
+\begin{itemize}
+    \item \textbf{merge} code and data from multiple object files into one executable
+    
+    \includegraphics*[scale=0.5]{./Images/Static linking merge.png}
+    \item \textbf{move} each symbol to a unique address in the executable (non-overlapping)
+    
+    \includegraphics*[scale=0.6]{./Images/Static linking relocation.png}
+    \item \textbf{replace} each reference to a symbol with the address of the symbol
+    
+    \includegraphics*[scale=0.6]{./Images/Static linking executable.png}
+\end{itemize}
+
 \end{document}
 
