@@ -1317,7 +1317,7 @@ To illustrate the proof, consider $n=12$. Then \begin{align*}
 Then $|C_{12}|+|C_6|+|C_4|+|C_3|+|C_2|+|C_1|=1+1+2+2+2+4=12$.
 
 Note that how the sets are disjoint. 
-\subsubsection{Multuplicative}
+\subsection{Multuplicative}
 The Euler $\phi$ function is multiplicative. That is, if $\gcd(m,n)=1$, then $\phi(mn)=\phi(m)\phi(n)$.
 
 Here ``arithmetic'' means defined on the set of positive integers, ``multiplicative'' means $f(mn)=f(m)f(n)$ for all $m,n$ such that $\gcd(m,n)=1$.
@@ -1372,7 +1372,7 @@ It leads to the following formula:\[
     \tau(n)=\prod_{i=1}^k \tau(p_i^{r_i})=(r_1+1)(r_2+1)\ldots (r_k+1)
 \]
 This is because $\tau(p_i^{r_i})=r_i+1$, which is the number of divisors of $p_i^{r_i}$. Divisors of $p_i^{r_i}$ are $1,p_i,p_i^2,\ldots,p_i^{r_i}$.
-\subsubsection{Perfect numbers}
+\subsection{Perfect numbers}
 \begin{theorem}
     Let $n$ be a positive integer. Then $n$ is a perfect number if and only if $\sigma(n)=2n$.
 
@@ -1425,7 +1425,7 @@ In fact only 51 \textbf{Mersenne prime} is known, largest known is $2^{82589933}
 
     Substitute it in we obtain $(2^{s+1}-1)q=t$. Thus $1\le q<t, q|t$. 
 
-    Claim that $q=1$. If $q>1$, then $t$ has a proper divisor $q$ such that $q<t$. Then$\sigma(t)\ge 1+q+t=2t+q>2t$. On the other hand, $\sigma(t)=2^{s+1}q=q+t$ since $(2^{s+1}-1)q=t$. Then we have a contradiction.
+    Claim that $q=1$. If $q>1$, then $t$ has a proper divisor $q$ such that $q<t$. Then $\sigma(t)\ge 1+q+t=2t+q>2t$. On the other hand, $\sigma(t)=2^{s+1}q=q+t$ since $(2^{s+1}-1)q=t$. Then we have a contradiction.
 
     Therefore $q=1$ and $t=2^{s+1}-1$ is prime. Moreover, $\sigma(t)=2^{s+1}q=2^{s+1}=t+1$
 
@@ -1436,18 +1436,65 @@ Euler's Theorem shows that the problems of finding all even perfect numbers and 
 Let $f(n)$ be a multiplicative function. We know that $F(n)=\sum_{d|n}f(d)$ is also multiplicative. Can we recover $f(n)$ from $F(n)$?
 
 Mobius function: $\mu(n)=\begin{cases}
-    1 & \text{if } n=1 \\
     0 & \text{if } n \text{ has a square factor} \\
     (-1)^k & \text{if } n \text{ is a product of } k \text{ distinct primes}
 \end{cases}$
-Let the prime decomposition of $n$ be $n=p_1^{a_1}\cdots p_r^{a_r}$, then $\mu(n)=0$ if $a_i\ge 2$ for some $i$ and $\mu(n)=(-1)^r$ if $n$ is a product of $r$ distinct primes where $a_i=1$ for all $i$.
+
+In particular, $\mu(1)=1$, since 1 is a product of 0 distinct primes.
+
+Let the prime decomposition of $n$ be $n=p_1^{a_1}\cdots p_r^{a_r}$, then $\mu(n)=0$ if $\exists a_i\ge 2$ for some $i$ and $\mu(n)=(-1)^r$ if $n$ is a product of $r$ distinct primes where $a_i=1$ for all $i$.
 
 Mobius Inversion Formula: \[
     f(n)=\sum_{d|n}F(d)\mu(\frac{n}{d})
 \]
-For example: $f(n)=1$ for every $n$, then $F(n)=\sum_{d|n}1=\tau(n)$. Then by the inversion formula: fefefefefef
+For example: $f(n)=1$ for every $n$, then $F(n)=\sum_{d|n}1=\tau(n)$ which is the number of positive divisors of $n$. By the inversion formula, $\sum_{d|n}\tau(d)\mu(\frac{n}{d})=1$.
 
-Similarly, taking $f(n)=n$, we obtain efefefefefeffefe
+Similarly, taking $f(n)=n$, we obtain $F(n)=\sum_{d|n}d=\sigma(n)$. It is the sum of the positive divisors of $n$. Then $\sum_{d|n}\sigma(d)\mu(\frac{n}{d})=n$.
+\begin{lemma}
+    $\mu(n)$ is multiplicative.
+\end{lemma}
+\begin{proof}
+    Let $n=p_1^{a_1}p_2^{a_2}\ldots p_k^{a_k}$ and $m=q_1^{b_1}q_2^{b_2}\ldots q_l^{b_l}$ where $p_1,p_2,\ldots,p_k,q_1,q_2,\ldots,q_l$ are distinct primes and $a_1,a_2,\ldots,a_k,b_1,b_2,\ldots,b_l$ are positive integers. We can do that since $\gcd(m,n)=1$.
+
+    Then $\mu(nm)=\begin{cases}
+        0 & \text{if } n \text{ has a square factor} \\
+        (-1)^k & \text{if } n \text{ is a product of } k \text{ distinct primes}
+    \end{cases}$
+
+    Where is my real proof?
+
+    Then $\mu(nm)=\mu(n)\mu(m)$.
+\end{proof}
+\begin{lemma}
+    If $n$ is a positive integer, then \[
+        \sum_{d|n}\mu(d)=\begin{cases}
+            1 & \text{if } n=1 \\
+            0 & \text{if } n>1
+        \end{cases}
+    \]
+\end{lemma}
+\begin{proof}
+    Let $M(n)=\sum_{d|n}\mu(d)$. Then $M(1)=\mu(1)=1$. 
+
+    Note that $M(n)$ is multiplicative.
+
+    If $n=p_1^{a_1}p_2^{a_2}\ldots p_k^{a_k}$, then $M(n)=\sum_{d|n}\mu(d)=\prod_{i=1}^k M(p_i^a)$%=\prod_{i=1}^k \sum_{a=0}^{a_i}\mu(p_i^a)$.
+
+    Observe that for any $M(p^a)=\sum_{d|p^a}=1+(-1)+0+\cdots+0=0$ if $a>1$ and $M(p)=1-1=0$ if $a=1$.
+
+    Then $M(n)=0$ if $n>1$.
+\end{proof}
+
+Now come back to the Mobius Inversion Formula. We can write it as \[
+    f(n)=\sum_{d|n}F(d)\mu(\frac{n}{d})=\sum_{d|n}F(\frac{n}{d})\mu(d)
+\]
+\begin{proof}
+    The idea is to change the order of summation. Note that $F(\frac{n}{d})=\sum_{e|\frac{n}{d}}f(e)$.
+
+    Then \[
+        f(n)=\sum_{d|n}F(\frac{n}{d})\mu(d)=\sum_{d|n}\sum_{e|\frac{n}{d}}f(e)\mu(d)=\sum_{e|n}\sum_{d|\frac{n}{e}}f(e)\mu(d)=\sum_{e|n}f(e)\sum_{d|\frac{n}{e}}\mu(d)
+    \]
+\end{proof}
 \subsection{Primality Testing}
 Given a positive integer $n$, how can we determine whether $n$ is prime?
 \begin{itemize}
@@ -1596,6 +1643,25 @@ Factor 10403: \begin{align*}
     &\gcd(9799,10403)  = 101 && 10403=101\times 103
 \end{align*}
 $p=101$ is a prime factor of 10403. Then $p-1=100$. Then $100=2^2 5^2\mid 10!$. Then $p-1\mid 10!$ when $k=10$.
+
+\section{Cryptography}
+A cryptosystem consists of:\begin{itemize}
+    \item A set `P' of possible \textbf{plaintexts}. (unencrypted messages)
+    \item A set `C' of possible \textbf{ciphertexts}. (encrypted messages)
+    \item An enciphering function/transmission $f$ that maps $P$ into $C$. $f$ should be a bijection.
+    \item A deciphering function $g$ that maps $C$ into $P$. $g$ should be the inverse of $f$. $g\circ f (x)=x$ for all $x\in P$.
+    \item P and C usually consist of integers or congruence classes mod n for some n.
+\end{itemize}
+In a classical cryptography system, both $f$ and $f^{-1}$ are unknown to the public. The security of the system depends on the secrecy of $f$ and $f^{-1}$. Knowing one can get the other.
+
+In a public key cryptosystem, $f$ is public and $f^{-1}$ is private. The security of the system depends on the difficulty of computing $f^{-1}$ from $f$.
+
+First example: $P=C=\{0,1,\ldots,25\}=\mathbb{Z}\pmod {26}$. This corresponds to the 26 letters of the English alphabet.
+
+$f(x)=x+b \pmod{26}$ for some $b\in \mathbb{Z}\pmod {26}$. $b$ is the key. It is called shift cipher, $b$ is both the encryption and decryption key.
+
+
+
 
 
 \end{document}

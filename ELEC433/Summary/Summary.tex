@@ -1287,5 +1287,14 @@ ENC: $\begin{cases}
 \subsubsection{maximum likelihood decoding}
 Given $Y^n$, find $\hat{X}^n$ that maximizes $P(Y^n|\hat{X}^n)$. If the probability is equal, break the tie arbitrarily and uniformly.
 
+RMK: Bayesian inference: Under the uniform message assumption, the \textbf{optimal} decoding rule (in the sense of minimizing the probability of error) for stochastic noise channel is the following: \[
+    \hat{X}^n = \arg\max_{x^n\in\mathcal{C}}P(Y^n|X^n)
+\]
+break the tie arbitrarily and uniformly.
 
+$\hat{u}^k$ is the message corresponding to $\hat{X}^n$.
+\subsection{Coding over BSC(p)}
+\begin{definition}
+    A code $\mathcal{C}$ is said to be \textbf{good} for the BSC(p) if the probability of error $P_e$ is small.
+\end{definition}
 \end{document}
