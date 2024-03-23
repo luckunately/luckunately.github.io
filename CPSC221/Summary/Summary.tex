@@ -1064,6 +1064,18 @@ B-tree of order $m$ is an ordered m-ary tree\begin{itemize}
     \item The root has at least 2 children unless it is a leaf.
 \end{itemize}
 \includegraphics*{./Images/B-tree example.png}
+
+For a tree of height $h$, what is the minimum number of nodes? \begin{itemize}
+    \item root has 1 key and at least 2 children.
+    \item each internal node has at least $\lceil m/2 \rceil$ children. ($\lceil m/2 \rceil- 1$ keys)
+    \item Let $t = \lceil m/2 \rceil$.\begin{enumerate}
+        \item level 0 (root): 1 node two children.
+        \item level 1: $2\times t^0$ nodes with $t$ children each and $t-1$ keys each.
+        \item level 2: $2\times t^1$ nodes with a total of $2\times t^1 \times t$ children and $2\times t^1 \times (t-1)$ keys.
+        \item level $h$: $2\times t^{h-1}$ nodes with a total of $2\times t^{h-1} \times t$ children and $2\times t^{h-1} \times (t-1)$ keys.
+    \end{enumerate}
+    \item The total number of nodes is $1 + 2\sum_{i=0}^{h-1} t^i$.
+\end{itemize}
 \subsection{B-tree operations}
 \subsubsection{Search}
 \begin{algorithmic}
@@ -1114,6 +1126,9 @@ void Insert(BNode * current, T key){
     }
 }
 \end{lstlisting}
+We will split the node like this:\begin{itemize}
+    \item The median key is moved up to the parent.
+\end{itemize}
 \subsubsection{Remove}
 \begin{itemize}
     \item Find node containning the key.
