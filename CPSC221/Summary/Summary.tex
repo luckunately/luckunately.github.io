@@ -599,9 +599,59 @@ A set is a data structure that stores a set of keys. \begin{itemize}
 \end{itemize}
 \subsection{Set implementation}
 \includegraphics*[scale = 0.8]{./Images/Set implementations.jpg}
-
-
-
+\subsection{Disjoint Set}
+\subsubsection{Disjoint set ADT}
+No element is the member of different sets. The sets are disjoint. The ADT has the following operations:\begin{itemize}
+    \item MakeSet(x): create a new set with the element x.
+    \item Find(x): return the representative of the set that contains x.
+    \item Union(x, y): merge the sets that contain x and y.
+\end{itemize}
+Find(x) = Find(y) if and only if x and y are in the same set. Union(x, y) = Union(y, x) causes their sets to be merged permanently.
+\subsubsection{Simple Array implementation}
+Index is the element ID, value is the set ID. Find is $O(1)$, Union is $O(n)$. Union need to update all elements in the set by linear search.
+\begin{lstlisting}[language=C++]
+int parent[MAX_SIZE];
+void MakeSet(int x){
+    parent[x] = x;
+}
+int Find(int x){
+    return parent[x];
+}
+void Union(int x, int y){
+    int set_x = Find(x);
+    int set_y = Find(y);
+    for(int i=0; i<MAX_SIZE; i++){
+        if(parent[i] == set_x){
+            parent[i] = set_y;
+        }
+    }
+}
+\end{lstlisting}
+\subsection{Tree based array implementation}
+Still array based, but the array is a tree. Find is $O(\log n)$, Union is $O(\log n)$.\begin{itemize}
+    \item if array value is -1, then it is the root of the tree.
+    \item if array value is $i$, then the parent is $i$.
+    \item $x,y \in S$ if and only if $Find(x) = Find(y)$ which means they are in the same tree.
+\end{itemize}
+\begin{lstlisting}
+int parent[MAX_SIZE];
+void MakeSet(int x){
+    parent[x] = -1;
+}
+int Find(int x){
+    if(parent[x] == -1){
+        return x;
+    }
+    return Find(parent[x]);
+}
+void Union(int x, int y){
+    int set_x = Find(x);
+    int set_y = Find(y);
+    parent[set_x] = set_y;
+}
+\end{lstlisting}
+\subsubsection{Smarter Union}
+The naive union is $O(n)$ because we need to update all elements in the set. We can make it $O(\log n)$ by making the tree height smaller. We can make the tree height smaller by making the smaller tree a subtree of the larger tree. We can do this by comparing the size of the trees.
 
 \section{Trees}
 A tree will have a parent node connecting to multiple child nodes. The connection is called an edge. 
@@ -1309,4 +1359,7 @@ void MinHeap<LIT>::HeapSort(){
 \includegraphics*[scale = 0.8]{./Images/Heap Sort V.S. Merge Sort.png}
 
 Note that Merge Sort is recursive and requires additional space on the call stack. Heap Sort is iterative and does not require additional space on the call stack.
+
+
+
 \end{document}
