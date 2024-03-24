@@ -1297,4 +1297,10 @@ $\hat{u}^k$ is the message corresponding to $\hat{X}^n$.
 \begin{definition}
     A code $\mathcal{C}$ is said to be \textbf{good} for the BSC(p) if the probability of error $P_e$ is small.
 \end{definition}
+\subsection{Hamming code over BSC(p)}
+Let $p$ be the probability of bit flip. Since the distance of the Hamming code is 3, it can correct 1 error. Probability of error $P_e$ that can be corrected is: \[
+    P_e = 1-(1-p)^7 - \binom{7}{1}(1-p)^6p
+\]
+
+syndrome decoding for hamming code: 
 \end{document}

@@ -1475,5 +1475,87 @@ Idea: want to load and link additional libraries at runtime.
     \item can tell dynamic linker to preload a library \texttt{LD\_PRELOAD=/some/lib.so ./a.out}
     \item first checks \texttt{lib.so} then other libraries $to$ can intercept calls to any function.
 \end{itemize}
+\section{Dynamic dispatch}
+\subsection{The need for dynamic dispatch}
+\begin{itemize}
+    \item \textbf{polymorphism}: the ability to treat objects of different types in a uniform way
+    \item \textbf{dynamic binding}: the ability to call the right function at runtime
+    \item \textbf{inheritance}: the ability to inherit the properties of a base class
+\end{itemize}
+\subsection{Closure}
+So C has function pointers, but to use them in certain environments, we need to store some variables along with the function pointer. This is called a closure.
+\begin{itemize}
+    \item \textbf{function pointer}: a pointer to a function
+    \item \textbf{function object}: an object that behaves like a function
+    \item \textbf{closure}: a function object that captures the environment
+\end{itemize}
+\includegraphics*[scale=0.7]{./Images/C closures example.png}
+\begin{lstlisting}[language=C]
+typedef struct cl_s{
+    long (*fn) (struct cl_s *f, long x);
+    long y;
+} cl_t;
+
+long _f(cl_t *cl, long x) {
+    return x + cl->y;
+}
+
+cl_t add (long y) {
+    cl_t cl = {_f, y};
+    return cl;
+}
+
+int main() {
+    cl_t add10 = add(10);
+    add10.fn(&add10, 5); // 15
+
+    cl_t add2 = add(2);
+    add2.fn(&add2, 5); // 7
+}
+\end{lstlisting}
+Have a look at assembly level:
+\begin{lstlisting}
+_f:
+    // load cl->y into x0
+    ldr x0, [x0, #8]
+    // add cl->y, x
+    add x0, x0, x1
+    ret
+\dots
+// calling the closure in x20 with argument 5
+    // cl address in x0
+    mov x0, x20
+    // argument 5 in x1
+    mov x1, 5
+    // call the closure
+    ldr x23, [x20]
+    // jump to the function pointer
+    blr x23
+\end{lstlisting}
+
+\subsubsection{C++ objects and methods}
+Each object has \textbf{data} and \textbf{methods}. The methods are the functions that operate on the data. The methods are stored in the \textbf{virtual function table} (vtable).
+
+Looks very like closure
+\subsection{Name mangling}
+Same field/method name can show up many times in different classes. So we need to differentiate them. This is called name mangling.
+
+For example: \begin{itemize}
+    \item \texttt{int foo(int x)} $\to$ \texttt{\_Z3fooi}
+    \item \texttt{int add(int x, int y)} $\to$ \texttt{\_Z3addii}
+    \item \texttt{double add(double x, double y)} $\to$ \texttt{\_Z3adddd}
+    \item \texttt{char* cat(char *x, const char *y)} $\to$ \texttt{\_Z3catPcPKc}
+    \item \texttt{void noarg()} $\to$ \texttt{\_Z5noargv}
+    \item \texttt{int Cls::meth(int x, int y)} $\to$ \texttt{\_ZN3Cls4methEii}
+\end{itemize}
+The rule is as follows:\begin{itemize}
+    \item 
+\end{itemize}
+
+
+
+
+
+
 \end{document}
 
