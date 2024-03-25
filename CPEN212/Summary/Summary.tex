@@ -1549,13 +1549,128 @@ For example: \begin{itemize}
     \item \texttt{int Cls::meth(int x, int y)} $\to$ \texttt{\_ZN3Cls4methEii}
 \end{itemize}
 The rule is as follows:\begin{itemize}
-    \item 
+    \item start with \texttt{\_Z}
+    \item number of characters in the name and the name\begin{itemize}
+        \item If it is C++ and the method is in a class, the number of characters includes the class name
+        \item Start with \texttt{N} and end with \texttt{E}
+        \item Between \texttt{N} and \texttt{E} is the number of characters in the class name, followed by the class name, then the number of characters in the method name, followed by the method name. e.g. \texttt{\_ZN3Cls4methEii}
+    \end{itemize}
+    \item the types of the arguments
+    \item the return type is not needed here since in C/C++ we can have the same name and arguments with different return types
 \end{itemize}
+\subsection{Objects with only non-virtual methods}
+Start with an example: \begin{lstlisting}[language=C++]
+struct animal{
+    int age;
+    const char *name;
+    animal(const char *, int);
+    void say_name();
+}
 
+animal::animal(const char *name, int age){
+    this->name = name;
+    this->age = age;
+}
 
+void animal::say_name(){
+    puts(name);
+}
 
+int main(){
+    animal a("cat", 5);
+    a.say_name();
+}
+\end{lstlisting}
+\subsubsection{Members of this object}
+\begin{itemize}
+    \item \textbf{Data fileds}: \texttt{age} (4B, 32bit int), \texttt{name}(8B, 64bit pointer). Since 8B alignment, the total size is 16B, there is a 4B padding between \texttt{age} and \texttt{name}.
+    \item \textbf{Methods}: \texttt{animal(const char *, int)}, \texttt{say\_name()}. \begin{itemize}
+        \item In a real implementation, there are actually two constructors. This is because it might become a virtual base class in the future. Inheritance!
+    \end{itemize}
+    \item \textbf{Argument counts}: Besides the obvious arguments, there is a hidden argument, the \texttt{this} pointer. It is a pointer to the object itself. It is passed as the first argument to the method. So the actual arguments are \texttt{this, "cat", 5} for the constructor and \texttt{this} for the method.
+    \item Since it is not virtual, it is resolved at compile time through name mangling. So the method is called directly.
+\end{itemize}
+\subsubsection{Assembly}
+Let's say we call the constructor and the method in the main function. 
+\begin{lstlisting}
+int main(){
+    animal a("cat", 5);
+    a.say_name();
+}
+\end{lstlisting}
+The assembly code is as follows:
+\begin{lstlisting}
+_ZN6animalC2EPKci:
+    // three arguments: this, age, name
+    // Calling convention: x0, x1, x2
+    str w2, [x0]
+    str x1, [x0, #8]
+    ret
+_ZN6animal8say_nameEv:
+    // one argument: this
+    // Calling convention: x0
+    ldr x0, [x0, #8]
+    bl puts
+    ret
+main:
+    // allocate space for the object
+    sub sp, sp, #16
+    // call the constructor
+    mov x0, sp
+    mov x1, "cat"
+    mov x2, 5
+    bl _ZN6animalC2EPKci
+    // move the object to x0
+    mov x0, sp
+    bl _ZN6animal8say_nameEv
+    mov x0, 0
+    mov x8, 93
+\end{lstlisting}
+Note how the \texttt{this} pointer is passed as the first argument to the method.
+\subsubsection{Inheritance with non-virtual methods}
+Make a dog class that inherits from the animal class.
+\begin{lstlisting}[language=C++]
+struct dog: animal{
+    dog(const char *, int);
+    void say_name();
+}
+dog::dog(const char *name, int age): animal(name, age){}
 
+void dog::say_name(){
+    animal::say_name();
+    puts("woof");
+}
 
+int main(){
+    dog d("dog", 3);
+    d.say_name();
+    animal *a = &d;
+    a->say_name();
+}
+\end{lstlisting}
+Expected output: \begin{lstlisting}
+dogwoofdog
+\end{lstlisting}
+\begin{itemize}
+    \item No additional data fields for the dog class. It inherits the data fields from the animal class.
+    \item The dog class has two methods: the constructor and the \texttt{say\_name} method.
+    \item Now we have two versions of the \texttt{say\_name} method: the animal version and the dog version. The dog version calls the animal version and then prints ``woof''
+    \item The \texttt{say\_name} method is resolved at compile time through name mangling. So the method is called directly. The first one thinks \texttt{d.say\_name()} is a dog, but \texttt{a->say\_name()} is an animal. So compiler would call different methods.
+\end{itemize}
+\subsection{Virtual methods}
+What if we do not know the function addresses at compile time? We need to use virtual methods.
+
+We might need to store the function addresses in the object itself just like closure. This is called a \textbf{vtable}.
+\subsubsection{Vtable}
+\includegraphics*[scale = 0.7]{./Images/Vtable.png}
+
+Note that constructors and destructors are not virtual. They are resolved at compile time.
+\begin{itemize}
+    \item \textbf{vtable}: a table of function pointers
+    \item \textbf{vptr}: a pointer to the vtable
+    \item \textbf{vtable entry}: a function pointer in the vtable
+    \item \textbf{vtable offset}: the offset of the vtable entry in the vtable (compiler will calculate this)
+\end{itemize}
 
 \end{document}
 

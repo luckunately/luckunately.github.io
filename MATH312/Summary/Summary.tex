@@ -1652,16 +1652,57 @@ A cryptosystem consists of:\begin{itemize}
     \item A deciphering function $g$ that maps $C$ into $P$. $g$ should be the inverse of $f$. $g\circ f (x)=x$ for all $x\in P$.
     \item P and C usually consist of integers or congruence classes mod n for some n.
 \end{itemize}
-In a classical cryptography system, both $f$ and $f^{-1}$ are unknown to the public. The security of the system depends on the secrecy of $f$ and $f^{-1}$. Knowing one can get the other.
 
-In a public key cryptosystem, $f$ is public and $f^{-1}$ is private. The security of the system depends on the difficulty of computing $f^{-1}$ from $f$.
+In a \textbf{classical cryptography} system, both $f$ and $f^{-1}$ are unknown to the public. The security of the system depends on the secrecy of $f$ and $f^{-1}$. Knowing one can get the other.
+
+In a \textbf{public key cryptosystem}, $f$ is public and $f^{-1}$ is private. The security of the system depends on the difficulty of computing $f^{-1}$ from $f$.
 
 First example: $P=C=\{0,1,\ldots,25\}=\mathbb{Z}\pmod {26}$. This corresponds to the 26 letters of the English alphabet.
 
 $f(x)=x+b \pmod{26}$ for some $b\in \mathbb{Z}\pmod {26}$. $b$ is the key. It is called shift cipher, $b$ is both the encryption and decryption key.
 
+\subsection{Classcial Cryptography}
+\subsubsection{Shift Cipher}
+Consider the shift cipher $P=C=\mathbb{Z}_n$
+\begin{align*}
+    f(x)=x+b \pmod n && \text{Encryption key b} \\
+    g(x)=x-b \pmod n && \text{Decryption key b}
+\end{align*}
+Since there are 26 letters in the English alphabet, we can set $n=26$.
 
+$P=C=\mathbb{Z}_{26}= \{0,1,\ldots,25\}$. Then $f(x)=x+b \pmod {26}$ and $g(x)=x-b \pmod {26}$.
+\subsubsection{Breaking cryptosystems}
+To break a cryptosystem, one needs two types of information:\begin{itemize}
+    \item The general nature of the system: $P,C,f,g$.
+    \item The specific key used in the system.
+\end{itemize}
+We usually assume that the cryptanalyst knows the general nature of the system but not the specific key.
 
+One way of breaking shift cipher is to use frequency analysis. The frequency of letters in English text is not uniform. For example, the letter `e' is the most common letter in English text.
 
+Let's say we are given a ciphertext ``FQOCUDEM'', then we try encryption function $f:E \to$ for each of the letters in the text. \begin{align*}
+    f:E\to U \implies b=16 && \text{FQOCUDEM}\to \text{PAYMENOW }
+\end{align*}
+\subsubsection{Affine Cipher}
+The affine cipher is a generalization of the shift cipher. It is a type of monoalphabetic substitution cipher. It is a combination of shift and multiplication.
 
+$P=C=\mathbb{Z}_{26}$. Let $a,b\in \mathbb{Z}_{26}$ with $\gcd(a,26)=1$. Then $f(x)=ax+b \pmod {26}$ and $g(x)=a^{-1}(x-b) \pmod {26}$.
+
+Note that $a^{-1}$ exists if and only if $\gcd(a,26)=1$. To solve for $a^{-1}$, we can use the Euclidean algorithm and back substitution. $as+a^{-1}t\equiv 1 \pmod {26}$. 
+
+To break it, we can try to use frequency analysis again: 
+\begin{align*}
+    f(x)=ax+b \pmod {26} && g(x)=a^{-1}(x-b) \pmod {26}
+\end{align*}
+For example, let's break a ciphtertext where the most frequent letters are `K' and `D'. In English, the most frequent letters are `E' and `T'. Then we can try to find $a,b$ such that $f(K)=E$ and $f(D)=T$.
+
+Now we need to solve the system of equations: \begin{align*}
+    g:K(10)\to E(4) && 10c+d\equiv 4 \pmod {26} \\
+    g:D(3)\to T(19) && 3c+d\equiv 19 \pmod {26}
+\end{align*}
+Want to solve the system of linear congruence for $c,d$.
+
+Subtract both equations to eliminate $d$ to get $7c\equiv 11 \pmod {26}$. Then $c\equiv 7^{-1}\cdot 11 \equiv 9 \pmod {26}$. Then $d\equiv 4-10\cdot 9 \equiv 20 \pmod {26}$.
+
+Then $f(x)=9x+20 \pmod {26}$ and $g(x)=15(x-20) \pmod {26}$.
 \end{document}
