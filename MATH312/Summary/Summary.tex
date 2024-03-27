@@ -1705,4 +1705,20 @@ Want to solve the system of linear congruence for $c,d$.
 Subtract both equations to eliminate $d$ to get $7c\equiv 11 \pmod {26}$. Then $c\equiv 7^{-1}\cdot 11 \equiv 9 \pmod {26}$. Then $d\equiv 4-10\cdot 9 \equiv 20 \pmod {26}$.
 
 Then $f(x)=9x+20 \pmod {26}$ and $g(x)=15(x-20) \pmod {26}$.
+
+Another example: $n=28$. Elements corresponds to $\mathbb{Z}_{28}$ where $0\to 25 \implies$ `A'$\to$`Z', $26 \to$ ` ' (space), $27\to$ `?'.
+
+Suppose the most frequent letters are `B' and `?'. By frequency analysis, most frequent should be ` ' and `E'. 
+
+So $1\to 26, 27\to 4$. We need to solve for \begin{align*}
+    c + d &\equiv 26 \pmod {28} \\
+    27c+d &\equiv 4 \pmod {28}
+\end{align*} 
+Subtract both side, we get $26c\equiv -22 \pmod {28}$. Then $2c\equiv 22 \pmod {28}$. Note that $\gcd(2,22)=2$ so 2 does not have an inverse modulo 28. We have two possible solutions for it. 
+
+Solve for $c\equiv 11 \pmod (\frac{28}{22})$ to get $c_1 = 11, c_2 = 11+14 = 25$. Then $d_1\equiv 26-11 \equiv 15 \pmod {28}$ and $d_2\equiv 26-25 \equiv 1 \pmod {28}$.
+
+We try both to see which works better. 
+\subsection{Exponentiation Cipher}
+Here $P=C=\mathbb{Z}_p$ where $p$ is a prime number. Let $n=p-1$. Let $a\in \mathbb{Z}_p$ with $\gcd(a,p)=1$.
 \end{document}
