@@ -1669,8 +1669,49 @@ Note that constructors and destructors are not virtual. They are resolved at com
     \item \textbf{vtable}: a table of function pointers
     \item \textbf{vptr}: a pointer to the vtable
     \item \textbf{vtable entry}: a function pointer in the vtable
-    \item \textbf{vtable offset}: the offset of the vtable entry in the vtable (compiler will calculate this)
+    \item \textbf{vtable offset}: the offset of the vtable entry in the vtable (the compiler will calculate this)
 \end{itemize}
+\subsection{Inheritance}
+We can treat subclasses as their base class. This is called \textbf{upcasting}. This is because the structure of the subclass is the same as the structure of the base class with additional fields and methods that is below the base class in memory space. By upcasting, we can call the base class methods on the subclass object ignoring the additional fields and methods.
+\subsubsection{Multiple inheritance}
+What if a subclass inherits from multiple base classes? We need to store multiple vptrs in the object. This is called \textbf{vptr chaining}.
 
+To distinguish between the vptrs, we need to store the \textbf{vptr offset} in the object. This is the offset of the vptr in the object. The compiler will calculate this.
+
+\includegraphics*[scale = 0.7]{./Images/Mutiple inheritance.jpg}
+
+The vase offset is 24 here since it is the vtable pointer from the object header instead of the offset in vtable. \begin{itemize}
+    \item When the object is casted as \textbf{dog} ot \textbf{animal}, the vptr is set to the vptr of the actual top of the object.
+    \item When the object is casted as \textbf{swimmer}, the pointer would be moved to the actual swimmer part of the object, in this case, -24 bytes by the offset. 
+    \item Note that you cannot cast a parent to its child.
+\end{itemize}
+\subsection{Traits}
+Let's say we want an object to add some other functionality after compiling, then we cannot modify the vtable to do it since memory space is set. We can use traits to add functionality.
+
+Give an example in Rust:
+\begin{lstlisting}
+struct Dog {age: i32, name: String}
+trait Named {fn say_name(&self);}
+impl Named for Dog {
+    fn say_name(&self){
+        println!("{}", self.name);
+    }
+}
+// a bunch of other codes 
+trait Swimmer {fn swim(&self);}
+impl Swimmer for Dog {
+    fn swim(&self){
+        println!("{} is swimming", self.name);
+    }
+}
+\end{lstlisting}
+
+To achieve this, we can separate the vtable from the object. 
+
+\includegraphics*{./Images/Rust traits.jpg}
+
+Keep data in a separate place, then for each trait of the object, we keep a data pointer and a vtable pointer. If we want to add a trait, we can add a new vtable pointer and data pointer.
+
+When the corresponding trait is called, we can call the vtable pointer to the function.
 \end{document}
 
