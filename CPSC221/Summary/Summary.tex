@@ -652,7 +652,14 @@ void Union(int x, int y){
 \end{lstlisting}
 \subsubsection{Smarter Union}
 The naive union is $O(n)$ because we need to update all elements in the set. We can make it $O(\log n)$ by making the tree height smaller. We can make the tree height smaller by making the smaller tree a subtree of the larger tree. We can do this by comparing the size of the trees.
-
+\begin{itemize}
+    \item So when union, we need to compare the size of the trees.
+    \item We can store the size of the tree in the root node.
+    \item We can make the tree with the smaller size a subtree of the tree with the larger size.
+\end{itemize}
+\begin{itemize}
+    \item At the same time, instead of comparing size, we can compare the height of the trees. We can store the height of the tree in the root node.
+\end{itemize}
 \section{Trees}
 A tree will have a parent node connecting to multiple child nodes. The connection is called an edge. 
 
