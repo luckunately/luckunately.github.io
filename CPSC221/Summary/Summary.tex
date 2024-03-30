@@ -1367,6 +1367,90 @@ void MinHeap<LIT>::HeapSort(){
 
 Note that Merge Sort is recursive and requires additional space on the call stack. Heap Sort is iterative and does not require additional space on the call stack.
 
-
-
+\section{Graphs}
+A graph is a collection of nodes and edges. \begin{itemize}
+    \item Nodes are also called vertices.
+    \item Edges connect nodes.
+    \item Edges can be directed or undirected. \begin{itemize}
+        \item In a directed graph, edges have a direction. $(u,v)$ is different from $(v,u)$.
+        \item In an undirected graph, edges do not have a direction. $(u,v)$ is the same as $(v,u)$.
+    \end{itemize}
+    \item Edges can have weights.
+\end{itemize}
+\subsection{Terminology}
+\begin{itemize}
+    \item Vertices adjacent to $v:N(v)=\{u|(u,v)\in E\}$.
+    \item Edges incident to $v:I(v)=\{(u,v)|u\in E\}$.
+    \item Degree of $v:\deg(v)=|I(v)|$.\begin{itemize}
+        \item Handshaking theorem: $\sum_{v\in V}\deg(v)=2|E|$ if $G=(V,E)$ is an undirected graph. Basically saying that if you count the number of edges each vertex has, you count each edge twice.
+        \item The \textit{in-degree} of a vertex $v\in V$ is denoted as $\deg^-(v)$ which means the number of edges entering the vertex.
+        \item The \textit{out-degree} of a vertex $v\in V$ is denoted as $\deg^+(v)$ which means the number of edges leaving the vertex.
+        \item For a directed graph, the handshaking theorem is $\sum_{v\in V}\deg^-(v)=\sum_{v\in V}\deg^+(v)=|E|$.
+    \end{itemize}
+    \item Path: a sequence of vertices where each vertex is adjacent to the next connected by edges.
+    \item Simple path: a path where no vertex is repeated.
+    \item Cycle: a path that starts and ends at the same vertex.
+    \item Simple graph: a graph with no self-loops or multiple edges between the same pair of vertices.
+    \item Subgraph: a graph where the vertices and edges are a subset of the original graph. $G'=(V',E')$ is a subgraph of $G=(V,E)$ if $V'\subseteq V$ and $E'\subseteq E$.\begin{itemize}
+        \item We often care about the structure of graphs not the names of its vertices: 
+        \item \textbf{Isomorphic graphs} have the same structure but different names for the vertices. Check by trying to match the vertices via a bijection.
+        \item \textbf{Subgraph isomorphism} is the problem of finding a subgraph of a graph that is isomorphic to another graph.
+    \end{itemize}
+    \item Complete graph: a graph where every pair of vertices is connected by an edge. So maximum number of edges.
+    \item Connected graph: a graph where there is a path between every pair of vertices.
+    \begin{itemize}
+        \item undirected graphs are connected if there is a path between every pair of vertices.
+        \item directed graphs are strongly connected if there is a directed path between every pair of vertices.
+        \item directed graphs are weakly connected if the underlying undirected graph is connected.
+    \end{itemize}
+    \item Connected component: a maximal connected subgraph. 
+    \item Acyclic graph: a graph with no cycles.
+    \item Spanning tree: a subgraph that is a tree and contains all the vertices of the original graph. It is a \textbf{connected acyclic} subgraph.
+    \item Weighted graph: a graph where each edge has a weight.
+    \item Graph density: \begin{itemize}
+        \item A \textbf{sparse} graph has few edges compared to the number of vertices. Typically has $O(|V|)$ edges.
+        \item A \textbf{dense} graph has many edges compared to the number of vertices. Typically has $O(|V|^2)$ edges.
+        \item Anything in between is considered \textbf{moderate}, depending critically on context! 
+        \item Analysis of graph operations typically must be expressed in terms of both $|V|$ and $|E|$.
+    \end{itemize}
+\end{itemize}
+\subsection{Graph representation}
+\subsubsection{Analysis Critiria}
+Running times are often reported in terms of $n$ (the number of vertices) and $m$ (the number of edges). \begin{itemize}
+    \item Number of edges: \begin{itemize}
+        \item For connected graph, $m\geq n-1$.
+        \item For not connected graph, $m\geq 0$.
+        \item For simple graph, $m\leq n(n-1)/2$. (Complete graph with no repeated edges)
+        \item For not simple graph, not bounded.
+        \item $\sum_{v\in V}\deg(v)=2m \in O(m)$.
+    \end{itemize}
+\end{itemize}
+\subsubsection{Adjacency matrix}
+\begin{itemize}
+    \item A matrix $A$ where $A_{ij}=1$ if there is an edge between $i$ and $j$.
+    \item For a weighted graph, $A_{ij}$ is the weight of the edge.
+    \item For an undirected graph, $A$ is symmetric.
+    \item For a directed graph, $A$ is not symmetric.
+    \item The space complexity is $O(n^2)$.
+    \item The time complexity to check if there is an edge between $i$ and $j$ is $O(1)$.
+    \item The time complexity to find the neighbors of a vertex is $O(n)$.
+\end{itemize}
+\subsubsection{Adjacency list}
+\begin{itemize}
+    \item An array of linked lists where each element in the array is a vertex and the linked list contains the neighbors of the vertex.
+    \item For a weighted graph, the linked list contains the weight of the edge.
+    \item The space complexity is $O(n+m)$.
+    \item The time complexity to check if there is an edge between $i$ and $j$ is $O(\deg(i))$.
+    \item The time complexity to find the neighbors of a vertex is $O(\deg(i))$.
+\end{itemize}
+\subsubsection{Edge list}
+\begin{itemize}
+    \item A list of edges where each edge is a tuple $(u,v)$.
+    \item For a weighted graph, the edge is a tuple $(u,v,w)$ where $w$ is the weight of the edge.
+    \item The space complexity is $O(m)$.
+    \item The time complexity to check if there is an edge between $i$ and $j$ is $O(m)$.
+    \item The time complexity to find the neighbors of a vertex is $O(m)$.
+\end{itemize}
+\subsubsection{Asymptotic performance}
+\includegraphics*{./Images/Graph asymtotic performance.jpg}
 \end{document}
