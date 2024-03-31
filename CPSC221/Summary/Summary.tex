@@ -1453,4 +1453,58 @@ Running times are often reported in terms of $n$ (the number of vertices) and $m
 \end{itemize}
 \subsubsection{Asymptotic performance}
 \includegraphics*{./Images/Graph asymtotic performance.jpg}
+\subsection{BFS}
+Breadth-first search is an algorithm for traversing or searching tree or graph data structures. It starts at the tree root and explores all of the neighbor nodes at the present depth prior to moving on to the nodes at the next depth level.
+
+It looks like a level order traversal in a tree, we use a queue to store the nodes.
+\begin{algorithmic}
+\State {Algorithm BFS(G,v)}
+    \State {Input: A graph $G$ and a vertex $v$ of $G$ to start.}
+    \State {Output: The vertices of $G$ reachable from $v$ labeled as discovered.}
+\State{Queue $q$}
+\State{SetLabel($v$,"discovered")}
+\State{$q$.enqueue($v$)}
+\While{$q$ is not empty}
+    \State{$v$ = $q$.dequeue()}
+    \For{each edge $(v,w)$ in $G$}
+        \If{Vertex $w$ is not labeled}
+            \State{SetLabel($w$,"discovered")}
+            \State{$q$.enqueue($w$)}
+        \EndIf
+    \EndFor
+\EndWhile
+\end{algorithmic}
+\subsubsection{Complexity}
+\begin{itemize}
+    \item There are one while loop to run for each vertex, so the time complexity is $O(n)$.
+    \item For each while loop, there is a for loop to run for each vertex's degree, so the time complexity is $O(m)$.
+    \item So the overall time complexity is $O(n+m)$.
+\end{itemize}
+\subsection{DFS}
+Depth-first search is an algorithm for traversing or searching tree or graph data structures. It starts at the tree root and explores as far as possible along each branch before backtracking.
+
+It looks like a pre-order traversal in a tree, we use a stack to store the nodes.
+
+Since programs run on a stack, we can use the call stack to store the nodes.
+\begin{algorithmic}
+\State {Algorithm DFS(G,v)}
+    \State {Input: A graph $G$ and a vertex $v$ of $G$ to start.}
+    \State {Output: The vertices of $G$ reachable from $v$ labeled as discovered.}
+\State{SetLabel($v$,"discovered")}
+\For{each edge $(v,w)$ in $G$}
+    \If{Vertex $w$ is not labeled}
+        \State{DFS($G,w$)}
+    \Else 
+        \State{SetEdge($(v,w)$,"Back")}
+    \EndIf
+\EndFor
+\end{algorithmic}
+\subsubsection{Complexity}
+\begin{itemize}
+    \item There are one for loop to run for each vertex, so the time complexity is $O(n)$.
+    \item For each for loop, there is a recursive call to run for each vertex's degree, so the time complexity is $O(m)$.
+    \item So the overall time complexity is $O(n+m)$.
+\end{itemize}
+
+However, if we use Adjacency matrix, the time complexity is $O(n^2)$ since we need to check all the vertices for each vertex.
 \end{document}
