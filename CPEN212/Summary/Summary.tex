@@ -1713,5 +1713,70 @@ To achieve this, we can separate the vtable from the object.
 Keep data in a separate place, then for each trait of the object, we keep a data pointer and a vtable pointer. If we want to add a trait, we can add a new vtable pointer and data pointer.
 
 When the corresponding trait is called, we can call the vtable pointer to the function.
+\section{Concurrency}
+\subsection{The need for concurrency}
+\begin{itemize}
+    \item \textbf{parallelism}: the ability to run multiple tasks at the same time
+    \item \textbf{concurrency}: the ability to run multiple tasks in an interleaved manner
+    \item \textbf{asynchronous programming}: the ability to run tasks in the background
+    \item \textbf{event-driven programming}: the ability to run tasks in response to events
+    \item \textbf{multithreading}: the ability to run multiple threads in the same process
+    \item \textbf{multiprocessing}: the ability to run multiple processes in the same system
+    \item \textbf{distributed computing}: the ability to run multiple processes in different systems
+    \item \textbf{parallel computing}: the ability to run multiple tasks in parallel on multiple cores
+    \item \textbf{concurrent computing}: the ability to run multiple tasks concurrently on a single core
+\end{itemize}
+\subsection{Threads}
+Threads have their own logical control flow, registers, stack, and program counter. They share the same memory space, file descriptors, and other resources.
+\subsubsection{Thread creation}
+Process $\to$ main thread $\to$ create new threads. Upon context switch, the CPU will switch to the new thread by changing the program counter and the stack pointer, then save the old thread's registers and stack.
+
+Here are some example functions of creating threads in C:
+\begin{lstlisting}[language=C]
+// the thread function we want it to run
+void *function(void *arg){
+    // do something
+    return NULL;
+}
+
+// create a thread
+int pthread_create(pthread_t *thread, // thread id
+const pthread_attr_t *attr, // scheduling info, NULL for default
+void *(*start_routine) (void *), // the function to run
+void *arg); // the argument to the function
+
+// wait for a thread to finish
+int pthread_join(pthread_t thread, // the thread id
+void **retval); // the return value of the thread can be found here
+
+// exit the current thread
+void pthread_exit(void *retval); // the return value of the thread
+
+// detach a thread, OS will clean up the thread when it finishes
+int pthread_detach(pthread_t thread); // the thread id
+// So we don't need to call pthread_join, 
+// do not know the return value
+\end{lstlisting}
+\subsection{State transistions}
+\includegraphics*[scale = 0.7]{./Images/State Transition.jpg}
+
+Processes and threads have the similar transition states. The difference is that threads share the same memory space while processes do not.
+\subsection{Thread safety}
+\begin{itemize}
+    \item \textbf{reentrant}: a function that can be called by multiple threads at the same time
+    \item \textbf{thread-safe}: a function that can be called by multiple threads at the same time without causing
+    \item \textbf{Data race}: two threads access the same memory location at the same time, at least one of them is writing
+    \item \textbf{Deadlock}: two threads are waiting for each other to release a lock
+    \item \textbf{Livelock}: two threads are waiting for each other to release a lock, but they keep trying to acquire the lock
+    \item \textbf{Starvation}: a thread is waiting for a lock, but other threads keep acquiring the lock
+    \item \textbf{Priority inversion}: a high-priority thread is waiting for a low-priority thread to release a lock
+\end{itemize}
+\subsubsection{Atomic operations}
+\textbf{Atomic} read-modify-write operations are operations that are guaranteed to be executed as a single operation. They are not interrupted by other threads. 
+
+For example: \begin{itemize}
+    \item \texttt{ldadd x0, x1, [x2]} $\to$ \texttt{x1 = *x2; x1 += x0; *x2 = x1} which will be executed as a single operation
+    \item \texttt{cas x0, x1, [x2]} $\to$ \texttt{if (*x2 == x0) *x2 = x1; x0 = *x2} Compare and swap. x0 will get the value nevertheless.
+\end{itemize}
 \end{document}
 

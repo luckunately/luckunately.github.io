@@ -1720,5 +1720,21 @@ Solve for $c\equiv 11 \pmod {\frac{28}{22}}$ to get $c_1 = 11, c_2 = 11+14 = 25$
 
 We try both to see which works better. 
 \subsection{Exponentiation Cipher}
-Here $P=C=\mathbb{Z}_p$ where $p$ is a prime number. Let $n=p-1$. Let $a\in \mathbb{Z}_p$ with $\gcd(a,p)=1$.
+Here $P=C=\mathbb{Z}_p$ where $p$ is a prime number. 
+\begin{itemize}
+    \item Encryption: $f(x)=x^e \pmod p$ where $e$ is the encryption key.
+    \item Decryption: $g(x)=x^d \pmod p$ where $d$ is the decryption key.
+    \item Note the range is $\mathbb{Z}_p$.
+\end{itemize}
+This requires that $g(f(x))=x$ for all $x\in \mathbb{Z}_p$. For example, $(x^e)^d \equiv x^{ed} \equiv x \pmod p$.
+
+\begin{lemma}
+    $de\equiv 1 \pmod {p-1} \implies g(f(x))=x$ for all $x\in \mathbb{Z}_p$.
+\end{lemma}
+
+\begin{proof}
+    It follows one of the corollaries from Fermat's Little Theorem. $m\equiv n \pmod {p-1} \implies x^m\equiv x^n \pmod p$.
+\end{proof}
+
+Note that it requires that $e,d$ are inverses modulo $p-1$. To make sure that an inverse exists, we need to make sure that $\gcd(e,p-1)=1$. Then we can get $d= e ^{-1} \pmod {p-1}$.
 \end{document}
