@@ -1755,8 +1755,8 @@ RSA is a public key cryptosystem. It was invented by Rivest, Shamir, and Adleman
 
 Each user chooses two large primes $p$ and $q$ and an encryption exponent $e$. The public key is $(n,e)$ where $n=pq$ and $e$ is the encryption exponent. The private key is $(n,d)$ where $d$ is the decryption exponent.
 \begin{itemize}
-    \item Encryption: $f(x)=x^e \pmod n$.
-    \item Decryption: $g(x)=x^d \pmod n$. $d = e^{-1} \pmod {\phi(n)}$ where $\phi(n)=\phi(p)\phi(q)=(p-1)(q-1)$. 
+    \item Encryption: $f(x)=x^e=y \pmod n$.
+    \item Decryption: $g(y)=y^d=x \pmod n$. $d = e^{-1} \pmod {\phi(n)}$ where $\phi(n)=\phi(p)\phi(q)=(p-1)(q-1)$. 
 \end{itemize}
 \begin{theorem}
     $x^{ed}\equiv x \pmod n$ for all $x\in \mathbb{Z}_n$.
@@ -1771,12 +1771,18 @@ Need to show that $\begin{cases}
     y\equiv x \pmod p \\
     y\equiv x \pmod q
 \end{cases}$. If we can do that then by CRT, we can show that $y\equiv x \pmod n$.\begin{proof}
-    Apply Corollary 2 of Fermat's theorem. $ed\equiv 1 \pmod {(p-1)(q-1)}$. Then $ed=1 \begin{cases}
-        \pmod {p-1} \\
-        \pmod {q-1}
-    \end{cases} \implies \begin{cases}
+    Given that $ed\equiv 1 \pmod {\phi(n) = (p-1)(q-1)}$. Then $\begin{cases}
         ed\equiv 1 \pmod {p-1} \\
         ed\equiv 1 \pmod {q-1}
+    \end{cases} $
+    Apply Corollary 2 of Fermat's theorem. $ed\equiv 1 \pmod {(p-1)(q-1)}$. Then $\begin{cases}
+        ed\equiv 1 \pmod {p-1} \\
+        ed\equiv 1 \pmod {q-1}
+    \end{cases}  \implies \begin{cases}
+        x^{ed}\equiv x^1 \pmod {p} \\
+        x^{ed}\equiv x^1 \pmod {q}
         \end{cases}$
+
+    Now apply CRT, we can show that  $x^{ed}\equiv x \pmod n$.
 \end{proof}
 \end{document}
