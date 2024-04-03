@@ -1737,4 +1737,46 @@ This requires that $g(f(x))=x$ for all $x\in \mathbb{Z}_p$. For example, $(x^e)^
 \end{proof}
 
 Note that it requires that $e,d$ are inverses modulo $p-1$. To make sure that an inverse exists, we need to make sure that $\gcd(e,p-1)=1$. Then we can get $d= e ^{-1} \pmod {p-1}$.
+
+For example, $p=29$, $e=5$. Then $f(x)=x^5 \pmod {29}$ and $g(x)=x^{17} \pmod {29}$ given by: \begin{align*}
+    5a &\equiv 1 \pmod {28}\\
+    17 &\equiv 5^{-1} \pmod {28} \text{ by Euclidean algorithm}
+\end{align*}
+
+Then decoding can be done by repetitively squaring. For example, to decode $f(3)=3^5 \pmod {29}$, we can do $3^5\equiv 3^{1+4} \equiv 3\cdot 3^4 \equiv 3\cdot 81 \equiv 243 \equiv 3 \pmod {29}$.
+\subsubsection{Breaking Exponentiation Cipher}
+Note that exponentiation cipher is slightly safer than affine cipher. It is not as easy to break by frequency analysis.
+
+To break it, we need to solve congruences of the form $y^d \equiv x \pmod p$ for $y$. If $x,y \in \mathbb{R}$, $d$ can be recovered by taking the discrete logarithm of $x$ to the base $y$. This is called the discrete logarithm problem.
+
+For large $p$, the problem is computationally difficult. For example, if $p$ is a 1000-bit prime, then the discrete logarithm problem is computationally infeasible.
+\subsection{RSA Cryptosystem}
+RSA is a public key cryptosystem. It was invented by Rivest, Shamir, and Adleman in 1977. It is based on the difficulty of factoring large integers.
+
+Each user chooses two large primes $p$ and $q$ and an encryption exponent $e$. The public key is $(n,e)$ where $n=pq$ and $e$ is the encryption exponent. The private key is $(n,d)$ where $d$ is the decryption exponent.
+\begin{itemize}
+    \item Encryption: $f(x)=x^e \pmod n$.
+    \item Decryption: $g(x)=x^d \pmod n$. $d = e^{-1} \pmod {\phi(n)}$ where $\phi(n)=\phi(p)\phi(q)=(p-1)(q-1)$. 
+\end{itemize}
+\begin{theorem}
+    $x^{ed}\equiv x \pmod n$ for all $x\in \mathbb{Z}_n$.
+\end{theorem}
+The difference between RSA and the exponentiation cipher is that $n$ is not prime. The security of RSA is based on the difficulty of factoring large integers.
+
+Note that Euler's Theorem can only handle some cases since $x$ might not be relatively prime to $n$.
+
+To prove the theorem, we need to show that $ed\equiv 1 \pmod {\phi(n)}$. Then $x^{ed}\equiv x \pmod n$.
+
+Need to show that $\begin{cases}
+    y\equiv x \pmod p \\
+    y\equiv x \pmod q
+\end{cases}$. If we can do that then by CRT, we can show that $y\equiv x \pmod n$.\begin{proof}
+    Apply Corollary 2 of Fermat's theorem. $ed\equiv 1 \pmod {(p-1)(q-1)}$. Then $ed=1 \begin{cases}
+        \pmod {p-1} \\
+        \pmod {q-1}
+    \end{cases} \implies \begin{cases}
+        ed\equiv 1 \pmod {p-1} \\
+        ed\equiv 1 \pmod {q-1}
+        \end{cases}$
+\end{proof}
 \end{document}
