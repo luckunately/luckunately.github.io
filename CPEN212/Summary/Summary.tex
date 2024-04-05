@@ -1760,7 +1760,7 @@ int pthread_detach(pthread_t thread); // the thread id
 \subsection{State transistions}
 \includegraphics*[scale = 0.7]{./Images/State Transition.jpg}
 
-Processes and threads have the similar transition states. The difference is that threads share the same memory space while processes do not.
+Processes and threads have similar transition states. The difference is that threads share the same memory space while processes do not.
 \subsection{Thread safety}
 \begin{itemize}
     \item \textbf{reentrant}: a function that can be called by multiple threads at the same time
@@ -1778,5 +1778,124 @@ For example: \begin{itemize}
     \item \texttt{ldadd x0, x1, [x2]} $\to$ \texttt{x1 = *x2; x1 += x0; *x2 = x1} which will be executed as a single operation
     \item \texttt{cas x0, x1, [x2]} $\to$ \texttt{if (*x2 == x0) *x2 = x1; x0 = *x2} Compare and swap. x0 will get the value nevertheless.
 \end{itemize}
+\subsubsection{Pure functions}
+\begin{itemize}
+    \item \textbf{pure function}: a function that does not have side effects\begin{itemize}
+        \item the function always returns the same value for the same arguments
+        \item any mathematical function is a pure function
+        \item \texttt{rand()} is not a pure function since it modifies the state of the random number generator and returns a different value each time
+        \item Any pure function is thread-safe
+    \end{itemize}
+    \item \textbf{side effect}: a change in the state of the program
+\end{itemize}
+How to make impure functions thread safe? Have a look at the following example:\begin{lstlisting}[language=C]
+    long int random (void){
+        long int retval;
+        __libc_lock_lock (lock);
+        retval = rand();
+        __libc_lock_unlock (lock);
+        return retval;
+    }
+\end{lstlisting}
+Although \texttt{rand()} is not thread-safe, we can make it thread-safe by locking the function.
+\subsubsection{Locks}
+One thread \textbf{may access} shared vars at a time
+
+Libc provides some lock functions:\begin{lstlisting}[language=C]
+// create a lock
+int pthread_mutex_init(pthread_mutex_t *mutex, 
+const pthread_mutexattr_t *attr);
+// attr gives options like recursive, error checking, etc.
+
+// destroy a lock
+int pthread_mutex_destroy(pthread_mutex_t *mutex);
+
+// lock a lock
+int pthread_mutex_lock(pthread_mutex_t *mutex);
+
+// unlock a lock
+int pthread_mutex_unlock(pthread_mutex_t *mutex);
+
+// try to lock a lock
+int pthread_mutex_trylock(pthread_mutex_t *mutex);
+\end{lstlisting}
+Although it is safe, it limits the concurrency to sequentially execute. So we need to use locks wisely.
+\subsection{implementation of locks}
+Problems when implementing locks: \begin{itemize}
+    \item Only one thread can acquire the lock at a time \begin{itemize}
+        \item Use \textbf{automic} operations to acquire the lock e.g. \texttt{cas}
+    \end{itemize}
+    \item Some architectures do OoO (Out of Order) execution \begin{itemize}
+        \item Use \textbf{memory barriers} to prevent OoO execution
+    \end{itemize}
+\end{itemize}
+\subsubsection{Naive spin-lock}
+\begin{lstlisting}
+lock:
+    adr x0, mutex
+    mov x1, 1
+spin:
+    mov x2, 0
+    // try to acquire the lock
+    cas x2, x1, [x0]
+    // if failed, try again
+    cmp x2, 0
+    bne spin
+    // mem barrier
+    dmb sy 
+unlock:
+    adr x0, mutex
+    // finish all the operations before releasing the lock
+    dmb sy
+    str xzr, [x0]
+\end{lstlisting}
+This is a correct implementation but not efficient. Here is why:\begin{itemize}
+    \item Different cores have their own L1 cache.
+    \item Architecture enforces cache coherence. If one core writes to a cache line, the other cores will invalidate the cache line.
+    \item \texttt{cas} tends to write to the cache line. For each \texttt{cas}, the cache line will be invalidated and reloaded.
+    \item This is called \textbf{cache line bouncing}.
+    \item Although no progress, it is still consuming CPU cycles. OS would think it is busy not noticing the cache line bouncing.
+\end{itemize}
+\subsubsection{A slightly better spin-lock}
+\begin{lstlisting}
+lock:
+    adr x0, mutex
+    mov x1, 1
+spin:
+    // read the lock instead of writing
+    ldr x2, [x0]
+    cmp x2, 0
+    bne spin
+    // looks like the lock is free, try to acquire it
+    // try to acquire the lock
+    cas x2, x1, [x0]
+    // if failed, another thread acquired the lock
+    cmp x2, 0
+    // note how it go back to orgin 
+    bne spin
+    dmb sy
+\end{lstlisting}
+\begin{itemize}
+    \item Reading would not invalidate the cache line, it make sure that others do not write as well.
+    \item So no cache line bouncing.
+\end{itemize}
+\subsection{Deadlocks}
+\begin{itemize}
+    \item \textbf{deadlock}: two threads are waiting for each other to release a lock
+    \item \textbf{livelock}: two threads are waiting for each other to release a lock, but they keep trying to acquire the lock
+    \item \textbf{starvation}: a thread is waiting for a lock, but other threads keep acquiring the lock
+    \item \textbf{priority inversion}: a high-priority thread is waiting for a low-priority thread to release a lock
+\end{itemize}
+\subsubsection{Deadlock prevention}
+\begin{itemize}
+    \item \textbf{lock ordering}: always acquire locks in the same order (topological sort)
+    \item \textbf{lock hierarchy}: always acquire locks in the same hierarchy
+    \item \textbf{lock timeout}: acquire locks with a timeout note that this needs to wait for a \textbf{random and increasing} time. Otherwise, it would be a livelock.
+    \item \textbf{lock try}: try to acquire locks without blocking
+    \item \textbf{lock yield}: yield the CPU if the lock is not available
+    \item \textbf{lock sleep}: sleep if the lock is not available
+\end{itemize}
+\subsubsection{Waiting on locks}
+It is bad if we deschedule a thread while holding a lock. This way other threads cannot do much if their critical section is locked. So we need to release the lock before scheduling.
 \end{document}
 
