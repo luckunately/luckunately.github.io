@@ -1753,7 +1753,7 @@ For large $p$, the problem is computationally difficult. For example, if $p$ is 
 \subsection{RSA Cryptosystem}
 RSA is a public key cryptosystem. It was invented by Rivest, Shamir, and Adleman in 1977. It is based on the difficulty of factoring large integers.
 
-Each user chooses two large primes $p$ and $q$ and an encryption exponent $e$. The public key is $(n,e)$ where $n=pq$ and $e$ is the encryption exponent. The private key is $(n,d)$ where $d$ is the decryption exponent.
+Each user chooses two large primes $p$ and $q$ and an encryption exponent $e$. The public key is $(n,e)$ where $n=pq$ and $e$ is the encryption exponent. Here we need $\gcd(e,\phi(n)) = 1$ where $\phi(n)=(p-1)(q-1)$.The private key is $(n,d)$ where $d$ is the decryption exponent.
 \begin{itemize}
     \item Encryption: $f(x)=x^e=y \pmod n$.
     \item Decryption: $g(y)=y^d=x \pmod n$. $d = e^{-1} \pmod {\phi(n)}$ where $\phi(n)=\phi(p)\phi(q)=(p-1)(q-1)$. 
@@ -1785,4 +1785,22 @@ Need to show that $\begin{cases}
 
     Now apply CRT, we can show that  $x^{ed}\equiv x \pmod n$.
 \end{proof}
+For example: $p=281, q=167, n = pq = 46927$. Let $(n,e) = (46927, 39423)$ as the public key. Transmit blocks of 3 letters: there are 26 letters, then there are $26^3 = 17576$ possible blocks. 
+
+If the message is ``YES'', which corresponds to 24, 4, 18. View them as a three digit number $(24, 4, 18)_{26}$ which is $24\cdot 26^2 + 4\cdot 26 + 18 = 16346$. 
+
+Encode will get me $16346^{39423} \pmod {46927} = 21166$ using repetitively squaring. Now separate the letter into base 26: $21166=1\cdot 26^3 + 5\cdot 26^2 + 8\cdot 26 + 2$. Then decode it to get ``BFIC''.
+
+To decipher, first need to find $d\equiv e^{-1} \pmod {\phi(n)}$. Here $\phi(n) = (p-1)(q-1) = 280\cdot 166$. Using the Euclidean algorithm we can find $d = 26767$. Then $21166^{26767} \pmod {46927} = 16346$. Then decode it to get ``YES''.
+
+Note that we can solve it here since we know both $p$ and $q$. In practice, we do not know $p$ and $q$.
+\subsection{Implementing RSA}
+\subsubsection{Find large primes}
+To implement RSA, we need to find large primes. We can use the Miller-Rabin primality test to find large primes.
+
+To get a prime about 200 digits long, we can pick integer x between 1 and $10^{200}$ and test if $x$ is prime. If it is not, then we can try another x. According to the prime number theorem, the number of finding a prime is about $\frac{10^{200}}{\ln (10^{200})}$. This probability is about $\frac{1}{\ln(10^{200})}=\frac{1}{200\ln(10)}\approx \frac{1}{460}$. And we know we will only choose $x$ that is not divisible by $2,3,5,7,11$ since these can be found to be obviously wrong. So the probability is even higher.
+
+Note that $p,q$ should not be close to each other because of Fermat's factorization method. If $p,q$ are close, then $n$ is small and can be factored easily. Also, each $p-1. q-1$ should have large prime factors because of Pollard's factorization method.
+\subsubsection{Choosing encryption exponent}
+The encryption exponent $e$ should be relatively prime to $\phi(n)$. Although we can choose at random and it might work, it is better to choose another large prime that is larger than $p$ and $q$.
 \end{document}

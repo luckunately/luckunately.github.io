@@ -1958,18 +1958,20 @@ A link that points to the \textbf{path} of another file. It is a file that conta
 \subsection{File descriptors}
 \begin{itemize}
     \item \textbf{file descriptor}: a number that identifies an open file
-    \item \textbf{standard file descriptors}: \begin{itemize}
-        \item \texttt{0}: standard input (stdin)
-        \item \texttt{1}: standard output (stdout)
-        \item \texttt{2}: standard error (stderr)
+    \item each process has own file descriptor indices
+    \item these point to kernel open file table\begin{itemize}
+        \item multiple FDs can point to the same \textbf{file table entry}
+        \item child process inherits stdout by default
     \end{itemize}
-    \item \textbf{file descriptor table}: a table that contains the file descriptors
-    \item \textbf{file descriptor bitmap}: a bitmap that contains the free file descriptors 
+    \item each disk file may be opened multiple times
 \end{itemize}
 
+\includegraphics*[scale = 0.9]{./Images/File descripter.png}
 
+Note that parent and child processes can share a file table if the child process is forked from the parent process and not yet execv() to another program.
 
-
+\includegraphics*[scale = 0.9]{./Images/Parent child FDs.png}
+ 
 
 
 
