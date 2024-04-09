@@ -1897,5 +1897,84 @@ spin:
 \end{itemize}
 \subsubsection{Waiting on locks}
 It is bad if we deschedule a thread while holding a lock. This way other threads cannot do much if their critical section is locked. So we need to release the lock before scheduling.
+\section{File systems}
+Under the \textbf{unix} abstraction:\begin{itemize}
+    \item \textbf{everything is a file}: files, directories, devices, etc.
+    \item a file is a sequence of bytes\begin{itemize}
+        \item a file \textit{might} be stored on a disk, or just in memory, or just nowhere
+        \item a file \textit{might} have a name/path, or just nothing
+        \item a file \textit{might} support random access (by offset), or just sequential access
+    \end{itemize}
+\end{itemize}
+Files are just binary blobs. The OS does not know what is in the file. It is the application's responsibility to interpret the file.
+\subsection{Disk file systems}
+Disks are divided into \textbf{blocks} of fixed size. The OS reads and writes blocks. The file system manages the blocks. \textbf{Partitions} are contiguous blocks on the disk. \textbf{File systems} are organized partitions.
+
+\includegraphics*[scale = 0.7]{./Images/Disck partitions.jpg}
+
+Each partition are made of \begin{itemize}
+    \item \textbf{boot block}: the first block of the partition. It contains the boot loader which is the info for loading the OS when the machine starts.
+    \item \textbf{superblock}: the second block of the partition. It contains the meta data of the file system. e.g. the size of the partition, the size of the blocks, the number of blocks, the number of inodes, etc.
+    \item \textbf{inode table}: the third block of the partition. 1 entry per disk file, info + which blocks are used (but not file names).
+    \item \textbf{data blocks}: the rest of the blocks of the partition. They contain the data of the files.
+\end{itemize}
+\subsubsection{Inodes}
+\begin{itemize}
+    \item \textbf{inode}: a data structure that contains the meta data of a file. e.g. the size of the file, the owner of the file, the permissions of the file, the timestamps of the file, the pointers to the blocks of the file, etc.
+    \item \textbf{inode number}: a unique number that identifies the inode
+    \item \textbf{inode table}: a table that contains the inodes of the files
+    \item \textbf{inode bitmap}: a bitmap that contains the free inodes
+\end{itemize}
+Inode example: 
+
+\includegraphics*[scale = 0.7]{./Images/Inode example.jpg}
+
+Remark: You can run out of either inodes or data blocks. Check by running: \texttt{df -i} and \texttt{df -h}.
+\subsection{Directories}
+Let's find how \texttt{/etc/passwd} is represented:
+
+\includegraphics*[scale= 0.6]{./Images/Directory representation.jpg}
+
+\begin{itemize}
+    \item \texttt{/} is the root directory which contains all the other directories (address) as its data blocks.
+    \item \texttt{etc} is a subdirectory that contains more files and directories.
+    \item \texttt{passwd} is a file that contains the user information
+\end{itemize}
+
+\subsubsection{Hard links}
+A link that points to the \textbf{same} inode as another file. It is just another name for the same file. 
+
+\texttt{ln /etc/passwd /psswd2}
+
+\includegraphics*[scale= 0.6]{./Images/Hard links inode.jpg}
+
+\subsubsection{Soft links}
+A link that points to the \textbf{path} of another file. It is a file that contains the path of the target file.
+
+\texttt{ln -s /etc/passwd /psswd2}
+
+\includegraphics*[scale= 0.6]{./Images/Soft links inode.jpg}
+
+\subsection{File descriptors}
+\begin{itemize}
+    \item \textbf{file descriptor}: a number that identifies an open file
+    \item \textbf{standard file descriptors}: \begin{itemize}
+        \item \texttt{0}: standard input (stdin)
+        \item \texttt{1}: standard output (stdout)
+        \item \texttt{2}: standard error (stderr)
+    \end{itemize}
+    \item \textbf{file descriptor table}: a table that contains the file descriptors
+    \item \textbf{file descriptor bitmap}: a bitmap that contains the free file descriptors 
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
 \end{document}
 
