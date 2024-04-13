@@ -1803,4 +1803,43 @@ To get a prime about 200 digits long, we can pick integer x between 1 and $10^{2
 Note that $p,q$ should not be close to each other because of Fermat's factorization method. If $p,q$ are close, then $n$ is small and can be factored easily. Also, each $p-1. q-1$ should have large prime factors because of Pollard's factorization method.
 \subsubsection{Choosing encryption exponent}
 The encryption exponent $e$ should be relatively prime to $\phi(n)$. Although we can choose at random and it might work, it is better to choose another large prime that is larger than $p$ and $q$.
+\subsubsection{Procedure}
+\begin{enumerate}
+    \item Find large primes $p$ and $q$ in 200 digits range by Miller-Rabin primality test. Set $n=pq$.
+    \item Choose an encryption exponent $e$ that is relatively prime to $\phi(n) = (p-1)(q-1)$. Now the public key is $(n,e)$.
+    \item Use Euclidean Algorithm to find $d$ such that $ed\equiv 1 \pmod {\phi(n)}$. Now the private key is $(n,d)$. (Solve for $ex+\phi(n)y=1$, then $d\equiv x \pmod {\phi(n)}$)
+    \item Encrypt the message by $f(x)=x^e \pmod n$.
+    \item Decrypt the message by $g(y)=y^d \pmod n$. Use repeated squaring to compute $y^d$.
+\end{enumerate}
+\subsection{Attacks on RSA}
+\subsubsection{Fermat's Factorization Method}
+Want to factor $n$: 
+
+Let $s$ range over the integers $> \sqrt{n}$ until $s^2-n$ is a square. Then $s^2-n=t^2$. Then $s^2-t^2=n$. Then $(s+t)(s-t)=n$. Then $n$ is a product of $s+t$ and $s-t$. $s = \frac{p+q}{2}$ and $t = \frac{p-q}{2}$.
+
+Number of steps to find $s$ and $t$ is about $s-\sqrt{n} = \frac{p+q}{2} - \sqrt{pq} = \frac{p-2\sqrt{pq}+q}{2} = \frac{(\sqrt{p}-\sqrt{q})^2}{2}$. $s$ is small if $p$ and $q$ are close. But if $p>>q$, then $\approx \sqrt{p}$ steps are needed.
+
+For example: Factor 5959 using Fermat's factorization method.\begin{enumerate}
+    \item Find that $77<\sqrt{5959}<78$. Then $78\leq s$.
+    \item $s = 78 \implies s^2 - n = 78^2 - 5959 = 125$. Not a square.
+    \item $s = 79 \implies s^2 - n = 79^2 - 5959 = 282$. Not a square.
+    \item $s = 80 \implies s^2 - n = 80^2 - 5959 = 441 = 21^2$. Then $s=80, t=21$.
+    \item Then $5959 = 80^2 - 21^2 = 101\times 59$.
+    \item Then $p=101, q=59$.
+\end{enumerate}
+Thus to keep RSA secure, $p$ and $q$ should be not close to each other. A good strategy might be to choose them a few digits apart.
+
+One can also try to factor $n=pq$ using Pollard's factorization method. To be safe, need at least one of $p-1,q-1$ to have a large prime factor.
+\subsubsection{Chose ciphertext attack}
+We use the fact that: \[
+    (x_1 x_2)^e \equiv x_1^e x_2^e \pmod n \quad (y_1 y_2)^d \equiv y_1^d y_2^d \pmod n
+\]
+
+Suppose we want to decrypt a cipher text message $M \pmod n$. We do not know the decryption key $d$. Choose a mask $r$ such that $\gcd(r,n)=1$. Now we need to convince the holder of the private key to decrypt $M\cdot r^e \pmod n$. Note that $e$ is public.
+
+Decrypted message is $(M\cdot r^e)^d \equiv M^d r \pmod n$. Now we can recover $M$ by multiplying by $r^{-1} \pmod n$. Note how we choose $r$ such that $\gcd(r,n)=1$.
+\subsubsection{Small exponent attack}
+If $e$ is small, then the encryption function $f(x)=x^e \pmod n$ can be broken by brute force. We can try to compute $\sqrt[e]{y*} \pmod n$ where $y* = x^e + kn \pmod n$ for some $k\in \mathbb{Z}$.
+
+If $e$ is small, there are a few $k$ we need to try to find the correct $x$. For example, if $e=3$, then we only need to try $k=0,1,2$ to find the correct $x$.
 \end{document}
