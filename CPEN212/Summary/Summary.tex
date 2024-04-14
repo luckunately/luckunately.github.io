@@ -2093,13 +2093,64 @@ For example: \begin{lstlisting}[language=C]
 int fd = open("file.txt", O_RDWR);
 uint8_t *p = mmap(NULL, // address to map to
     // If NULL, the OS will choose the address which is better.
-    4096, PROT_READ | PROT_WRITE, 
-    MAP_SHARED, 
-    fd, 
-    0);
+    4096, PROT_READ | PROT_WRITE, // read/write
+    MAP_SHARED,  // shared with other processes
+    fd, // file descriptor
+    0); // offset
 uint8_t c = p[1]; // read the second byte
 munmap(p, 4096);
 close(fd);
 \end{lstlisting}
+\section{Networking}
+\subsection{local networking}
+\begin{itemize}
+    \item \textbf{MAC}: Media Access Control, a unique identifier for network interfaces
+    \item Data organized in \textbf{packets} with source and destination MAC addresses
+    \item Every host must have a unique MAC address
+    \item Packets broadcast to all hosts on the network
+    \item Hosts ignore packets not addressed to them and selectively read packets addressed to them
+\end{itemize}
+\subsubsection{Bridged networking}
+\begin{itemize}
+    \item \textbf{bridge}: a device that connects two networks. Bridge has MAC address on each end of the network
+    \item \textbf{bridged networking}: a network configuration where two networks are connected by a bridge
+    \item MACs still unique across entire bridged network, packets forwarded based on MAC address
+    \item \textbf{MAC lookup table}: a table that maps MAC addresses to ports
+\end{itemize}
+\subsubsection{Ethernet frames}
+\begin{itemize}
+    \item \textbf{Ethernet frame}: a packet of data on an Ethernet network
+    \item \textbf{preamble}: a sequence of bits that indicates the start of a frame
+    \item \textbf{destination MAC address}: the MAC address of the destination host
+    \item \textbf{source MAC address}: the MAC address of the source host
+    \item \textbf{type}: the type of the frame (e.g. IP, ARP, etc.)
+    \item \textbf{data}: the data of the frame
+    \item \textbf{FCS}: Frame Check Sequence, a sequence of bits that checks the integrity of the frame
+\end{itemize}
+\subsection{IP networking}
+Local networking is not decentralized and scalable. We need a global addressing scheme. This is where IP networking comes in.
+\subsubsection{An internet}
+\begin{itemize}
+    \item \textbf{internet}: a network of networks, Connects many networks together
+    \item MAC addresses are not unique across the internet, only unique within a network
+    \item \textbf{IP address}: a unique identifier for a host on the internet, IP stands for Internet Protocol
+    \item \textbf{IP packet}: a packet of data on an IP network
+    \item traffic routed based on IP address
+    \item \textbf{router}: a device that connects networks and routes traffic between them
+\end{itemize}
+\subsubsection{Routing}
+\begin{itemize}
+    \item \textbf{routing}: the process of forwarding packets from one network to another
+    \item \textbf{routing table}: a table that maps IP addresses to ports
+    \item \textbf{default route}: a route that is used when no other route matches
+    \item \textbf{routing protocol}: a protocol that routers use to communicate with each other
+\end{itemize}
+Note that if the destination is a few hops away, the packet will be forwarded to the next hop and the next hop might not be a fixed route. This means that packets might take different routes to the same destination.
+
+Now, this might bring up another problem: the network graph might contain cycles. We use \textbf{time-to-live} (TTL) to prevent packets from looping forever. The TTL is decremented at each hop and the packet is dropped when the TTL reaches 0.
+
+If packets dropped, the sender will retransmit the packet. This is called \textbf{reliable delivery}.
+\subsection{Packets structure}
+The idea is to encapsulate the data in different layers. For example, the data is encapsulated in an Ethernet frame, then the Ethernet frame is encapsulated in an IP packet, then the IP packet is encapsulated in an Ethernet frame.
 \end{document}
 
