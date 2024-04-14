@@ -1972,11 +1972,134 @@ Note that parent and child processes can share a file table if the child process
 
 \includegraphics*[scale = 0.9]{./Images/Parent child FDs.png}
  
+\subsection{Pipes}
+Pipes are file descriptors that allow processes to communicate. They are unidirectional. It has no disk storage. 
+
+For example, a shell command: \texttt{ps | aux | grep root} builds a pipe chain from \texttt{ps aux} to \texttt{grep root}.
+
+\subsection{File system operations}
+There are two types of operations:
+\begin{itemize}
+    \item syscall interface (operating system calls)\begin{itemize}
+        \item not portable
+        \item file descriptors identify open files 
+        \item e.g. \texttt{open, read, write, close}
+        \item only cares about the binary blobs
+        \item \textbf{safe} for signal handlers
+        \item often \textit{incorrectly} called unbuffered I/O, but it is buffered
+    \end{itemize}
+    \item C library interface (stdio.h)\begin{itemize}
+        \item portable
+        \item \texttt{FILE} pointers identify open files
+        \item e.g. \texttt{fopen, fread, fwrite, fclose}
+        \item cares about the text/binary distinction
+        \item generally \textbf{unsafe} for signal handlers
+        \item usually buffered I/O
+    \end{itemize} 
+\end{itemize}
+Note that file systems do not protect against synchronization. It is the application's responsibility to synchronize the access to the file system.
+\subsubsection{Buffereing}
+\begin{itemize}
+    \item \textbf{amortizes} cost of device access (bring in a block, not a byte)
+    \item first write to buffer, then flush to disk
+    \item caveats: \begin{itemize}
+        \item Programs can crash before the buffer is flushed, so that data is lost
+        \item makes \textbf{I/O guarantees} difficult. what if disk losses power? what if you sync a file but not the directory it is in?
+        \item might delay error messages. (e.g., if I/O error occurs, the error message might be delayed until the buffer is flushed)
+    \end{itemize}
+\end{itemize}
+\subsection{File positions}
+File positions are maintained per file descriptor. They are updated after each read/write operation. They are used to determine where to read/write next.
+\begin{itemize}
+    \item \textbf{file position}: the current position in the file
+    \item \textbf{seek}: move the file position
+    \item \textbf{read/write}: read/write from the file position
+    \item \textbf{append}: write to the end of the file
+    \item \textbf{truncate}: truncate the file to a certain size
+\end{itemize}
+Note that not all devices support seek. For example, you cannot seek on a pipe.
+\subsection{File redirection}
+\subsubsection{stdin, stdout, stderr}
+Application convention: \begin{itemize}
+    \item \texttt{stdin}: standard input (0)
+    \item \texttt{stdout}: standard output (1)
+    \item \texttt{stderr}: standard error (2)
+\end{itemize}
+By default, the shell connects these to the terminal. Note that it is not a kernel-level convention.
+
+\subsubsection{duplicate file descriptors}
+Redirect \texttt{stdout} to a file: \texttt{ls > file.txt}
 
 
+\begin{itemize}
+    \item \texttt{dup}: duplicate a file descriptor
+    \item \texttt{dup2}: duplicate a file descriptor to a specific file descriptor
+\end{itemize}
+These are used to redirect file descriptors. For example, \texttt{dup2(fd, 1)} will redirect the file descriptor \texttt{fd} to \texttt{stdout}.
 
+\subsection{Blocking vs non-blocking I/O}
+\begin{itemize}
+    \item \textbf{blocking I/O}: the process waits until the I/O operation is complete
+    \item \textbf{non-blocking I/O}: the process does not wait. It continues to do other things
+\end{itemize}
+Open file descriptor as non-blocking: \texttt{open("file.txt", O\_NONBLOCK)}
 
+Or change it later with \texttt{fcntl(fd, F\_SETFL, O\_NONBLOCK | fcntl(fd, F\_GETFL))}
 
+If we do it to \texttt{read()} or \texttt{write()}, it will return \texttt{EAGAIN} if the operation is not ready.
+\subsection{Polling}
+Sometimes. we want to check \textbf{many fds} like a server with many clients. We can use \texttt{poll()} to check many fds at once.
 
+Polling tells the OS which fds we want to check. The OS will notify when any is modified.
+
+\subsubsection{poll interface}
+\begin{lstlisting}[language=C]
+struct pollfd {
+    int fd; // file descriptor
+    short events; // events to check
+    short revents; // events that occurred
+};
+
+int poll(struct pollfd *fds, // array of fds
+    nfds_t nfds, // number of fds
+    int timeout); // timeout in ms
+\end{lstlisting}
+For example: \begin{lstlisting}[language=C]
+struct pollfd fds[1];
+fds[0].fd = fd; // file descriptor to check
+fds[0].events = POLLIN; // check for input
+// wait for 10 ms
+while (poll(fds, 1, 10) == 0) {
+    // do something else as waiting
+}
+// get input from the file descriptor
+\end{lstlisting}
+\subsection{Memory mapped file I/O}
+Use \textbf{virtual memory} to map a file to memory. The OS will load the file into memory when the program accesses the memory. This is called \textbf{demand paging}.
+\begin{lstlisting}[language=C]
+void *mmap(void *addr, // address to map to
+    size_t length, // length of the mapping
+    int prot, // protection (read/write/execute)
+    int flags, // flags (e.g. MAP_SHARED)
+    int fd, // file descriptor
+    off_t offset); // offset in the file
+
+int munmap(void *addr, // address to unmap
+    size_t length); // length of the mapping
+\end{lstlisting}
+There are stuff that you cannot map like directories, pipes, etc. You can map a file to memory and then modify the memory to modify the file. This is called \textbf{memory-mapped file I/O}.
+
+For example: \begin{lstlisting}[language=C]
+int fd = open("file.txt", O_RDWR);
+uint8_t *p = mmap(NULL, // address to map to
+    // If NULL, the OS will choose the address which is better.
+    4096, PROT_READ | PROT_WRITE, 
+    MAP_SHARED, 
+    fd, 
+    0);
+uint8_t c = p[1]; // read the second byte
+munmap(p, 4096);
+close(fd);
+\end{lstlisting}
 \end{document}
 
