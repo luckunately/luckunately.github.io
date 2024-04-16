@@ -201,6 +201,15 @@ Solutions are considered the same if they differ by a multiple of $n/d$.
     \]
     has a unique solution modulo $n_1n_2\cdots n_k$.
 \end{theorem}
+\begin{theorem}
+    The system of linear congruences \begin{align*}
+        x & \equiv a_1 \pmod {n_1} \\
+        x & \equiv a_2 \pmod {n_2} \\
+          & \vdots                 \\
+        x & \equiv a_r \pmod {n_r}
+    \end{align*}
+    has a solution if and only if $a_i\equiv a_j \pmod {\gcd(n_i,n_j)}$ for all $i,j$. Moreover, the solution is unique modulo $N=\text{lcm}(n_1,n_2,\ldots,n_r)$.
+\end{theorem}
 \subsubsection{Algorithm}
 Let $N = n_1n_2\cdots n_k$. Then $N_i = N/n_i$. Let $y_i$ be the multiplicative inverse of $N_i$ modulo $n_i$. Then the solution is\[
     x = a_1y_1N_1+a_2y_2N_2+\cdots + a_ky_kN_k
@@ -348,5 +357,27 @@ Goal: factor a given composite number $n$.\begin{enumerate}
 \end{enumerate}
 The idea is that if $n$ is prime, $2^{k!}\equiv 1\pmod n$. If $n$ is composite, then $2^{k!}\not\equiv 1\pmod n$.
 \section{Cryptography}
+\subsection{Classical Cryptography}
+No public key. 
+\subsubsection{Affine Cipher}
+Basically solving two linear congruences.$\begin{cases}
+    ax_1+b\equiv c_1\pmod{26}\\
+    ax_2+b\equiv c_1\pmod{26}
+\end{cases}$ where $c_1,c_2$ are the ciphertext and $x_1,x_2$ are the plaintext. Then we can recover $a,b$ by solving the system of congruences.
 
+Start by eliminating one variable by subtracting the two equations. Then solve for the other variable.
+\subsubsection{Exponentiation Cipher}
+Use the lemma: \begin{lemma}
+    $de\equiv 1\pmod{\phi(n)} \implies m^{de}\equiv m\pmod{n}$.
+\end{lemma}
+Then we can encrypt by $c\equiv m^e\pmod{n}$ and decrypt by $m\equiv c^d\pmod{n}$.
+\subsection{RSA}
+\begin{theorem}
+    Let $n=pq$ where $p,q$ are distinct primes. Let $e$ be an integer such that $\gcd(e,\phi(n)) = 1$. Then the encryption function is $c\equiv m^e\pmod{n}$ and the decryption function is $m\equiv c^d\pmod{n}$ where $d$ is the multiplicative inverse of $e$ modulo $\phi(n)$.
+\end{theorem}
+\subsubsection{Fermat's Factorization Method}
+\begin{theorem}
+    Let $n$ be a composite number. Then $n$ can be factored as $n = a^2-b^2 = (a+b)(a-b)$.
+\end{theorem}
+One of $a,b$ is larger than $\sqrt{n}$ and the other is smaller. We can find $a$ by computing $\lceil \sqrt{n}\rceil$ and keep incrementing until we find a square. Then we can find $b$ by computing $a^2-n$ and keep incrementing until we find a square.
 \end{document}
