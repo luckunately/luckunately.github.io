@@ -34,7 +34,7 @@
 \thispagestyle{plain}
 \section{Induction}
 Induction/ Strong Induction is basically another way of Well well-ordering principle. \begin{theorem}
-    Every non-empty subset of $\mathbb{N}$ has a least element.
+    Every non-empty subset of $\mathbb{N}$ has a smallest element.
 \end{theorem}
 \subsection{Division algorithm}
 \begin{theorem}
@@ -50,7 +50,7 @@ Induction/ Strong Induction is basically another way of Well well-ordering princ
 \end{lemma}
 \subsection{Sieve of Eratosthenes}
 \begin{theorem}
-    $\exists$ a prime $p$ such that $p\leq n$ for all $n\in \mathbb{N}, n>1$.
+    $\exists$ a prime $p$ s.t. $p\leq n, \forall n\in \mathbb{N}, n>1$.
 \end{theorem}
 \subsection{The prime number theorem}
 \begin{theorem}
@@ -232,7 +232,7 @@ To be added if needed.
 \begin{proof}
     Let $d=e+k(p-1)$. Then $a^d\equiv a^{e+k(p-1)}\equiv a^e a^{k(p-1)} \equiv a^e (a^{p-1})^k \equiv a^e\pmod{p}$.
 \end{proof}
-We use Wilson's Theorem to prove here. 
+
 \subsection{Euler's Theorem}
 \begin{theorem}
     Let $n\in \mathbb{Z}$ with $n>0$ and $a\in \mathbb{Z}$ with $\gcd(a,n) = 1$. Then $a^{\phi(n)}\equiv 1\pmod{n}$.
@@ -315,8 +315,16 @@ If $f(n)$ is a multiplicative function, and $F(n) = \sum_{d|n} f(d)$ is also mul
     \]
 \end{definition}
 Note that $\mu(n)$ is multiplicative.
+\begin{corollary}
+    \[
+        f(n) = \sum_{d|n} F(d)\mu(n/d) = \sum_{d|n} F(n/d)\mu(d)
+    \]
+\end{corollary}
+Note $F(n/d) = \sum_{e| \frac{n}{d}} f(e)$. 
 
-Need to add more on this.
+Then \[
+        f(n)=\sum_{d|n}F(\frac{n}{d})\mu(d)=\sum_{d|n}\sum_{e|\frac{n}{d}}f(e)\mu(d)=\sum_{e|n}\sum_{d|\frac{n}{e}}f(e)\mu(d)=\sum_{e|n}f(e)\sum_{d|\frac{n}{e}}\mu(d)
+    \]
 
 \subsection{Primality Testing}
 \subsubsection{Fermat's Primality Test}
@@ -325,7 +333,11 @@ If there exists an $a$ such that $a^{n-1}\not\equiv 1\pmod{n}$, then $n$ is comp
 \subsubsection{Carmichael Numbers}
 \begin{definition}
     A composite number $n$ is a Carmichael number if $a^{n-1}\equiv 1\pmod{n}$ for all $a$ such that $\gcd(a,n) = 1$.
+
+    Suppose $n=p_1 p_2 \cdots p_r$ where $p_1,p_2,\ldots,p_r$ are distinct primes. If $p_i -1\mid n-1$ for all $i$, then $n$ is a Carmichael number.
 \end{definition}
+So each prime of Carmichael number would satisfy Fermat's Primality Theorem to get $b^{p_i-1} \equiv b^{n-1}\equiv 1\pmod{n}$. Then by CRT, we can get $b^{n-1}\equiv 1\pmod{n}$.
+
 \subsubsection{Miller-Rabin Primality Test}
 To deal with Carmichael numbers, we use the Miller-Rabin Primality Test. It is a probabilistic algorithm.\begin{enumerate}
     \item Start out the same way as Fermat's Primality Test. Choose a random integer $b$ in $[2,n-2]$. Then compute $b^{n-1}\pmod n$.
@@ -349,11 +361,11 @@ To deal with Carmichael numbers, we use the Miller-Rabin Primality Test. It is a
 Thus if we run $m$ iterations of the test, the probability that $n$ is composite is at most $(\frac{3}{4})^m$.
 \subsection{Pollard's Factorization Algorithm}
 Goal: factor a given composite number $n$.\begin{enumerate}
-    \item Choose $r_0 \equiv 2^0\pmod n$.
-    \item Define $r_{i+1} = r_i^2-1\pmod n$.
-    \item Compute $\gcd(r_i-1,n)$ for all $i$
-    \item If $\gcd(r_i-1,n) = 1$, then $n$ is probably prime. If $\gcd(r_i-1,n) > 1$, then we have found a factor of $n$.
-    \item If $\gcd(r_i-1,n) = n$, then we have failed since the gcd should not be greater than $n$.
+    \item Choose $r_0\equiv 2^{0!}\pmod n$.
+    \item Compute the next one using the formula $r_k\equiv r_{k-1}^{k} \pmod n$.
+    \item For each $k$ compute $\gcd(r_{k}-1,n)=g_k$. Note that $1\le g_k \le r_{k-1} \le n-2$ and $g_k$ divides $n$.
+    \item For each $k$  So if $g_k > 1$, then we have found a factor of $n$ which is greater than 1.
+    \item Repeat the process till we find a factor of $n$.
 \end{enumerate}
 The idea is that if $n$ is prime, $2^{k!}\equiv 1\pmod n$. If $n$ is composite, then $2^{k!}\not\equiv 1\pmod n$.
 \section{Cryptography}
@@ -375,6 +387,7 @@ Then we can encrypt by $c\equiv m^e\pmod{n}$ and decrypt by $m\equiv c^d\pmod{n}
 \begin{theorem}
     Let $n=pq$ where $p,q$ are distinct primes. Let $e$ be an integer such that $\gcd(e,\phi(n)) = 1$. Then the encryption function is $c\equiv m^e\pmod{n}$ and the decryption function is $m\equiv c^d\pmod{n}$ where $d$ is the multiplicative inverse of $e$ modulo $\phi(n)$.
 \end{theorem}
+A variation of the Exponentiation Cipher.
 \subsubsection{Fermat's Factorization Method}
 \begin{theorem}
     Let $n$ be a composite number. Then $n$ can be factored as $n = a^2-b^2 = (a+b)(a-b)$.
