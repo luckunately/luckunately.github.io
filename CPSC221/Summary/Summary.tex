@@ -583,8 +583,51 @@ A perfect tree with $h$ levels has $2^{h+1}-1$ nodes and $2^h$ leaves on the bot
 So the longest decision path can be no shorter than $n\log n$.
 
 Note that non-comparison-based sorting algorithms can have a lower bound of $n$. But that has more restrictions on the input.
+\subsection{Topological Sort}
+Topological sort is an algorithm that sorts the vertices of a directed acyclic graph (DAG) in a linear order. It is useful for scheduling tasks that have dependencies.
 
+Given \begin{itemize}
+    \item a collection of vertexes $V$
+    \item a collection of edges $E$
+\end{itemize}
+Want \begin{itemize}
+    \item a collection of vertexes $V'= V$
+    \item a collection of edges $E' \in E$ such that $E'$ is a topological sort of $V'$ meaning that for every edge $(u,v) \in E'$, $u$ comes before $v$ in $V'$.
+\end{itemize}
 
+\begin{definition}
+    Topological sort: Given a graph $G=(V,E)$, output all vertices $v_i$ in $V$ such that for every edge $(v_i, v_j) \in E$, $v_i$ comes before $v_j$ in the output.
+\end{definition}
+
+\subsubsection{Algorithm}
+
+\begin{algorithmic}
+    \Function{TopologicalSort}{$G$}
+        \State Label each vertex's \textbf{in-degree} (number of incoming edges)
+        \State Create a queue $Q$ and enqueue all vertices with in-degree 0
+        \State Create an empty list $L$
+        \While{$Q$ is not empty}
+            \State Dequeue a vertex $v$ from $Q$
+            \State Add $v$ to the end of $L$
+            \For{each vertex $u$ adjacent to $v$}
+                \State Decrement $u$'s in-degree
+                \If{$u$'s in-degree is 0}
+                    \State Enqueue $u$ to $Q$
+                \EndIf
+            \EndFor
+        \EndWhile
+    \EndFunction
+\end{algorithmic}
+Note that if the graph has a cycle, then the in-degree of some vertices will never be 0. So the algorithm will not terminate. So the graph must be a DAG (Directed Acyclic Graph).
+\subsubsection{Complexity}
+\begin{itemize}
+    \item Labeling in-degree: $O(V+E)$
+    \item Enqueue all vertices with in-degree 0: $O(V)$
+    \item Dequeue a vertex: $O(1)$ but need to iterate through all adjacent vertices.
+    \item Decrement in-degree: $O(E)$
+    \item Enqueue a vertex: $O(1)$ but need to iterate through all adjacent vertices.
+    \item Total: $O(V+E)$
+\end{itemize}
 
 \section{Dictionary/Map}
 A dictionary is a data structure that stores a set of key-value pairs. \begin{itemize}
@@ -1507,4 +1550,53 @@ Since programs run on a stack, we can use the call stack to store the nodes.
 \end{itemize}
 
 However, if we use Adjacency matrix, the time complexity is $O(n^2)$ since we need to check all the vertices for each vertex.
+\subsection{Spanning tree}
+A spanning tree of a graph $G$ is a subgraph that is a tree and contains all the vertices of $G$. It is a \textbf{connected acyclic} subgraph.
+
+Minimum spanning tree is a spanning tree with the smallest sum of edge weights.
+\subsubsection{Kruskal's algorithm}
+Builds a spanning tree from several \textit{connected components}, repeatedly chooses the \textit{lightest} edge that connects two components, which \textbf{does not} form a cycle until edge set has $|V| - 1$ edges.
+\begin{algorithmic}
+\State {Algorithm Kruskal(G)}
+    \State {Input: A graph $G$}
+    \State {Output: A minimum spanning tree of $G$}
+    \State {set $E' = \emptyset$}
+    \While{$E'$ has less than $|V|-1$ edges}
+        \State{Choose the lightest edge $(u,v)$ from $G$}
+        \If{$(u,v)$ does not form a cycle with $E'$}
+            \State{$E' = E' \cup \{(u,v)\}$}
+        \EndIf
+    \EndWhile
+\end{algorithmic}
+Find minimum weight edge: Priority queue.
+
+Find cycle: Disjoint set.
+
+Complexity: \begin{itemize}
+    \item For heap based approach: \begin{itemize}
+        \item Build: $O(|E|\log |E|)$
+    \end{itemize}
+\end{itemize}
+See his lecture here!!!!!!!!!!!!
+\subsubsection{Prim's algorithm}
+\begin{itemize}
+    \item Based on Partition Property in graphs
+    \item Builds a spanning tree from initially one vertex
+    \item Repeatedly chooses the \textit{lightest} edge that connects the tree to a new vertex until the tree contains all vertices.
+\end{itemize}
+\begin{algorithmic}
+\State {Algorithm Prim(G)}
+    \State {Input: A graph $G$}
+    \State {Output: A minimum spanning tree of $G$}
+    \State {set $V' = \emptyset$}
+    \State {set $E' = \emptyset$}
+    \State {Choose a vertex $v$ from $G$}
+    \State {$V' = V' \cup \{v\}$}
+    \While{$V'$ has less than $|V|$ vertices}
+        \State{Choose the lightest edge $(u,v)$ from $G$ where $u\in V'$ and $v\notin V'$}
+        \State{$V' = V' \cup \{v\}$}
+        \State{$E' = E' \cup \{(u,v)\}$}
+    \EndWhile
+\end{algorithmic}
+Complexity: $O(|E|\log |V|)$ with a priority queue.
 \end{document}
