@@ -1599,4 +1599,36 @@ See his lecture here!!!!!!!!!!!!
     \EndWhile
 \end{algorithmic}
 Complexity: $O(|E|\log |V|)$ with a priority queue.
+\subsection{Dijkstra's algorithm}
+Traversal using priority queue to find the shortest path from a source vertex to all other vertices in a weighted graph.
+
+Note that if it is unweighted, we can use BFS to find the shortest path.
+
+If negative weights are allowed, Dijkstra's algorithm might produce correct results but it is not guaranteed. 
+
+\subsubsection{Algorithm}
+\begin{algorithmic}
+\State {Algorithm Dijkstra(G,s)}
+    \State {Input: A graph $G$ and a source vertex $s$}
+    \State {Output: The shortest path from $s$ to all other vertices}
+    \State {set $dist$ to $\infty$ for all vertices}
+    \State {set $dist[s]$ to 0}
+    \State {set $pq$ to a priority queue}
+    \State {$pq$.enqueue($s$)}
+    \While{$pq$ is not empty}
+        \State{$v$ = $pq$.dequeue()}
+        \For{each edge $(v,w)$ in $G$}
+            \If{$dist[v] + weight(v,w) < dist[w]$}
+                \State{$dist[w] = dist[v] + weight(v,w)$}
+                \State{$pq$.enqueue($w$)}
+            \EndIf
+        \EndFor
+    \EndWhile
+\end{algorithmic}
+If we want to also collect the path, we can use a parent array to store the parent of each vertex.
+
+Each of $|E|(m)$ edges has to be processed once \begin{itemize}
+    \item Looking up (and changing) the current cost of a vertex in a heap takes $O(|V| = n)$ for an unindexed heap
+    \item Cost: $O((|V|+|E|)\log |V|)$
+\end{itemize}
 \end{document}
