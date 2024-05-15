@@ -18,7 +18,7 @@ x' = x - ut \space\space\space\space\space t' = t
 $$
 where $u$ is the velocity of $S'$ with respect to $S$
 
-This is called **Galilean Transformation**. It is valid for low speeds. But it is not valid for high speeds since it violates the **speed of light** principle. This equation would state that speed of light is frame-dependent.
+This is called **Galilean Transformation**. It is valid for low speeds. But, it is not valid for high speeds since it violates the **speed of light** principle. This equation would state that the speed of light is frame-dependent.
 
 ### Lorentz Transformation
 
@@ -42,16 +42,16 @@ $$
 
 Now the transformation keeps the speed of light constant.
 
-Actually this property should hold for all kind of function of velocity as long as the **same** function appears for both of them:
+Actually, this property should hold for all kinds of functions of velocity as long as the **same** function appears for both of them:
 $$
 x' = (x - ut) \cdot f(u) \\
 t' = (t - ux/c^2) \cdot f(u)
 $$
-Of course we need $f(u = 0) = 1$ so that the transformation does nothing when $u = 0$
+Of course, we need $f(u = 0) = 1$ so that the transformation does nothing when $u = 0$
 
 #### Light Clock experiment
 
-Consider 3 identical clock that ticks at the same rate by mesuring the times it takes for light to travel between two mirrors with a distance $L$ between.
+Consider 3 identical clocks that tick at the same rate by measuring the times it takes for light to travel between two mirrors with a distance $L$ between.
 
 ![Light Clock](./light_clock.jpg)
 
@@ -59,7 +59,7 @@ An observer who holds one clock would observe another moving clock to tick slowe
 
 ![Transverse Clock](./tranverse_clock.jpg)
 
-The period of transverse clock can be calculated as follows: 
+The period of a transverse clock can be calculated as follows: 
 
 $$
 L' = \sqrt(L^2 + (uT')^2) \\
@@ -171,4 +171,154 @@ Rewrite it as $\beta_{1+2} = \frac{\beta_1 + \beta_2}{1 + \beta_1\beta_2}$
 
 Note that if $v' = c$, then $V = \frac{c + u}{1 + \frac{uc}{c^2}} = c$. Thus the speed of light is still constant. Something moving at the speed of light in one frame will also move at the speed of light in another frame.
 
+### $\beta, \gamma$ approximation
+- $|\beta| \in [0, 1]$, $\gamma \in [1, \infty)$
+- $\beta = 0$ corresponds to rest, increasing $\beta$ corresponds to increasing speed
+- $\gamma = 1$ corresponds to rest, increasing $\gamma$ corresponds to increasing speed
+- For small $\beta$, Taylor expansion gives $\gamma \approx 1 + \frac{1}{2}\beta^2$. Inverting, $\beta \approx \sqrt{1-1/\gamma^2}$ 
+- For large $\gamma$, $\beta \approx 1 - \frac{1}{2}\frac{1}{\gamma^2}$
+
+## Doppler Effect
+
+**motion of the source and observer affects the frequency of the wave.**
+
+In the following sections, we will use positive velocity as a moving away from the observer as the convention.
+
 ### Classical Doppler Effect
+
+In the classical Doppler effect, there is a difference between the frequency of the source and the observer.
+
+#### Observer at rest
+
+If source is moving away with a velocity $u$, the observer sees a wave period of $\triangle T_{\text{obs}} = \triangle T_{\text{source}}(1 + \frac{u}{c})$. Time itself plus the distance the source moves in that time.
+
+Thus the frequency $f=\frac{1}{\triangle T}$ is $f_{\text{obs}} = f_{\text{source}}(1 + \frac{u}{c})$
+
+Since wavelength $\lambda = c\triangle T$, we have $\lambda_{\text{obs}} = \lambda_{\text{source}}(1 + \frac{u}{c})$
+
+#### Source at rest
+
+In this case:
+$$
+\begin{align*}
+\triangle T_{\text{obs}} &= \triangle T_{\text{source}} + \frac{u\triangle T_{\text{obs}}}{c} \\
+\triangle T_{\text{obs}} &= \frac{\triangle T_{\text{source}}}{1 - \frac{u}{c}} \\
+f_{\text{obs}} &= f_{\text{source}}(1 - \frac{u}{c})
+\end{align*}
+$$
+
+For $u<<c$, the two equations are the same. But when $u$ is comparable to $c$, the two equations are different.
+
+#### Extreme cases
+
+Consider sound waves instead of light waves. $u$ can be easily comparable to $c$ or even larger.
+
+- $u\to -c \implies f_{\text{obs}} \to \infty$ since source arrives before the wave does
+
+### Relativistic Doppler Effect
+
+From the observer's point of view, the clock in a moving source ticks slower by a factor of $\gamma$. Find the period using the observer's clock:
+$$
+\triangle T_{\text{obs}} = \gamma \triangle T_{\text{source}} (1 + \frac{u}{c}) = \triangle T_{\text{source}} \sqrt(\frac{1 + u/c}{1 - u/c})
+$$
+
+Thus the frequency is $f_{\text{obs}} = f_{\text{source}}\sqrt(\frac{1 - u/c}{1 + u/c})$ and the wavelength is $\lambda_{\text{obs}} = \lambda_{\text{source}}\sqrt(\frac{1 + u/c}{1 - u/c})$
+
+If we check it from the source at rest, observer moving case, we get the **same result**.
+
+## 4-Vector Notation
+
+It is convenient to consider $ct$ at the 0th component of what is called a **space-time coordinate 4-vector** along with $x,y,z=\vec{x}$.
+$$
+\vec{X} = (ct, \vec{x}) = (ct, x, y, z)
+$$
+
+### Lorentz Transformation in 4-vector notation
+$$
+\begin{bmatrix}
+ct' \\
+x' \\
+y' \\
+z'
+\end{bmatrix}
+=
+\begin{bmatrix}
+\gamma & -\beta\gamma & 0 & 0 \\
+-\beta\gamma & \gamma & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+ct \\
+x \\
+y \\
+z
+\end{bmatrix}
+=
+\begin{bmatrix}
+\gamma(ct - \beta x) \\
+\gamma(x - \beta ct) \\
+y \\
+z
+\end{bmatrix}
+$$
+Here $x$ is just the direction of motion. If need to transform into another coordinate system, then need to count the angle between the two systems.
+
+### 4-vector dot product
+Define the dot product of two 4-vectors as:
+$$
+\begin{align*}
+\vec{X}_1 &= (ct, x_1, y_1, z_1) = (ct, \vec{x_1}) \\
+\vec{X}_2 &= (ct, x_2, y_2, z_2) = (ct, \vec{x_2}) \\
+\vec{X}_1 \cdot \vec{X}_2 &= ct_1ct_2 - \vec{x_1}\cdot\vec{x_2} = ct_1ct_2 - (x_1x_2 + y_1y_2 + z_1z_2)
+\end{align*}
+$$
+
+#### Invariance of 4-vector dot product
+$$
+\vec{X'}_1 \cdot \vec{X'}_2 = \vec{X}_1 \cdot \vec{X}_2
+$$
+
+**Lorentz invariant**: the same in all inertial frames. It is as if the dot product of a 3-vector is invariant if we rotate both vectors in the same way.
+
+##### Square of Coordinate 4-vector
+
+$$
+\vec{X}^2 = \vec{X} \cdot \vec{X} = c^2t^2 - x^2 - y^2 - z^2
+$$
+
+At a light signal leaves at $x=y=z=0, t=0$, $x^2+y^2+z^2 = c^2t^2$, thus $\vec{X}^2 = 0$ for light. We can transform it to any frame and it will still be 0. So the speed of light is invariant.
+
+## Momentum and Energy
+
+### Classical Momentum and Energy
+
+Classical momentum $p = mv$
+
+If no external forces, in a colidssion, the total momentum is conserved.
+$$
+\sum p_{\text{initial}} = \sum p_{\text{final}} \\
+m_1v_{1i} + m_2v_{2i} = m_1v_{1f} + m_2v_{2f}
+$$
+
+If the collision occurs in a frame with velocity $u$, then we add the same term to all velocities.
+
+$$
+m_1(v_{1i} + u) + m_2(v_{2i} + u) = m_1(v_{1f} + u) + m_2(v_{2f} + u) \\
+m_1v_{1i} + m_2v_{2i} + (m_1 + m_2)u = m_1v_{1f} + m_2v_{2f} + (m_1 + m_2)u
+$$
+
+Sume of masses does not change, thus the total momentum is conserved.
+
+### Relativistic Momentum and Energy
+
+Relativistic velocity calculation $v = \frac{v' + u}{1 + uv'/c^2}$ is different for all the bodies involved in the collision, which causes the classical conservation of momentum to fail.
+
+The times of measurements are different in different frames, thus the conservation of energy also fails. It calls for **new definitions** of momentum and energy.
+
+#### A Clock at Each Point in Each Frame
+Time moves at different rates in different frames in relativity, so you need at least a different clock for each frame. 
+
+Clocks in a moving frame will not only look like they are running slow, but they will also look (to you) like they are not synchronized properly. However, to an observer in the moving frame, the clocks will look fine.
+
+#### Proper Time and Proper Velocity
