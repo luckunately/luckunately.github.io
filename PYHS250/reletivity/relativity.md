@@ -385,3 +385,95 @@ It is convenient to use units where the numerical value of $c$ is 1.0
 ### Highly Relativistic Limit
 
 If the numerical value of the energy of a particle is much greater than its rest mass energy, that means the $\gamma$ is much greater than 1.
+
+## Proper 4-Vector 
+
+### Proper 4-vector velocity
+The coordinate 4-vector of a moving particle:
+$$
+\vec{X} = (ct, v_x t, v_y t, v_z t) = (ct, \vec{v}t) = (c, \vec{v})\gamma \tau
+$$
+
+The $\tau$ derivative of this **proper velocity** 4-vector:
+$$
+\vec{V}= \frac{d\vec{X}}{d\tau} = \gamma(c, \vec{v})
+$$
+
+### Proper 4-vector momentum
+
+The proper 4-vector momentum is the mass times the proper velocity:
+$$
+\vec{P} = m\vec{V} = m\gamma(c, \vec{v}) = (\frac{\gamma m c^2}{c}, \gamma m \vec{v}) = (E/c, {P})
+$$
+
+Made of relativistic energy and momentum.
+
+#### Square of Proper 4-vector
+
+$$
+\vec{P}^2 = \vec{P}\cdot\vec{P} = \frac{E^2}{c^2} - P^2 = (\gamma^2 - \beta^2\gamma^2)m^2c^2 = m^2c^2
+$$
+
+At Lorentz invariant, it is the same in all frames.
+
+Manipulate is:
+$$
+\begin{align*}
+\frac{E^2}{c^2} - P^2 &= m^2c^2 \\
+E^2 - P^2c^2 &= (mc^2)^2 \\
+E^2 &= P^2c^2 + (mc^2)^2
+\end{align*}
+$$
+
+In $c=1$ units, $E^2 = P^2 + m^2$
+
+## Creating/Destroying Particles
+
+When particles collide with high enough energy, they can create new particles. The energy of the new particles must be conserved.
+
+### Center of Mass Frame
+
+Easiest to analyze the collision in the center of mass frame. The total momentum is 0 in this frame. In other words, incoming particles have equal and opposite momentum.
+
+Steps to find the energy of the new particles:
+1. Find the $\beta, \gamma$ for a Lorentz Transform that will make the total momentum 0.
+2. Transform the energy of the incoming particles to the center of mass frame in 4-vector notation.
+3. Add the energies of the incoming particles to find the total energy. Subtract the masses of the incoming particles to find the energy available for the new particles.
+
+#### Derivation
+
+For convenience, use $c=1$ units. 
+
+Let $\vec{P}_1 = (E_1, {P}_1), \vec{P}_2 = (E_2, {P}_2)$ be the 4-vectors of the incoming particles. In the CM frame we want to find:
+$$
+E_1' = \gamma(E_1 - \beta {P}_1) \space \space P_1' = \gamma({P}_1 - \beta E_1) \\
+E_2' = \gamma(E_2 - \beta {P}_2) \space \space P_2' = \gamma({P}_2 - \beta E_2)
+$$
+
+The total momentum is 0, thus $P_1' + P_2' = 0$. Thus:
+$$
+P_1' + P_2' = \gamma({P}_1 - \beta E_1) + \gamma({P}_2 - \beta E_2) = \gamma({P}_1 + {P}_2 - \beta(E_1 + E_2)) = 0 \\
+(P_1 + P_2) = \beta(E_1 + E_2) \implies \beta = \frac{P_1 + P_2}{E_1 + E_2}
+$$
+
+#### Derivation using 4-vector notations
+
+Addition of 4-vector: $\vec{P}_1 + \vec{P}_2 = (E_1 + E_2, \vec{P}_1 + \vec{P}_2)$
+
+In the CM frame, the total momentum is 0, thus $P_1 + P_2 = 0$. Thus:
+
+$$
+(\vec{P_1} + \vec{P_2})^2 = ((E_1 + E_2) , (0))^2 = (E_1 + E_2)^2 - 0
+$$
+
+Thus the square of the sum of 4-vectors is the square of the total energy in CM. And it is an invariant that is true in all frames.
+
+To find the dot product of the 4-vectors:
+$$
+(\vec{P_1} + \vec{P_2})^2 = (\vec{P_1} + \vec{P_2})\cdot(\vec{P_1} + \vec{P_2}) = \vec{P_1}\cdot\vec{P_1} + \vec{P_2}\cdot\vec{P_2} + 2\vec{P_1}\cdot\vec{P_2} = m_1^2 + m_2^2 + 2(E_1E_2 - P_1P_2)
+$$
+
+Here $\vec{P_1}\cdot\vec{P_2} = E_1E_2 - P_1P_2$, $\vec{P_1}\cdot\vec{P_1} = m_1^2$, $\vec{P_2}\cdot\vec{P_2} = m_2^2$. 
+
+An easier approach
+
