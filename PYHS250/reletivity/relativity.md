@@ -322,3 +322,66 @@ Time moves at different rates in different frames in relativity, so you need at 
 Clocks in a moving frame will not only look like they are running slow, but they will also look (to you) like they are not synchronized properly. However, to an observer in the moving frame, the clocks will look fine.
 
 #### Proper Time and Proper Velocity
+
+We want a definition of time that observers in different frames can agree on, so we introduce another clock: a clock that **moves with the object**. This is called the **proper time** denoted by $\tau$ and we define the momentum and energy in terms of the proper time.
+
+A moving object has time ticking slowly with relation $\gamma \tau = t$. Thus the **proper velocity** is: 
+$$
+w = \frac{dx}{d\tau} = \frac{dx}{\gamma t} \frac{dt}{d\gamma} = v \frac{d}{d\tau} t = v\frac{d}{d\tau} \gamma \tau = v\gamma
+$$
+
+#### Relativistic Momentum and Mass
+
+The relativistic momentum $P$ is the regular mass times the proper velocity:
+$$
+P = mw = m\gamma v = \frac{mv}{\sqrt(1 - v^2/c^2)}
+$$
+
+The relativistic mass $m_{\text{rel}} = \gamma m$ is the mass of the object as measured by an observer in the moving frame.
+
+So as the velocity increases, the mass increases. $v\to c \implies m_{\text{rel}} \to \infty$
+
+#### Relativistic Energy
+
+The whole point of proper time $\tau$ is that it is the same in all frames. The ordinary mass $m$ is also the same in all frames.
+
+To transform, we need to transform **x** and **ct**. Given $P=m\frac{d}{d\tau}x$, we know that we need another quantity $Q=m\frac{d}{d\tau}ct = m\frac{d}{d\tau}c\gamma\tau = m\gamma c$. It is relativistic mass times the speed of light.
+
+With $Q=\frac{mc}{\sqrt(1 - v^2/c^2)}$, when $v<<c$, $Q\approx mc(1 + \frac{1}{2}v^2/c^2)$ if expanded using Taylor series. Then
+$$
+Qc \approx mc^2 + \frac{1}{2}mv^2
+$$
+
+Looks like kinetic energy plus rest mass energy. Thus we define the **relativistic energy** as:
+$$
+E = Qc = \gamma mc^2
+$$
+
+#### Transformation of Momentum
+$$
+\begin{align*}
+P_x' &= \gamma(P_x - \beta Q) = \gamma(P_x - \beta E/c) \\
+P_y' &= P_y \\
+P_z' &= P_z \\
+Q' &= \gamma(Q - \beta P_x) = \gamma(E/c - \beta P_x)\\ 
+E' &= Q'c = \gamma(E - \beta P_x c)
+\end{align*}
+$$
+
+#### Conservation of Energy and Momentum
+
+Energy and momentum are conserved in all inertial frames. Proved experimentally.
+
+## Electro Energy 
+
+**electron-Volt** $eV$ is the energy gained by an electron when it is accelerated through a potential difference of 1 volt. Since the charge of an electron is $1.602\times 10^{-19}$ Coulombs, the energy is $1.602\times 10^{-19}J$.
+
+It is convenient to use units where the numerical value of $c$ is 1.0
+- Momentum has units MeV/c or GeV/c or TeV/c
+- Energy has units MeV or GeV or TeV
+- Mass has units MeV/c^2 or GeV/c^2 or TeV/c^2
+- electron mass is 0.511 MeV/c^2, proton mass is 938.3 MeV/c^2
+
+### Highly Relativistic Limit
+
+If the numerical value of the energy of a particle is much greater than its rest mass energy, that means the $\gamma$ is much greater than 1.
