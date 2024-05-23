@@ -49,3 +49,27 @@ $$
 qV_{\text{stop}} = hf - q\phi_{\text{work}}
 $$
 where $\phi$ is the work function of the material. The threshold frequency is given by: $hf_{\text{threshold}} = q\phi_{\text{work}}$. The work function is a property of the material in units of volts.
+
+## X-Rays
+
+### Diffraction and Bragg's Law
+
+![Diffraction](./Diffraction.jpg)
+
+If the plane spacing is $d$, the angle of incidence is $\theta$, and the wavelength of the X-ray is $\lambda$, then the path difference between the two rays is $2d\sin\theta = n\lambda$. This is Bragg's Law.
+
+### X-Ray Spectrum
+
+For a given voltage, there is a minimum X-ray wavelength, which corresponds to the maximum frequency.
+
+$$
+qV = hf_{\text{max}} = \frac{hc}{\lambda_{\text{min}}}
+$$
+
+Note that it is the Photoelectric Effect equation without the work function. Technically, the work function "sucks" the cathode ray electron into the anode, so the energy is $q(V+\phi_{\text{work}}) = hf_{\text{max}}$. However, the work function is usually a few Volts while X-ray voltages are in the thousands of Volts. Thus, the work function is negligible.
+
+## Photon Momentum-Wavelength Relation
+
+- Relativity: All particles obey $E^2 = (pc)^2 + (mc^2)^2$. Photons have no mass, so $E = pc$.
+- Quantum Mechanics: Photons obey $E = hf = \frac{hc}{\lambda}$.
+- Combining the two: $p = \frac{hf}{c} = \frac{h}{\lambda}$.
