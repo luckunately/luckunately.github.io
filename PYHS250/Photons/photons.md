@@ -56,7 +56,7 @@ where $\phi$ is the work function of the material. The threshold frequency is gi
 
 ![Diffraction](./Diffraction.jpg)
 
-If the plane spacing is $d$, the angle of incidence is $\theta$, and the wavelength of the X-ray is $\lambda$, then the path difference between the two rays is $2d\sin\theta = n\lambda$. This is Bragg's Law.
+If the plane spacing is $d$, the angle of incidence is $\theta$, and the wavelength of the X-ray is $\lambda$. If it is in phase, then the path difference between the two rays is $2d\sin\theta = n\lambda$. This is Bragg's Law.
 
 ### X-Ray Spectrum
 
@@ -73,3 +73,34 @@ Note that it is the Photoelectric Effect equation without the work function. Tec
 - Relativity: All particles obey $E^2 = (pc)^2 + (mc^2)^2$. Photons have no mass, so $E = pc$.
 - Quantum Mechanics: Photons obey $E = hf = \frac{hc}{\lambda}$.
 - Combining the two: $p = \frac{hf}{c} = \frac{h}{\lambda}$.
+
+### Compton's Equation
+
+![Compton Effect](./Compton's_Equation.png)
+
+Incident X-ray $\vec{X} = (\frac{pc}{c}, \vec{p}), scattered X-ray $\vec{X'} = (\frac{p'c}{c}, \vec{p'})$, and inital electron at rest: $\vec{e} = (mc^2, \vec{0})$ and final electron $\vec{e'}$. The equation states:
+
+$$ 
+\lambda' - \lambda = \frac{h}{m_e c}(1 - \cos\theta)
+$$
+
+where $\lambda$ is the wavelength of the incident X-ray, $\lambda'$ is the wavelength of the scattered X-ray, and $\theta$ is the angle between the incident and scattered X-ray.
+
+### 波粒二象性
+
+- X-ray photons scatter as if they are particles with momentum as well as energy.
+- Bragg spectrometer: X-rays are diffracted by a crystal lattice as if they are waves.
+- In the quantum wave model, the amplitude is quantized such that $E = nhf$. Since $h$ is quite small, the quantization is only noticeable at extremely high frequencies. Thus in the classical wave model, the amplitude is continuous.
+
+## Photon Flux and Density
+
+- Flux: Number of photons per unit area per unit time.
+- Density: Number of photons per unit volume.
+
+### Flux
+
+An EM wave has power flux in $\frac{W}{m^2} = \frac{J}{m^2s}$, which is the energy flux per unit area, basically power per area. The energy of a photon is $E = hf$, so the number of photons per unit area per unit time is $\frac{P}{hf}$.
+
+### Density
+
+Flux is density times velocity, thus the density is flux divided by velocity. The velocity of a photon is $c$, so the density is $\frac{P}{hfc}$.
