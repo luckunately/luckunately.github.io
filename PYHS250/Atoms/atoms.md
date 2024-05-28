@@ -37,9 +37,7 @@ Cooler atoms form molecules. The atoms in molecules can also vibrate. With the m
 
 Molecules can also rotate. It turns out to give absorption lines that are so close together that they look continuous and they are called **absorption bands**.
 
-### Hydrogen Spectrum
-
-#### Hydrogen Emission lines
+### Balmer Series
 
 John Balmer found that the wavelengths of the hydrogen emission lines are given by
 
@@ -60,3 +58,62 @@ m &=1 : \text{Lyman series for ultraviolet} \\
 m &=2 : \text{Balmer series for visible} \\
 m &=3 : \text{Paschen series for infrared}
 \end{align*}
+$$
+
+### Rydberg Formula
+
+$$
+\frac{1}{\lambda} = R Z^2 \left( \frac{1}{n^2} - \frac{1}{m^2} \right)
+$$
+
+where $R = 1.097373 \times 10^7 \text{ m}^{-1} = \frac{1}{91.13 \text{nm}}$ and $Z$ is the atomic number (nuclear charge).
+
+Using Planck's formula $E = \frac{hc}{\lambda}$, we can find the energy levels of the atom.
+
+$$
+E = \frac{hc}{\lambda} = hc R Z^2 \left( \frac{1}{n^2} - \frac{1}{m^2} \right) = 13.598 \text{ eV} \cdot {Z^2} \left( \frac{1}{n^2} - \frac{1}{m^2} \right)
+$$
+
+## Electron Charge to Mass Ratio
+
+Magnetic fields can deflect charged particles. The force on a charged particle is $F = qvB \sin \theta$.
+
+At the same time, we can set up electric fields to balance the magnetic force. The electric force is $F = qE$.
+
+If we set them perpendicular to each other: $F_{\text{electric}} = F_{\text{magnetic}} \implies qE = qvB \implies \frac{E}{B} = v$.
+
+Now determine the charge-to-mass ratio of electrons:
+
+$$
+\text{Energy }U = qV = \frac{1}{2}mv^2 = \frac{1}{2}m\left( \frac{E}{B} \right)^2 \implies \frac{q}{m} = \frac{1}{2V} \left( \frac{E}{B} \right)^2
+$$
+
+## Bohr Model
+
+Bohr postulated that the **angular momentum** of the orbits could only be **integer multiples of Planck's constant h**, but divided by $2\pi$. Define $\frac{h}{2\pi} = \hbar$.
+
+Angular momentum is $\vec{L} = \vec{r} \times \vec{p} \implies L = mvr = n\hbar$.
+
+- Energy $E = -13.6 \text{ eV} \frac{Z^2}{n^2}$. The spectral line energies are differences of Bohr orbit energies.
+- Radius $r = \frac{4\pi \epsilon_0 }{q^2} \frac{\hbar^2}{m} \frac{n^2}{Z}$ where the constant $\frac{4\pi \epsilon_0 }{q^2} \frac{\hbar^2}{m}$ is 52.97 pm. Thus $r = 52.97 \text{ pm} \frac{n^2}{Z}$.
+- Velocity $v=\frac{Z}{n} \frac{q^2}{4\pi \epsilon_0 \hbar} \implies \beta = \frac{v}{c} = \frac{Z}{n} \frac{q^2}{4\pi \epsilon_0 \hbar c}$ where the constant $\frac{q^2}{4\pi \epsilon_0 \hbar c}$ is $7.293 \times 10^{-3}$. Note that for large $Z$, $\beta$ is close to 1 which the relativistic effects are important.
+
+### Reduced Mass
+
+In reality, the electron and the proton both orbit around the centre of mass of the system.
+
+- Hydrogen atom: $\mu = \frac{m_e m_p}{m_e + m_p} \approx m_e$ since $m_p >> m_e$.
+
+## X-Ray Emission
+
+As the atomic number $Z$ goes up, the Rydberg wavelengths go into UV and eventually the X-ray region. However, it gets increasingly difficult to get rid of the electrons while leaving exactly one.
+
+Moseley found that the square root of the frequency of the K-line is linearly related to the atomic number $Z$. State the relationship as $\sqrt{f} = a(Z-b)$.
+
+### Mosley's Law
+
+$$
+E = hf = ha^2(Z-b)^2
+$$
+
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
