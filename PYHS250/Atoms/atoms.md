@@ -111,9 +111,60 @@ As the atomic number $Z$ goes up, the Rydberg wavelengths go into UV and eventua
 Moseley found that the square root of the frequency of the K-line is linearly related to the atomic number $Z$. State the relationship as $\sqrt{f} = a(Z-b)$.
 
 ### Mosley's Law
+For $K_{\alpha}$ X-ray line:
 
 $$
-E = hf = ha^2(Z-b)^2
+E = 10.4 \text{ eV} (Z-1)^2
 $$
 
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+If we compare it to the Rydberg formula $E = 13.6 \text{ eV} Z^2 (\frac{1}{n_1^2} - \frac{1}{n_2^2})$, we see that $(\frac{1}{n_1^2} - \frac{1}{n_2^2}) = \frac{10.4}{13.6} \approx 0.75$, which implies that $n_1 = 1$ and $n_2 = 2$.
+
+The above is an indication that $K_{\alpha}$ X-ray line is due to the transition from $n=2$ to $n=1$. An electron in the second Bohr orbit falls to the first orbit.
+
+
+#### $K_{\beta}$ X-ray Line
+
+The $K_{\beta}$ X-ray line is due to the transition from $n=3$ to $n=1$. An electron in the third Bohr orbit falls to the first orbit.
+
+$$ 
+E = 13.6 \text{ eV} (Z-1)^2 \left( \frac{1}{1^2} - \frac{1}{3^2} \right) = 13.6 \text{ eV} (Z-1)^2 \left( \frac{8}{9} \right) = 12.09 \text{ eV} (Z-1)^2
+$$
+
+#### $L_{\alpha}$ X-ray Line
+
+The $L_{\alpha}$ X-ray line is due to the transition from $n=3$ to $n=2$. An electron in the third Bohr orbit falls to the second orbit.
+
+$$
+E = 13.6 \text{ eV} (Z-7.4)^2 \left( \frac{1}{2^2} - \frac{1}{3^2} \right) = 13.6 \text{ eV} (Z-7.4)^2 \left( \frac{5}{36} \right) = 1.889 \text{ eV} (Z-7.4)^2
+$$
+
+There are 2 electrons in a full $n=1$ shell and 8 electrons in a full $n=2$ shell. 
+
+### More X-Ray Line Notations
+
+From each level, there are multiple ways to fall to the lower levels. The notation is as follows:
+- $K_{\alpha}$: $n=2 \to n=1$, $K_{\beta}$: $n=3 \to n=1$, $K_{\gamma}$: $n=4 \to n=1$ etc. 
+- $L_{\alpha}$: $n=3 \to n=2$, $L_{\beta}$: $n=4 \to n=2$, $L_{\gamma}$: $n=5 \to n=2$ etc.
+- $M_{\alpha}$: $n=4 \to n=3$, $M_{\beta}$: $n=5 \to n=3$ etc.
+- More keeps going on.
+
+## Franck-Hertz Experiment
+
+The Franck-Hertz experiment is a demonstration of the quantization of energy levels in atoms. The experiment was first conducted by James Franck and Gustav Hertz in 1914. 
+
+It was the first clear evidence that the same discrete atomic energy levels, correlated with photon wavelengths via Planck's constant, also showed up in the interactions of electrons with atoms. 
+
+## de Broglie Wavelength
+
+de Broglie proposed that particles can have wave-like properties. The wavelength of a particle is $\lambda = \frac{h}{p} = \frac{h}{mv}$.
+- Angular momentum $L=rp$
+- $\lambda = \frac{hr}{L}$
+- To go around a circle with the same path, the wavelength must be an integer multiple of the circumference: $2\pi r = n\lambda \implies L =n\frac{h}{2\pi} = n\hbar$.
+
+A uniform and constant current following a circular path makes a magnetic field, but it **does not** radiate energy. This is because the magnetic field is perpendicular to the velocity even if the charges are accelerating. 
+
+In Schrodinger quantum mechanics, the wave is complex with the real and imaginary parts out of phase by $90^\circ$, so the probability of finding the electron at any place along the orbit is constant.
+
+### Wave Energy
+- For photons: $p = \frac{E}{c} \land \lambda = \frac{h}{p} \implies \frac{hc}{E}$
+- For **non-relativistic** matter, the relation between kinetic energy and momentum is $E=\frac{1}{2}mv^2 = \frac{1}{2}\frac{(mv)^2}{m}= \frac{p^2}{2m} \implies \lambda = \frac{h}{p} = \frac{h}{\sqrt{2mE}} = \frac{hc}{\sqrt{2mc^2E}}$. 
