@@ -114,10 +114,10 @@ Moseley found that the square root of the frequency of the K-line is linearly re
 For $K_{\alpha}$ X-ray line:
 
 $$
-E = 10.4 \text{ eV} (Z-1)^2
+E = 10.2 \text{ eV} (Z-1)^2
 $$
 
-If we compare it to the Rydberg formula $E = 13.6 \text{ eV} Z^2 (\frac{1}{n_1^2} - \frac{1}{n_2^2})$, we see that $(\frac{1}{n_1^2} - \frac{1}{n_2^2}) = \frac{10.4}{13.6} \approx 0.75$, which implies that $n_1 = 1$ and $n_2 = 2$.
+If we compare it to the Rydberg formula $E = 13.6 \text{ eV} Z^2 (\frac{1}{n_1^2} - \frac{1}{n_2^2})$, we see that $(\frac{1}{n_1^2} - \frac{1}{n_2^2}) = \frac{10.2}{13.6} \approx 0.75$, which implies that $n_1 = 1$ and $n_2 = 2$.
 
 The above is an indication that $K_{\alpha}$ X-ray line is due to the transition from $n=2$ to $n=1$. An electron in the second Bohr orbit falls to the first orbit.
 
