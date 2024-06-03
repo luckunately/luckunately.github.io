@@ -95,7 +95,7 @@ Note that the additional factor is missing the square root which made a differen
 The resolution is that **moving objects appear shorter** by a factor that makes the horizontal light clock tick at the same rate as the vertical clock. 
 
 ##### Length Contraction
-Now find the distance in both $S$ and $S'$ frames. Let $\triangle x = x_2 - x_1, \triangle x' = x_2' - x_1'$. But consider $t=0$, we know $x_1' = x_1 = 0$ and $x_2' = \frac{x_2 - ut}{\sqrt(1 - u^2/c^2)}. 
+Now find the distance in both $S$ and $S'$ frames. Let $\triangle x = x_2 - x_1, \triangle x' = x_2' - x_1'$. But consider $t=0$, we know $x_1' = x_1 = 0$ and $x_2' = \frac{x_2 - ut}{\sqrt(1 - u^2/c^2)}$. 
 
 Thus we get 
 $$ 
