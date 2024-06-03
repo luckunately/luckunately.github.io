@@ -192,7 +192,7 @@ In the classical Doppler effect, there is a difference between the frequency of 
 
 If source is moving away with a velocity $u$, the observer sees a wave period of $\triangle T_{\text{obs}} = \triangle T_{\text{source}}(1 + \frac{u}{c})$. Time itself plus the distance the source moves in that time.
 
-Thus the frequency $f=\frac{1}{\triangle T}$ is $f_{\text{obs}} = f_{\text{source}}(1 + \frac{u}{c})$
+Thus the frequency $f=\frac{1}{\triangle T}$ is $f_{\text{obs}} = f_{\text{source}}/(1 + \frac{u}{c})$
 
 Since wavelength $\lambda = c\triangle T$, we have $\lambda_{\text{obs}} = \lambda_{\text{source}}(1 + \frac{u}{c})$
 

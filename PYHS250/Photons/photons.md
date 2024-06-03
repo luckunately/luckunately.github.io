@@ -78,7 +78,7 @@ Note that it is the Photoelectric Effect equation without the work function. Tec
 
 ![Compton Effect](./Compton's_Equation.png)
 
-Incident X-ray $\vec{X} = (\frac{pc}{c}, \vec{p}), scattered X-ray $\vec{X'} = (\frac{p'c}{c}, \vec{p'})$, and inital electron at rest: $\vec{e} = (mc^2, \vec{0})$ and final electron $\vec{e'}$. The equation states:
+Incident X-ray $\vec{X} = (\frac{pc}{c}, \vec{p})$, scattered X-ray $\vec{X'} = (\frac{p'c}{c}, \vec{p'})$, and inital electron at rest: $\vec{e} = (mc^2, \vec{0})$ and final electron $\vec{e'}$. The equation states:
 
 $$ 
 \lambda' - \lambda = \frac{h}{m_e c}(1 - \cos\theta)
