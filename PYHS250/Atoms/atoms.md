@@ -241,3 +241,61 @@ Saturation implies that the nuclear force is basically "nearest neighbor". The f
 
 - The steep positive slope on the left is due to strong attraction between protons and neutrons. **Fusing** them together releases energy. (Stars and Hydrogen bombs)
 - The negative slope beyond Iron is due to the Coulomb repulsion between protons. **Fission** which breaks a big nucleus up into smaller pieces releases energy. (Nuclear reactors and atomic bombs)    
+
+### Alpha Decay
+
+Ejecting 2 protons and 2 neutrons bound into a Helium nucleus. The energy is a net energy gain by reducing the proton repulsion. 
+
+Reduce the atomic number by 2 and the mass number by 4. The energy released is about 4 MeV.
+
+### Beta Decay
+
+Alpha decay usually leads to more Neutrons than needed. A neutron typically decays into an Proton, Electron and Anti-neutrino.
+
+The energy released is about 1 MeV. The atomic number increases by 1 and the mass number stays the same. This may allow a subsequent alpha decay or there may be a second beta decay making another Alpha decay more likely.
+
+### Gamma Decay
+
+After Alpha or Beta decay, the nucleus may be left in an excited state. It can emit a high-energy photon to go to a lower energy state. The energy is typically a few MeV. Much like photon emission in atoms.
+
+### Fission
+
+Any nucleus can capture either a Proton or a Neutron and become a heavier nucleus. Proton is harder to capture because of the Coulomb repulsion. Neutron capture is more common.
+
+Electrostatic repulsion of protons makes large nuclei unstable. Hitting a large nucleus with an energetic Neutron can cause it to split into two smaller nuclei. The energy released is about 200 MeV. It also releases 2 or 3 more Neutrons which can cause more fission as a chain reaction.
+
+#### Uranium Fission
+
+U-238 is not fissionable by thermal neutrons. The energy produced is not enough to cause fission. Natural Uranium is mostly U-238.
+
+Uranium-235 is the most common isotope used in nuclear reactors. It is fissionable by thermal neutrons. The fission products are usually Barium and Krypton. The energy released is about 200 MeV.
+
+On average, a Neutron from a fission travels a few centimeters before causing another fission. So you need a lump of U-235 that is more than a few centimeters in radius to sustain a chain reaction. **Critical mass** is the minimum mass needed to sustain a chain reaction.
+
+But you need to assemble the critical mass only when you are at the target.
+- if the Neutrons are slowed down, U-238 absorbs fewer Neutrons and the chain reaction is more efficient. So it is possible even with a fair amount of U-238 mixed in.
+- The hydrogen in water slows down the Neutrons. So water is used as a moderator in most reactors.
+- A standard water-cooled power reactor can operate for about 18 months before the fuel needs to be replaced. The fuel is about 3% U-235 and 97% U-238.
+- Heavy water (deuterium oxide) is a better moderator than light water because it absorbs fewer Neutrons. A CANDU reactor with heavy water can operate with natural Uranium.
+
+#### Plutonium Fission
+
+When U-238 absorbs a Neutron, it becomes U-239. It has too many Neutrons so one decays into a Proton make Neptunium-239. The Neptunium-239 still has too many Neutrons so one decays into a Proton to make Plutonium-239. Plutonium-239 is fissionable by thermal Neutrons with better efficiency than U-235.
+
+U-239 can also capture a second neutron and you end up with some Pu-240. Pu-240 has a high rate of **spontaneous fission**. So it is not good for making bombs. But it is good for making reactors.
+
+### Fusion
+
+Two Protons can collide and fuse into Deuterium while simultaneously emitting an anti-Electron and a Neutrino. It is very uncommon otherwise stars would not be able to burn for billions of years.
+
+When a Proton hits the Deuterium, it can form Helium-3. It releases about 6MeV as energy in Gamma-ray form. 
+
+When two Helium-3 nuclei collide, they can fuse into Helium-4 and 2 protons. It releases about 12 MeV as energy in Gamma-ray form.
+
+#### Hydrogen Bomb
+
+Since the proton proton to Deuterium reaction is so slow, hytrogen bombs use a different reaction. 
+
+Deuterium (H-2) and Tritium (H-3) are fused into Helium-4 and a Neutron with about 14 MeV. H-2 exists in natural water. H-3 is radioactive, thus not found naturally and can be made from Lithium-6.
+
+The Lithium-6 reaction requires high temperatures and pressures. So usually a fission bomb is used to start the fusion reaction. The fission bomb is surrounded by Deuterium and Tritium. The fission bomb releases a lot of Neutrons which start the fusion reaction.
