@@ -61,12 +61,13 @@ m &=3 : \text{Paschen series for infrared}
 $$
 
 ### Rydberg Formula
+Let $n,m$ be two orbit numbers. The Rydberg formula is
 
 $$
 \frac{1}{\lambda} = R Z^2 \left( \frac{1}{n^2} - \frac{1}{m^2} \right)
 $$
 
-where $R = 1.097373 \times 10^7 \text{ m}^{-1} = \frac{1}{91.13 \text{nm}}$ and $Z$ is the atomic number (nuclear charge).
+where $R = 1.097373 \times 10^{-7} \text{ m}^{-1} = \frac{1}{91.13 \text{nm}}$ and $Z$ is the atomic number (nuclear charge).
 
 Using Planck's formula $E = \frac{hc}{\lambda}$, we can find the energy levels of the atom.
 
