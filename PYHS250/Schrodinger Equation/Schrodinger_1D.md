@@ -52,6 +52,8 @@ We want the equation to:
 
 So we have $p = \hbar k$ and $E = \hbar \omega$.
 
+Define $\psi(x,t) = A e^{i(kx - \omega t)}$ where $A$ is a constant. The wave function $\psi(x,t)$ is a complex function. The real part of $\psi(x,t)$ is the wave function $y(x,t)$.
+
 The Schrodinger equation is:
 
 $$
@@ -83,6 +85,7 @@ An example would be $\frac{d}{dx}$ which takes a function $f(x)$ and outputs a f
 - Define $p_{\text{op}} = \frac{\hbar}{i} \frac{\partial}{\partial x}$.
 - Apply $p_{\text{op}}$ twice to get $p_{\text{op}}^2 = -\hbar^2 \frac{\partial^2}{\partial x^2}$.
 - Rewrite the Schrodinger equation as $i\hbar \frac{\partial \psi}{\partial t} = -\frac{\hbar^2}{2m} \frac{\partial^2 \psi}{\partial x^2} + V \psi$ = $i\hbar \frac{\partial \psi}{\partial t} = \frac{p_{\text{op}}^2}{2m} \psi + V \psi$.
+- $p_{\text{op}}\psi = \hbar k \psi$ where $k$ is the wave number. We know that $k = 2\pi/\lambda$ and $\lambda = h/p$. Not hard to show that $p_{\text{op}} = \hbar k$. Thus it is the momentum operator.
 
 ### Complex to Real
 
@@ -137,6 +140,12 @@ A properly normalized Gaussian in k-space, centered on $k=0$ and width $\sigma_k
 
 Heisenberg says that $\sigma_x \sigma_p \geq \hbar/2$ where $\sigma_p$ is the width of the Gaussian in p-space.
 
+The more localized the wave function in x-space, the more spread out it is in p-space. We can never know both the position and momentum of a particle with arbitrary precision.
+
+Same goes for energy and time: $\sigma_E \sigma_t \geq \hbar/2$. If we know how long a process takes, we can't know the energy of the process with arbitrary precision. Vice versa.
+
+The reason is that the position and momentum operators do not commute: $[x,p] = xp - px = i\hbar$. And they are conjugates of each other: $p = -i\hbar \frac{\partial}{\partial x}$. So if we know the position, we can't know the momentum and vice versa.
+
 ## Force and Potential Energy
 
 The force is the negative gradient of the potential energy: $F = -\nabla V$. The potential energy is the integral of the force: $V = -\int F dx$.
@@ -144,3 +153,22 @@ The force is the negative gradient of the potential energy: $F = -\nabla V$. The
 ### Step Potential
 
 ????
+
+## Separation of Schrodinger Equation
+
+Let $\psi(x,t) = f(x) g(t)$. Substitute into the Schrodinger equation to get:
+
+$$
+i\hbar \frac{1}{g} \frac{\partial g}{\partial t} = -\frac{\hbar^2}{2m} \frac{1}{f} \frac{\partial^2 f}{\partial x^2} + V
+$$
+
+Let $E = i\hbar \frac{1}{g} \frac{\partial g}{\partial t}$ and $E = -\frac{\hbar^2}{2m} \frac{1}{f} \frac{\partial^2 f}{\partial x^2} + V$. We get two equations:
+
+$$
+\begin{align*}
+g(t) &= C' e^{-iEt/\hbar} && C' = \text{constant} \\
+E f(x) &= -\frac{\hbar^2}{2m} \frac{\partial^2 f(x)}{\partial x^2} + V(x) f(x)
+\end{align*}
+$$
+
+$E$ is the eigenvalue of the energy operator. $f(x)$ is the eigenfunction of the energy operator. The energy operator is $-\frac{\hbar^2}{2m} \frac{\partial^2}{\partial x^2} + V(x)$.
