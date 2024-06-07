@@ -172,3 +172,85 @@ E f(x) &= -\frac{\hbar^2}{2m} \frac{\partial^2 f(x)}{\partial x^2} + V(x) f(x)
 $$
 
 $E$ is the eigenvalue of the energy operator. $f(x)$ is the eigenfunction of the energy operator. The energy operator is $-\frac{\hbar^2}{2m} \frac{\partial^2}{\partial x^2} + V(x)$.
+
+## Wave transmission
+
+Consider a wave function $\psi_1 = e^{i(kx - \omega t)}$ (Amplitude is 1) on the left side of a barrier where the potential energy $V(x) = 0 \atop x < 0$ and $V(x) = V \atop x \geq 0$. 
+
+![potential impluse](Potential_implse.jpg)
+
+We know $p= \sqrt{2mE}$ and $p = \hbar k$. So $k = \sqrt{2mE}/\hbar = p/\hbar$.
+
+There is a reflected wave with unknown amplitude $R$ with **opposite** direction (momentum sign reversed with the same value) and a transmitted wave with unknown amplitude $T$ with **same** direction. 
+
+All three waves have the same frequency $\omega$ and wave number $k$.
+
+The wave function on the right side of the barrier is $\psi_2 = Re^{i(-kx - \omega t)} + Te^{i(k'x - \omega t)}$.
+
+
+### Time Independent solution
+
+Since the time-dependence is the same, the energy $E=\hbar \omega$ is the same. With the $\psi$ listed:
+
+$$
+\begin{align*}
+\psi_1 &= e^{i(kx - \omega t)} && \psi_R = Re^{i(-kx - \omega t)} && \psi_T = Te^{i(k'x - \omega t)} 
+\end{align*}
+$$
+
+Use the Schrodinger equation to get $k'$:
+
+$$
+\begin{align*}
+E \psi_T &= -\frac{\hbar^2}{2m} \frac{\partial^2 \psi_T}{\partial x^2} + V \psi_T \\
+(E-V) T e^{ik'x} &= -\frac{\hbar^2}{2m} (ik')^2 T e^{ik'x} \\
+E-V &= \frac{\hbar^2 k'^2}{2m} \\
+k' &= \sqrt{\frac{2m(E-V)}{\hbar^2}} = \frac{\sqrt{2mc^2(E-V)}}{\hbar c}
+\end{align*}
+$$
+
+One boundary condition is that the **sum** of the incident and reflected waves must be equal to the transmitted wave function at the boundary ($x=0$):
+
+$$
+\begin{align*}
+\psi_1 + \psi_R &= \psi_T \\
+e^{i(k0)} + Re^{i(-k0)} &= Te^{i(k'0)} \\
+1 + R &= T
+\end{align*}
+$$
+
+The other boundary condition is that the **derivative** of the sum of the incident and reflected waves must be equal to the derivative of the transmitted wave function at the boundary ($x=0$):
+
+$$
+\begin{align*}
+\frac{\partial}{\partial x}(\psi_1 + \psi_R) &= \frac{\partial}{\partial x} \psi_T \\
+ik e^{i(k0)} - iRk e^{i(-k0)} &= ik' Te^{i(k'0)} \\
+ik - iRk &= ik' T \\
+k - Rk &= k' T
+\end{align*}
+$$
+
+Solve the two equations to get:
+
+$$
+\begin{align*}
+R &= \frac{k-k'}{k+k'} \\
+T &= \frac{2k}{k+k'}
+\end{align*}
+$$
+
+Now substitute $k' = \frac{\sqrt{2mc^2(E-V)}}{\hbar c}$ and $k = \frac{\sqrt{2mc^2E}}{\hbar c}$ to get:
+
+$$
+\begin{align*}
+R &= \frac{\sqrt{E - \sqrt{E-V}}}{\sqrt{E-V} + \sqrt{E}} \\
+T &= \frac{2\sqrt{E}}{\sqrt{E-V} + \sqrt{E}}
+\end{align*}
+$$
+
+- If $V=0$, then $R=0$ and $T=1$. No reflection and full transmission.
+- If $V=E$, then $R=1$ and $T=0$. Full reflection and no transmission.
+- If $V < E$, then $R > 0$ and $T > 1$. There is reflection and transmission and transmission is greater than 1. This is called **tunneling**.
+- If $V > E$, then we get imaginary $k'$ which is ok. The transmitted wave becomes a **real** exponential $\psi_T = Te^{-|k'| x}$
+- If $V \to \infty$, then $\sqrt{E-V} \to i \infty$. It makes $R=-1$. The reflected wave has the same magnitude with the incident wave but opposite phase and direction. The transmitted wave has an amplitude of 0. The wave is **totally reflected**.
+- If $V$ is slightly less then $E$ then $\sqrt{E-V}$ is small and $R$ is close to 1. The wave is **mostly reflected**.
