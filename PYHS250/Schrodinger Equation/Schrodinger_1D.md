@@ -253,4 +253,83 @@ $$
 - If $V < E$, then $R > 0$ and $T > 1$. There is reflection and transmission and transmission is greater than 1. This is called **tunneling**.
 - If $V > E$, then we get imaginary $k'$ which is ok. The transmitted wave becomes a **real** exponential $\psi_T = Te^{-|k'| x}$
 - If $V \to \infty$, then $\sqrt{E-V} \to i \infty$. It makes $R=-1$. The reflected wave has the same magnitude with the incident wave but opposite phase and direction. The transmitted wave has an amplitude of 0. The wave is **totally reflected**.
-- If $V$ is slightly less then $E$ then $\sqrt{E-V}$ is small and $R$ is close to 1. The wave is **mostly reflected**.
+- If $V$ is slightly less then $E$ then $\sqrt{E-V}$ is small and $R$ is close to 1. The wave is **mostly reflected**. Note that it might get a large amplitude if $V$ is close to $E$, hence larger density of states. This is because we slowed down the particle a lot more, thus increasing the probability of finding the particle. If $V>>\infty$, the density can go to infinity at the boundary.
+
+## Potential Barrier
+
+![potential barrier](Potential_Barrier.png)
+
+Suppose there is a well from $x\in[0,w]$ where potential energy is $V$ and 0 elsewhere. $V>E$. Besised the incident, reflected and transmitted waves, there also exists forward and backward waves inside the well.
+
+Assuming no time dependence, the wave function is:
+
+$$
+\begin{align*}
+\psi_1 &= e^{i(kx)} && \psi_R = Re^{i(-kx)} && \psi_T = Te^{i(kx)} && \psi_F = Fe^{i(k'x )} && \psi_B = Be^{i(-k'x)}
+\end{align*} 
+$$
+
+There are two boundary conditions at $x=0$ and $x=w$:
+
+### Sum up all the boundary conditions
+
+$$
+\begin{align*}
+1+R&=F+B \impliedby \psi_1 + \psi_R = \psi_F + \psi_B \\
+ik - iRk &= ik'F - iBk' \impliedby \frac{\partial}{\partial x}(\psi_1 + \psi_R) = \frac{\partial}{\partial x}(\psi_F + \psi_B) \\
+Fe^{ik'w} + Be^{-ik'w} &= Te^{ikw} + Re^{-ikw} \impliedby \psi_F + \psi_B = \psi_T + \psi_R \\
+ik'F e^{ik'w} - ik'B e^{-ik'w} &= ikT e^{ikw} \impliedby \frac{\partial}{\partial x}(\psi_F + \psi_B) = \frac{\partial}{\partial x}(\psi_T)
+\end{align*}
+$$
+
+### Solve the equations using matrix
+
+4 equations and 4 unknowns. Solve the equations to get:
+
+$$
+\begin{align*}
+\begin{bmatrix}
+-1 & 1 & 1 & 0 \\
+k & k' & -k' & 0 \\
+0 & e^{ik'w} & e^{-ik'w} & -e^{ikw} \\
+0 & k'e^{ik'w} & -k'e^{-ik'w} & -k e^{ikw}
+\end{bmatrix}
+\begin{bmatrix}
+R \\
+F \\
+B \\
+T
+\end{bmatrix}
+&=
+\begin{bmatrix}
+1 \\
+k \\
+0 \\
+0
+\end{bmatrix}
+\end{align*}
+$$
+
+Pick nice numbers like $k = 1, k' = 0.5, w = \pi$ to get $R = 0.6, F = 1.2, B = 0.4, T = -0.8i$.
+- 60% reflection amplitude, 120% forward amplitude, 40% backward amplitude, 80% transmission amplitude.
+- 36% reflection probability, 144% forward probability, 16% backward probability, 64% transmission probability.
+
+If the barrier is higher than the energy, the $k'$ becomes imaginary and the wave function becomes a real exponential. The wave function decays exponentially inside the barrier. 
+
+## Tunneling Approximation
+
+?????
+
+## Quantum Harmonic Oscillator
+
+The potential energy is $V = \frac{1}{2} k^2 x^2$. The Schrodinger equation with time independence is:
+
+$$
+E \psi = -\frac{\hbar^2}{2m} \frac{\partial^2 \psi}{\partial x^2} + \frac{1}{2} k^2 x^2 \psi
+$$
+
+At large enough $|x|$, $V>>E$ and we can drop $E\psi$ term. The equation becomes:
+
+$$
+-\frac{\hbar^2}{2m} \frac{\partial^2 \psi}{\partial x^2} + \frac{1}{2} k^2 x^2 \psi = 0
+$$
