@@ -173,6 +173,15 @@ $$
 
 $E$ is the eigenvalue of the energy operator. $f(x)$ is the eigenfunction of the energy operator. The energy operator is $-\frac{\hbar^2}{2m} \frac{\partial^2}{\partial x^2} + V(x)$.
 
+### Hamiltonian Operator
+
+The energy operator is also called the Hamiltonian operator. It is the sum of the kinetic energy operator and the potential energy operator. The kinetic energy operator is $-\frac{\hbar^2}{2m} \frac{\partial^2}{\partial x^2}$ and the potential energy operator is $V(x)$.
+
+$$
+H_{\text{op}} = -\frac{\hbar^2}{2m} \frac{\partial^2}{\partial x^2} + V(x)
+$$
+
+
 ## Wave transmission
 
 Consider a wave function $\psi_1 = e^{i(kx - \omega t)}$ (Amplitude is 1) on the left side of a barrier where the potential energy $V(x) = 0 \atop x < 0$ and $V(x) = V \atop x \geq 0$. 
@@ -316,9 +325,37 @@ Pick nice numbers like $k = 1, k' = 0.5, w = \pi$ to get $R = 0.6, F = 1.2, B = 
 
 If the barrier is higher than the energy, the $k'$ becomes imaginary and the wave function becomes a real exponential. The wave function decays exponentially inside the barrier. 
 
-## Tunneling Approximation
+### Tunneling Approximation for Potential Barrier
 
-?????
+Transmitted wave function can be approximated as:
+
+$$
+\psi_T = \frac{2k}{k+k'} \frac{2k'}{k+k'} e^{ik'w} e^{ik(x+w)}
+$$
+
+The transmission probability is:
+
+$$
+T\times T = \frac{4}{1+\frac{V-E}{V}} \frac{4}{1+\frac{E}{V-E}} \exp(-2\frac{\sqrt{2m(V-E)}}{\hbar}w)
+$$
+
+If $V>>E$, then the transmission probability is:
+
+$$
+P(w) = 16 \exp(-2\frac{\sqrt{2m(V-E)}}{\hbar}w)\frac{E}{V}(1-\frac{E}{V})
+$$
+
+## Infinite Square Well
+
+Consider a potential energy $V=0$ for $0<x<L$ and $V=\infty$ elsewhere. The wave function is $\psi(x) = \sin(k_n x), k_n = \frac{n\pi}{w}, n\in\mathbb{N}$.
+
+The energy is $E_n(w) = \frac{\hbar^2 k_n^2}{2m} = \frac{n^2 \pi^2 \hbar^2}{2mw^2}$.
+
+## Finite Negative Square Well
+
+Consider a potential energy $V=-V_0$ for $0<x<L$ and $V=0$ elsewhere. There is a large transmitted wave, a small reflected wave and complex exponential waves inside the well.
+
+The energies are about $E_n(w) \approx -V + n^2 \pi^2 \hbar^2/2mw^2$.
 
 ## Quantum Harmonic Oscillator
 
@@ -333,3 +370,6 @@ At large enough $|x|$, $V>>E$ and we can drop $E\psi$ term. The equation becomes
 $$
 -\frac{\hbar^2}{2m} \frac{\partial^2 \psi}{\partial x^2} + \frac{1}{2} k^2 x^2 \psi = 0
 $$
+
+![quantum harmonic oscillator](Harmonic_Oscillator.png)
+
