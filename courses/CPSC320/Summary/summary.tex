@@ -1,0 +1,193 @@
+\documentclass[11pt,fleqn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fancyvrb}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{algpseudocode}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{tikz}
+\usepackage{amsmath, amsfonts, amssymb, ragged2e}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{lipsum,graphicx}
+\usepackage{bookmark}
+\usepackage{times}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{bookmark}
+\usepackage{bbm}
+% \usepackage{algorithm}
+% \usepackage[noend]{algpseudocode}
+%%% Adding Colour to Questions and Answers
+\usepackage{color}
+
+\definecolor{solnblue}{rgb}{0,0,1}
+\newenvironment{soln}{\color{solnblue}}{}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{definition}{Definition}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+%Questions
+
+% Answers
+\definecolor{blu}{rgb}{0,0,0.5}
+\def\blu#1{{\color{blu}#1}}
+\definecolor{gre}{rgb}{0,.3,0}
+\def\gre#1{{\color{gre}#1}}
+\definecolor{red}{rgb}{0.5,0.0,0}
+\def\red#1{{\color{red}#1}}
+\def\norm#1{\|#1\|}
+%%% End for Colours
+
+\title{Summary of CPSC 320}
+\author{Tom Wang}
+\date{Summer, 2024}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{Tom Wang}
+    \fancyhead[R]{\thepage}
+}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plain}
+\section{Review of CPSC 221}
+\subsection{Asymptotic Analysis}
+\begin{itemize}
+    \item $O$-notation: $f(n) = O(g(n))$ if there exists $c > 0$ and $n_0$ such that $f(n) \leq cg(n)$ for all $n \geq n_0$.
+    \item $\Omega$-notation: $f(n) = \Omega(g(n))$ if there exists $c > 0$ and $n_0$ such that $f(n) \geq cg(n)$ for all $n \geq n_0$.
+    \item $\Theta$-notation: $f(n) = \Theta(g(n))$ if $f(n) = O(g(n))$ and $f(n) = \Omega(g(n))$.
+    \item $o$-notation: $f(n) = o(g(n))$ if for all $c > 0$, there exists $n_0$ such that $f(n) < cg(n)$ for all $n \geq n_0$.
+    \item $\omega$-notation: $f(n) = \omega(g(n))$ if for all $c > 0$, there exists $n_0$ such that $f(n) > cg(n)$ for all $n \geq n_0$.
+\end{itemize}
+
+Some notes:
+\[
+\log n < \sqrt{n} < n < n \log n < n^a < a^n < n!, \forall a > 1
+\]
+\subsection{Graph}
+\begin{definition}
+    an \textbf{articulation point} in an undirected graph is a vertex whose removal increases the number of connected components in the graph.
+\end{definition}
+\begin{definition}
+    The \textbf{diameter} of an undirected, unweighted graph is the largest possible value of the following quantity: \begin{itemize}
+        \item The smallest number of edges on any path between two nodes.
+        \item In other words, it's the largest number of steps required to get between any two nodes in the graph.
+    \end{itemize}
+\end{definition}
+
+\section{Stable Matching}
+We have exactly $n$ Employers and $n$ Workers. Each Employer has a preference list of the Workers, and each Worker has a preference list of the Employers. We want to find a stable matching between the Employers and Workers. 
+
+A matching is a set of pairs $(e, w)$ where $e$ is an Employer and $w$ is a Worker. A matching is stable if there is no pair $(e, w)$ and $(e', w')$ such that $e$ prefers $w'$ over $w$ and $w'$ prefers $e$ over $e'$.
+\subsection{Gale-Shapley Algorithm}
+
+% \begin{algorithm}
+% \caption{Gale-Shapley Algorithm} 
+\begin{algorithmic}[1]
+    \State set all $s\in S$ and $w\in W$ to be free
+    \While {there is a free employer $e$}
+        \State $w = e$'s most preferred worker to whom $e$ has not yet proposed
+        \If {$w$ is free}
+            \State $(e, w)$ become engaged
+        \Else
+            \If {$w$ prefers $e$ to her current employer $e'$}
+                \State $e'$ becomes free
+                \State $(e, w)$ become engaged
+            \EndIf
+        \EndIf
+    \EndWhile
+\end{algorithmic}
+% \end{algorithm}
+Complexity: $O(n^2)$
+
+\subsection{Residence Hospital Matching}
+We have $n$ Residents and $m$ Hospitals, $m<n$. Each hospital has different number of slots $s_i$. The total number of slots is equal to the number of residents. Each resident has a preference list of the hospitals, and each hospital has a preference list of the residents. We want to find a stable matching between the residents and hospitals.
+
+\subsubsection{Reduction to Stable Matching}
+\begin{enumerate}
+    \item Create new hospital $H_{ij}$ for each slot the hospital $H_i$ has. Copy the preference list of $H_i$ to $H_{ij}$.
+    \item Update the preference list of the residents to include the new hospitals, make sure the new hospitals are at the same rank as the original hospital. (expand the preference list without changing the order)
+    \item Apply the Gale-Shapley algorithm.
+    \item The matching is stable.
+    \item Transform the matching back to the original problem by replacing all $H_{ij}$ with $H_i$.
+    \item The matching is stable.
+\end{enumerate}
+
+
+\section{Reductions}
+\begin{definition}
+    A \textbf{reduction} from problem $A$ to problem $B$ is a transformation of problem $A$ into problem $B$ in such a way that a solution to problem $B$ can be used to solve problem $A$.
+\end{definition}
+
+\subsection{How reductions work}
+\begin{enumerate}
+    \item Show how to transform an arbitrary instance $I_A$ of problem $A$ into an instance $I_B$ of problem $B$.
+    \item Show that the answer to $I_A$ is ``yes'' if and only if the answer to $I_B$ is ``yes''.
+    \item Show how to transform the solution to $I_B$ into a solution to $I_A$.
+\end{enumerate}
+The solver is a black box that solves problem $B$.
+
+\section{Greedy Algorithms}
+
+\begin{definition}
+    A \textbf{greedy algorithm} is an algorithm that makes a sequence of choices, each of which is the best choice at the time (local maximum), without regard for the future.
+\end{definition}
+\subsection{Greedy stays ahead}
+\begin{theorem}
+    If a greedy algorithm always makes a choice that stays ahead (at least as good) of the optimal solution, then the greedy algorithm is optimal.
+\end{theorem}
+\begin{itemize}
+    \item Essentially a proof by induction.
+    \item Compare to an optimal solution, show that the greedy solution is at least as good.
+\end{itemize}
+
+\section{Divide and Conquer}
+
+\begin{definition}
+    \textbf{Divide and Conquer} is a problem-solving strategy that breaks a problem into smaller, simpler subproblems, solves the subproblems, and then combines the solutions to the subproblems to solve the original problem.
+\end{definition}
+
+\subsection{Recurrence Relations}
+The running time $T(n)$ of a recursive function can be described using a recurrence relation:\begin{itemize}
+    \item $T(n)$ is defined in terms of one or more terms of the form $T(m)$ where $m < n$.
+    \item For example: $T(n) = 2T(n/2) + O(n)$ with a base case $T(1) = O(1)$.
+\end{itemize}
+
+\subsection{Recurrence Tree}
+\begin{itemize}
+    \item A tree that represents the recursive calls of a function.
+    \item Each node represents a recursive call. The size of the subproblem is shown at the node.
+    \item Next to each node, we write the cost of the work done at that level besides the recursive calls.
+    \item Compute the total cost of the work done at each level of the tree.
+    \item The total cost of the algorithm is the sum of the costs at each level.
+\end{itemize}
+
+\subsection{Master Theorem}
+\begin{theorem}
+    Let $a \geq 1$ and $b > 1$ be constants, let $f(n)$ be a function, and let $T(n)$ be defined on the non-negative integers by the recurrence relation: \[
+        T(n) = aT(n/b) + f(n)
+    \]
+    where $n/b$ means either $\lfloor n/b \rfloor$ or $\lceil n/b \rceil$. Then $T(n)$ has the following asymptotic bounds: \begin{enumerate}
+        \item If $f(n) = O(n^{\log_b a - \epsilon})$ for some constant $\epsilon > 0$, then $T(n) = \Theta(n^{\log_b a})$.
+        \item If $f(n) = \Theta(n^{\log_b a} \log^k n)$, then $T(n) = \Theta(n^{\log_b a} \log^{k+1} n)$.
+        \item If $f(n) = \Omega(n^{\log_b a + \epsilon})$ for some constant $\epsilon > 0$, and if $a f(n/b) \leq k f(n)$ for some constant $k < 1$ and sufficiently large $n$, then $T(n) = \Theta(f(n))$.
+    \end{enumerate}
+\end{theorem}
+
+\section{Dynamic Programming}
+
+
+\section{NP-Completeness}
+
+
+
+\end{document}

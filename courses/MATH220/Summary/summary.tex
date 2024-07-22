@@ -1,0 +1,662 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{14.49998pt}
+\usepackage{fancyhdr}
+\usepackage{lipsum,graphicx}
+\usepackage{amsmath, amsfonts, amssymb, ragged2e}
+\usepackage{amsthm}
+\usepackage{bookmark}
+\usepackage{times}
+\title{Summary of Math 220}
+\author{Tom Wang}
+\date{Fall, 2023}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{Tom Wang}
+    \fancyhead[R]{\thepage}
+}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plain}
+
+\section{Sets}
+
+Capitals for sets and lower cases for elements. Order and repetition do not matter. 
+
+Conventionally, \textit{i,j,k,l,m,n} to denote integers and \textit{x,y,z,w} to denote real numbers. Empty sets = \{\} = \O
+
+Set builder notation: S = \{expression : rule\}. For example, A = \{$n^2  | n \in \mathbb{Z} \} = \{0,1,4,9,36,...\} $
+
+Some other useful notations: $\mathbb{N} $ is a natural number.$ \mathbb{Q} $ is rational numbers (including fractions).$ \mathbb{R} $ is real numbers. 
+
+We write $|S|$ to denote the \textbf{cardinality} of S. For a finite set S, the cardinality is the number of elements in S. For example, $|$\O$|$=0.
+
+\subsection{Subset}
+
+Let $A,B$ be sets
+\begin{itemize}
+    \item We say that $A$ is a \textbf{subset} of $B$ when every element of $A$ is also an element of $B$
+    \item We denote $A\subseteq B$ as \textbf{subset} and call $B$ a \textbf{superset} of $A$ written as $B\supseteq$ A.
+    \item $A$ is a \textbf{proper subset} of $B$ when $A\subset B$ and $B$ comtains at least one element that is not in $A$.
+    \item Finally, two sets are equal if they are subsets of each other:
+    
+    $A=B \iff ((A\subseteq B)\land (B\subseteq A))$
+\end{itemize}
+
+\subsection{Power set}
+Let $A$ be a set. The \textbf{power set} of $A$, denoted as $\mathcal{P}(A)$, is the set of all subsets of $A$. 
+\begin{align*}
+    \mathcal{P}(\emptyset) &= \{\emptyset\} \\
+    \mathcal{P}(\{1\}) & = \{\emptyset, \{1\}\}\\
+    \mathcal{P}(\{0,1\}) & = \{\emptyset,\{0\}, \{1\},\{0,1\}\}
+\end{align*}
+Not hard to prove that $|A|=n \implies |\mathcal{P}(A)|=2^n$
+
+\subsection{Set operations}
+\begin{itemize}
+    \item Let A, and B be sets. The \textbf{union} of A and B is 
+    \[A\cup B = \{x:x\in A \lor x \in B\} \]
+    \item The \textbf{intersection} of sets A and B is
+    \[A\cup B = \{x:x\in A \land x \in B\} \]
+    If $A\cup B = \emptyset$, then we say that A and B are \textbf{disjoint}
+    \item The \textbf{difference}, $A - B$ is 
+    \[A-B=\{x\in A : x\not \in B\} \]
+
+    \includegraphics*{./Image/Set difference.jpg}
+
+    \item Given a \textbf{universal set} U and $A \subset U$, then the \textbf{complement} of A is 
+    \[\bar{A}=\{x\in U : x \not \in A\}  \quad \text{or} \quad x\in \bar{A} \iff x\not \in A   \]
+    $A-B$ also written as $A \slash  B$ is called the \textbf{relative complement} of B in A. $A-B=A\cap \bar{B}$
+
+    \item An \textbf{ordered pair} of elements is an ordered list of two elements. The ordered pair of two elements $a,b$ is written as $(a,b)$ and satisfies:
+    \begin{itemize}
+        \item $(a,b)=(c,d) \iff (a=c)\land (b=d)$
+        \item $(a,b)=(b,a) \iff (a=b)$
+    \end{itemize}
+    Warning: Do not mix the notations of ordered pairs with sets.
+    
+    \item The \textbf{Cartesian product} of sets $A,B$ is 
+    \[A \times B = \{(a,b): a\in A, b\in B\}\]
+    Note that $\forall A,B \neq \emptyset, A \times B = B \times A \iff A = B$ 
+
+\end{itemize}
+\subsubsection{Set proofs}
+Let A, B be sets:
+\begin{itemize}
+    \item Subset and equality:
+    \begin{itemize}
+        \item $(A\subseteq B) \equiv (\forall x \in A, x\in B)\equiv (x\in A \implies x\in B)$
+        \item $(A=B) \equiv ((A\subseteq B) \land (B\subseteq A))\equiv ((x\in A)\iff (x\in B))$
+    \end{itemize}
+    \item Intersection and union:
+    \begin{itemize}
+        \item $(x\in A\cap B)\equiv (x\in A \land x \in B)$
+        \item $(x\in A\cup B)\equiv (x\in A \lor x \in B)$
+    \end{itemize}
+    \item Complement and difference:
+    \begin{itemize}
+        \item $(x\in \bar{A})\equiv (x\not \in A) \equiv \neg (x\in A)$
+        \item $(x\in A - B)\equiv ((x\in A )\land (x\notin B))\equiv ((x\in A)\land \neg (x\in B))$
+    \end{itemize}
+\end{itemize}
+
+
+
+\subsection{Set partitions}
+
+Equivalence classes either euqal or disjoint. There is no overlap.
+
+Corollary:
+
+Let $R$ be an equivalence class on A and $a, b\in A$. Then 
+\[[a]=[b]\quad \text{or} \quad [a]\cap[b]=\emptyset\]
+
+\begin{proof}
+    Let $a,b \in A$ and consider the intersection $C=[a]\cap[b]$. Now we know either $C=\emptyset$ or $C\neq \emptyset$
+    \begin{itemize}
+        \item If $ C = \emptyset$, the statement is naturally true;
+        \item If $C \neq \emptyset$, then there is some $c\in C$. Hence $c\in [a],c\in[b]$. So c R a, c R b.
+        
+        By symmetry, we know that a R c, and by transitivity, we know a R b. So we can conclude $[a]=[b]$
+    \end{itemize}
+\end{proof}
+
+Now we can define partitioning:
+
+A \textbf{partition} of the set A is a set, $\mathcal{P}$, of non-empty subsets of A so that 
+\begin{itemize}
+    \item if $x\in A$, then there is $X\in \mathcal{P}$ with $x\in X$
+    \item if $X,Y\in \mathcal{P}$ then either $X\cap Y = \emptyset$ or $X=Y$
+\end{itemize}
+In words: A \textbf{partition} of a set A is a set of non-empty subsets of A such that the union of all subsets equals A and the intersection of any two different subsets is $\emptyset$
+
+Elements of $\mathcal{P}$ are \textbf{parts or pieces} of the partition. 
+
+Theorem:
+
+Let R be an equivalence relation on A. The set of equivalence classes of R forms a set partition of A. 
+
+Theorem: Let $\mathcal{P}$ be a set partition of A. Now define a relation by 
+\[x R y \iff \exists X \in \mathcal{P} s.t. x,y \in X\]
+then R is an equivalence relation. 
+
+
+
+\section{Logical Statements}
+A statement has exactly one of those truth values. Some might be Goldbach's conjecture $--$ truth value unknown, but it \textbf{must} be true or false.
+
+An open sentence is a sentence whose truth value depends on the variable it contains. Typically denote it by $P(x)$ and similar. 
+
+Axiom: Statements we accept as true without proof.
+
+Fact: Statements we accept as true, but we won't bother proving for this course.
+
+Theorem: An important true statement -- Pythagoras's theorem.
+
+Corollary: A true statement that follows from a previous theorem.
+
+Lemma: A true statement that helps us prove a more important result.
+
+Result/Proposition: True statements we prove. 
+
+Tautology: a statement that is always true.
+
+Contradiction: a statement that is always false.
+
+\section{Notations}
+The following are the notations you need to remember
+
+The \textbf{negation} of a statement P is denoted $\neg$ P.  
+
+The \textbf{disjunction} of P and Q is "P \textbf{or} Q" and is denoted P$\cup$ Q. 
+
+The \textbf{conjunction} of P and Q is "P \textbf{and} Q" and is denoted P$\cap$ Q.
+
+\section{Implication}
+Conditionals:
+
+Given P and Q, the \textbf{conditional} is the statement "if P then Q" and is denoted "P $\implies$ Q". Also called \textbf{implication} and the \textbf{hypothesis} is P, and the \textbf{conclusion} is Q. If P is false, the statement is \textbf{always} true.
+
+Modus Ponens: if (P $\implies$ Q) and P are true, then Q must be true.
+
+The chain of modus ponens can keep going until the desired results are proven to be true.
+
+Given P $\implies$ Q, then the \textbf{converse}: Q $\implies$ P, and the \textbf{contrapositive}: ($\neg$ Q) $\implies$ ($\neg$ P).
+
+\textbf{Negation of and implication}: $\neg(P\implies Q)=P\land \neg Q$
+
+Contrapositive holds the same truth table as the original implication but the converse does not. 
+
+In the scenarios where (P $\implies$ Q) and (Q $\implies$ P) are both true, we use (P $\iff$ Q). It is called \textbf{biconditional}.
+
+
+
+\section{Intro to proofs}
+
+Start with cases where the hypothesis is true and neglect the cases the hypothesis is false. 
+
+When the hypothesis is true, the \textbf{conclusion} must be true if using a chain reaction of modus ponens, and so the \textbf{implication is true}!
+\begin{itemize}
+    \item Assumption/Hypothesis
+    \item A chain reaction of modus ponens
+    \item It follows/ Hence/ Since / ...
+    \item Come to the conclusion
+\end{itemize}
+
+Only skip the part that is obvious to the \textbf{READER} (not you). 
+
+Sometimes we might start from the conclusion and make our way backwards. 
+
+\section{Logic equivalency}
+
+Two statements R and S are \textbf{logically equivalent} when "R $\iff$ S" is a tautology. In this case, we write R $\equiv$ S. 
+
+Equivalent statements share \textbf{the same truth table}. So contrapositive is equivalent to the original implication. 
+
+DeMorgan's laws: $\neg (P\cup Q)\equiv (\neg P)\cap (\neg Q) \quad and\quad \neg (P\cap Q)\equiv (\neg P)\cup (\neg Q)$
+
+\section{Quantifiers and negations}
+
+\subsection{Some basics}
+
+Adding quantifiers to an open sentence turns it into a statement. Here the added quantifier is a scope.
+
+Def:
+\begin{itemize}
+    \item The \textbf{universal quantifier} is denoted $\forall$.
+    $``\forall x\in A,P(x)''$ is true provided that $P(x)$ is true for every $x\in A$ and otherwise false.
+
+    \item The \textbf{existential quantifier} is denoted $\exists$.
+    $``\exists x\in A,P(x)''$ is true provided that at least one $P(x)$ is true for $x\in A$ and otherwise false.
+
+\end{itemize}
+
+To show $\forall$ is true or $\exists$ is false, you have to show it generically. Otherwise, one example of the case is good enough.
+
+\subsection{Negation theorem}
+
+Let P(x) be an open sentence over the domain A, then
+\[
+\lnot (\forall x\in A, P(x))\equiv \exists x \in A, \lnot(P(x))    
+\]
+\[
+  \lnot (\exists x\in A, P(x))\equiv \forall x \in A, \lnot (P(x))  
+\]
+
+Be cautious that the domain would not change!!!!!!!!!!!!!
+
+\subsection{Nested Quantifiers}
+The order of quantifiers matters a lot! 
+\[
+\forall x, \exists y s.t. P(x,y)\not \equiv \exists y s.t. \forall, P(x,y)    
+\]
+
+\section{Limits if sequences and functions}
+
+Def:
+\begin{itemize}
+    \item Sequence: $f:\mathbb{N} \rightarrow \mathbb{R}$
+    Let $L\in\mathbb{R}$, A sequence $\{x_n\}$, $n\in\mathbb{N}$, converges to L.
+    Written as $x_n\rightarrow L$ or $\lim_{n\rightarrow infinity}x_n = L$ 
+    if $\forall \epsilon > 0, \exists N\in \mathbb{N}, \forall n > N$ implies $|x_n-L|<\epsilon$
+    
+    \item Function: $f:\mathbb{R} \rightarrow \mathbb{R}$. 
+    Let $L\in\mathbb{R}$, A function $\{f(x)\}$, $n\in\mathbb{R}$, $\lim_{x\rightarrow a}f(x)=L$
+    if $\forall \epsilon > 0, \exists \delta >0, 0<|x-a|<\delta$ implies $|f(x)-L|<\epsilon$
+
+\end{itemize}
+
+\section{Induction}
+
+Theorem: Mathematical induction:
+
+For all $n \in \mathbb{N}$ let $P(n)$ be a statement. Then if 
+\begin{itemize}
+    \item $P(1)$ is true and 
+    \item $P(k)\implies P(k+1)$ is true for all $k \in \mathbb{N}$
+\end{itemize}
+then $P(n)$ is true $\forall n \in \mathbb{N}$
+
+So we prove the base case is true, then prove $P(k)\implies P(k+1)$
+
+\subsection{The well ordering principle}
+Definition: (The well ordering principle)
+
+A set $A$ is well ordered if every non-empty subset $B \subseteq A$ has one smallest element. 
+
+Notice that $\mathbb{N}$ is well ordered, but $\mathbb{Z, Q, R}$ are not. This is why induction only works on $\mathbb{N}$
+
+\subsection{Generalize induction}
+
+Lay out two definitions of induction here. 
+
+\textbf{Theorem: Mathematical Induction}
+
+Let $l\in \mathbb{Z}$ and $S=\{n\in\mathbb{Z}\text{s.t.}n\ge l\}$. Let $P(n)$ be a statement for all $n\in S$. Then if 
+\begin{itemize}
+    \item $P(l)$ is true and 
+    \item $P(k)\implies P(k+1)$ is true for all integer $k\in S$
+\end{itemize}
+then $P(n)$ is ture for all $n\in S$
+
+\textbf{Theorem: Strong Mathematical Induction}
+
+Let $l\in \mathbb{Z}$ and $S=\{n\in\mathbb{Z}\text{s.t.}n\ge l\}$. Let $P(n)$ be a statement for all $n\in S$. Then if 
+\begin{itemize}
+    \item $P(l)$ is true and 
+    \item $(P(l)\land P(l+1) \land P(l+2) \land \ldots \land P(k))\implies P(k+1)$ is true for all integer $k\in S$
+\end{itemize}
+then $P(n)$ is ture for all $n\in S$
+
+The two theorem is actually the same and equivalent. It is just to show that the induction base case does not need to be starting at 1. Anything in the set can induct into the whole set.
+
+
+\section{Relations}
+
+Let $A$ be a set
+\begin{itemize}
+    \item Some \textbf{relation}, $R$ on $A$ is a subset $R\subseteq A\times A$
+    \item If $(x,y)\in R$, we write $xRy$, and otherwise $x\not R y$
+\end{itemize} 
+
+$R$ is 
+\begin{itemize}
+    \item \textbf{reflexive} when $\forall a \in A, a R a$
+    \item \textbf{symmetric} when $\forall a,b, \quad a R b \implies b R a$
+    \item \textbf{transitive} when $\forall a,b,c, \quad (a R b)\land (b R c)\implies a R c$
+\end{itemize}
+\includegraphics*{./Image/Relation property.png}
+
+
+If $R$ satisfies all the conditions above, then $R$ is an \textbf{equivalence relation}
+
+\subsection{Equivalence class}
+
+Let R be an \textit{equivalence relation} on set A;
+
+The \textbf{equivalence class} of $x\in A$ with respect to R is 
+\[[x]=\{a\in A: a R x\}\]
+
+Note that if subsets are connected, then they are equivalence classes.
+
+Also, a reminder that equivalence relationships are reflexive, symmetric and transitive.
+
+Lemma:
+
+Let R be an equivalence relation on A. For any $a\in A, a\in [a]$, which means no equivalence class is empty. 
+
+Theorem:
+
+Suppose R is an equivalence relation on A, and let $a, b\in A$. Then
+\[[a]=[b]\iff a R b\]
+
+\begin{proof}
+    We prove each implication in turn:
+    \begin{itemize}
+        \item Assume a R b. We prove that $[a]\subseteq[b]$ and leave the other inclusion to the reader. Let $x\in [a]$, so that x R a. Since R is transitive and a R b, we know that x R b. Hence $x\in [b]$. The other inclusion is similar but also uses the symmetry of R.
+        \item Now assume $[a]=[b]$. By the lemma above, we know $a\in[a] \implies a\in [b]$. By definition of the equivalence class of b, this tells us that a R b.
+    \end{itemize}
+\end{proof}
+
+\subsection{Congurence}
+Congurence is a equivalence relation. Meaning it is reflexive, symmetric and transitive. 
+
+Take modulo as an example:
+
+The equivalence relation ``$\equiv (\mod n)$'' gives a parition of $\mathbb{Z}$
+\[\{[0],[1],[2],\ldots,[n-1]\}\]
+
+These equivalence classes are called the \textbf{integers mod n}
+
+Theorem:
+
+Let $n\in\mathbb{N}$ and let $a,b\in \{0,1,\ldots,n-1\}$. If $x\in[a]\land y\in [b]$ then 
+\[x+y\in[a+b]\quad \text{and} \quad x\cdot y \in [a\cdot b]\]
+
+Let $n\in \mathbb{N}$ and consider the equivalence classes of congruence modulo $n$. The \textbf{integers modulo n} is the set 
+\[\mathbb{Z}_n=\{[0],[1],[2],\ldots,[n-1]\}\]
+The elements of $\mathbb{Z}_n$ can be added and multiplied by the rule
+\[[a]+[b]=[a+b]\quad [a]\cdot [b]=[a\cdot b]\]
+
+\section{Functions}
+
+Let $A.B$ be non-empty sets
+
+A \textbf{function} from $A$ to $B$ is a non-empty subset $f\subseteq A\times B$ so that
+\begin{itemize}
+    \item for every $a\in A$, there exists a $b\in B$ so that $(a,b)\in f$
+    \item if $(a,b)\in f$ and $(a,c) \in f$ then $b=c$
+\end{itemize}
+The \textbf{domain} of $f$ is $A$, and the \textbf{codomain} is $B$
+
+If $(a,b)\in f$ we write $f(a)=b$ and say that b is the $\textbf{image}$ of $a$
+
+Finally, the \textbf{range} of $f$ is 
+\[\text{range }f=\{b\in B\quad s.t.\exists a\in A \quad s.t. f(a)=b\}\]
+
+Note that the \textbf{range} is a subset of the \textbf{codomain}
+
+\subsection{Images and Preimages}
+Let $f:A \to B$ be a function and let $C\subseteq A, D\subseteq B$
+\begin{itemize}
+    \item The \textbf{image} of $C$ in $B$ is $f(C)=\{f(x)s.t.x\in C\}$
+    \item The \textbf{preimage} of $D$ in $A$ is $f^{-1}(D)=\{x\in A s.t. f(x)\in D\}$
+\end{itemize}
+Note that:
+\begin{itemize}
+    \item $f(C)\subseteq B, f^{-1}(D)\subseteq A$
+    \item $f^{-1}\neq (f(x))^{-1}$ or $\frac{1}{f(x)}$
+    \item So the preimage is not the inverse function which means:
+    \[C\subseteq f^{-1}(f(C))\quad \text{and} \quad f(f^{-1}(D))\subseteq D\]
+\end{itemize}
+
+Now let $C_1, C_2\subseteq A$ and $D_1,D_2\subseteq B$. Then:
+\begin{align*}
+    f(C_1\cap C_2)&\subseteq f(C_1)\cap f(C_2) & f(C_1\cup C_2)&=f(C_1)\cup f(C_2)\\
+    f^{-1}(D_1\cap D_2)& =f^{-1}(D_1)\cap f^{-1}(D_2) & f^{-1}(D_1\cup D_2)& =f^{-1}(D_1)\cup f^{-1}(D_2)
+\end{align*}
+
+Note that one of them is a subset relationship. 
+
+\subsection{Injection, Surjection and Bijection}
+Let $f:A\times B$ be a function:
+\begin{itemize}
+    \item The function is an \textbf{injective/one-to-one} function when $\forall a_1,a_2 \in A$
+    \[(a_1\neq a_2)\implies f(a_1)\neq f(a_2) \]
+    Or the contrapositive:
+    \[f(a_1)=f(a_2)\implies a_1=a_2\]
+
+    \item The function is a \textbf{surjective/onto} functions when \[\forall b\in B, \exists a\in A s.t.g(a)=b\] So all b in B are mapped to. 
+    \item \textbf{Bijective} functions are \textbf{BOTH} \textit{injective and surjective}. Bijection AKA \textbf{one-to-one correspondences}
+\end{itemize}
+
+\subsection{Composition}
+Let $f:A\to B$ and $g:B\to C$, The \textbf{composition} of $f$ and $g$ denoted $g \circ f$, defines a new function: 
+\[g \circ f : A\to C \quad (g\circ f)(a)=g(f(a))\quad \forall a\in A\]
+Note that composition is \textit{associative}: $h\circ(g\circ f)=(h\circ g)\circ f$
+
+Theorem:
+\begin{itemize}
+    \item If $f,g$ are injective, so is $g\circ f$
+    \item If $f,g$ are surjective, so is $g\circ f$
+    \item Same can be extended to bijective
+\end{itemize}
+
+At the same time:
+\begin{itemize}
+    \item If $g\circ f$ is injective, then $f$ is injective, $g$ is unknown.
+    \item If $g\circ f$ is surjective, then $g$ is surjective, $f$ is unknown.
+\end{itemize}
+
+\subsection{Inverse functions}
+For a set $A$, the \textbf{identity function} on $A$ is the function $i_A:A\to A$ defined as $i_A(x)=x,\forall x \in A$.  
+
+Let $f:A\to B, g:B\to A$ be functions:
+\begin{itemize}
+    \item If $g\circ f=i_A$, which is an identity function in A, then we say that $g$ is a \textbf{left\-inverse} of $f$.
+    \item If $f\circ g=i_B$, which is an identity function in B, then we say that $g$ is a \textbf{right\-inverse} of $f$.
+    \item If $g$ is \textit{both} a left\-inverse and right\-inverse, then it is an \textbf{inverse} of $f$. It can be written as $f^{-1}$
+    \item Note that one can prove that if an inverse exists, then it is unique. Inverse exists $\iff$ $f$ is bijective.
+\end{itemize}
+Lemma:
+\begin{itemize}
+    \item $f$ has a left\-inverse $\iff$ $f$ is injective.
+    \item $f$ has a right\-inverse $\iff$ $f$ is surjective.
+    \item If f has both left\-inverse and right\-inverse, then they are equal.\begin{proof}
+        left $f,g,h$ be functions in $A\to B$, $g$ is the left\-inverse and $h$ is the right\-inverse. Now we know $g\circ f = i_A, f\circ h=i_B$.
+        \[g=g\circ i_B=g\circ(f\circ h)=(g\circ f)\circ h=i_A\circ h =h\]
+        We used the associative property to prove it. 
+    \end{proof}
+\end{itemize}
+
+\section{Contradiction}
+Proof by Contradiction relies on two things:
+\begin{itemize}
+    \item Fact: Law of the excluded middle: Let $P$ be a statement. Then either $P$ is true or its negation is true.
+    \item MODUS TOLLENS: If $(P\implies Q)$ and $Q$ is false, then $P$ is false. (Write out the truth table to check)
+\end{itemize}
+\subsection{Structure of contradiction proofs}
+Imagine that we want to prove statement $P$ is true:
+\begin{enumerate}
+    \item State that we use contradiction and assume $\neg P$ is true
+    \item We establish a chain of implications that terminates at a contradiction that is false: \[\neg P\implies P_1\implies P_2 \implies \ldots \implies \textbf{contradiction}\]
+    \item By modus tollens, $\neg P$ must be false, thus $P$ is true.
+\end{enumerate}
+\subsection{Irrational Numbers}
+With contradiction, we can define rational and irrational numbers:
+Let $q$ be a real number:
+\begin{itemize}
+    \item We say $q$ is \textbf{rational} if we can write it as $q=\frac{a}{b}$ with $a,b\in \mathbb{Z},b\neq 0$. \[\exists a\in \mathbb{Z}s.t.\exists b\in (\mathbb{Z}-\{0\})s.t.q=\frac{a}{b}\]
+    \item We say $q$ is \textbf{irrational} when it is \textbf{not rational}\[\forall a\in \mathbb,\forall b\in (\mathbb{Z}-\{0\}),q=\frac{a}{b}\]
+    \item Note that irrational and rational numbers make up the partition of real numbers. \[\mathbb{R}=\mathbb{Q}+\mathbb{I} \iff \mathbb{I}=\mathbb{R}-\mathbb{Q} \]
+\end{itemize}
+\subsection{There are infinite primes}
+Lemma: Let $n\in\mathbb{N}$, if $n\ge 2$, then $n$ is divisible by a prime.
+
+Now we want to prove that there is an infinite number of primes:
+\begin{proof}
+    Assume, to the contrary, that there is a finite list of primes: $\{p_1,p_2,\ldots, p_n\}$ and let it be a set $N\in \mathbb{N}$.
+    
+    To be added.
+\end{proof}
+
+\section{Cardinality}
+Define: Let $A, B$ be sets. They have the same \textbf{cardinality} if $A=B=\emptyset$ or if there is a \textit{bijection} from A to B. In this case, we write $|A|=|B|$ and say the sets are \textbf{equinumerous}. 
+
+Note that the special case exists because there is no bijection between empty sets. 
+\subsection{Pigeonhole Principle (PHP)}
+If $n$ objects are placed in $k$ boxes then\begin{itemize}
+    \item if $n<k$, at least one box has zero objects in it.
+    \item if $n>k$, at least one box has at least two objects in it.
+\end{itemize}
+Can refine $n>k$ case: at least one box has at least $\lceil \frac{n}{k} \rceil$ objects in it. 
+
+With PHP we can get a Corollary:
+
+Let $A,B$ be \textbf{finite} sets and let $f:A\to V$. Then\begin{align*}
+&\text{statement} &\text{contrapositive}\\
+&\text{if } |A|>|B|,f\text{ is not an injection} & \text{if } f \text{ is an injection then }|A|\le |B|\\
+&\text{if } |A|<|B|,f\text{ is not a surjection} & \text{if } f \text{ is a surjection then }|A|\ge |B|
+\end{align*}
+
+
+\subsection{Infinite Sets}
+Let $A, B ,C$ be sets, then ``being equininumerous'' is an equivalence relation:\begin{itemize}
+    \item reflexive: $|A|=|A|$
+    \item symmetric: $|A|=|B|\implies |B|=|A|$
+    \item transitive: $|A|=|B|\land |B|=|C|\implies |A|=|C|$
+\end{itemize}
+
+Now we elaborate this relationship onto infinite sets. Have an example first:
+
+Let $A=\{n\in\mathbb{N}s.t.n \text{ is even}\}$ and $B=\{n\in\mathbb{N}s.t.n \text{ is odd}\}$. Then $|A|=|B|=|\mathbb{N}|$ \begin{proof}
+    The function $f: A \to B$ defined by $f(n)=n+1$ is a bijection.
+
+    The function $g: \mathbb{N} \to A$ defined by $g(n)=2n$ is a bijection.
+\end{proof}
+Note that $A\subset \mathbb{N}$ but we can still map all the elements and find the bijection. This is different from a finite set. 
+
+So for finite sets, if one set is a proper subset of the other, their cardinality is definitely different. But for infinite sets, things might be different. We might still be able to find a bijection. 
+
+Now we can define infinite set:\begin{itemize}
+    \item \textit{informal definition}: an infinite set keeps going.
+    \item \textit{formal definition}: a set $A$ is infinite if there is a bijection from $A$ to a proper subset of $A$. (not itself)
+\end{itemize}
+
+\subsection{denumerable}
+The first infinite set we meet is the natural numbers.
+\begin{itemize}
+    \item A set $A$ is called \textbf{denumerable} if there is a bijection $f : \mathbb{N} \to A$
+    \item We denote the cardinality of any denumerable set by $\aleph_0$ ``aleph-null''
+    \item When a set $A$ is finite or denumerable we say that it is \textbf{countable}. The negation is \textbf{uncountable}
+\end{itemize}
+
+When a set $B$ is denumerable, we can ``list out'' its elements.\begin{itemize}
+    \item Since denumerable, there is a bijective $f:\mathbb{N}\to B$
+    \item We can write it as:\begin{align*}
+        B&=\{f(1),f(2),f(3),\ldots\} &\\
+        &=\{b_1,b_2,b_3,\ldots\}&b_n=f(n)
+    \end{align*}
+\end{itemize}
+This list has two nice properties:\begin{itemize}
+    \item Since $f$ is injective, the list does not repeat:\[k\neq b\implies b_k=f(k)\neq f(n)=b_n\]
+    \item Since $f$ is surjective, any given $y\in B$ appears at some \textbf{finite} position:\[\forall y\in B, \exists n\in \mathbb{N}s.t.y=f(x)=b_n\]
+\end{itemize}
+In the same way, if there is a bijection from $\mathbb{N}$ to $B$, then $B$ is denumerable. 
+\subsubsection{Example}
+The idea of this kind of proof is to find a list that could be written as a bijection to natural numbers.
+
+For example, prove that the set of all integers is denumerable.\begin{proof}
+    We first know that we want to prove a bijective in $\mathbb{Z}\to \mathbb{N}$
+
+    We can write as $\mathbb{Z}=\{0,1,-1,2,-2,3,-3,\ldots\}$ which a bijection can be found:
+
+    Let  $z\in \mathbb{Z}$ so that
+    \begin{equation*}
+        z\text{ appears at position }\begin{cases}
+            2z\text{ if }z\ge 1\\
+            1-2z\text{ if }z\le 0
+        \end{cases}        
+    \end{equation*}
+    Now the list \begin{itemize}
+        \item does not repeat
+        \item any given $z\in\mathbb{Z}$ appears at some finite position
+    \end{itemize}
+    Thus there is a bijection
+\end{proof}
+\subsection{Countable}
+Theorem:
+
+Let $A,B$ be sets with $A\subseteq B$. If $B$ is denumerable then $A$ is countable.
+\begin{itemize}
+    \item $A$ can be either finite of an infinite set but a subset of $B$
+    \item Finite sets are definitely countable
+    \item If $A$ is an infinite set, since $B$ is denumerable, $A$ is injective, also all elements in it appear in a finite position. So it is countable. 
+    \item Note that countable does not mean surjective.
+\end{itemize}
+We can also prove that $A, B$ is countable sets $\implies A\times B$ is countable.
+
+This can be extended to prove that all rational numbers $\mathbb{Q}$ is denumerable.\begin{proof}
+    Note that any $q\in \mathbb{Q}$ can be uniquely written as $q=\frac{a}{b}$ with $a\in \mathbb{Z},b\in \mathbb{N}$ and $gcd(a,b)=1$.
+
+    Then we can rewrite $\mathbb{Q}$ as $P=\{(a,b)\in \mathbb{Z}\times \mathbb{N} s.t. gcd(a,b)=1\}$ Here $\mathbb{Q}$ and $P$ has a bijection $f\to \mathbb{Q}\to P$ given by $f(a/b)=(a,b)$ So $P$ is use a pair to represent the fraction relationship. 
+
+    Note that $P\subseteq \mathbb{Z}\times \mathbb{N}$, we know it is denumerable and so as $\mathbb{Q}$
+\end{proof}
+
+Following is the chart way of proving it: 
+\begin{proof}
+    We list out a chart where the columns are all integers in absolute value ascending order and the rows are numbers that have gcd = 1 with the column number excluding the column number itself. 
+    
+    \includegraphics*{./Image/Cardinality Chart proof.jpg}
+
+    Now we should be convinced that this includes all the rational numbers without repetitions
+
+    Next, we can draw an infinite path in this array that could include all numbers in this char and number them correctly:
+
+    \includegraphics*{./Image/Cardinality chart path.jpg}
+
+    So we showed that we can get an infinite list of all rational numbers. Thus $|\mathbb{Q}=\mathbb{N}$ and that could be extended to the Cartesian product of two countably infinite sets. E.g., $|\mathbb{Q}=\mathbb{N}=\mathbb{Z}\times \mathbb{Z}$
+\end{proof}
+\subsection{Uncountable}
+Fact: Every irrational number has a unique non-repeating decimal expansion. 
+
+Corollary: The set of all real numbers is uncountable. Additionally $|(0,1)|=|\mathbb{R}|=c$. 
+
+\subsection{Infinities}
+Comparing different infinities:
+
+Let $A, B$ be sets.\begin{itemize}
+    \item We write $|A|\le|B|$ when there is an injection from $A$ to $B$
+    \item Further, we write $|A|<|B|$ where there is an injection from $A$ to $B$ but no bijection.
+\end{itemize}
+
+Theorem: If $A$ is any set, then $|A|<|\mathcal{P}(A)|$
+\begin{proof}
+    It is easy to find an injection to power set so we skip that part, we need to show that there is no surjection:
+
+    To show $f$ is not surjective we will produce a set $B\in\mathcal{P}(A)$ for which $f(a)\neq B\forall a\in A$. Notice that for any element $x\in A$ we have $f(x)\in \mathcal{P}(A)$, that is $f(x)\subseteq A$. Thus $f$ is a function sending elements of $A$ to a subset of $A$. Use this idea, define:\[B=\{x\in A: x\not\in f(x)\}\subseteq A\]
+    \begin{itemize}
+        \item If $a\not \in f(a)$, then the definition of $B$ implies $a\in B$ but 
+        \item Do not understand this !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    \end{itemize}
+\end{proof}
+
+Cantor-Schroeder-Bernstein Theorem: \[|A|\le |B| \land |B|\le |A| \implies |A|=|B|\]
+\begin{itemize}
+    \item We know $|A|\le|B|\implies$ there is an injection from A to B.
+    \item Now we want to show that if there is an injection from A to B and B to A, then there is a bijection. 
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,29 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{14.49998pt}
+\usepackage{fancyhdr}
+\usepackage{lipsum,graphicx}
+\usepackage{amsmath, amsfonts, amssymb, ragged2e}
+\usepackage{amsthm}
+\usepackage{bookmark}
+\usepackage{listings}
+\usepackage{times}
+\title{Summary for CPEN 412}
+\author{Tom Wang}
+\date{Spring 2024}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{Tom Wang}
+    \fancyhead[R]{\thepage}
+}
+
+\begin{document}
+\maketitle
+\section{Memory Systems}
+\includegraphics*[scale = 0.7]{./Images/Classification of Random Access Memory.png}
+
+\includegraphics*[scale = 0.8]{./Images/Classification of Sequential Access Memory.png}
+
+Sequential Access Memory (SAM) is not randomly accessible. An access is made by first writing an address to them, they respond with data from successive locations with each subsequent read/write access.
+
+\end{document}

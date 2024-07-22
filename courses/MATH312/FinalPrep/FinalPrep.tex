@@ -1,0 +1,396 @@
+\documentclass[letterpaper,12pt,oneside]{article}
+\setlength{\headheight}{14.49998pt}
+\usepackage{fancyhdr}
+\usepackage{lipsum,graphicx}
+\usepackage{amsmath, amsfonts, amssymb, ragged2e}
+\usepackage{amsthm}
+\usepackage{bookmark}
+\usepackage{listings}
+\usepackage{times}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+
+
+
+\title{FinalPrep of Math 312}
+\author{Tom Wang}
+\date{Spring, 2024}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{Tom Wang}
+    \fancyhead[R]{\thepage}
+}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plain}
+\section{Induction}
+Induction/ Strong Induction is basically another way of Well well-ordering principle. \begin{theorem}
+    Every non-empty subset of $\mathbb{N}$ has a smallest element.
+\end{theorem}
+\subsection{Division algorithm}
+\begin{theorem}
+    For any integers $a$ and $b$ with $b>0$, there exist unique integers $q$ and $r$ such that $a = bq + r$ and $0 \leq r < b$. Moreover, $q$ is called the quotient and $r$ is called the remainder and they are unique.
+\end{theorem}
+\section{Primes}
+\begin{definition}
+    A natural number $p$ is called a prime if $p > 1$ and the only positive divisors of $p$ are 1 and $p$.
+\end{definition}
+\subsection{Euclid's Lemma}
+\begin{lemma}
+    There are infinitely many primes.
+\end{lemma}
+\subsection{Sieve of Eratosthenes}
+\begin{theorem}
+    $\exists$ a prime $p$ s.t. $p\leq n, \forall n\in \mathbb{N}, n>1$.
+\end{theorem}
+\subsection{The prime number theorem}
+\begin{theorem}
+    Let $\pi(x)$ be the number of primes less than or equal to $x$. Then $\lim_{x\to\infty} \frac{\pi(x)}{x/\ln(x)} = 1$.
+\end{theorem}
+In other words, the number of primes less than $x$ is approximately less than or equal to $x/\ln(x)$.
+\section{Division}
+\subsection{GCD}
+\begin{definition}
+    Let $a$ and $b$ be integers, not both zero. The greatest common divisor of $a$ and $b$, denoted $\gcd(a,b)$, is the largest integer that divides both $a$ and $b$.
+\end{definition}
+\begin{corollary}
+    $e$ is a divisor of $a$ and $b$ if and only if $e$ is a divisor of $\gcd(a,b)$.
+\end{corollary}
+\begin{corollary}
+    $ax+by=c$ has an integer solution if and only if $\gcd(a,b)$ divides $c$.
+\end{corollary}
+\subsection{Bezout's Identity}
+\begin{theorem}
+    $\gcd(a,b)$ is the \textbf{smallest} positive integer that can be written in the form $ax+by$. (linear combination of $a$ and $b$)
+\end{theorem}
+\subsection{Euclidean Algorithm}
+\begin{lemma}
+    If $a=bq+r$, for $a,b,q,r\in \mathbb{Z}$, then $\gcd(a,b) = \gcd(b,r)$.
+\end{lemma}
+
+While loop version:
+    \begin{algorithmic}
+      \STATE \textbf{Input:} $a,b\in \mathbb{Z}$
+        \STATE \textbf{Output:} $\gcd(a,b)$
+        \STATE \textbf{Procedure:}
+        \STATE \textbf{while} $b\neq 0$ \textbf{do}
+        \STATE \quad $r = a\mod b$
+        \STATE \quad $a = b$
+        \STATE \quad $b = r$
+        \STATE \textbf{end while}
+        \STATE \textbf{return} $a$
+    \end{algorithmic}
+
+
+
+
+Recursive version:
+    \begin{algorithmic}
+        \STATE \textbf{Input:} $a,b\in \mathbb{Z}$
+            \STATE \textbf{Output:} $\gcd(a,b)$
+            \STATE \textbf{Procedure:}
+            \IF{$b=0$}
+            \STATE \textbf{return} $a$
+            \ELSE
+            \STATE \textbf{return} $\gcd(b, a\mod b)$
+            \ENDIF
+    \end{algorithmic}
+
+
+
+\subsection{Linear equations}
+Solve linear equations in the form of $ax+by=c$.
+
+\begin{enumerate}
+    \item Use the Euclidean Algorithm to find $\gcd(a,b)$.
+    \item Check if $\gcd(a,b)$ divides $c$.
+    \item If it does, find $x_0, y_0$ such that $ax_0+by_0=\gcd(a,b)$.
+    \item Multiply the equation by $c/\gcd(a,b)$ to get the solution.
+    \item The general solution is $x=x_0+c\cdot k, y=y_0-c\cdot k$ for $k\in \mathbb{Z}$.
+    \item If $\gcd(a,b)$ does not divide $c$, there is no solution.
+\end{enumerate}
+\subsubsection{Describe all solutions}
+\begin{theorem}
+    Let $d=\gcd(a,b)$. The equation $ax+by=c$ has a solution if and only if $d$ divides $c$. The set of solutions is given by\[
+        \{(x_0+\frac{b}{d}t,y_0-\frac{a}{d}t)|t\in\mathbb{Z}\}
+    \]
+    Here $x_0,y_0$ is a particular solution.
+\end{theorem}
+$x_0,y_0$ can be found by solving $ax+by=d$ using the Euclidean Algorithm as described above.
+\subsubsection{Key lemma}
+\begin{lemma}
+    Let $a,b\in \mathbb{Z}$ and $d=\gcd(a,b)$. $d=1 \iff (a|bc \implies a|c)$.
+\end{lemma}
+Note how it is not true for $d>1$.
+\subsection{Fundemental Theorem of Arithmetic}
+\begin{theorem}
+    $\forall n\in \mathbb{N}$, $n>1$, $n$ can be written as a product of primes. Moreover, this factorization is unique.
+\end{theorem}
+Usually, we write $n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$. Note that $e_i$ can be 0 and $p_i$ are distinct primes.
+\begin{corollary}
+    Let $p$ be a prime. $p|a_1a_2\cdots a_n \implies p|a_i$ for some $i$.
+\end{corollary}
+\begin{proposition}
+    Suppose $m = p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$ and $n = p_1^{f_1}p_2^{f_2}\cdots p_k^{f_k}$, then $\gcd(m,n) = p_1^{\min(e_1,f_1)}p_2^{\min(e_2,f_2)}\cdots p_k^{\min(e_k,f_k)}$ and $\text{lcm}(m,n) = p_1^{\max(e_1,f_1)}p_2^{\max(e_2,f_2)}\cdots p_k^{\max(e_k,f_k)}$.
+\end{proposition}
+\begin{corollary}
+    $\gcd(m,n)\cdot \text{lcm}(m,n) = mn$.
+\end{corollary}
+\section{Congruences}
+\begin{definition}
+    Let $a,b,n\in \mathbb{Z}$ with $n>0$. We say $a$ is congruent to $b$ modulo $n$ if $n|(a-b)$. We write $a\equiv b\pmod{n}$.
+\end{definition}
+Note that it is reflective, symmetric and transitive. It is also closed under addition, exponentiation and multiplication.
+\subsection{Congruence Class}
+\begin{definition}
+    Let $n\in \mathbb{Z}$ with $n>0$. The congruence class of $a$ modulo $n$ is the set of all integers that are congruent to $a$ modulo $n$. We denote this by $[a]_n$. \[
+        [a]_n = \{x\in \mathbb{Z}|x\equiv a\pmod{n}\}
+    \]
+\end{definition}
+\subsection{Modular exponentiation}
+\begin{theorem}
+    Let $a,b,n\in \mathbb{Z}$ with $n>0$. Then $a\equiv b\pmod{n} \implies a^k\equiv b^k\pmod{n}$.
+\end{theorem}
+Thus, we can calculate large powers by repetitively squaring the number and multiply the result.
+\subsubsection{Representations of integer}
+\begin{theorem}
+    Let $b\in \mathbb{Z}$ with $b>1$. Then every integer $n$ can be written in the form\[
+        n = a_k b^k + a_{k-1}b^{k-1}+\cdots + a_1b + a_0
+    \]
+    where $0\leq a_i < b, a_k\neq 0, k\in \mathbb{N}$.
+
+    Moreover this representation is unique.
+\end{theorem}
+This is how binary representation works and it can extend to any base.
+\subsection{Linear Congruences}
+$ax\equiv b\pmod{n}$ is a linear congruence. It has a solution if and only if $\gcd(a,n)|b$. Basically expressing it as $ax+ny=b$ and solving it.
+
+\begin{theorem}
+    If $d=\gcd(a,n)$ and $d|b$, then the linear congruence $ax\equiv b\pmod{n}$ has exactly $d$ solutions modulo $n$.
+\end{theorem}
+
+Solutions are considered the same if they differ by a multiple of $n/d$. 
+\subsection{Multiplicative Inverse}
+\begin{definition}
+    Let $a,n\in \mathbb{Z}$ with $n>0$. The multiplicative inverse of $a$ modulo $n$ is an integer $x$ such that $ax\equiv 1\pmod{n}$. We denote this by $a^{-1}$.
+\end{definition}
+\begin{corollary}
+    Let $p$ be a prime, then every $a\neq 0 \pmod{p}$ has a multiplicative inverse.
+\end{corollary}
+\begin{corollary}
+    Let $p$ be a prime, $a\equiv a^{-1}\pmod{p} \iff a\equiv \pm 1\pmod{p}$.
+\end{corollary}
+\subsection{Chinese Remainder Theorem}
+\begin{theorem}
+    Let $n_1,n_2,\cdots,n_k$ be positive integers that are pairwise relatively prime. Then the system of congruences\[
+        \begin{cases}
+            x\equiv a_1\pmod{n_1}\\
+            x\equiv a_2\pmod{n_2}\\
+            \vdots\\
+            x\equiv a_k\pmod{n_k}
+        \end{cases}
+    \]
+    has a unique solution modulo $n_1n_2\cdots n_k$.
+\end{theorem}
+\begin{theorem}
+    The system of linear congruences \begin{align*}
+        x & \equiv a_1 \pmod {n_1} \\
+        x & \equiv a_2 \pmod {n_2} \\
+          & \vdots                 \\
+        x & \equiv a_r \pmod {n_r}
+    \end{align*}
+    has a solution if and only if $a_i\equiv a_j \pmod {\gcd(n_i,n_j)}$ for all $i,j$. Moreover, the solution is unique modulo $N=\text{lcm}(n_1,n_2,\ldots,n_r)$.
+\end{theorem}
+\subsubsection{Algorithm}
+Let $N = n_1n_2\cdots n_k$. Then $N_i = N/n_i$. Let $y_i$ be the multiplicative inverse of $N_i$ modulo $n_i$. Then the solution is\[
+    x = a_1y_1N_1+a_2y_2N_2+\cdots + a_ky_kN_k
+\]
+To see that $x\equiv a_i\pmod{n_i}$, note that $N_i\equiv 0\pmod{n_j}$ for $j\neq i$ and $N_i\equiv 1\pmod{n_i}$. Thus $x\equiv a_iy_i\pmod{n_i}$ and $a_iy_i\equiv 1\pmod{n_i}$.
+\subsection{Divisibility criteria}
+To be added if needed.
+\section{Fermat's Little Theorem}
+\subsection{Wilson's Theorem}
+\begin{theorem}
+    let $p$ be a prime. Then $(p-1)!\equiv -1\pmod{p}$.
+\end{theorem}
+\subsection{Fermat's Little Theorem}
+\begin{theorem}
+    Let $p$ be a prime and $a\in \mathbb{Z}$ with $p\nmid a$. Then $a^{p-1}\equiv 1\pmod{p}$.
+\end{theorem}
+\begin{corollary}
+    Let $p$ be a prime and $a\in \mathbb{Z}$. Then if $d\equiv e\pmod{p-1}$, then $a^d\equiv a^e\pmod{p}$.
+\end{corollary}
+\begin{proof}
+    Let $d=e+k(p-1)$. Then $a^d\equiv a^{e+k(p-1)}\equiv a^e a^{k(p-1)} \equiv a^e (a^{p-1})^k \equiv a^e\pmod{p}$.
+\end{proof}
+
+\subsection{Euler's Theorem}
+\begin{theorem}
+    Let $n\in \mathbb{Z}$ with $n>0$ and $a\in \mathbb{Z}$ with $\gcd(a,n) = 1$. Then $a^{\phi(n)}\equiv 1\pmod{n}$.
+\end{theorem}
+\begin{lemma}
+    $\gcd(a,n) = 1 \land \gcd(b,n) = 1 \implies \gcd(ab,n) = 1$.
+\end{lemma}
+\begin{lemma}
+    Suppose $n=p^r$ for some prime $p$ and $r\in \mathbb{N}$. Then $\phi(n) = p^r-p^{r-1}$.
+\end{lemma}
+\begin{lemma}
+    If $\gcd(m,n) = 1$, then $\phi(mn) = \phi(m)\phi(n)$.
+\end{lemma}
+\subsubsection{Euler's phi function}
+\begin{definition}
+    Let $n\in \mathbb{Z}$ with $n>0$. The Euler's phi function $\phi(n)$ is the number of positive integers less than $n$ that are relatively prime to $n$.
+\end{definition}
+\begin{theorem}
+    Let $n = p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$. Then $\phi(n) = n(1-\frac{1}{p_1})(1-\frac{1}{p_2})\cdots (1-\frac{1}{p_k})$.
+\end{theorem}
+Note that it is because of the two lemmas above. $\phi$ is morphism and is multiplicative.
+\begin{theorem}
+    $\sum_{d|n} \phi(d) = n$
+\end{theorem}
+This is because $\phi(d)$ is the number of elements in the set $\{x\in \mathbb{Z}|1\leq x\leq n, \gcd(x,n) = d\}$.
+\subsubsection{Multiplicative group}
+Note that the Euler $\phi$ function is multiplicative only if $\gcd(m,n) = 1$. 
+
+\begin{lemma}
+    If $n = p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$, where $p_i$ are distinct primes and $e_i\geq 1$, then \[
+        f(n) = \prod_{i=1}^k f(p_i^{e_i}) = \prod_{i=1}^k p_i^{e_i-1}(p_i-1)
+    \]
+\end{lemma}
+
+\begin{theorem}
+    If $f(n)$ is multiplicative, so is $F(n) = \sum_{d|n} f(d)$.
+\end{theorem}
+
+\begin{definition}
+    Define two more multiplicative functions:\begin{itemize}
+        \item $\sigma(n)$ is the sum of all positive divisors of $n$.
+        \item $\tau(n)$ is the number of positive divisors of $n$.
+    \end{itemize}
+\end{definition}
+\subsection{Perfect numbers}
+\begin{theorem}
+    Let $n$ be a positive integer, then $n$ is a perfect number if and only if $\sigma(n) = 2n$.
+\end{theorem}
+Or equivalently, $n$ is the sum of its proper divisors.
+\begin{theorem}
+    Suppose $m\leq 2$ is a prime and $p=2^m-1$ is also a prime. Then $n=2^{m-1}p$ is a perfect number.
+\end{theorem}
+\begin{lemma}
+    If $2^m-1$ is prime, then $m$ is prime.
+\end{lemma}
+\begin{definition}
+    Mersenne prime is a prime of the form $2^m-1$.
+\end{definition}
+\begin{theorem}
+    Even numbers of the form $n=2^{m-1}(2^m-1)$ are perfect if $2^m-1$ is prime.
+\end{theorem}
+\subsubsection{Euler's Perfect Number Theorem}
+\begin{theorem}
+    Let $n$ be an even perfect number. There exists a prime $m$ such that $n = 2^{m-1}(2^m-1)$ and $2^m-1$ is prime.
+\end{theorem}
+\subsection{Mobius Inversion Formula}
+\begin{definition}
+    The Mobius function $\mu(n)$ is defined as \[
+        \mu(n) = \begin{cases}
+            1 & \text{if } n=1\\
+            0 & \text{if } p^2|n \text{ for some prime } p\\
+            (-1)^k & \text{if } n = p_1p_2\cdots p_k \text{ for distinct primes } p_i
+        \end{cases}
+    \]
+\end{definition}
+If $f(n)$ is a multiplicative function, and $F(n) = \sum_{d|n} f(d)$ is also multiplicative. We want to recover $f(n)$ from $F(n)$.
+\begin{definition}
+    The Mobius inversion formula is \[
+        f(n) = \sum_{d|n} \mu(d)F(n/d)
+    \]
+\end{definition}
+Note that $\mu(n)$ is multiplicative.
+\begin{corollary}
+    \[
+        f(n) = \sum_{d|n} F(d)\mu(n/d) = \sum_{d|n} F(n/d)\mu(d)
+    \]
+\end{corollary}
+Note $F(n/d) = \sum_{e| \frac{n}{d}} f(e)$. 
+
+Then \[
+        f(n)=\sum_{d|n}F(\frac{n}{d})\mu(d)=\sum_{d|n}\sum_{e|\frac{n}{d}}f(e)\mu(d)=\sum_{e|n}\sum_{d|\frac{n}{e}}f(e)\mu(d)=\sum_{e|n}f(e)\sum_{d|\frac{n}{e}}\mu(d)
+    \]
+
+\subsection{Primality Testing}
+\subsubsection{Fermat's Primality Test}
+If there exists an $a$ such that $a^{n-1}\not\equiv 1\pmod{n}$, then $n$ is composite. Otherwise, $n$ is probably prime. (Fermat's Little Theorem)
+
+\subsubsection{Carmichael Numbers}
+\begin{definition}
+    A composite number $n$ is a Carmichael number if $a^{n-1}\equiv 1\pmod{n}$ for all $a$ such that $\gcd(a,n) = 1$.
+
+    Suppose $n=p_1 p_2 \cdots p_r$ where $p_1,p_2,\ldots,p_r$ are distinct primes. If $p_i -1\mid n-1$ for all $i$, then $n$ is a Carmichael number.
+\end{definition}
+So each prime of Carmichael number would satisfy Fermat's Primality Theorem to get $b^{p_i-1} \equiv b^{n-1}\equiv 1\pmod{n}$. Then by CRT, we can get $b^{n-1}\equiv 1\pmod{n}$.
+
+\subsubsection{Miller-Rabin Primality Test}
+To deal with Carmichael numbers, we use the Miller-Rabin Primality Test. It is a probabilistic algorithm.\begin{enumerate}
+    \item Start out the same way as Fermat's Primality Test. Choose a random integer $b$ in $[2,n-2]$. Then compute $b^{n-1}\pmod n$.
+    \item If $b^{n-1}\not\equiv 1 \pmod n$, then $n$ is not prime.
+    \item If $b^{n-1}\equiv 1 \pmod n$, then we probe a bit deeper by computing $x\equiv b^{(n-1)/2}\pmod n$. (Here we are assuming that $n-1$ is even. If $n-1$ is odd, then $n$ is not prime since $b\ge 2$)
+    \item Note that $x^2=b^{n-1}\equiv 1 \pmod n$. If $n$ is a prime, then $x\equiv \pm 1 \pmod n$. 
+    \item If $x\equiv 1 \pmod n$, and $\frac{n-1}{2}$ is odd, We cannot say anything here, pick another $b$ and repeat the test.
+    \item If $x\equiv -1 \pmod n$, then $n$ is \textbf{probably} prime. We cannot say anything here, pick another $b$ and repeat the test.
+    \item However, if $x\equiv 1 \pmod n$, and $\frac{n-1}{2}$ is even, then we can dig deeper by computing $y\equiv b^{(n-1)/4}\pmod n$.
+    \item Same idea: If $y\equiv - 1 \pmod n$, or $y\equiv 1 \pmod n$ and $\frac{n-1}{4}$ is odd, then pick another $b$ and repeat the test.
+    \item If $y\equiv 1 \pmod n$, and $\frac{n-1}{4}$ is even, then repeat checking. 
+    \item The only stop criterion is when we conclude that $n$ is composite.
+    \item We never conclude with 100\% certainty that $n$ is prime. We can only say that $n$ is \textbf{probably} prime. It is a probabilistic test!
+\end{enumerate}
+\subsubsection{Rabin's Theorem}
+\begin{theorem}
+    Fix a composite number $n$. Pick $a\in [2,n-2]$ at random. Then the probability that $a^{n-1}\equiv 1\pmod n$ is at most $\frac{1}{4}$.
+
+    In other words, the Miller-Rabin Primality Test can detect a composite number with probability at least $\frac{1}{4}$.
+\end{theorem}
+Thus if we run $m$ iterations of the test, the probability that $n$ is composite is at most $(\frac{3}{4})^m$.
+\subsection{Pollard's Factorization Algorithm}
+Goal: factor a given composite number $n$.\begin{enumerate}
+    \item Choose $r_0\equiv 2^{0!}\pmod n$.
+    \item Compute the next one using the formula $r_k\equiv r_{k-1}^{k} \pmod n$.
+    \item For each $k$ compute $\gcd(r_{k}-1,n)=g_k$. Note that $1\le g_k \le r_{k-1} \le n-2$ and $g_k$ divides $n$.
+    \item For each $k$  So if $g_k > 1$, then we have found a factor of $n$ which is greater than 1.
+    \item Repeat the process till we find a factor of $n$.
+\end{enumerate}
+The idea is that if $n$ is prime, $2^{k!}\equiv 1\pmod n$. If $n$ is composite, then $2^{k!}\not\equiv 1\pmod n$.
+\section{Cryptography}
+\subsection{Classical Cryptography}
+No public key. 
+\subsubsection{Affine Cipher}
+Basically solving two linear congruences.$\begin{cases}
+    ax_1+b\equiv c_1\pmod{26}\\
+    ax_2+b\equiv c_1\pmod{26}
+\end{cases}$ where $c_1,c_2$ are the ciphertext and $x_1,x_2$ are the plaintext. Then we can recover $a,b$ by solving the system of congruences.
+
+Start by eliminating one variable by subtracting the two equations. Then solve for the other variable.
+\subsubsection{Exponentiation Cipher}
+Use the lemma: \begin{lemma}
+    $de\equiv 1\pmod{\phi(n)} \implies m^{de}\equiv m\pmod{n}$.
+\end{lemma}
+Then we can encrypt by $c\equiv m^e\pmod{n}$ and decrypt by $m\equiv c^d\pmod{n}$.
+\subsection{RSA}
+\begin{theorem}
+    Let $n=pq$ where $p,q$ are distinct primes. Let $e$ be an integer such that $\gcd(e,\phi(n)) = 1$. Then the encryption function is $c\equiv m^e\pmod{n}$ and the decryption function is $m\equiv c^d\pmod{n}$ where $d$ is the multiplicative inverse of $e$ modulo $\phi(n)$.
+\end{theorem}
+A variation of the Exponentiation Cipher.
+\subsubsection{Fermat's Factorization Method}
+\begin{theorem}
+    Let $n$ be a composite number. Then $n$ can be factored as $n = a^2-b^2 = (a+b)(a-b)$.
+\end{theorem}
+One of $a,b$ is larger than $\sqrt{n}$ and the other is smaller. We can find $a$ by computing $\lceil \sqrt{n}\rceil$ and keep incrementing until we find a square. Then we can find $b$ by computing $a^2-n$ and keep incrementing until we find a square.
+\end{document}

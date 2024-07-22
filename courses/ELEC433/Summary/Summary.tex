@@ -1,0 +1,1306 @@
+\documentclass[letterpaper,12pt]{article}
+\setlength{\headheight}{14.49998pt}
+\usepackage{fancyhdr}
+\usepackage{lipsum,graphicx}
+\usepackage{amsmath, amsfonts, amssymb, ragged2e}
+\usepackage{amsthm}
+\usepackage{bookmark}
+\usepackage{bbm}
+\usepackage{times}
+\usepackage{listings}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+
+\title{Summary of ELEC 433}
+\author{Tom Wang}
+\date{Spring, 2024}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{Tom Wang}
+    \fancyhead[R]{\thepage}
+}
+
+\begin{document}
+
+\maketitle
+\section{Introduction to Hamming Codes}
+ECC solves the problem of transmission errors. The idea is to add redundancy to
+the message so that the receiver can detect and correct errors.
+
+Assume that we have a message of length $k$, then we encode it to a codeword
+$C$ of length $n$. If the codeword is decrypted, then we call it $\tilde{C}$.
+
+\subsection{Things we care about}
+\begin{enumerate}
+    \item \textbf{Error Detection}: We want to be able to detect if there are errors in the transmission.
+    \item \textbf{Error Correction}: We want to be able to correct the errors in the transmission.
+    \item \textbf{Efficiency}: We want to be able to minimize the number of bits we need to add to the message. So minimize the overhead. ($\frac{k}{n}$ should be as large as possible)
+    \item \textbf{Complexity}: We want to be able to encode and decode the message in a reasonable amount of time.
+    \item \textbf{Robustness}: We want to be able to correct as many errors as possible.
+    \item \textbf{Flexibility}: We want to be able to correct different types of errors.
+\end{enumerate}
+\subsection{Definitions}
+First of all, we need to define a code:
+
+\begin{definition}
+    A code $C$ of length $n$ over an alphabet $\Sigma$ is a subset of $\Sigma^n$. So $C\subseteq \Sigma^n$. The elements $c\in C$ are called codewords.
+\end{definition}
+
+There are two types of errors:\begin{itemize}
+    \item \textbf{Erasure}: We know which bit is erased, but we don't know what it is. So we can \textbf{detect} and \textbf{correct} erasures.
+    \item \textbf{Error}: We don't know which bit is wrong, but we know that there is at least one bit that is wrong. So we can \textbf{detect} errors, but we can't for sure \textbf{correct} them.
+\end{itemize}
+
+Also, we define all possible codewords to be $C_i$ where they all belong to the
+same set $\mathcal{C}$. So $C_i\in \mathcal{C}$ for all possible $i$.
+\subsection{Hamming Codes}
+Hamming codes are linear block codes. They are named after Richard Hamming.
+They are single-error correcting and double-error detecting. They are also
+systematic, which means that the message is part of the codeword.
+
+Hamming code encodes a message of length 4 to a codeword of length 7. So $k=4$
+and $n=7$. Also, it encodes only binary messages, so $\Sigma = \{0,1\}$.
+
+\[(x_1,x_2,x_3,x_4)\implies (x_1,x_2,x_3,x_4,x_2+x_3+x_4,x_1+x_3+x_4,x_1+x_2+x_4)\]
+
+Note that they are binary additions. So $1+1=0$. It is basically XOR.
+
+Some definitions:\begin{itemize}
+    \item \textbf{Hamming distance}: Hamming distance between $x,y\in \Sigma^n$ is the number of positions where $x$ and $y$ differ. It is denoted by $d(x,y)=\sum_{i=1}^{n}\mathbbm{1}\{x_i\neq y_i\}$. So adding each bit that is different.
+    \item \textbf{Relative distance}: counts for the length of the codeword. So $\frac{d(x,y)}{n}$.
+    \item \textbf{Minimum distance}: The minimum distance between any two codewords. So $d_{min} = \min d(x,y)$, for which ${x,y\in C, x\neq y}$. It measures the robustness of the code. The larger the minimum distance, the more errors it can correct.
+    \item \textbf{Hamming weight}: The number of non-zero elements in a vector. So $w(x)=\sum_{i=1}^{n}\mathbbm{1}\{x_i\neq 0\}$. It is the number of 1s in the vector.
+\end{itemize}
+
+\subsection{Hamming Code Properties}
+\begin{theorem}
+    A code with a minimum distance of $d$ can:\begin{itemize}
+        \item Detect $d-1$ errors.
+        \item Correct $\lfloor \frac{d-1}{2}\rfloor$ errors.
+        \item Detect $d-1$ erasures.
+        \item Correct $d-1$ erasures.
+    \end{itemize}
+\end{theorem}
+
+\subsection{Algorithm for Hamming Code}
+\subsubsection{Error Detection}
+If given a codeword $\tilde{C}$ that we assume the error is within $d-1$ away
+from one point, we can calculate the syndrome $S$ by $S = \tilde{C}H^T$. If
+$S=0$, then there is no error. If $S\neq 0$, then there is an error.
+
+\subsubsection{Error Correction}
+For a codeword $\tilde{C}$, with an error smaller than or equal to $\lfloor
+    \frac{d-1}{2}\rfloor$, we can recover the original codeword by finding the
+closest codeword to $\tilde{C}$. The distance will be within $\lfloor
+    \frac{d-1}{2}\rfloor$.
+
+Note that it is not possible to have two $C$ that are within $\lfloor
+    \frac{d-1}{2}\rfloor$ distance from $\tilde{C}$. Otherwise, the distance
+between the two $C$ will be smaller than $d$. Here is the proof:
+\begin{proof}
+
+    $\lfloor \frac{d-1}{2}\rfloor\times 2\le d-1<d$. So circle of radius $\lfloor \frac{d-1}{2}\rfloor$ around $\tilde{C}$ does not contain any other codewords. So there is only one codeword that is within $\lfloor \frac{d-1}{2}\rfloor$ distance from $\tilde{C}$.
+\end{proof}
+
+To mathematically express this:
+
+If $\tilde{C}$ has error $\le \lfloor \frac{d-1}{2}\rfloor$, then return
+$C\in\mathcal{C}$ such that $d(\tilde{C},C)\le \lfloor \frac{d-1}{2}\rfloor$.
+
+\subsubsection{Erasure Correction}
+If we have a codeword $\tilde{C}$ with $e$ erasures, where $e\le d-1$, then we
+can recover the original codeword by finding the closest codeword to
+$\tilde{C}$. The distance will be within $e$.
+
+\subsection{More definitions}
+\begin{definition}
+    The \textbf{message length/dimension} of $\mathcal{C}$ over an alphabet $\Sigma$ is the length of the message. So $k=log_{|\sigma|}{|\mathcal{C}|}$.
+\end{definition}
+(The log base is the size of the alphabet set, and the log is the size of the code set)
+
+\begin{definition}
+    The \textbf{rate} of $\mathcal{C}$ is the ratio of the message length to the codeword length. So $R=\frac{k}{n}$.
+\end{definition}
+Note the rate is between 0 and 1. \begin{itemize}
+    \item The closer it is to 1, the more efficient the code is.
+    \item If $R=1$, then the code is not redundant. So it is not an error-correcting
+          code.
+    \item  The closer it is to 0, the more redundant the code is.
+    \item If $R=0$, then the code is not efficient. So it is not an error-correcting
+          code.
+    \item So we need to make trade-offs between efficiency and robustness.
+\end{itemize}
+
+We could find that $R$ is a function: $R(d,n,k,\Sigma)$. So we can find the
+maximum rate and minimum rate for a given $d,n,k,\Sigma$. Basically, R has two
+bounds:
+\[g(d,n,k,\Sigma)\le R(d,n,k,\Sigma) \le f(d,n,k,\Sigma)\]
+\subsection{Hamming Bound}
+Hamming bound is the upper bound of the rate of a code. It answers the
+question: How many Hamming balls can we put in $\Sigma^n$ such that they are
+disjoint for a fixed $d$?
+
+The question implies that the ball radius is $\lfloor \frac{d-1}{2}\rfloor$.
+With the given information we can find that \begin{itemize}
+    \item We will have $|\mathcal{C}|$ disjoint balls of radius $\lfloor
+              \frac{d-1}{2}\rfloor$.
+    \item Vol$(\Sigma^n)=|\Sigma|^n$.
+    \item $|\mathcal{C}|\le \frac{|\Sigma|^n}{\text{Vol(Hamming ball)}}$.
+\end{itemize}
+Note that we are dealing with discrete points. So we need to use the floor function which actually just counts for the points within the ball.
+
+\subsubsection{Proof of Hamming Bound}
+\begin{proof}
+
+    The Hamming ball in $\Sigma^n$ of radius $e$ about $x\in \Sigma^n$ is the set
+    of all points in $\Sigma^n$ that are within $e$ distance from $x$.
+
+    So $B_{\Sigma^n} (x,e)=\{y\in \Sigma^n: d(x,y)\le e\}$ is the set of the
+    discrete points that are within $e$ distance from $x$, including $x$ itself.
+
+    Now we can define the volume of the ball. The volume of the ball is the number
+    of points in the ball. So $V_{\Sigma^n}=|B_{\Sigma^n} (x,e)|$ which is the size
+    of the ballpoint set.
+
+    To make the calculation easier, we let $q = \Sigma^n$. \[
+        \text{Vol}_q(e,n)= 1+ \binom{n}{1}(q-1)+\binom{n}{2}(q-1)^2+\ldots+\binom{n}{e}(q-1)^e=\sum_{i=0}^{e}\binom{n}{i}(q-1)^i
+    \]
+
+    So since Hamming balls cannot overlap, we have: \begin{align*}
+        |\mathcal{C}|                                   & \le \frac{q^n}{\text{Vol}_q(e,n)}         \\
+        |\mathcal{C}|\times \text{Vol}_q(e,n)           & \le q^n                                   \\
+        \log_q(|\mathcal{C}|)+\log_q(\text{Vol}_q(e,n)) & \le \log_q(q^n)                           \\
+        \log_q(|\mathcal{C}|)+\log_q(\text{Vol}_q(e,n)) & \le n                                     \\
+        \log_q(|\mathcal{C}|)                           & \le n-\log_q(\text{Vol}_q(e,n))           \\
+        \textbf{Rate}= \frac{\log_q(|\mathcal{C}|)}{n}  & \le 1-\frac{\log_q(\text{Vol}_q(e,n))}{n}
+    \end{align*}
+    The rate here is the maximum rate. So we have the upper bound of the rate of a code. So we have the \textbf{Hamming bound}:
+\end{proof}
+\subsubsection{Analysis of Hamming Bound for binary codes}
+Now that we have all the tools for binary Hamming codes:\begin{itemize}
+    \item $q=2$. So $|\Sigma|=2$, which is the alphabet size.
+    \item $n=7$. So $n$ is the length of the codeword.
+    \item $k=4$. So $k$ is the length of the message.
+    \item $d=3$. So $d$ is the minimum distance. Proof of this will be in the next section.
+\end{itemize}
+Using the above information, we find that the Hamming bound is:\[
+    R = 1-\frac{\log_2(\text{Vol}_2(\lfloor \frac{3-1}{2}\rfloor, 7))}{7}= 1-\frac{\log_2(1+7)}{7}=\frac{4}{7}
+\]
+But we also notice that the Hamming code has a rate of
+$\frac{k}{n}=\frac{4}{7}$. So the Hamming bound is tight. So the Hamming code
+is the best/optimal code for this case.
+
+\subsection{Linear Algebra View of Hamming Codes}
+If we view the encoding process as a matrix multiplication it will be like
+this:
+\[
+    \begin{bmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1 \\
+        0 & 1 & 1 & 1 \\
+        1 & 0 & 1 & 1 \\
+        1 & 1 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_1 \\
+        x_2 \\
+        x_3 \\
+        x_4
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        x_1         \\
+        x_2         \\
+        x_3         \\
+        x_4         \\
+        x_2+x_3+x_4 \\
+        x_1+x_3+x_4 \\
+        x_1+x_2+x_4
+    \end{bmatrix}
+\]
+
+We can write it as $G\cdot X=\mathcal{C}$ where $G$ is the generator matrix. So
+$G$ is a $n\times k$ matrix. $X$ is the message vector. $\mathcal{C}$ is the
+codeword vector. $\mathcal{C}=\{G\cdot X (\mod 2): \forall x \in X, x\in
+    \{0,1\}^4\}$
+
+There are three properties with it:\begin{enumerate}
+    \item $\mathcal{C}$ is closed under addition. So $\forall C_1,C_2\in \mathcal{C}, C_1+C_2\in \mathcal{C}$.\begin{proof}
+              \[
+                  C_1+C_2 = G\cdot X_1+G\cdot X_2 = G\cdot (X_1+X_2)
+              \]
+              Since $X_1+X_2\in \{0,1\}^4$, so $C_1+C_2\in \mathcal{C}$. Proved.
+          \end{proof}
+    \item $\mathcal{C}$ is a linear subspace of $\{0,1\}^7$ of dimension 4. \begin{proof}
+              $\mathcal{C}$ is all the linear combinations of the columns of $G$. So $\mathcal{C}$ is a linear subspace of $\{0,1\}^7$ of dimension 4. Proved.
+          \end{proof}
+    \item The distance of $\mathcal{C}$ is the same as the minimum weight of the non-zero
+          codewords in $\mathcal{C}$.\begin{proof}
+              Recall that $wt(x)=\sum_{i=1}^{n}\mathbbm{1}\{x_i\neq 0\}$. So $wt(x)$ is the number of 1s in the vector.
+
+              $\forall C_1,C_2\in \mathcal{C}, C_1\neq C_2$, then $wt(C_1+C_2)=wt(C_1 \oplus C_2)$,which is just the number of different bits between $C_1$ and $C_2$. So $d(C_1,C_2)=wt(C_1 \oplus C_2)$.
+
+              Thus if we go through all the possibilities space, we can claim that
+              $d_{min}=\min_{C_1, C_2\in \mathcal{C}, C_1\neq C_2}d(C_1, C_2)=\min_{C\in
+                      \mathcal{C}, C\neq 0}wt(C)$. Proved.
+          \end{proof}
+\end{enumerate}
+
+\subsubsection{Parity Check Matrix}
+We can also define a parity check matrix $H$ for the Hamming code. It is a
+$n\times (n-k)$ matrix. So $H\cdot C^T=0$ where $C$ is the codeword vector. So
+$H$ is the matrix that can detect errors.
+\[
+    \begin{bmatrix}
+        0 & 1 & 1 & 1 & 1 & 0 & 0 \\
+        1 & 0 & 1 & 1 & 0 & 1 & 0 \\
+        1 & 1 & 0 & 1 & 0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_1               \\
+        x_2               \\
+        x_3               \\
+        x_4               \\
+        c_5 = x_2+x_3+x_4 \\
+        c_6 = x_1+x_3+x_4 \\
+        c_7 = x_1+x_2+x_4
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        0 \\
+        0 \\
+        0
+    \end{bmatrix}
+\]
+
+Note that $H$ is just letting the encoded codeword to XOR with its
+decomposition. It should be 0 if there is no error. So if there is an error,
+then $H\cdot C^T\neq 0$.
+
+\subsubsection{Proof of Minimum Distance}
+With the help of the parity check matrix, we can prove that the minimum
+distance of the Hamming code is 3.\begin{proof}
+    Proof by contradiction: Suppose that $\exists C \in \mathcal{C}$ such that $wt(C)=1$ or $wt(C)=2$.
+
+    We can list out all the possibilities of C and find out that: $H\cdot C^T\neq
+        0$. So $C$ is not a codeword. Contradiction. So $\forall C\in \mathcal{C},
+        wt(C)\ge 3$.
+
+    Now just need to find a codeword with weight 3. We can find that
+    $C=(1,1,1,0,0,0,0)$ is a codeword. With the property that we just proved:
+
+    \textit{The distance of $\mathcal{C}$ is the same as the minimum weight of the non-zero codewords in $\mathcal{C}$.}
+
+    So $d_{min}=3$. Proved.
+\end{proof}
+
+\subsection{Decoding Hamming Codes}
+Assume that we have a codeword $\tilde{C}$ that is transmitted. We want to find
+the closest codeword to $\tilde{C}$.\begin{itemize}
+    \item If $\tilde{C}$ has no error, then we can just return $\tilde{C}$.
+    \item If $\tilde{C}$ has one error, $\tilde{C}=C\oplus Z$ where $Z$ is the noise such
+          that $wt(Z)=1$. \begin{align*}
+              H\cdot \tilde{C}^T & = H\cdot (C\oplus Z)^T                                         \\
+                                 & = H\cdot C^T\oplus H\cdot Z^T & \text{Addition is commutative} \\
+                                 & = H\cdot Z^T                  & \text{Since $H\cdot C^T=0$}
+          \end{align*}
+          From there, we can know which bit is wrong now, and moreover, we can correct it.\[
+              C = \tilde{C}\oplus Z
+          \] XOR can be reversed by XOR again. So we can correct the error.
+\end{itemize}
+\section{General Linear Block Codes}
+\subsection{Finite Fields}
+Intuitively, a (finite) field is a (finite) set of elements that can be added,
+subtracted, multiplied, and divided.
+
+Formally, we can define as follows:\begin{definition}
+    A field $\mathbb{F}$ is a set of elements, along with operations of addition and multiplication, such that $\forall x,y,z \in \mathbb{F}$\begin{itemize}
+        \item (Associativity) $x+(y+z)=(x+y)+z$ and $x\cdot (y\cdot z)=(x\cdot y)\cdot z$.
+        \item (Commutativity) $x+y=y+x$ and $x\cdot y=y\cdot x$.
+        \item (Distributivity) $x\cdot (y+z)=x\cdot y+x\cdot z$.
+        \item (Identity):\begin{itemize}
+                  \item $\exists `0'\in \mathbb{F}$ such that $x+0=x$.
+                  \item $\exists `1'\in \mathbb{F}$ such that $x\cdot 1=x$.
+              \end{itemize}
+        \item (Inverse):\begin{itemize}
+                  \item $\forall x\in \mathbb{F}, \exists -x\in \mathbb{F}$ such that $x+(-x)=0$.
+                  \item $\forall x\in \mathbb{F}, x\neq 0, \exists x^{-1}\in \mathbb{F}$ such that $x\cdot x^{-1}=1$.
+              \end{itemize}
+    \end{itemize}
+\end{definition}
+\subsubsection{Existance of finite fields}
+We can examine two examples first: $\mathbb{F}_1 = \{0,1,2,3,4\}$ with `$+$' =
+`$+\mod 5$',`$\times$' = `$\times\mod 5$' and $\mathbb{F}_2 = \{0,1,2,3\}$ with
+`$+$'= `$+\mod 4$',`$\times$' = `$\times\mod 4$'.
+
+It is easy to verify associativity, commutativity, distributivity and identity
+for both, but let's take a closer look into the inverse.
+\begin{itemize}
+    \item $\mathbb{F}_1$: \begin{itemize}
+              \item $0$ has no inverse for multiplication.
+              \item $1,2,3,4$ all have inverses for multiplication.
+              \item $0,1,2,3,4$ all have inverses for addition.
+          \end{itemize}
+    \item $\mathbb{F}_2$: \begin{itemize}
+              \item $0$ has no inverse for multiplication.
+              \item $1,3$ all have inverses for multiplication. But what is the inverse of 2? There is no such thing. \textbf{So $\mathbb{F}_2$ is not a field.}
+              \item $0,1,2,3$ all have inverses for addition.
+          \end{itemize}
+\end{itemize}
+\begin{theorem}
+    When $p$ is a prime number, then $\mathbb{F}_p = \{0,1,2,\ldots,p-1\}$ with `$+$'= `$+\mod p$',`$\times$' = `$\times\mod p$' is a field.
+\end{theorem}
+\subsection{Linear algebra's view of finite fields}
+Let $\mathbb{F}$:\begin{itemize}
+    \item $\mathbb{F}^n = \{(x_1, x_2, \ldots, x_n): x_i\in \mathbb{F}\}$.
+    \item A \textbf{subspace} $V\subseteq \mathbb{F}^n$ is a set of vectors that is
+          closed under addition and scalar multiplication. So $\forall u,v\in V,
+              \lambda\in \mathbb{F}, u+v\in V, \lambda u\in V$.
+    \item $v_1,v_2,\ldots,v_k\in \mathbb{F}^n$ are \textbf{linearly independent} if $\lambda_1v_1+\lambda_2v_2+\ldots+\lambda_kv_k=0$ implies that $\lambda_1=\lambda_2=\ldots=\lambda_k=0$.
+    \item For $v_1,v_2,\ldots,v_k\in \mathbb{F}^n$, the \textbf{span} of
+          $v_1,v_2,\ldots,v_k$ is the set of all linear combinations of
+          $v_1,v_2,\ldots,v_k$. So
+          $\text{span}(v_1,v_2,\ldots,v_k)=\{\lambda_1v_1+\lambda_2v_2+\ldots+\lambda_kv_k:
+              \lambda_1,\lambda_2,\ldots,\lambda_k\in \mathbb{F}\}=\{\sum_i \lambda_i
+              v_i:\lambda \in \mathbb{F}\}$.
+    \item A \textbf{basis} for a subspace $V\subseteq \mathbb{F}^n$ is a set of linearly
+          independent vectors that span $V$.
+    \item The \textbf{dimension} of a subspace $V\subseteq \mathbb{F}^n$ is the number of
+          vectors in a basis for $V$.
+\end{itemize}
+
+\subsection{Linear Block Codes over Finite Fields}
+\begin{definition}
+    A linear block code $\mathcal{C}$ of length $n$ and dimension $k$ over a finite field $\mathbb{F}$ is a $k-$dimension linear subspace of $\mathbb{F}^n$. So $\mathcal{C}\subseteq \mathbb{F}^n$. The elements $c\in \mathcal{C}$ are called codewords.
+\end{definition}
+Note that if we connect to previous definitions, it is the same as block length $n$ and message length $k$ over alphabet $\Sigma = \mathbb{F}$.\[
+    \mathcal{C} \text{ is a ``linear code''}\implies \mathcal{C} \text{ is a linear subspace of } \mathbb{F}^n
+\]
+\subsubsection{Generator Matrix}
+\begin{definition}
+    Let $\mathcal{C}\subseteq \mathbb{F}^n$ be a linear block code of length $n$ and dimension $k$. A generator matrix $G$ for $\mathcal{C}$ is a $n\times k$ matrix such that $\mathcal{C}=\{G\cdot X: X\in \mathbb{F}^k\}$.
+\end{definition}
+\includegraphics*{./Images/Generator Matrix.png}
+$[G] =
+    \begin{bmatrix}
+        I_k \\
+        A
+    \end{bmatrix}$
+
+Observations:\begin{itemize}
+    \item Any linear code has a generator matrix. (Choose any basis for the code and put
+          the basis vectors as the columns of the generator matrix.)
+    \item The generator matrix is not unique. (Different bases will give different
+          generator matrices.)
+\end{itemize}
+A generator like the above is called a \textbf{systematic generator matrix} where $I_k$ is the identity matrix of size $k$ and $A$ is a $(n-k)\times k$ matrix. It is called systematic because the message is part of the codeword.
+
+\subsubsection{Parity Check Matrix}
+\begin{definition}
+    Let $\mathcal{C}\subseteq \mathbb{F}^n$ be a linear block code of length $n$ and dimension $k$. A parity check matrix $H\in \mathbb{F}^{(n-k)\times k}$ for $\mathcal{C}$ is a $(n-k)\times n$ matrix such that $\mathcal{C}=\{C\in \mathbb{F}^n: H\cdot C=0\}$. $H$ is the kernel matrix of $G$.
+\end{definition}
+\includegraphics*{./Images/Parity Matrix.png}
+
+$[H]= \begin{bmatrix}
+        B_{(n-k)\times k} & I_{k}
+    \end{bmatrix}$
+
+Observations:\begin{itemize}
+    \item Any linear code has a parity check matrix.
+    \item The parity check matrix is not unique.
+\end{itemize}
+A parity check matrix like the above is called a \textbf{systematic parity check matrix} where $I_{(n-k)}$ is the identity matrix of size $(n-k)$ and $B$ is a $(n-k)\times k$ matrix. It is called systematic because the message is part of the codeword.
+
+Note that the minimum distance of a code is equal to the number of linearly dependent columns in the parity matrix: \begin{proof}
+    Since we know $H\cdot \vec{c}=0,\forall \vec{c}\in C$, we start by assuming the minimum weight of a non-zero code $c^*$ is $d$. Since it is non-zero, the columns with 1 in $c^*$ must be linearly dependent to get the sum to be zero. Thus, the minimum number of linearly dependent columns is $d$. Thus, the minimum distance of the code is $d$.
+\end{proof}
+\subsubsection{Relationship between G and H}
+Question:
+
+Let $\mathcal{C}$ be a linear code of dimension $k$ and length $n$ over
+$\mathbb{F}=\{0,1\}$. Let $G$ be a generator matrix for $\mathcal{C}$ and $H$
+be a parity check matrix for $\mathcal{C}$. What is the relationship between
+$G$ and $H$, or more specifically what is the relationship between $A$ and $B$?
+
+Let the original message be $X$. Note that $A \cdot X$ is the parity bits.
+
+Then we can write the codeword as $C = G \cdot X = \begin{bmatrix}
+        I_k \\
+        A
+    \end{bmatrix} \cdot X = \begin{bmatrix}
+        X \\
+        (A \cdot X)
+    \end{bmatrix}$. Also, we know that $H \cdot C = 0$. So \[
+    \begin{bmatrix}
+        B_{(n-k)\times k} & I_{k}
+    \end{bmatrix} \cdot \begin{bmatrix}
+        X_{k\times k} \\
+        (A \cdot X)_{(n-k)\times k}
+    \end{bmatrix} = 0 \implies B \cdot X + I \cdot (A \cdot X) = 0
+\]
+So $B+A=0$ note that the addition is the addition defined in the field
+$\mathbb{F} = \{0,1\}$. So $B + A = 0 \implies B = A$ in a binary sense.
+\subsubsection{useful facts about linear code:}
+Let $\mathcal{C}$ be a linear code of dimension $k$ and length $n$ over
+$\mathbb{F}=\{0,1\}^n$. Let $G$ be a generator matrix for $\mathcal{C}$ and $H$
+be a parity check matrix for $\mathcal{C}$.
+\begin{enumerate}
+    \item $H\cdot G=0,\forall C\in \mathcal{C}, C=G\cdot X, H\cdot C=0$. This is because $H\cdot C=H\cdot (G\cdot X)=(H\cdot G)\cdot X=0\cdot X=0$.
+    \item For $\mathbb{F}_2$, any linear code has a systematic generator matrix $\begin{bmatrix}
+                  I_k \\
+                  A
+              \end{bmatrix}$ and systematic parity check matrix $\begin{bmatrix}
+                  A & I_{n-k}
+              \end{bmatrix}$.
+    \item Any column of $G$ is a codeword. This is because $H\cdot G=0$ which implies
+          each column of $G$ has $H$ as a kernel. So each column of $G$ is a codeword.
+    \item The distance of $\mathcal{C}$ is the same as the minimum weight of the non-zero
+          codewords in $\mathcal{C}$. This is because $\min d(C_1,C_2) = \min
+              d(C_1-C_2,0)=\min wt(C_1\oplus C_2)=\min wt(C_1-C_2)$. Now if one of $C_1$ and
+          $C_2$ is 0, then $C_1-C_2=C_1$ (if $C_2$ is zero here)
+    \item let $\mathcal{C}$ have distance $d$. \begin{itemize}
+              \item there are some $d$ columns of $H$ that are linearly dependednt.
+              \item Any $\le d-1$ columns of $H$ are linearly independent.
+          \end{itemize}\begin{proof}
+              By fact 4, $\exists$ some $C\in\mathcal{C}$ with $wt(C)=d, HC=0$. Thus these $d$ columns of $H$ are linearly dependent to add up to 0 somehow.
+
+              $\forall y$ with $wt(y)\le d-1$, $Hy\neq 0$ So $Hy$ is a linearly independent set of columns of $H$.
+          \end{proof}
+\end{enumerate}
+\subsection{Decoding Linear Block Codes}
+\subsubsection{Error Correction}
+Let $\mathcal{C}$ be a linear code of distance $d$. Then $\mathcal{C}$ can
+correct $\lfloor \frac{d-1}{2}\rfloor$ errors.
+
+Input: $\tilde{C}$, a codeword\begin{enumerate}
+    \item If $\tilde{C}\in \mathcal{C}$, then return $\tilde{C}$. (No errors or too many
+          errors)
+    \item else Find $C\in \mathcal{C}$ such that $d(\tilde{C},C)\le \lfloor
+              \frac{d-1}{2}\rfloor =e$. If such $C$ exists, then return $C$. The Algorithm is
+          as follows:
+          \begin{enumerate}
+              \item for $i=1,2,\ldots,e$
+              \item for $S\subseteq \{1,2,\ldots,n\}$ with $|S|=i$ ($|S|$ is the number of non-zero
+                    elements in the error vector. $S$ is the position of non-zero elements)
+              \item let $e_{n\times 1}$ be the error vector with all possible value in $\mathbb{F}$
+                    code space. in the $i$th position and $0$ elsewhere. (Test all combinations of
+                    possible values in the code space with positions specified by $S$)
+              \item if $\tilde{C}-e\in \mathcal{C}$, then return $\tilde{C}-e$.
+              \item If all possibilities are explored, then return ``fail''.
+          \end{enumerate}
+\end{enumerate}
+\subsubsection{Error Detection}
+Let $\mathcal{C}$ be a linear code of parity matrix $H$.
+
+Input: $\tilde{C}$. A codeword\begin{enumerate}
+    \item If $H\cdot \tilde{C}=0$, then return ``no error''.
+    \item else return ``error''.
+\end{enumerate}
+Remark: This algorithm can guarantee to detection of $d-1$ errors. For more than $d$ errors, it might or might not detect them. It depends on the error pattern. When we detect them,  it might be because we thought the correct code is another one that is within the Hamming ball of radius $0\le e \le d-1$. So we can detect it.
+
+Note: Any error pattern corresponding to linearly independent columns of $H$
+can be detected. For example, ENC$(x_1,x_2,x_3)=(x_1,x_2,x_3,x_1+x_2+x_3)$, $H=\begin{bmatrix}
+        1 & 0 & 0 & 1 \\
+        0 & 1 & 0 & 1 \\
+        0 & 0 & 1 & 1
+    \end{bmatrix}$
+Can detect any odd number of errors. Because any odd number of errors will correspond to linearly independent columns of $H$.
+
+\subsection{Generalize Hamming Codes}
+Generalized Hamming codes are linear block codes. $(2^r-1, 2^r-r-1,3)_2$-code.
+So $n=2^r-1$, $k=2^r-r-1$, $d=3$.
+
+The (7,4,3) version of Hamming code we see before is $r=3$.
+
+$H_3 = \begin{bmatrix}
+        0 & 0 & 0 & 1 & 1 & 1 & 1 \\
+        0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+        1 & 0 & 1 & 0 & 1 & 0 & 1
+    \end{bmatrix}$ Note that each column is just a binary representation of number $\begin{bmatrix}
+        1 & 2 & 3 & 4 & 5 & 6 & 7
+    \end{bmatrix}$
+
+For integer $r\ge 3$, define $H_r$ as a $r\times (2^r-1)$ matrix with columns
+as the binary representation of the numbers $1,2,\ldots,2^r-1$.
+
+Then $\mathcal{C}_r = \{C\in \{0,1\}^{2^r-1}: H_r\cdot C^T=0\}$ is a linear
+block code of length $2^r-1$ and dimension $2^r-r-1$. It is called the $(2^r-1,
+    2^r-r-1,3)_2$-code.
+
+Remark: Hamming bound of $(2^r-1, 2^r-r-1,3)_2$-code is \[
+    1-\frac{r}{2^r-1}=\frac{2^r-r-1}{2^r-1}=\frac{k}{n}\le 1-\frac{\log_q(\text{Vol}_q(\lfloor \frac{d-1}{2}\rfloor,n))}{n}=1-\frac{\log_2(2^r)}{2^r-1}=1-\frac{r}{2^r-1}
+\]
+Achieved by equality, the so-called perfect code.
+\subsection{Dual of a linear code}
+Dual space in an Euclidean space is the space of all vectors that are
+orthogonal to a given subspace. For example, if $S$ is $z$-axis, then the dual
+space of $S$ is the $xy$-plane. $S^{\perp}=\{v\in \mathbb{R}^3: v\cdot s=0,
+    \forall s\in S\}$.
+
+$\mathcal{C}$ is a linear code  $\iff \mathcal{C}$ is a linear subspace of $\mathbb{F}_q^n$. Let $\mathcal{C} = \{c:Hc=0\}$
+
+Then the dual code $\mathcal{C}^{\perp}$ is defined as the dual subspace in
+$\mathbb{F}_q^n$. Or equivalently, $\mathcal{C}^{\perp}$ has generator matrix
+$H^T$.
+
+So $\mathcal{C}^{\perp}=\{v\in \mathbb{F}^n: v\cdot c=0, \forall c\in
+    \mathcal{C}\}$ is the dual of $\mathcal{C}$.
+\subsubsection{Dual of Hamming Code - Simplex code}
+Parity check matrix for $(2^r-1,2^r-r-1,3)_2$-code is \[H_r=\begin{bmatrix}
+        0 & 0 & 0 & 1 & 1 & 1 & 1 \\
+        0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+        1 & 0 & 1 & 0 & 1 & 0 & 1
+    \end{bmatrix}\] when r = 3. Note that the columns increase by 1 in binary. The parity matrix is
+not unique. It is different from the one with the identity matrix and $A$
+matrix. Note that as long as they span the same space, they are the same.
+
+The generator matrix $G$ for simplex code $(2^r-1, r, 2^{r-1})$ is
+\[G=H_r^T = \begin{bmatrix}
+        0 & 0 & 1 \\
+        0 & 1 & 0 \\
+        0 & 1 & 1 \\
+        1 & 0 & 0 \\
+        1 & 0 & 1 \\
+        1 & 1 & 0 \\
+        1 & 1 & 1
+    \end{bmatrix}\]
+So using the $n,k,d$ from the original code, simplex code should be $(n,
+    n-k,2^{r-1})$ need to prove the last one later.
+
+Since every column of $G$ is a codeword, the simplex codeword space is a linear
+combination of the $G$ columns. \[\mathcal{C}= \begin{bmatrix}
+        0 & 0 & 0 & 1 & 1 & 1 & 1 & 0 \\
+        0 & 1 & 1 & 0 & 0 & 1 & 1 & 0 \\
+        0 & 1 & 1 & 1 & 1 & 0 & 0 & 0 \\
+        1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+        1 & 0 & 1 & 1 & 0 & 1 & 0 & 0 \\
+        1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 \\
+        1 & 1 & 0 & 1 & 0 & 0 & 1 & 0
+    \end{bmatrix}\]
+
+Not the fact that all non-zero codewords have weight $2^{r-1}$.
+\subsubsection{Hadamard Code}
+The generator matrix is $G=\begin{bmatrix}
+        \vec{0} & H_r
+    \end{bmatrix}^T$ So add a 0 column to the front of the parity matrix.
+
+Then $G$ has the top row to be zero which means the Hadamard code is
+$(2^r,2^r-r,2^{r-1})$-code. So the simplex code is a subcode of the Hadamard
+code. Hadamard codeword space is just one more 0 at the first row of the
+simplex codeword space. Note that it is all zero, the weight is the same.
+
+The only difference is that the weight is exactly the half of length. So it
+introduces \textbf{symmetry}.
+
+Proposition: $\mathcal{C}_{sim,r}$ and $\mathcal{C}_{had,r}$ both have distnace
+$2^{r-1}$.
+\section{Polynomial Over finite fields}
+Idea: When we have a 2nd-degree polynomial, we can find it using 3 points. So
+if we use this polynomial to encode a message to get 4 points, then we can
+correct 1 error.
+
+\begin{definition}
+    A univariate \textbf{polynomial} in variable $x$ over a field $\mathbb{F}_q$ of degree d is of the form: \[
+        f(X)=a_0+a_1x+a_2x^2+\cdots+a_d x^d
+    \]
+    where $a\in \mathbb{F}_q$ and $a_d\neq 0$.
+
+    The collection of all polynomials over $\mathbb{F}_q$ of degree $\le d$ is
+    denoted by $\mathbb{F}_q[X]_{\le d}$.
+\end{definition}
+
+For example, over $\mathbb{F}_3, f(x) = x^2-1, g(x) = x^3+2x^2+2x$ \begin{itemize}
+    \item Addition: $f(x)+g(x) = x^3+x^2+2x-1$
+    \item Multiplication: $f(x)\cdot g(x) = x^5+x^4+x^3+x^2-x$
+    \item Division: $f(x)\div g(x) = (x+2)f(x)+2$ (need to use long division) then we get
+          a quotient polynomial $(x+2)$ and a remainder polynomial $(2)$.
+\end{itemize}
+\subsection{Roots of Polynomials}
+Facts: A nonzero polynomial of degree $\le d$ has at most $d$ roots in
+$\mathbb{F}_q$. \[|\{x\in\mathbb{F}_q:f(x)=0\}|\le d\]
+
+For example in $\mathbb{F}_3$:
+\begin{itemize}
+    \item $f(x)=x^2-1$ has 2 roots: 1 and 2.
+    \item $f(x)=x^2+2x+1 = (x+1)^2$ has 1 root: 2. Not that in $\mathbb{F}_3$, $-1=2$, since $1+2=1-1=0\pmod 3$. So $f(2)=0$
+    \item $f(x)=x^2+1$ has no root. Note that the same polynomial in different fields has different behavior. In $\mathbb{F}_5$, $f(x)=x^2+1$ has 2 roots: 2 and 3.
+\end{itemize}
+Now we can prove the fact:
+\begin{proof}
+    If $f(x)$ which has a degree of $d$ has $d+1$ roots $\alpha_1,\alpha_2,\ldots,\alpha_{d+1}$, then $f(x)=(x-\alpha_1)(x-\alpha_2)\ldots(x-\alpha_{d+1})$. But this is a polynomial of degree $d+1$. Contradiction.
+\end{proof}
+\subsection{Vandemnoode Matrices}
+\begin{definition}
+    A Vandemnoode matrix is of the form:
+
+    \[V=\begin{bmatrix}
+            1      & \alpha_1     & \alpha_1^2     & \cdots & \alpha_1^{m}     \\
+            \vdots & \vdots       & \vdots         & \cdots & \vdots           \\
+            1      & \alpha_{n-1} & \alpha_{n-1}^2 & \cdots & \alpha_{n-1}^{m}
+        \end{bmatrix}_{n\times (m+1)}\]
+
+    for distinct $\alpha_1,\alpha_2,\ldots,\alpha_{n-1}\in \mathbb{F}_q$.
+    $v_{ij}=\alpha_i^{j}$.
+\end{definition}
+Fact: The square Vandemnoode matrix is invertible. $V\cdot V^T=I$.
+
+Before starting, need to show a linear algebra fact:
+
+($V\dot \vec{a}\implies \vec{a}=\vec{0}$) implies that $V$ is invertible.
+
+\begin{proof}
+    Suppose that $a$ is a non-zero vector such that $V\cdot a=0$. Then $\exists a^{-1}\in \mathbb{F}_q$ such that $a\cdot a^{-1}=1$. So $0=V\cdot a\cdot a^{-1}=V\cdot 1=V$. Then $V$ must be zero.
+
+    Thus it is only possible that $V\cdot a=0$ if $a=0$. So $V$ is invertible.
+\end{proof}
+Now we can prove the fact:
+\begin{proof}
+    Let $m=n-1$ so that it is a square matrix. We want to show that $V\cot \vec{a}\implies \vec{a}=\vec{0}$
+    \[
+        V\cdot \vec{a} = \begin{bmatrix}
+            \sum_{i=0}^{n-1} a_i\alpha_1^i   \\
+            \sum_{i=0}^{n-1} a_i\alpha_2^i   \\
+            \vdots                           \\
+            \sum_{i=0}^{n-1} a_i\alpha_{n}^i \\
+        \end{bmatrix} =\begin{bmatrix}
+            f(\alpha_1) \\
+            f(\alpha_2) \\
+            \vdots      \\
+            f(\alpha_n)
+        \end{bmatrix} = \begin{bmatrix}
+            0      \\
+            0      \\
+            \vdots \\
+            0
+        \end{bmatrix}
+    \]
+    Note that $f(x)=a_0+a_1x+a_2x^2+\cdots+a_{n-1}x^{n-1}$ is a polynomial of
+    degree $n-1$ with $n$ roots. If $f(x)\neq 0$, then $f(x)$ has at most $n-1$
+    roots which means $V\cdot a\neq 0$. Contradiction. So $f(x)=0$. So
+    $a_0=a_1=\cdots=a_{n-1}=0$. So $\vec{a}=\vec{0}$. Thus Vandemnoode matrix is
+    invertible.
+
+\end{proof}
+\subsection{Polynomial Interpolation over ${\mathbb{F}_q}$}
+\begin{theorem}
+    Given $(\alpha_i,y_i)\in \mathbb{F}_q \times \mathbb{F}_q$, for $i=1,2,\ldots,d$ with distinct $\alpha_i$, there is a unique polynomial $f(x)\in \mathbb{F}_q[x]$ such that $f(\alpha_i)=y_i$, for $i=1,2,\ldots,d$.
+\end{theorem} \begin{proof}
+    $f(x)= a_0+a_1 x +a_2 x^2+\cdots + a_d x^d$
+    \[
+        V\cdot \vec{a}=\vec{y}\implies \vec{a}=V^{-1}\cdot \vec{y}, \vec{a}\in \mathbb{F}_q
+    \]
+    V is invertible and $y$ is the given points.
+\end{proof}
+
+Fact: $\forall$ functions $f:\mathbb{F}_q\to \mathbb{F}_q$, $f$ is given by
+degree $q-1$ polynomial.
+
+Remark: In $\mathbb{R}$, $f:\mathbb{R}\to \mathbb{R}$, $\exists$ non-polynomial
+functions. However, in \textbf{finite filed} $\mathbb{F}_q$, $\forall$
+functions $f:\mathbb{F}_q\to \mathbb{F}_q$ is given by a polynomial of degree
+$\le q-1$. It has something to do with the fact that it contains only finite
+elements.
+\begin{proof}
+    Consider $\alpha_i\in \mathbb{F}_q$ for $i=1,2,\ldots,q-1$. Given $(\alpha_i,f(\alpha_i))$ there is a unique polynomial $f(x)\in \mathbb{F}_q[x]$ of degree $\le q-1$ which interpolates these points.
+\end{proof}
+
+\subsection{Reed-Solomon Codes}
+Basic idea: codewords are of the form
+$(f(\alpha_1),f(\alpha_2),\ldots,f(\alpha_n))$ for some polynomial $f(x)$ of
+degree $\le n-1$.
+
+Note that if we choose $f$ to be a low-degree polynomial of degree $k-1$, then
+we can recover the message from $k$ points. So we can correct $n-k$ errors.
+\subsubsection{Definition}
+\begin{definition}
+    Let $q\ge n \ge k$ be integers. Let $\vec{\alpha}=\alpha_1,\alpha_2,\ldots,\alpha_n\in \mathbb{F}_q$ be distinct. The Reed-Solomon code $\mathcal{C}_{RS}(\vec{\alpha}, n,k)$ over $\mathbb{F}_q$ with evaluation points $\vec{\alpha}$ is defined as follows: \[
+        \mathcal{C}_{RS}(n,k)=\{(f(\alpha_1),f(\alpha_2),\ldots,f(\alpha_n)): f(x)\in \mathbb{F}_q[x], \deg(f(x))\le k-1\}
+    \]
+\end{definition}
+For example: $q=3, n=3, k=2, \vec{\alpha}=(0,1,2)$. Then $\mathcal{C}_{RS}(\vec{\alpha},3,2)=\{(f(0),f(1),f(2)): f(x)\in \mathbb{F}_3[x], \deg(f(x))\le 1\}$. List out valid polynomials $\{a_0+a_1 x: a_0,a_1\in\mathbb{F}_3\} = \{0,1,2,x,x+1,x+2,2x,2x+1,2x+2\}$
+
+If we list out possible messages for input $(0,1,2)$
+\begin{align*}
+    \text{Encoding polynomial} & \to \text{Codeword} \\
+    0                          & \to (0,0,0)         \\
+    x                          & \to (0,1,2)         \\
+    2x+1                       & \to (1,0,2)
+\end{align*}
+Note that the Reed-Solomon code is still linear. It is a linear subspace of $\mathbb{F}_q^n$. \[
+    C_1+C_2 = (f_1(\alpha_1)+f_2(\alpha_1),\ldots,f_1(\alpha_n)+f_2(\alpha_n))=(f_3(\alpha_1),f_3(\alpha_2),\ldots,f_3(\alpha_n))
+\]
+\subsubsection{Generator Matrix}
+Generator matrix of $\mathcal{C}_{RS}(\vec{\alpha},n,k)$ is a $k\times n$
+matrix $G$ such that $\mathcal{C}_{RS}(\vec{\alpha},n,k)=\{G\cdot X: X\in
+    \mathbb{F}_q^k\}$.
+
+We can achieve this by using the Vandemnoode matrix. \[
+    G_{RS}=V=\begin{bmatrix}
+        1      & \alpha_1 & \alpha_1^2 & \cdots & \alpha_1^{k-1} \\
+        1      & \alpha_2 & \alpha_2^2 & \cdots & \alpha_2^{k-1} \\
+        \vdots & \vdots   & \vdots     & \cdots & \vdots         \\
+        1      & \alpha_n & \alpha_n^2 & \cdots & \alpha_n^{k-1} \\
+    \end{bmatrix}_{k\times n}
+\]
+Same idea: $f(\vec{\alpha})=V\cdot \vec{a}$ for some $\vec{a}\in
+    \mathbb{F}_q^k$.
+\subsubsection{Distance of RS code}
+The distance of $\mathcal{C}_{RS}(\vec{\alpha},n,k)$ is $d=n-k+1$.
+\begin{proof}
+    RS codes are linear. It suffices to show that the minimum weight of non-zero is $d=n-k+1$ $\iff$ the maximum number of zeros of $c\in \mathcal{C},c\neq 0$ is $n-d=k-1$. $\iff$ Any polynomial has at most $k-1$ roots. $\iff$ Any polynomial of degree $\le k-1$ has at most $k-1$ roots.
+
+    We know the last statement is true
+\end{proof}
+\subsection{The Singleton bound}
+\begin{theorem}
+    If $\mathcal{C}$ is an $(n,k,d)_q$-code, then $d\le n-k+1$ or $k\le n-d+1$.
+\end{theorem}
+\includegraphics*[scale= 0.8]{./Images/Hamming bound VS Singleton bound.png}
+
+Hamming bound is tighter than Singleton bound when $q=2$. But when $q>2$,
+Singleton bound is tighter than Hamming bound. Singleton bound is not dependent
+on $q$ however, Hamming bound is dependent on $q$. So Singleton bound is a
+better fit for Reed-Solomon codes.
+\begin{proof}
+    Let $c\in\mathcal{C}$, $c=(c_1,c_2,\ldots,c_n)$. Then we throw away the last $d-1$ bits and let $\phi(c)=(c_1,c_2,\ldots,c_{n-d+1})$. Then consider: $\mathcal{C}'=\{\phi(c):c\in\mathcal{C}\},\mathcal{C}'\subseteq \mathbb{F}_q^{n-d+1}$.
+
+    Claim 1: $|\mathcal{C}|=|\mathcal{C}'|$ We can show it by contradiction:
+
+    If the claim is false, then $\exists c_1,c_2\in \mathcal{C}$ such that
+    $\phi(c_1)=\phi(c_2)$. Then $c_1$ and $c_2$ differ in at most $d-1$ positions.
+    So $d(c_1,c_2)\le d-1$. Contradiction.
+
+    There must be at least a one-bit difference among all $c\in \mathcal{C}$. So
+    the two sets have the same cardinality.
+
+    Claim 2: $|\mathcal{C}'|=q^{n-d+1}$
+
+    This is because $\mathcal{C}$ is a linear subspace of $\mathbb{F}_q^n$, taking
+    out the last $d-1$ bits is still a linear subspace of $\mathbb{F}_q^{n-d+1}$.
+
+    Thus $|\mathcal{C}|=|\mathcal{C}'|=q^{n-d+1}$. So $|\mathcal{C}|\le q^{n-d+1}$.
+    So $d\le n-k+1$ or $k\le n-d+1$.
+
+    We can claim that singleton bound is tight for RS code.
+\end{proof}
+So RS is optimal in the sense that it achieves the Singleton bound by equality.
+\subsubsection{MDS code}
+\begin{definition}
+    A linear $(n,k,d)_q$-code is called a maximum distance separable (MDS) code if $d=n-k+1$.
+\end{definition}
+So RS code is MDS.
+
+Property: MDS $\iff$ every $k\times k$ submatrix of the generator matrix $G$ is
+invertible (full rank).
+
+So you can pick any row of $G$ and they are all independent of each other.
+
+\begin{proof}
+    $d=n-k+1\iff$ can fill in any $n-k$ erasures. $\iff$ any k remaining rows of $G$ forms a full rank matrix. $\iff$ every $k\times k$ submatrix of $G$ is invertible.
+\end{proof}
+
+Property: Let $\mathcal{C}$ be MDS $(n,k,d)_q$-code. Then any $k$ position of
+$c\in\mathcal{C}$ determines $c$ uniquely. So we can recover the message from
+$k$ points.
+
+It is basically a restatement of the above property
+
+\subsection{Multiplicative group}
+\begin{definition}
+    Let $(\mathbb{F}_q,+,\times)$ be a finite filed with addtion and multiplication.
+    Let $\mathbb{F}_q^*$ be the non-zero elements of $\mathbb{F}_q$ with only multiplication operations.
+    So $(\mathbb{F}_q^*,\times)$ is a \textbf{multiplicative group}.
+    \begin{itemize}
+        \item $\forall a,b \in \mathbb{F}_q^*, a\times b\in \mathbb{F}_q^*$
+        \item $\forall a\in \mathbb{F}_q^*, \exists a^{-1}\in \mathbb{F}_q^*$ such that $a\times a^{-1}=1$
+    \end{itemize}
+\end{definition}
+For example: $\mathbb{F}_5 = \{0,1,2,3,4\}, \mathbb{F}_5^*=\{1,2,3,4\}$
+
+Fact: $\mathbb{F}_q^*$ is a \textbf{cyclic group}. In cyclic group, $\exists
+    \gamma \in \mathbb{F}_q^*$ such that
+$\mathbb{F}_q^*=\{\gamma^0,\gamma^1,\gamma^2,\ldots,\gamma^{q-2}\}$ Call
+$\gamma$ as primitive element of $\mathbb{F}_q^*$. Note that $\gamma
+    ^{q-1}=1=\gamma^0$ because it is a group $\implies \gamma^{q-1}\times \gamma =
+    \gamma^0\times \gamma = \gamma$.
+
+For example: $\mathbb{F}_5^*=\{1,2,3,4\}=\{2^0,2^1,2^2,2^3\}$ But 4 is not
+primitive. It is missing 2 and 3. 2 is primitive. It has all elements of
+$\mathbb{F}_5^*$.
+
+Conjective: For any prime $p$, there exists a primitive element in
+$\mathbb{F}_p^*$. Beware of the definition of a finite field, $q$ needs to be a
+prime for $\mathbb{F}_q$ to be a valid finite field.
+
+Fact: $\forall 0<d<q-1, \sum_{\alpha\in \mathbb{F}_q^*}\alpha^d=0$.
+\begin{proof}
+    Let $\gamma$ be a primitive element of $\mathbb{F}_q$. Solve using the sum of geometric series.
+    \[
+        \sum_{\alpha\in \mathbb{F}_q}\alpha^d = \sum_{\alpha\in \mathbb{F}_q^*}\alpha^d = \sum_{j=0}^{q-2}(\gamma^j)^d = \frac{\gamma^d(1-(\gamma^d)^{q-1})}{1-\gamma^d}=0
+    \]
+    $r^d\neq 1$ for $0<r<q-1$.
+\end{proof}
+\subsection{Dual view of RS code}
+Proposition: Let $n=q-1$ and let $\gamma$ be a primitive element of
+$\mathbb{F}_q$.
+
+$RS_q ((\gamma^0,\gamma^1,\ldots,\gamma^{q-2}),n,k) = \{(c_0,c_1,\ldots,c_{n-1}):C(\gamma^j)=0\}$ where $C(x)=c_0+c_1x+\cdots+c_{n-1}x^{n-1}$
+
+\begin{proof}
+    Let $f(x)=\sum_{i=0}^{k-1}a_i X^i$. An RS codeword is $f(\gamma^0),f(\gamma^1),\ldots,f(\gamma^{n-1}) = (c_0,c_1,\ldots,c_{n-1})$.
+
+    Then $C(\gamma^j)=\sum_{l=0}^{n-1}c_l \gamma^{jl} =
+        \sum_{l=0}^{n-1}f(\gamma^l)\gamma^{jl} = f(\gamma^j)\sum_{l=0}^{n-1}\gamma^{jl}
+        = \sum_{l=0}^{n-1}(\sum_{i=0}^{k-1}a_i \gamma^{jl})= \sum_{i=0}^{k-1}a_i
+        \sum_{l=0}^{n-1}(\gamma^{l})^{i+j} = 0$.
+
+    Show subset here for some reason, revisit later.!!!!!!!!!!
+\end{proof}
+\subsection{Parity check matrix of RS code}
+Corollary: The parity check matrix for
+$RS_q((\gamma^0,\gamma^1,\ldots,\gamma^{n-1}),n,k)$ is \[
+    H=\begin{bmatrix}
+        1      & r       & r^2        & \cdots & r^{n-1}        \\
+        1      & r^2     & r^4        & \cdots & r^{2(n-1)}     \\
+        \vdots & \vdots  & \vdots     & \cdots & \vdots         \\
+        1      & r^{n-k} & r^{2(n-k)} & \cdots & r^{(n-k)(n-1)}
+    \end{bmatrix}
+\]
+\begin{proof}
+    The parity check matrix is the generator matrix of the dual code. So we can use the generator matrix of the original code to find the parity check matrix of the dual code.
+    \[
+        H\vec{C}=\vec{0}=\sum_{i=0}^{n-1}c_i\gamma^{ji}=\vec{C}(\gamma^j)=0
+    \]
+    Not done yet!!!!!!!!
+\end{proof}
+\subsection{Generalized Reed-Solomon Codes}
+\begin{definition}
+    A generalized RS code $GRS_q(\vec{\alpha},n,k, \vec{\lambda})$ where $\forall \lambda_i \in \vec{\lambda} = (\mathbb{F}_q^*)^n$ is defined as follows: \[
+        GRS_q(\vec{\alpha},n,k, \vec{\lambda}) = \{(\lambda_0f(\alpha_1),\ldots,\lambda_{n-1}f(\alpha_n)): f(x)\in \mathbb{F}_q[x], \deg(f(x))\le k-1\}
+    \]
+    where $\gamma_i = (\lambda_i \Pi_{j\neq _i}(\alpha_i-\alpha_j))^{-1}$ is a
+    primitive element of $\mathbb{F}_q^*$.
+\end{definition}
+\begin{theorem}
+    For any $\vec{\alpha}$ and $\vec{\lambda}, \exists \vec{\gamma} \in \mathbb{F}_q^*$ such that \[
+        GRS_q(\vec{\alpha},n,k, \vec{\lambda})^{\perp} = GRS_q(\vec{\alpha},n,n-k, \vec{\gamma})
+    \]
+\end{theorem}
+\subsection{Decoding of RS code}
+Question: Consider $RS_q(\vec{\alpha},n,k)$ and assume the number of error
+$e\le \lfloor \frac{n-k}{2} \rfloor = \lfloor \frac{d-1}{2} \rfloor \impliedby
+    d=n+1-k$.
+
+There are lots of possibilities for the error. How to decode the message? How
+do we decide which polynomial is the correct one? How to do it efficiently?
+\subsubsection{Berlekamp-Welch Algorithm}
+Idea: Consider an error locator polynomial $L(c)=\Pi_{i: \tilde{c_i}\neq
+        f(\alpha_i)}(x-\alpha_i)$.
+
+Observe that $\forall i, \tilde{c_i}=f(\alpha_i)L(\alpha_i)$. So $L(x)$ is a
+polynomial of degree $\le e$. \begin{itemize}
+    \item For index $i$ where error happened, both sides euqal zero.
+    \item For index $i$ where no error happened, $\tilde{c_i}=f(\alpha_i)$.
+\end{itemize}
+
+Algorithm: \begin{enumerate}
+    \item Find a monic (leading coefficient is 1) polynomial $L(x)$ and a polynomial
+          $Q(x)$ with degree $\le e+k-1$ such that $\tilde{c_i}L(\alpha_i)=Q(\alpha_i)$
+          for all $i$.
+    \item Let $f(x)=\frac{Q(x)}{L(x)}$. Then $f(x)$ is the correct polynomial if
+          $\Delta(C(f),\tilde{c})\le e$. Otherwise, fail
+\end{enumerate}
+Refer to her notes for details.
+\subsection{Pros and Cons of RS code}
+Pros: \begin{itemize}
+    \item achieves Singleton bound $k\le n-d+1$. RS code meets equity of formula.
+    \item has an efficient decoding algorithm
+\end{itemize}
+Cons: \begin{itemize}
+    \item RS code requires $q\ge n \ge k$ and $q$ is a prime. So it is not suitable for
+          all parameters. For example, RS code exists for large alphabet size $q$.
+\end{itemize}
+
+\section{Existance of finite fields}
+\begin{theorem}
+    For any prime power $p^m$, there exists a finite field $\mathbb{F}_{p^m}$ with $p^m$ elements. There are no other finite fields.
+\end{theorem}
+Remark: For $\mathbb{F}_{p^m}$, it has elements from $\mathbb{F}_p [X]$. Addition and multiplication are defined by modulo $p$ and modulo $f(x)$ respectively. Multiplication is related to ``irreducible polynomial''.
+
+For example: $f(x),g(x)\in \mathbb{F}_{p^m}$\[
+    f(x)\cdot g(x) = q(x)E(x)+r(x)
+\]
+Note the similarity to the Euclidean division. $q(x)$ is the quotient and
+$r(x)$ is the remainder. $r(x)$ has degree less than $f(x)$. Then $E(x)$ is the
+irreducible polynomial.
+\subsection{Irreducible Polynomial}
+An irreducible polynomial is like a prime number in the polynomial field. It is
+the building block of the finite field.
+\begin{definition}
+    A polynomial $f(x)\in \mathbb{F}_p[x]$ is called \textbf{irreducible} if for any $g_1(x),g_2(x)\in \mathbb{F}_p[x]$, $f(x)= g_1(x)g_2(x)$, it implies that $\min\{\deg(g_1(X)),\deg(g_2(x))\}=0$
+\end{definition}
+It is basically a polynomial that cannot be factored into two polynomials of lower degree. It can only be factored into a scalar and a polynomial of the same degree.
+
+For example: \begin{itemize}
+    \item $2(x+1)$ is irreducible in $\mathbb{F}_3[x]$
+    \item Over $\mathbb{F}_2[x],x^2+1=(x+1)^2$ not irreducible (has a root which is 1)
+    \item Over $\mathbb{F}_2[x], x^2+x+1$ is irreducible (no root)
+\end{itemize}
+Is it enough to check all possible $\alpha \in \mathbb{F}_q$ to see if $f(\alpha)=0$? No, because it is not enough to check all possible $\alpha \in \mathbb{F}_q$ to see if $f(\alpha)=0$. For example, $(x^2+x+1)^2 = (x^2+x+1)\times(x^2+x+1)$ is reducible in $\mathbb{F}_2[x]$ but has no root in $\mathbb{F}_3$.
+
+So ``roots'' $\implies$ ``reducible'' but ``Not roots'' does not imply
+``irreducible''.
+\subsection{Finite filed with $p^m$ elements (p is a prime)}
+\begin{theorem}
+    Let $E(x)$ be an irreducible polynomial of degree $m\ge 2, m \in \mathbb{F}_p[x]$ for prime $p$. The set of polynomials in $\mathbb{F}_p[x]$ modulo $E(x)$ denoted by $\mathbb{F}_{p^m}= \mathbb{F}_p[x]/(E(x))$ is a finite field with $p^m$ elements.
+\end{theorem}
+Note that $\mathbb{F}_{p^m}$ is a finite field. It is a set of polynomials of degree less than $m$ modulo $E(x)$. It is a set of polynomials of degree less than $m$ with coefficients in $\mathbb{F}_p$. It is because anything higher than $m$ can be reduced by $E(x)$.
+
+\begin{itemize}
+    \item Addition: $f(x)+g(x) = (f(x)+g(x))\pmod {E(x)}$ is just plain addition in
+          $\mathbb{F}_p[x]$
+    \item Multiplication: $f(x)\cdot g(x) = (f(x)\cdot g(x))\pmod {E(x)}$ is a unique
+          remainder $r(x)$ when $f(x)\cdot g(x)$ is divided by $E(x)$. $r(x)$ has degree
+          less than $E(x)$. So $f(x)\cdot g(x)=q(x)E(x)+r(x)$
+    \item Additive inverse: $f(x) \to (-f(x))\pmod {E(x)}$
+    \item Multiplicative inverse: $f(x) \to g(x)=f(x)^{-1}\pmod {E(x)}$ such that
+          $f(x)\cdot g(x)=1\pmod {E(x)}$
+\end{itemize}
+
+For example: for $p=2$ $E(x)=1+x+x^2$ is irreducible in $\mathbb{F}_2[x]$. Then
+$\mathbb{F}_{2^2}=\mathbb{F}_2[x]/(1+x+x^2)$ is a finite field with 4 elements
+$\{0,1,x,x+1\}$.
+
+The multiplicative inverse of $\{1,x,x+1\}$ is $\{1,x+1,x\}$ respectively.
+
+\begin{theorem}
+    For every prime power $p^m$, there exists a finite field $\mathbb{F}_{p^m}$ with $p^m$ elements. There are no other finite fields.
+\end{theorem}
+When $m=1$, it is a prime filed $\mathbb{F}_p$. When $m>1$, it is an extension field $\mathbb{F}_{p^m}$.
+
+Note that $\mathbb{F}_{2^2}=\{0,1,x,x+1\}\neq \mathbb{F}_4 = \{0,1,2,3\}$. They
+are different fields. $\mathbb{F}_{2^2}$ is a field with 4 elements ($\Sigma =
+    2$ with degree of at most 1). $\mathbb{F}_4$ is a field with 4 elements
+($\Sigma = 4$ with degree of at most 0).
+\subsection{Find the irreducible polynomial}
+Fact: $\forall m \in \mathbb{Z}$ and prime $p$, $\exists$ an irreducible
+polynomial of degree $m$, $f\in \mathbb{F}_p[x]$.
+\begin{theorem}
+    If $E(x)$ is a degree $m$ irreducible polynomial in $\mathbb{F}_p[x]$, then $E(x)|x^{p^m}-x$.
+\end{theorem}
+For example: For $p=2=m$, $E(x)=x^2+x+1$ is irreducible in $\mathbb{F}_2[x]$. Then $E(x)|x^4-x = x(x^3-1)=x(x-1)(x^2+x+1)$.
+
+\subsubsection{Multiplicative group of $\mathbb{F}_{p^m}$}
+Fact: $\mathbb{F}_{p^m}^*$ is a cyclic group. It has a generator $\gamma$ such that $\mathbb{F}_{p^m}^*=\{\gamma^0,\gamma^1,\ldots,\gamma^{p^m-2}\}$.
+
+A good way to draw a picture in the head is to think of a circle and the circle
+is divided into $p^m-1$ equal parts. Then $\gamma^0$ is the starting point and
+$\gamma^{p^m-2}$ is the ending point. For each power of a generator, rotates
+the circle by a certain degree. There are a few that could be the generator,
+and it rotates the circle by a different degree.
+
+\subsection{Polynomial Interpolation over $\mathbb{F}_{p^m}$}
+Make a distinction to start with:\begin{itemize}
+    \item $\mathbb{F}_p[X] \implies f(x)=a_0+a_1x+\cdots+a_{n-1}x^{n-1}, a_i\in \mathbb{F}_p$. So the coefficients are from $\mathbb{F}_p$, which are numbers only.
+    \item $\mathbb{F}_{p^m}[X] \implies f(x)=a_0+a_1x+\cdots+a_{n-1}x^{n-1}, a_i\in \mathbb{F}_{p^m}$. So the coefficients are from $\mathbb{F}_{p^m}$, which are polynomials with degree less than $m$.
+\end{itemize}
+For example, consider $\mathbb{F}_{2^3}$
+
+We can list out the members of the group and the corresponding multiplicative
+group.
+\begin{align*}
+    \mathbb{F}_{2^3}   & = \{ & 0,         & 1,        & x,        & x+1,      & x^2,      & x^2+1,    & x^2+x,    & x^2+x+1\}  \\
+    \mathbb{F}_{2^3}^* & = \{ & \emptyset, & \gamma^0, & \gamma^1, & \gamma^2, & \gamma^3, & \gamma^4, & \gamma^5, & \gamma^6\}
+\end{align*}
+
+Now evaluate $f(x)=x^2 +1$ at $x = \gamma^3$. we get
+$f(\gamma^3)={(\gamma^3)}^2+1=\gamma^6+1=x^2+1+1=x^2=\gamma^2$. So
+$f(\gamma^3)=\gamma^2$.
+
+Note the cyclic behavior here. And distinguish the $x$ used as the function input
+and the $x$ is used as a variable in the polynomial.
+
+\section{BCH Codes (Bose, Chaudhuri, Hocquenghem)}
+\begin{definition}
+    Let $n=2^m-1, q = n + 1$ and $r$ be a primitive element in $\mathbb{F}_2^m$. Then the BCH code $\mathcal{C}_{BCH}(n,d)$ is defined as follows: \[
+        \mathcal{C}_{BCH}(n,d)=\{(c_0,c_1,\ldots,c_{n-1}): \sum_{i=0}^{n-1}c_i r^i=0\}
+    \]
+\end{definition}
+Remark: \begin{itemize}
+    \item BCH$(n,d)=RS_{2^m}((r^0,\ldots,r^{n-1}),n,n-d+1)\cap \mathbb{F}_2^n$
+    \item BCH is a subset of RS code
+    \item Distance of BCH code is $d$
+    \item Decoding: use Reed-Solomon decoding algorithm
+    \item Dimension: BCH(n,d) is a linear code where $k\ge n-\lceil \frac{d-1}{2} \rceil \log_2(n+1)$
+\end{itemize}
+\subsection{Dimension of BCH code}
+Idea: count the number of constraints $\{C(\gamma^j)=0 \forall 0<j <d \}$.
+
+\begin{proof}
+    Fact: $\exists$ bijection $\Phi: \mathbb{F}_{2^m} \to \mathbb{F}_{2}^m$ such that $\Phi(0) = 0, \Phi(a+b) = \Phi(a)+\Phi(b), \Phi(ab) = \Phi(a)\Phi(b)$.
+
+    Now we have $\Phi(C(\gamma^j))=\Phi (\sum_{i=0}^{n-1} C_i(\gamma^j)^i) = \sum_{i=0}^{n-1}\Phi( C_i\gamma^{ij}) = \sum_{i=0}^{n-1}C_i\Phi( \gamma^{ij})=0$.
+
+
+    wrlghaluvhbiauwh
+\end{proof}
+
+\subsection{Rate and distance of BCH code}
+\begin{itemize}
+    \item Rate: $R=\frac{k}{n}= \frac{n-\lceil \frac{d-1}{2} \rceil \log_2(n+1)}{n}\approx 1-\frac{d}{n}\frac{\log_2 n}{2}\implies \frac{d}{n}\approx \frac{2}{\log_2 n}(1-R)$
+\end{itemize}
+
+\section{Reed-Muller Codes}
+\subsection{Multi-variate Polynomials}
+\begin{definition}
+    A multi-variate polynomial $f(x_1,x_2,\ldots,x_n)$ is a polynomial in $n$ variables $x_1,x_2,\ldots,x_n$.
+
+    Let $\mathbb{F}_q[x_1,x_2,\ldots,x_n]$ be the set of all multi-variate polynomials in $n$ variables with coefficients in $\mathbb{F}_q$.
+\end{definition}
+For example: $f(X_1, X_2)= X_1^2+X_1X_2+X_2^2$ is a multi-variate polynomial in two variables.
+
+\begin{itemize}
+    \item Monomial: the term without coefficient. For example: $X_1^2X_2^3$ is a monomial.
+    \item The total degree of a multi-variate polynomial is the sum of the degrees of all monomials.
+    \item The degree of $X_i$ in $X_1^{a_1}X_2^{a_2}\cdots X_n^{a_n}$ is $a_i$.
+    \item The degree of a polynomial is the maximum degree of all monomials with non-zero coefficients. For example: the degree of $X_1^2+X_1^2 X_2+X_2^2$ is 3 since the monomial $X_1^2X_2$ has degree 3.
+\end{itemize}
+\subsection{Reed-Muller Codes definition}
+\begin{definition}
+    The m-variate, Reed-Muller code of order $r$ over $\mathbb{F}_q$ is defined as follows: \[
+        RM(q,m,r)= \{f(\alpha_1),\ldots, f(\alpha_{q^m}): f\in\mathbb{F}_q[x_1,x_2,\ldots,x_n] \}
+    \]
+    where $\deg(f)\le r, \deg_{x_i}(f)\le q-1$ for $i=1,2,\ldots,m$, and $\alpha_1,\alpha_2,\ldots,\alpha_{q^m}$ are distinct elements in $\mathbb{F}_q^m$.
+\end{definition}
+
+For example: $q=2,m=2,r=1$. Then $RM(2,2,1)=\{f(\alpha_1,\alpha_2): f\in\mathbb{F}_2[x_1,x_2], \deg(f)\le 1, \deg_{x_1}(f)\le 1, \deg_{x_2}(f)\le 1\}$
+
+Here $\alpha_1=(0,0), \alpha_2=(0,1), \alpha_3=(1,0), \alpha_4=(1,1)$. So the codewords are $(f(0,0),f(0,1),f(1,0),f(1,1))^T$, a 4 bits vector.
+\begin{align*}
+    \text{All polynomials} & \to \text{Codewords} \\
+    0                      & \to (0,0,0,0)^T         \\
+    1                      & \to (1,1,1,1)^T         \\
+    x_1                    & \to (0,0,1,1)^T         \\
+    x_2                    & \to (0,1,0,1)^T         \\
+    x_1+1                  & \to (1,1,0,0)^T         \\
+    x_2+1                  & \to (1,0,1,0)^T         \\
+    x_1+x_2                & \to (0,1,1,0)^T         \\
+    x_1+x_2+1              & \to (1,0,0,1)^T
+\end{align*}
+\subsection{Binary Reed-Muller Codes}
+\begin{definition}
+    The binary Reed-Muller code of order $r$ is defined as follows: \[
+        RM(q,m,r)=RM(2,m,r)
+    \]
+\end{definition}
+\subsubsection{Generator matrix}
+The generator matrix of $RM(2,m,r)$ is a $q^m\times 2^m$ matrix $G$ such that $RM(2,m,r)=\{G\cdot X: X\in \mathbb{F}_2^m\}$.
+
+
+Define it recursively, base case:
+
+Let $G_2=\begin{bmatrix}
+    1 & 0 \\
+    1 & 1 
+\end{bmatrix}$ be the generator matrix of $RM(2,1,1)$. 
+
+Then $RM(2,1,1)=\{G_2\cdot X: X\in \mathbb{F}_2\}$.
+
+$G4 = \begin{bmatrix}
+    G_2 & 0 \\
+    G_2 & G_2
+\end{bmatrix} = \begin{bmatrix}
+    1 & 0 & 0 & 0 \\
+    1 & 1 & 0 & 0 \\
+    1 & 0 & 1 & 0 \\
+    1 & 1 & 1 & 1
+\end{bmatrix} $
+
+$G_8 = \begin{bmatrix}
+    G_4 & 0 \\
+    G_4 & G_4
+\end{bmatrix} = \begin{bmatrix} 
+    1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+    1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 \\
+    1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+    1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 \\
+    1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+    1 & 1 & 1 & 1 & 1 & 1 & 1 & 1
+\end{bmatrix}$
+
+Then inductively: $G_{2^m} = \begin{bmatrix}
+    G_{2^{m-1}} & 0 \\
+    G_{2^{m-1}} & G_{2^{m-1}}
+\end{bmatrix}$
+
+Each column is a codeword in the generator matrix. They all correspond to a combination of the input vector $X_1, X_2, \ldots, X_m$. 
+
+For example, for $G_8$ RM(2,3,3): 
+
+The generator matrix contains all codewords under the degree of the code. 
+
+Note that $RM(a,m,m)$ contains all possible codewords in the space which does not do error correction. It is discussed here to derive the subspace codes. 
+
+\subsubsection{Properties of Binary Reed-Muller Codes}
+
+RMK: Over $\mathbb{F}_2, \forall x \in \mathbb{F}_2, x^2=x \impliedby (1^2 = 1, 0^2 = 0)$.
+
+So we can assume that all monomials have each variable raised to the power of at most 1. $X_1^3X_2^2$ can be reduced to $X_1X_2$.
+
+RMK: Any $f\in[X_1,X_2,\ldots,X_m]$ of degree $\le r$ can be written as a linear combination of monomials of degree $\le r$.\[
+    f\in[X_1,X_2,\ldots,X_m]=\sum_{S\subseteq [m],|S|\le r}a_S \Pi_{i\in S}X_i
+\]
+Proposition: The dimension of $RM(2,m,r)$ is $\sum_{i=0}^{r}\binom{m}{i}$.
+
+Distance of $RM(2,m,r)$: $d=2^{m-r}$. $n=2^m$.
+\begin{lemma}
+    Schwartz-Zippel Lemma: Let $f(x_1,x_2,\ldots,x_m)$ be a polynomial of degree $d$ over $\mathbb{F}_q$. Let $S\subseteq \mathbb{F}_q^m$ be a set of points. Then \[
+        \Pr[f(x_1,x_2,\ldots,x_m)=0, x\in S]\le \frac{d}{|S|}
+    \]
+\end{lemma}
+
+
+Do not know what this lemma is !!!!!!!!!!!!!!!!!!!!!!!!!!
+\subsubsection{Rate v.s. Distance}
+Consider RM(2,m,r). \begin{itemize}
+    \item $n=2^m$
+    \item $k=\sum_{i=0}^{r}\binom{m}{i}$
+    \item $d=2^{m-r}$
+    \item Relative distance $\delta = \frac{d}{n} = \frac{2^{m-r}}{2^m} = 2^{-r}$
+    \item Keep $r$ constant: $R=\frac{k}{n} = \frac{\sum_{i=0}^{r}\binom{m}{i}}{2^m}$. $\lim_{r << m \implies \frac{r}{m}\to 0} \approx \frac{2^{mH_2 (\frac{r}{m})}}{2^m}$ where $H_2$ is the binary entropy function.
+    \item $H_2(x) = -x\log_2(x)-(1-x)\log_2(1-x), x\in[0,1]$
+    \item So for distance to be large, the rate has to approach 0. Needs to do a trade-off between rate and distance.
+\end{itemize}
+\subsection{Low degree Reed-Muller Codes}
+\begin{definition}
+    The m-variate, Reed-Muller code of order $r$ over $\mathbb{F}_q$ is defined as follows: \[
+        RM(q,m,r)= \{f(\alpha_1),\ldots, f(\alpha_{q^m}): f\in\mathbb{F}_q[x_1,x_2,\ldots,x_n],\deg (f)\subseteq r \}
+    \]
+\end{definition}
+RMK: When $r<q$, $\deg_{x_i}(f)\le \deg(f)\le r\le q$. We can drop the condition $\deg_{x_i}(f)\le q-1$ since it is redundant. 
+
+\begin{itemize}
+    \item Dimension of RM(q,m,r) is $\binom{m+r}{m}$
+    \item Distance of RM(q,m,r) is $d\ge (q-r)q^{m-1}$
+\end{itemize}
+If we fix $m=2$, then $q=\sqrt{n}\implies \delta = \frac{d}{n} = \frac{q-r}{q}=1-\frac{r}{\sqrt{n}} \implies R=\frac{\binom{2+r}{r}}{n}=\frac{(r+2)(r+1)}{2n}\ge \frac{r^2}{2n}=\frac{(1-\delta)^2}{2}$
+
+Note that we can have a positive rate and distance at the same time now which is a large improvement. 
+
+\subsubsection{Proof of Dimension of Low Degree Reed-Muller Codes}
+\begin{proof}
+    Then $RM(q,m,r)$ can be generated by monomial basis $\{X_1^{d_1}X_2^{d_2}\cdots X_m^{d_m}: \sum_{i=1}^{m}d_i\le r\}$.
+
+    The dimension of the code is the same as the size of $D=\{d_1,d_2,\ldots,d_m: \sum_{i=1}^{m}d_i\le r\}$. $k=|D|=\binom{m+r}{m}$.
+
+    $|D|=\sum_{j=0}^{k}$ number of solutions to $\sum_{i=1}^{m}d_i=j$.
+
+    \begin{align*}
+        j=1 \implies & m \\ 
+        j=2 \implies & X_i^2 \lor X_i X_k\implies \binom{m}{2} + m = \binom{m+1}{2} \\
+        |D_j| & =  \sum_{k=1}^{m} |D_{jk}| \\
+        & = \sum_{k=1}^{m} \binom{m}{k} \binom{j-1}{k-1} \\
+        |D_{jk}| & = \binom{m}{k} \binom{j-1}{k-1}
+    \end{align*}
+    To be added!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+\subsubsection{Proof of Distance of Low Degree Reed-Muller Codes}
+\begin{lemma}
+    Let $f$ be a non-zero polynomial with $\deg(f)\le r$. Then the fraction of zeros of $f$ is at most $\frac{r}{q}$. 
+\end{lemma}
+RMK: This implies that ... some equations here.
+
+RMK: If $m=1$ here, then $RM(q,1,r)$ is a Reed-Solomon code. The lemma says $\{\alpha\in\mathbb{F}_q : f(\alpha)=0\}\le r$ which is the same as the Singleton bound. It means multi-variable poly of degree $r$ has no more than $r$ roots. 
+
+RMK: The lemma is equivalent as saying when $\alpha = (\alpha_1,\alpha_2,\ldots,\alpha_m)$ chosen uniformly from $\mathbb{F}_q^m$, $\Pr[f(\alpha)=0]\le \frac{r}{q}$.
+
+\begin{proof}
+    Proof by induction: 
+
+    Base case: $m=1$. $f(x)=a_0+a_1x+\cdots+a_r x^r$. $f(x)=0$ has at most $r$ roots as shown in the remark.
+\end{proof}
+
+
+where is proof?
+
+
+
+
+
+
+
+\end{proof}
+
+\section{Stochastic noise channel}
+\begin{definition}
+    A stochastic noise channel is a channel where the output is a random variable $Y$ given the input $X$. The probability of $Y$ given $X$ is $P(Y|X)$.
+\end{definition}
+Noise can be:\begin{itemize}
+    \item flipping up to $t$ bits
+    \item erasing up to $e$ bits
+\end{itemize}
+We want to decode the message correctly with a high probability no matter what the noise is.
+
+Shannon: what if the noise is stochastic?
+\subsection{Some common stochastic noise channels}
+Common assumption: Noise is independent and identically distributed (i.i.d.) over each transmission\begin{itemize}
+    \item Binary symmetric channel (BSC): $P(Y=1|X=0)=P(Y=0|X=1)=p$ if $X$ is the input $Y$ is the output. Whether you send 0 or 1, there is a probability $p$ that it will be flipped.
+    
+    $\forall i \in [n], Y_i = X_y \oplus Z_i$ where $Z_i$ is a random variable with $P(Z_i=1)=p, P(Z_i=0)=1-p$. The noise $Z$ is independent of the input $X$.
+    \item Binary erasure channel (BEC): $P(Y=1|X=1)=P(Y=0|X=0)=1-\epsilon, P(Y=?|X=0)=P(?=0|X=1)=\epsilon$. Here ? means the bit is erased.
+    
+    $\forall i \in [n], Y_i = X_i$ with probability $1-\epsilon$, $Y_i=?$ with probability $\epsilon$.
+
+    iid noise assumption $\implies$ $P(Y^n|X^n)=\prod_{i=1}^{n}P(Y_i|X_i)$
+
+    RMK: A stochastic noise channel is fully characterized by the channel transition probability $P(Y|X)$.
+    \item Additive white Gaussian noise (AWGN): $Y=X+N$ where $N\sim \mathcal{N}(0,\sigma^2)$\begin{itemize}
+        \item Map $\{0,1\} \to \{-1,1\}$
+        \item Let $Z_i\sim \mathcal{N}(0,\sigma^2)$ be the noise.  The Gaussian noise with zero mean and variance $\sigma^2$, independent of the input $X$.
+        \item Then $Y_i=X_i+Z_i, \forall i\in[n]$. $P(Y|X)$ is the Gaussian distribution. \[P(Y|X)=P(Z=Y-X)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(Y-X)^2}{2\sigma^2}}\]. This is the probability density function of the Gaussian distribution.
+        \item Given $X_i=1, Y_i\sim \mathcal{N}(1,\sigma^2)$ Shift the mean from 0 to 1.
+        \item Given $X_i=-1, Y_i\sim \mathcal{N}(-1,\sigma^2)$ Shift the mean from 0 to -1.
+    \end{itemize}
+\end{itemize}
+\subsection{New performance criteria for stochastic noise channel}
+Since the noise is stochastic, we cannot guarantee that the message will have up to $t$ errors or $e$ erasures. We are motivated to define the ``probability of error'' and the ``probability of erasure''.
+
+probability of error $P_e = \Pr[\hat{X}\neq X]$
+
+probability of erasure $P_{\epsilon} = \Pr[\hat{X}=?]$
+
+We want to design a code such that $P_e$ and $P_{\epsilon}$ are small.
+
+\subsubsection{Tradeoff between $R$ V.S. $P_e$ and $P_{\epsilon}$ for repetition code}
+ENC: $\begin{cases}
+    u \to x^n = u\otimes 1^n \\
+    0 \to 0^n \\
+    1 \to 1^n
+\end{cases}$
+
+\subsubsection{maximum likelihood decoding}
+Given $Y^n$, find $\hat{X}^n$ that maximizes $P(Y^n|\hat{X}^n)$. If the probability is equal, break the tie arbitrarily and uniformly.
+
+RMK: Bayesian inference: Under the uniform message assumption, the \textbf{optimal} decoding rule (in the sense of minimizing the probability of error) for stochastic noise channel is the following: \[
+    \hat{X}^n = \arg\max_{x^n\in\mathcal{C}}P(Y^n|X^n)
+\]
+break the tie arbitrarily and uniformly.
+
+$\hat{u}^k$ is the message corresponding to $\hat{X}^n$.
+\subsection{Coding over BSC(p)}
+\begin{definition}
+    A code $\mathcal{C}$ is said to be \textbf{good} for the BSC(p) if the probability of error $P_e$ is small.
+\end{definition}
+\subsection{Hamming code over BSC(p)}
+Let $p$ be the probability of bit flip. Since the distance of the Hamming code is 3, it can correct 1 error. Probability of error $P_e$ that can be corrected is: \[
+    P_e = 1-(1-p)^7 - \binom{7}{1}(1-p)^6p
+\]
+
+syndrome decoding for hamming code: 
+\end{document}
