@@ -36,5 +36,5 @@ I get lazy sometimes, especially for the project-based courses where there was n
 
 ## PHYS Courses
 
-<!-- - [PHYS250 Introduction to Modern Physics](). -->
-- PHYS250 Introduction to Modern Physics to be added.
+- [PHYS250 Introduction to Modern Physics](https://github.com/luckunately/luckunately.github.io/tree/master/courses/PYHS250).
+<!-- - PHYS250 Introduction to Modern Physics to be added. -->

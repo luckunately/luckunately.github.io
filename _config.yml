@@ -27,6 +27,7 @@ navbar-links:
   # Author's home: "https://deanattali.com"
   Resources: 
     - Past Courses: "past_courses"
+    - Projects: "projects"
   Resume: "about_me/Resume.pdf"
 
 ################

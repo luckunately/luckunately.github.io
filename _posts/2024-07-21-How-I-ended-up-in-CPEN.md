@@ -1,12 +1,17 @@
+---
 layout: post
 title: How I ended up in computer engineering
-<!-- subtitle: Excerpt from Soulshaping by Jeff Brown -->
-<!-- cover-img: /assets/img/path.jpg
+subtitle: It took me a while to realize that I wanted to learn more about computers
+cover-img: /assets/img/macleod.jpg
 thumbnail-img: /assets/img/thumb.png
-share-img: /assets/img/path.jpg -->
-<!-- tags: [books, test] -->
+share-img: /assets/img/path.jpg
+# <!-- subtitle: Excerpt from Soulshaping by Jeff Brown -->
+# <!-- cover-img: /assets/img/path.jpg
+# <!-- thumbnail-img: /assets/img/thumb.png
+# share-img: /assets/img/path.jpg --> -->
+# <!-- tags: [books, test] -->
 author: Tom
-
+---
  
 
 I was actually in [integrated engineering (IGEN)](https://www.igen.ubc.ca/) for a year before I transferred to [computer engineering (CPEN)](https://engineering.ubc.ca/programs/undergraduate/computer-engineering). 
