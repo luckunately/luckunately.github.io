@@ -183,6 +183,32 @@ The running time $T(n)$ of a recursive function can be described using a recurre
     \end{enumerate}
 \end{theorem}
 
+\subsection{Prune and Search}
+
+\begin{definition}
+    \textbf{Prune and Search} is a problem-solving strategy that divides the search space into two parts, one of which is pruned (discarded) and the other is searched.
+\end{definition}
+
+\begin{algorithmic}
+    \Function{QuickSelect}{A[1:n], k} \Comment{ Returns the element of rank k in an array of n numbers}
+    \If {n = 1}
+        \State \Return A[1]
+    \EndIf
+    \State Choose a random pivot element p from A
+    \State Partition A into $L = \{x \in A : x < p\}$, $E = \{x \in A : x = p\}$, $G = \{x \in A : x > p\}$
+    \If {k $\leq |L|$}
+        \State \Return QuickSelect(L, k)
+    \ElsIf {k $\leq |L| + |E|$}
+        \State \Return p
+    \Else
+        \State \Return QuickSelect(G, k - |L| - |E|)
+    \EndIf
+    \EndFunction
+\end{algorithmic}
+
+
+
+
 \section{Dynamic Programming}
 
 
