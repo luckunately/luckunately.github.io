@@ -211,6 +211,32 @@ The running time $T(n)$ of a recursive function can be described using a recurre
 
 \section{Dynamic Programming}
 
+\begin{definition}
+    \textbf{Dynamic Programming} is a problem-solving strategy that breaks a problem into smaller, overlapping subproblems, solves the subproblems, and then combines the solutions to the subproblems to solve the original problem.
+\end{definition}
+
+Typical DP examples: \[
+    \text{DP}[i] = \begin{cases}
+        \text{base case} & \text{if } i \text{ is a base case} \\
+        \text{combine}(\text{DP}[i-1], \text{DP}[i-2], \ldots, \text{DP}[i-k]) & \text{otherwise}
+    \end{cases}
+\]
+
+Or \[
+    \text{OPT}(j) = \max \{ \text{OPT}(j-1), \text{OPT}(j-2) + v_j \}
+\]
+
+\subsection{Memoization}
+\begin{definition}
+    \textbf{Memoization} is a technique used to store the results of expensive function calls and return the cached result when the same inputs occur again.
+\end{definition}
+
+\subsection{Tabulation}
+\begin{definition}
+    \textbf{Tabulation} is a technique used to store the results of expensive function calls in a table and return the cached result when the same inputs occur again.
+\end{definition}
+
+See the worksheet for LCS (Longest Common Subsequence) for an example of tabulation.
 
 \section{NP-Completeness}
 

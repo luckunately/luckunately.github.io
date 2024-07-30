@@ -11,3 +11,14 @@ ehthumbs.db
 Gemfile.lock
 
 beautiful-jekyll-theme-*.gem
+
+# latex files
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+# *.pdf
+*.toc
+*.synctex.gz
+*.gz
