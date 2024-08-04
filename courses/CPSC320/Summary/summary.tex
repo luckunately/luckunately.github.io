@@ -136,6 +136,15 @@ We have $n$ Residents and $m$ Hospitals, $m<n$. Each hospital has different numb
 \end{enumerate}
 The solver is a black box that solves problem $B$.
 
+\subsection{Reduce SAT to 3SAT}
+\begin{itemize}
+    \item If a clause has more than 3 literals, split it into multiple clauses.
+    \item If a clause has less than 3 literals, add dummy variables.
+    \item If a clause has 3 literals, leave it as is.
+\end{itemize}
+
+For example, $(x_1 \lor x_2 \lor \ldots \lor x_n)$ can be split into $(x_1 \lor x_2 \lor y_1) \land (\neg y_1 \lor x_3 \lor y_2) \land \ldots \land (\neg y_{n-3} \lor x_n)$.
+
 \section{Greedy Algorithms}
 
 \begin{definition}
