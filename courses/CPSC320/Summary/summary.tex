@@ -248,7 +248,57 @@ Or \[
 See the worksheet for LCS (Longest Common Subsequence) for an example of tabulation.
 
 \section{NP-Completeness}
+As long as the algorithm runs in $O(n^k)$ time, it is considered polynomial time. We think it is efficient.
 
+\subsection{Decision V.S. Optimization}
+\begin{definition}
+    Optimization problem: we want to find the solution $s$ that maximizes or minimizes some objective function $f(s)$.
+\end{definition}
+\begin{definition}
+    Decision problem: given a parameter $k$, we want to know if there is a solution $s$ such that $f(s) \geq k$ (maximization) or $f(s) \leq k$ (minimization).
+\end{definition}
+These two types of problems are equivalent. If we can solve the decision problem, we can solve the optimization problem by binary search.
+\subsection{P and NP}
+\begin{definition}
+    \textbf{P} is the class of decision problems that can be solved in polynomial time. (We have the solver)
+\end{definition}
+\begin{definition}
+    \textbf{NP} is the class of decision problems for which a solution can be verified in polynomial time. (We have the verifier)
+\end{definition}
 
+Cook's Theorem: \begin{theorem}
+    If SAT can be solved in polynomial time, then every problem in NP can be solved in polynomial time.
+\end{theorem}
 
+A problem that belongs to NP and is as hard as SAT is called \textbf{NP-complete}.
+
+\includegraphics*[scale = 0.5]{./Images/NP-Complete.png}
+
+For example, 3-SAT is NP-complete. The 3-SAT problem is: given a Boolean formula in conjunctive normal form (CNF) where each clause has exactly 3 literals, is there an assignment of truth values to the variables that makes the formula true?
+
+\subsection{Proof of NP-completeness}
+\begin{enumerate}
+    \item Show that the problem is in NP.
+    \item Show that the problem is in NP-hard.
+\end{enumerate}
+\subsubsection{Proof of NP}
+To prove that P is in NP, we need to \textbf{efficiently verify} a \textbf{certificate}.\begin{itemize}
+    \item A certificate is a proof that the solution is correct.
+    \item A verifier is an algorithm that checks the certificate. Needs to run in polynomial time.
+    \item For example, an optimization problem can be: Does there exists $X$ such that $Y$ is true?\begin{itemize}
+        \item $X$ is the certificate.
+        \item $Y$ is the verifier.
+    \end{itemize}
+\end{itemize}
+\subsubsection{Proof of NP-hard}
+\begin{definition}
+    A problem $A$ is \textbf{NP-hard} if $P$ is at least as hard as any other problem in NP.
+\end{definition}
+We prove ``at least as hard'' via polynomial-time reduction. 
+\begin{itemize}
+    \item Pick a known NP-complete problem $B$. Let $A$ be the problem we want to prove is NP-hard.
+    \item Show that $B$ can be reduced to $A$ in polynomial time with the same YES/NO answer.
+    \item Since $B$ is NP-complete, $A$ is NP-hard.
+    \item Intuition: Since we can use a solver for $A$ to solve $B$, this tells us that $A$ is at least as hard as $B$ (It is powerful enough to handle $B$)
+\end{itemize}
 \end{document}
