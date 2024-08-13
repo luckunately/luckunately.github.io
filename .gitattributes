@@ -47,5 +47,3 @@ Dockerfile text eol=lf
 *.ogg binary
 *.flv binary
 
-# latex
-*.gz
