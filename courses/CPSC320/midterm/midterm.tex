@@ -51,12 +51,12 @@ Divide the input into smaller instances (subproblems), solve recursively, then c
 \subsubsection{Recurrence Tree}
 Each level of the tree represents the cost of the work done at that level. The total cost is the sum of the costs at each level. Usually $\log n$ levels with a $f(n)$ cost at each level.
 \subsubsection{Master Theorem}
-Let $a \geq 1$ and $b > 1$ be constants, let $f(n)$ be a function, and let $T(n)$ be defined on the non-negative integers by the recurrence relation: \[
+Let \underline{$a \geq 1$ and $b > 1$} be constants, let $f(n)$ be a function, and let $T(n)$ be defined on the non-negative integers by the recurrence relation: \[
     T(n) = aT(n/b) + f(n)
 \]
 where $n/b$ means either $\lfloor n/b \rfloor$ or $\lceil n/b \rceil$. Then $T(n)$ has the following asymptotic bounds: \begin{enumerate}
     \item If $f(n) = O(n^{\log_b a - \epsilon})$ for some constant $\epsilon > 0$, then $T(n) = \Theta(n^{\log_b a})$.
-    \item If $f(n) = \Theta(n^{\log_b a} \log^k n)$, then $T(n) = \Theta(n^{\log_b a} \log^{k+1} n)$.
+    \item If $f(n) = \Theta(n^{\log_b a} \log^k n)$, then $T(n) = \Theta(n^{\log_b a} \log^{k+1} n)$. Note the \textbf{+1} in the exponent.
     \item If $f(n) = \Omega(n^{\log_b a + \epsilon})$ for some constant $\epsilon > 0$, and if $a f(n/b) \leq k f(n)$ for some constant $k < 1$ and sufficiently large $n$, then $T(n) = \Theta(f(n))$.
 \end{enumerate}
 
@@ -108,6 +108,8 @@ As long as the algorithm runs in $O(n^k)$ time, it is considered polynomial time
 \begin{definition}
     \textbf{NP} is the class of decision problems for which a solution can be verified in polynomial time. (We have the verifier)
 \end{definition}
+
+The NP-complete problems are the NP problems with the property that, if we can solve this problem in polynomial time, we can solve any problem in NP in polynomial time. 
 \subsection{Proof of NP-completeness}
 \begin{enumerate}
     \item Show that the problem is in NP.
@@ -170,6 +172,55 @@ We prove ``at least as hard'' via polynomial-time reduction.
 %         \EndFunction
 %     \end{algorithmic}
 %   \end{algorithm}
-
-
+\section{Good to know}
+\begin{itemize}
+    \item $f(n) \in \theta(g(n)) \not \implies 2^{f(n)} \in \theta(2^{g(n)})$ 
+    \item Spanning tree with two leaves is Hamiltonian cycle.
+    \item Watch out for \textbf{All matchings/ set of possible answers}
+    \item polynomial time $\times$ polynomial time = polynomial time. If $P\neq NP$, then not solvable in polynomial time.
+    \item Recursion will have a \textbf{base case} and a \textbf{recursive case} where the problem is \textbf{broken down}.
+    \item Reduction from A to B just needs all A instances to be transformed to some specific B instances.
+    \item QuickSort: $O(n^2)$ worst case, $O(n \log n)$ average case. \begin{enumerate}
+        \item Find a pivot element.
+        \item Partition the array into two parts: elements less than the pivot and elements greater than the pivot.
+        \item Recursively sort the two parts. Then combine.
+    \end{enumerate}
+    \item 4 SAT to 3 SAT: $(a \lor b \lor c \lor d) = (a \lor b \lor x) \land (\neg x \lor c \lor d)$
+    \item To memorize a DP solution, use a 2D array.
+    \item Recursive to iterative: watch out for $1\to n$ or $n\to 1$. Solve the base case first.
+    \item Choose function: $n \choose k$ = $n-1 \choose k-1$ + $n-1 \choose k$$\in O(n^i)$. Some polynomials. 
+    \item A memorized recursive solution can use a helper method which takes in the array and the index. If still the initialized value, then calculate it.
+    \item If you can reduce a problem to another NP-complete problem, then it is in NP.
+    \item Try not to set a reward/weight to 0. It might cause problems.
+\end{itemize}
+\subsection{Some NP-complete problems}
+\subsubsection{Sequencing Problems}
+\begin{enumerate}
+    \item The traveling salesman problem (TSP): Given a list of cities and the distances between them, what is the shortest possible route that visits each city exactly once and returns to the origin city?
+    \item The Hamiltonian cycle problem: Given a graph, does there exist a cycle that visits each vertex exactly once?
+    \item The Hamiltonian path problem: Given a graph, does there exist a path that visits each vertex exactly once?
+\end{enumerate}
+\subsubsection{Partition Problems}
+\begin{enumerate}
+    \item The 3 Dimensional Matching problem: Given three sets $X, Y, Z$ each with $n$ elements, and a set $T \subseteq X \times Y \times Z$, is there a subset $T' \subseteq T$ such that $|T'| = n$ and no two elements in $T'$ share a common index?
+    \item MMCP: Given a set of $n$ items, each with a weight and a value, and a knapsack of capacity $W$, what is the most valuable subset of the items that can fit into the knapsack?
+    \item Graph colouring (Not NP-complete, but 3-colouring is NP-complete): Given an undirected graph, is it possible to colour the vertices using at most $k$ colours such that no two adjacent vertices share the same colour?
+\end{enumerate}
+\subsubsection{Numerical Problems}
+\begin{enumerate}
+    \item The subset sum problem: Given a set of integers, is there a non-empty subset whose sum is zero?
+    \item Schedule problems: Given a set of tasks, each with a start time, end time, and a weight, what is the maximum weight subset of tasks that can be scheduled without overlapping?
+\end{enumerate}
+\subsubsection{Packing Problems}
+\begin{enumerate}
+    \item Independent set: Given a graph, is there a set of vertices such that no two vertices are adjacent?
+    \item Set Packing: Given a set of sets, is there a subset of the sets such that no two sets share a common element?
+\end{enumerate}
+\subsubsection{Covering Problems}
+\begin{enumerate}
+    \item Hiiting Set: Given a set of sets, is there a subset of the sets such that every element is covered at least once?
+    \item Dominating Set: Given a graph, is there a set of vertices such that every vertex is either in the set or adjacent to a vertex in the set?
+    \item Vertex Cover: Given a graph, is there a set of vertices such that every edge is incident to at least one vertex in the set?
+    \item Set Cover: Given a set of sets, is there a subset of the sets such that every element is covered at least once?
+\end{enumerate}
 \end{document}
