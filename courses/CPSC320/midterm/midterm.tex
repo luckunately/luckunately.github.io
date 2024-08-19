@@ -192,6 +192,7 @@ We prove ``at least as hard'' via polynomial-time reduction.
     \item A memorized recursive solution can use a helper method which takes in the array and the index. If still the initialized value, then calculate it.
     \item If you can reduce a problem to another NP-complete problem, then it is in NP.
     \item Try not to set a reward/weight to 0. It might cause problems.
+    \item inter means between, intra means within.
 \end{itemize}
 \subsection{Some NP-complete problems}
 \subsubsection{Sequencing Problems}
@@ -203,7 +204,7 @@ We prove ``at least as hard'' via polynomial-time reduction.
 \subsubsection{Partition Problems}
 \begin{enumerate}
     \item The 3 Dimensional Matching problem: Given three sets $X, Y, Z$ each with $n$ elements, and a set $T \subseteq X \times Y \times Z$, is there a subset $T' \subseteq T$ such that $|T'| = n$ and no two elements in $T'$ share a common index?
-    \item MMCP: Given a set of $n$ items, each with a weight and a value, and a knapsack of capacity $W$, what is the most valuable subset of the items that can fit into the knapsack?
+    \item Max-Min Clustering Problem (MMCP): Given a set of points in a metric space, and a number $k$, is it possible to partition the points into $k$ clusters such that the minimum distance between any two points in the same cluster is maximized?
     \item Graph colouring (Not NP-complete, but 3-colouring is NP-complete): Given an undirected graph, is it possible to colour the vertices using at most $k$ colours such that no two adjacent vertices share the same colour?
 \end{enumerate}
 \subsubsection{Numerical Problems}
