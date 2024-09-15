@@ -1,0 +1,9 @@
+\section{Reduce and Scan}
+
+\subsection{Reduce}
+
+The reduce operation is a common operation in parallel programming. It is used to combine a list of values into a single value. The operation is associative, meaning that the order in which the values are combined does not matter. The reduce operation is defined as follows:
+
+\[
+\text{{reduce}}(f, [x_1, x_2, \ldots, x_n]) = f(f(\ldots f(f(x_1, x_2), x_3) \ldots, x_{n-1}), x_n)
+\]

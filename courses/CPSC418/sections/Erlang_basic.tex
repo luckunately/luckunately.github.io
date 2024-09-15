@@ -1,0 +1,103 @@
+\section{Erlang}
+
+\subsection{Processes}
+
+The built-in function spawn creates a new process. The first argument is the module and function to run, and the second argument is a list of arguments to pass to the function. The function returns a process identifier, which can be used to send messages to the process.
+
+Example:
+\begin{verbatim}
+    hello(N) when is integer(N), N >= 0 ->
+        [ spawn(fun() -> io:format(
+                    "hello world from process ~b~n", [I])
+                end)
+            || I <- lists:seq(1,N)
+        ].
+\end{verbatim}
+
+Here we used a list comprehension to spawn N processes, each of which prints a message to the console. The syntax \texttt{[Expr || I <- List]} creates a list by evaluating Expr for each element I in List.
+
+\subsection{Message Passing}
+
+\subsubsection{Sending Messages}
+\texttt{Pid ! Expr} will evaluate Expr and send the result to the process with identifier Pid. The message can be any Erlang term.
+
+\subsubsection{Receiving Messages}
+\texttt{receive} is used to receive messages. It has the following syntax:
+\begin{verbatim}
+    receive
+        Pattern1 -> Expr1;
+        Pattern2 -> Expr2;
+        ...
+    end
+\end{verbatim}
+
+The receive block will wait until a message is received that matches one of the patterns. The message is then bound to the variables in the pattern, and the corresponding expression is evaluated.
+
+\subsubsection{Communication}
+
+The communication is asynchronous, meaning that the sender does not wait for the receiver to process the message. This allows for parallel execution of processes.
+
+If you need pid1 to wait for a response from pid2, you can use the following pattern:
+
+\begin{verbatim}
+    pid2 ! {self(), Message},
+    receive
+        {pid2, Response} -> Response
+    end
+\end{verbatim}
+
+A start finish protocol can be implemented as follows:
+
+\begin{verbatim}
+    pid2 ! {self(), start},
+    receive
+        {pid2, ready} -> ok
+    end,
+    pid2 ! {self(), finish},
+    receive
+        {pid2, done} -> ok
+    end
+\end{verbatim}
+
+\subsubsection{Timeouts}
+
+You can add a timeout to the receive block to prevent it from waiting indefinitely. The syntax is as follows:
+
+\begin{verbatim}
+    receive
+        Pattern1 -> Expr1;
+        Pattern2 -> Expr2;
+        ...
+    after
+        Timeout -> Expr
+    end
+\end{verbatim}
+
+If no message is received within the timeout period, the block will evaluate the expression after the after keyword.
+
+\subsection{Head and Tail Recursion}
+
+Erlang does not have loops. Instead, it uses recursion to iterate over lists. The two most common types of recursion are head recursion and tail recursion.
+
+\subsubsection{Head Recursion}
+
+In head recursion, the recursive call is the last operation in the function. This means that the function must wait for the recursive call to return before it can return.
+
+Example:
+\begin{verbatim}
+    sum([H|T]) -> H + sum(T);
+    sum([]) -> 0.
+\end{verbatim}
+
+\subsubsection{Tail Recursion}
+
+In tail recursion, the recursive call is the first operation in the function. This allows the function to return immediately after making the recursive call.
+
+Example:
+\begin{verbatim}
+    sum(List) -> sum(List, 0).
+    sum([H|T], Acc) -> sum(T, H + Acc);
+    sum([], Acc) -> Acc.
+\end{verbatim}
+
+Notice that since we do not need to wait for the recursive call to return, we can pass the result of the recursive call directly to the next call. This allows the function to return immediately after making the recursive call. Thus it will not consume stack space.
