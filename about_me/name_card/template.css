@@ -1,0 +1,86 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #d4d0c8;
+  margin: 0;
+  padding: 0;
+  color: black;
+}
+
+.browser {
+  width: 800px;
+  margin: 50px auto;
+  background-color: white;
+  border: 2px solid black;
+  box-shadow: 5px 5px 0px #808080;
+}
+
+.toolbar {
+  background-color: #000080;
+  color: white;
+  padding: 5px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.toolbar span {
+  margin-right: 15px;
+}
+
+.url-bar {
+  background-color: #c0c0c0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  gap: 10px;
+}
+
+.url-bar input {
+  flex-grow: 1;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+.url-bar button {
+  background-color: #d4d0c8;
+  border: 1px solid black;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.content {
+  padding: 20px;
+}
+
+.content h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.main-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-content ul {
+  width: 60%;
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.main-content .profile-pic img {
+  width: 150px;
+  height: auto;
+  border: 3px solid black;
+}
+
+.past-now-future h2 {
+  margin-top: 20px;
+  color: black;
+}
+
+.past-now-future p {
+  margin: 10px 0;
+}

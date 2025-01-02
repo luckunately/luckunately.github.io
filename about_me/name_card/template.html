@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About the Internet</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #c0c0c0;
+        }
+
+        .window {
+            background-color: #c0c0c0;
+            border: 2px solid #000080;
+            margin: 20px;
+        }
+
+        .title-bar {
+            background-color: #000080;
+            color: white;
+            padding: 2px 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .toolbar {
+            background-color: #c0c0c0;
+            border-bottom: 1px solid #808080;
+            padding: 5px;
+            display: flex;
+            gap: 2px;
+        }
+
+        .toolbar-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #c0c0c0;
+            border: 1px solid #808080;
+            padding: 2px;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+        }
+
+        .toolbar-icon {
+            width: 20px;
+            height: 20px;
+            margin-bottom: 2px;
+        }
+
+        .toolbar-text {
+            font-size: 8px;
+            text-align: center;
+        }
+
+        .location-bar {
+            padding: 5px;
+            border-bottom: 1px solid #808080;
+            display: flex;
+            align-items: center;
+        }
+
+        .location-label {
+            margin-right: 5px;
+        }
+
+        .location-bar input {
+            flex: 1;
+            padding: 2px;
+        }
+
+        .nav-bar {
+            background-color: #c0c0c0;
+            border-bottom: 1px solid #808080;
+            padding: 5px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-bar button {
+            background-color: #c0c0c0;
+            border: 1px solid #808080;
+            padding: 2px 8px;
+        }
+
+        .content {
+            padding: 20px;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        .profile-pic {
+            width: 200px;
+            height: 300px;
+            object-fit: cover;
+            border: 2px solid #000080;
+            margin-left: 20px;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        .past, .now, .future {
+            margin-top: 20px;
+        }
+
+        a {
+            color: #0000FF;
+        }
+
+        /* Add gray vertical separator between icons */
+        .toolbar-separator {
+            width: 1px;
+            height: 35px;
+            background-color: #808080;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="title-bar">
+            <span>CPAIN</span>
+            <div>
+                <button>_</button>
+                <button>□</button>
+                <button>×</button>
+            </div>
+        </div>
+        <div class="location-bar">
+            <span class="location-label">Location:</span>
+            <input type="text" value="https://luckunately.github.io/">
+        </div>
+        <div class="nav-bar">
+            <button>W</button>
+            <button>D</button>
+            <button>Y</button>
+            <button>T</button>
+            <button>M</button>
+            <button>S</button>
+        </div>
+        <div class="content">
+            <div class="main-content">
+                <h1>Tom Wang - CPEN</h1>
+                <ul>
+                    <li>My contact: <a href="fortily@student.ubc.ca">fortily@student.ubc.ca</a></li>
+                </ul>
+                
+                <div class="Experience">
+                    <h2>Experience</h2>
+                    <p>
+                      I have worked on some linux related ML prefetching and program analysis work at Systopia outside of school. 
+                    </p>
+                </div>
+                
+                <div class="now">
+                    <h2>Now</h2>
+                    <p>
+                      Now my interests lean more towards hardware and ML stuff. I would prefer to work on something that is more low level and closer to the hardware.
+                    </p>
+                </div>
+            </div>
+            <img src="tom.jpg" alt="Profile Picture" class="profile-pic">
+        </div>
+    </div>
+</body>
+</html>
