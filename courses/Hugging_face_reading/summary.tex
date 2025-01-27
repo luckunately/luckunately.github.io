@@ -1,0 +1,65 @@
+\documentclass[11pt,fleqn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fancyvrb}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{algpseudocode}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{tikz}
+\usepackage{amsmath, amsfonts, amssymb, ragged2e}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{lipsum,graphicx}
+\usepackage{bookmark}
+\usepackage{times}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{bookmark}
+\usepackage{bbm}
+% \usepackage{algorithm}
+% \usepackage[noend]{algpseudocode}
+%%% Adding Colour to Questions and Answers
+\usepackage{color}
+
+\definecolor{solnblue}{rgb}{0,0,1}
+\newenvironment{soln}{\color{solnblue}}{}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{definition}{Definition}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+%Questions
+
+% Answers
+\definecolor{blu}{rgb}{0,0,0.5}
+\def\blu#1{{\color{blu}#1}}
+\definecolor{gre}{rgb}{0,.3,0}
+\def\gre#1{{\color{gre}#1}}
+\definecolor{red}{rgb}{0.5,0.0,0}
+\def\red#1{{\color{red}#1}}
+\def\norm#1{\|#1\|}
+%%% End for Colours
+
+\title{Reinforcement Learning}
+\author{Tom Wang}
+\date{2025}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{Tom Wang}
+    \fancyhead[R]{\thepage}
+}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plain}
+
+\include{sections/intro.tex}
+
+\end{document}
