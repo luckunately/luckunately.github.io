@@ -4,6 +4,12 @@ title: Projects
 subtitle: What I have done so far
 ---
 
+## Research on vllm
+
+A group project in CPEN511 Advanced Computer Architecture, where I worked with [Jiajun](https://github.com/Jiajun-Huang) 
+
+See [First self-lead research](../2025/06/21/First-self-lead-research.html) for details.
+
 ## Tetris Game on FPGA
 
 After the embrace of CPEN412 where I was soaked with digital design and embedded programming, I finally implemented a Tetris game on FPGA. It was quite fun to make. I learned a lot from this project.
