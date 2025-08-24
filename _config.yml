@@ -28,7 +28,7 @@ navbar-links:
   Resources: 
     - Past Courses: "past_courses"
     - Projects: "projects"
-  Resume: "about_me/Resume.pdf"
+  Resume/CV: "about_me/CV/CV.pdf"
 
 ################
 # --- Logo --- #
