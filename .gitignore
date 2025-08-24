@@ -22,3 +22,5 @@ beautiful-jekyll-theme-*.gem
 *.toc
 *.synctex.gz
 *.gz
+*.run.xml
+*pdfa.xmpi
