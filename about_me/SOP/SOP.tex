@@ -35,12 +35,12 @@
 
 \newcommand{\schoolName}{UBC}
 \newcommand{\theSchoolFullName}{University of British Columbia}
+\newcommand{\theDepartment}{Electrical and Computer Engineering}
 \csdef{path-UBC}{bank/ubc.tex}
 \newcommand{\ccc}{bank/ubc.tex}
 
 
 
-\newcommand{\theDepartment}{Electrical and Computer Engineering}
 
 % \ifstrequal{\schoolName}{UBC}{
     
@@ -79,19 +79,18 @@ This Staement of Purpose is for the application to the graduate program in depar
 \section*{Interests of study}
 So far, the charm of \theDepartment{} in my opinion is how I can make computations faster and cheaper, whether it is through software optimization or hardware resources. Nowadays as the demand of computations grows since the evolution of AI, the need of faster and cheaper computations is more urgent than ever.
 
-I am particularly interested in the field of computer architecture and operating systems, which are the two main components that determine computational resources and how to utilize it. Any improvements in these two fields can lead to a significant increase in computational power, which is the key to the development of AI and other computational-heavy applications.
+I am particularly interested in the field of computer architecture especially in accelerating ML workloads. So far, I have some experience with memory management in \hyperref[prefetching]{CPUs} and \hyperref[vllm]{GPUs} which still attracts me, but also, I want to explore in interconnects, FPGA-based specialized hardware accelerators, etc.
 
-With the school background in UBC, I have been actively involved in the research of cache and page prefetching with Machine Learning, which, if implemented correctly, can significantly reduce the time of memory access and decrease the computation unit idle time. The detials of this can be found \hyperref[prefetching]{below}.
-
-There are a few area that I would like to explore in the future:\begin{itemize}
-    \item \textbf{Cache and Memory Optimization:} The cache and memory are the two main components that determine the speed of computation. I would like to explore how to optimize the cache and memory whether it is through hardware(Memory design etc.) or software(prefetching or eviction policy, management, etc.).
-    \item \textbf{Operating System Optimization:} The operating system is the bridge between the hardware and software. I would like to explore how to optimize the operating system to make the computation faster and cheaper. It could be through the scheduling policy, memory management, etc.
-    \item \textbf{Parallel Computing:} The parallel computing is the future of computation. I would like to explore how to utilize the parallel computing.
-    \item \textbf{Machine Learning in Computer Architecture:} Machine Learning is a powerful tool that can be used in computer architecture, possibly to optimize branch prediction, task scheduling, coherence protocol, etc.
-    \item \textbf{And the list goes on...} There are areas that I have not explored yet like in memory processing, quantum computing, etc. I would like to explore these areas as well.
+Currently I have two plans in my mind:
+\begin{itemize}
+    \item \textbf{Plan A:} I am interested in investigating the potential of FPGA-based accelerators for ML tasks (Let's break GPU Monopoly!). This involves understanding the design and implementation of custom hardware solutions to speed up inference or training processes for specific workloads. I think this is possible with FPGA if we know how to effectively program and utilize their parallel processing capabilities. 
+    After finding a few promising approaches on different workloads, I want to implement and seek the possibility to generalize these approaches for broader applications. (For each specific feature of the workload, pack up a block of FPGA IP made for it, and then combine these blocks to form a more complex accelerator for a broader range of workloads. HLS or FPGA IP programming in a sense?)
+    \item \textbf{Plan B:} I want to dive deeper into memory management and scheduling techniques, especially in the context of ML workloads. This includes exploring advanced memory strategies for CPUs, GPUs or even NPUs. Nowadays, SOC gets so complex that efficient memory management is crucial for performance. I want to investigate how to optimize memory access patterns and improve data locality to enhance the overall efficiency of ML workloads.
 \end{itemize}
-\section*{Future Goals}
-Right now I am more leaning towards the academia, to be added...
+%     \item \textbf{And the list goes on...} There are areas that I have not explored yet like in memory processing, quantum computing, etc. I would like to explore these areas as well.
+% \end{itemize}
+% \section*{Future Goals}
+% Right now I am more leaning towards the academia, to be added...
 \section*{Why \theSchoolFullName{}?}
 
 \ifdefstring{\schoolName}{U of T}{\input{bank/ut.tex}}{}
@@ -100,39 +99,33 @@ Right now I am more leaning towards the academia, to be added...
 \section*{Motivation}
 When I first entered the university, I was not exposed of any details of how computations are done,
 \section*{My Background}
-During the 4-year-undergraduate study, I spent all my time at UBC.
+
 \subsection*{Academic Background}
 I took various courses in computer engineering, electrical engineering and computer science at UBC. 
 
 \begin{itemize}
-    \item For hardware, I took courses like Digital Logic Design, Computer Architecture, VLSI Design, Error control coding etc. 
-    \item For software, I took courses like Operating Systems, Software construction, Data Structure, Algorithm, Machine Learning etc.
+    \item For hardware, I took courses like Digital Logic Design, Computer Architecture, accelerator design and more. 
+    \item For software, I took courses like Operating Systems, Machine Learning and more.
 \end{itemize}
 
 All the above courses have given me a solid foundation in both hardware and software, which I believe is essential for the graduate study in \theDepartment{} at \theSchoolFullName{}.
-\subsection*{Awards and Scholarships}
-\begin{enumerate}
-    \item I have received the Dean's Honour List for 3 years in a row, which is the recognition of my academic achievement at UBC.
-    \item I also received the NSERC Undergraduate Student Research Award at the third year summer, which encouraged me to pursue research in the field of computer engineering. It is a funding that provides 4-month minimum wage for undergraduate students to work on research projects.
-\end{enumerate}
+% \subsection*{Awards and Scholarships}
+% \begin{enumerate}
+%     \item I have received the Dean's Honour List for 3 years in a row, which is the recognition of my academic achievement at UBC.
+%     \item I also received the NSERC Undergraduate Student Research Award at the third year summer, which encouraged me to pursue research in the field of computer engineering. It is a funding that provides 4-month minimum wage for undergraduate students to work on research projects.
+% \end{enumerate}
 
 \subsection*{Work Experience}
+
+\subsubsection*{ML Prefetching for Page Faults: May 2024 -- April 2025} 
 \label{prefetching}
-The work started in the third year summer where I received NSERC awards provided by Prof. Alexandra Fedorova. I was hired as a full-time research assistant to work on the project of cache and page prefetching with Machine Learning. 
+I worked as a research assistant under Prof. Alexandra Fedorova after receiving an NSERC award, focusing on ML-based cache and page prefetching. My main task was to collect memory traces and adapt an LSTM model for page fault prediction, implemented in PyTorch and trained on a UBC GPU server. Results showed cache models perform poorly on page faults, highlighting distinct access patterns. We began exploring transformer-based models, but I paused the project for a full-time internship. 
 
-The goal of the project is to reduce the time of memory access and decrease the computation unit idle time. The project is still ongoing and I am still actively involved in the project.
+\subsubsection*{vLLM Memory Management: Jan 2024 -- April 2025}
+\label{vllm}
+I also worked on memory management for vLLM, a framework for efficient large language model inference in my \textbf{Advanced Computer Architecture} course. Initially, my goal was to optimize GPU memory usage with the techniques I learned in \hyperref[prefetching]{ML Prefetching for Page Faults} since the idea of vLLM is to manage GPU memory with virtual-memory-like techniques. However, I found that for GPU workloads, the memory access patterns are close to deterministic which is quite different from OS-level memory management. 
 
-\subsubsection*{The motivation of the project}
-The motivation of the project is that the memory access is the bottleneck of the computation.
-
-The memory access time is much slower than the computation unit. If we can reduce the time of memory access, we can significantly reduce the idle time of the computation unit, which can lead to a significant increase in the computation speed.
-
-Privious work has shown that LSTM model could significantly reduce the amount of cache misses. We wanted to extend that to solve page faults since disk access is much slower than memory accesses.
-
-\subsubsection*{The progress of the project}
-The first 2 months was getting familiar with the project, tools, and the previous work. 
-
-To be continued...
-
-}
+\subsubsection*{FPGA Soft IP Engineer: May 2025 -- Present}
+\label{fpga}
+As an FPGA Soft IP Engineer in \textbf{Altera}, I am currently working on developing soft IP cores for FPGA platforms, more specifically focusing on the subsystems of HBM (High Bandwidth Memory). This role involves designing and optimizing hardware components for specific applications, leveraging my background in computer architecture and digital design. I am gaining hands-on experience with hardware description languages and FPGA development tools, further bridging the gap between software and hardware design.
 \end{document}
