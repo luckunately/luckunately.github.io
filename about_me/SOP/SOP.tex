@@ -14,6 +14,7 @@
 \usepackage[skip=10pt plus1pt, indent=40pt]{parskip}
 \usepackage{blindtext}
 \usepackage{hyperref}
+\usepackage{indentfirst}
 % \usepackage{etoolbox}
 
 % I used this guy's template
@@ -25,107 +26,85 @@
 
 \begin{document}
 \newcommand{\ifstringequal}[4]{%
-  \ifnum\pdfstrcmp{#1}{#2}=0
-  #3%
-  \else
-  #4%
-  \fi
+	\ifnum\pdfstrcmp{#1}{#2}=0
+	#3%
+	\else
+	#4%
+	\fi
 }
 
 
-\newcommand{\schoolName}{UBC}
-\newcommand{\theSchoolFullName}{University of British Columbia}
+\newcommand{\schoolName}{U of T}
+\newcommand{\theSchoolFullName}{University of Toronto}
+% \newcommand{\schoolName}{McGill}
+% \newcommand{\theSchoolFullName}{McGill University}
+% \newcommand{\schoolName}{UBC}
+% \newcommand{\theSchoolFullName}{University of British Columbia}
 \newcommand{\theDepartment}{Electrical and Computer Engineering}
-\csdef{path-UBC}{bank/ubc.tex}
-\newcommand{\ccc}{bank/ubc.tex}
-
-
-
-
-% \ifstrequal{\schoolName}{UBC}{
-    
-%     \ifstrequal{\schoolName}{U of T}{
-%         \input{uoft_file.tex}
-%     }{
-%         % Default case or other cases
-%         % \input{default_file.tex}
-%     }
-% }
+% \newcommand{\theDepartment}{Computer Science}
 
 \pagestyle{empty} % suppresses page numbers
 
 %header
 {\fontfamily{qbk}\selectfont % font can be changed from https://www.overleaf.com/learn/latex/Font_typefaces
 
-\begin{center}
-    \begin{minipage}{.9\textwidth}
-        \Large{\textbf{STATEMENT OF PURPOSE}}    
-    \end{minipage}
+	\begin{center}
+		\begin{minipage}{.9\textwidth}
+			\Large{\textbf{STATEMENT OF PURPOSE}}
+		\end{minipage}
 
-    \begin{tabularx}{.8\textwidth}{X r X}
-    Xingyu Wang (Tom)                 & \multicolumn{2}{r}{\faIcon{mobile} +1 604-388-5164}     \\
-        BASC in Computer Engineering  & \multicolumn{2}{r}{\faIcon{envelope}  \href{tomxingyuwang@gmail.com}{tomxingyuwang@gmail.com}} \\
-        University of British Columbia  &  \multicolumn{2}{r}{\faIcon{linkedin} \href{www.linkedin.com/in/tom-wang-554904220/}{linkedin-profile}}
-    \end{tabularx}
-    \par\noindent\rule{\textwidth}{1.25pt}
-\end{center}
+		\begin{tabularx}{.8\textwidth}{X r X}
+			Xingyu Wang (Tom)              & \multicolumn{2}{r}{\faIcon{mobile} +1 604-388-5164}                                                    \\
+			BASC in Computer Engineering   & \multicolumn{2}{r}{\faIcon{envelope}  \href{tomxingyuwang@gmail.com}{tomxingyuwang@gmail.com}}         \\
+			University of British Columbia & \multicolumn{2}{r}{\faIcon{linkedin} \href{www.linkedin.com/in/tom-wang-554904220/}{linkedin-profile}}
+		\end{tabularx}
+		\par\noindent\rule{\textwidth}{1.25pt}
+	\end{center}
 
 }
 
-{\fontfamily{ptm}\selectfont % font can be changed from https://www.overleaf.com/learn/latex/Font_typefaces
+\fontfamily{ptm}\selectfont % font can be changed from https://www.overleaf.com/learn/latex/Font_typefaces
 
-This Staement of Purpose is for the application to the graduate program in department of \theDepartment{} at \theSchoolFullName{}.
+This Statement of Purpose is for the application to the graduate program in department of \theDepartment{} at \theSchoolFullName{}.
 
-\section*{Interests of study}
-So far, the charm of \theDepartment{} in my opinion is how I can make computations faster and cheaper, whether it is through software optimization or hardware resources. Nowadays as the demand of computations grows since the evolution of AI, the need of faster and cheaper computations is more urgent than ever.
+\section*{Interests of Study}
+So far, the charm of \theDepartment{} in my opinion is how I can make computations {faster and cheaper}, whether it is through \textbf{software optimization} or \textbf{hardware resources}. Nowadays, as the demand for computations grows since the evolution of {AI}, the need for {faster and cheaper computations} is more urgent than ever.
 
-I am particularly interested in the field of computer architecture especially in accelerating ML workloads. So far, I have some experience with memory management in \hyperref[prefetching]{CPUs} and \hyperref[vllm]{GPUs} which still attracts me, but also, I want to explore in interconnects, FPGA-based specialized hardware accelerators, etc.
+My primary interest lies in \textbf{computer architecture}, with a particular focus on \textbf{accelerating ML workloads}. While working on \hyperref[prefetching]{ML-based page-level prefetching} under Prof. Alexandra Fedorova, I explored using {LSTM models} for page fault prediction, which gave me valuable insights into how ML can improve system performance. Additionally, I had the chance to explore on \hyperref[vllm]{vLLM memory management and scheduling}. It broadened my sight on the intricate relationship between hardware and software in optimizing ML workloads and the current challenges in this area. These projects have deepened my curiosity about efficient ML acceleration and motivated me to further explore related areas such as \textbf{interconnects} and \textbf{FPGA-based specialized hardware accelerators}.
 
-Currently I have two plans in my mind:
+Inspired by Prof. Andrew Boutros's PhD thesis, I have identified several specific areas I would like to explore during my graduate studies:
+\begin{enumerate}
+    \item I am interested in investigating the potential of \textbf{Customized accelerators for specific ML tasks} (Let's break the GPU Monopoly!). This involves understanding the design and implementation of \textbf{custom hardware solutions} to speed up inference or training processes for specific workloads.
+    \item The prototype will start with {FPGAs}. FPGAs are powerful if we know how to effectively program and utilize their parallel processing capabilities and adaptability. Depending on the results, I would like to explore the possibility of transitioning to \textbf{ASIC design} or move on to \textbf{board-level reconfigurable computing}.
+    \item With the experience I have in \textbf{memory management}, I want to explore how to optimize \textbf{memory access patterns} and \textbf{data locality} for ML workloads on these customized accelerators. This includes techniques like scheduling, interconnects, off-chip communication, and memory hierarchy design that is specifically tailored for specific ML models or tasks.
+    \item At the same time, I also want to explore flattening the model directly onto the \textbf{hardware circuit}, bypassing the traditional software stack. This could involve using \textbf{Domain Specific High-Level Synthesis (HLS)} tools to convert high-level descriptions of ML models directly into hardware implementations. (Accelerators which require complex software stacks like TPUs seem like another form of ... GPU to me.)
+    \item After finding a few promising approaches on different workloads, I want to implement and seek the possibility to \textbf{generalize these approaches} for broader applications. (For each specific feature of the workload, pack up a block of \textbf{IP} made for it, and then combine these blocks to form a more complex accelerator for a broader range of workloads. Modular design?)
+\end{enumerate}
+
+While I am excited about hardware acceleration—such as designing customized accelerators and exploring FPGA-based solutions—I am equally fascinated by \textbf{software-level optimizations},  \textbf{CUDA acceleration} and \textbf{parallel computing}. Leveraging CUDA for GPU programming has shown me how efficient parallel algorithms and memory management can dramatically improve ML inference and training speed. I am eager to further explore how \textbf{hardware and software co-design}. Despite lack of experience in this area, I started learning CUDA and parallel computing on my own time after work, and I am excited to deepen my knowledge in this area during my graduate studies.
+
+\section*{Why Graduate Study?}
+I have been working as an \hyperref[Altera]{FPGA Soft IP Engineer} in Altera for a few months now, and I have realized that the work I do in the industry is quite different from what I expect. I want to be able to develop {new tools and technologies} that can make a difference in the industry and society. I want to be able to work on {innovative projects} that can push the boundaries of what is possible.
+
+I believe that graduate study will provide me with the opportunity to {deepen my understanding} of the field and to develop the skills necessary to conduct {research} and contribute to the {advancement of knowledge}. I want to be able to work on {cutting-edge research projects} and to collaborate with {experts in the field}. I believe that this will help me to achieve my long-term goal of contributing to the {advancement of technology}.
+
+The faculty members at \theSchoolFullName{} are leading experts in their respective fields, and I am excited about the opportunity to learn from them and to work with them on research projects. I have read several papers published by the faculty members that I selected as my potential advisors, and I am impressed by their work. I have sent emails to a few of them listing my thoughts on their papers and expressing my interest in working with them. The email address is {fortily@student.ubc.ca} if you missed it. I am also impressed by the resources and facilities available at \theSchoolFullName{}, which I believe will provide me with the tools necessary to succeed in my studies.
+
+\section*{Why Me?}
+I believe I am a strong candidate for the graduate program in \theDepartment{} at \theSchoolFullName{} for several reasons:
 \begin{itemize}
-    \item \textbf{Plan A:} I am interested in investigating the potential of FPGA-based accelerators for ML tasks (Let's break GPU Monopoly!). This involves understanding the design and implementation of custom hardware solutions to speed up inference or training processes for specific workloads. I think this is possible with FPGA if we know how to effectively program and utilize their parallel processing capabilities. 
-    After finding a few promising approaches on different workloads, I want to implement and seek the possibility to generalize these approaches for broader applications. (For each specific feature of the workload, pack up a block of FPGA IP made for it, and then combine these blocks to form a more complex accelerator for a broader range of workloads. HLS or FPGA IP programming in a sense?)
-    \item \textbf{Plan B:} I want to dive deeper into memory management and scheduling techniques, especially in the context of ML workloads. This includes exploring advanced memory strategies for CPUs, GPUs or even NPUs. Nowadays, SOC gets so complex that efficient memory management is crucial for performance. I want to investigate how to optimize memory access patterns and improve data locality to enhance the overall efficiency of ML workloads.
-\end{itemize}
-%     \item \textbf{And the list goes on...} There are areas that I have not explored yet like in memory processing, quantum computing, etc. I would like to explore these areas as well.
-% \end{itemize}
-% \section*{Future Goals}
-% Right now I am more leaning towards the academia, to be added...
-\section*{Why \theSchoolFullName{}?}
-
-\ifdefstring{\schoolName}{U of T}{\input{bank/ut.tex}}{}
-\ifdefstring{\schoolName}{UBC}{\input{bank/ubc.tex}}{}
-
-\section*{Motivation}
-When I first entered the university, I was not exposed of any details of how computations are done,
-\section*{My Background}
-
-\subsection*{Academic Background}
-I took various courses in computer engineering, electrical engineering and computer science at UBC. 
-
-\begin{itemize}
-    \item For hardware, I took courses like Digital Logic Design, Computer Architecture, accelerator design and more. 
-    \item For software, I took courses like Operating Systems, Machine Learning and more.
+    \item \textbf{Strong Academic Background:} I have a solid foundation in {computer engineering}, with a focus on both {hardware and software} aspects. My coursework has provided me with a comprehensive understanding of the field (\textbf{Computer Architecture}, \textbf{Digital Logic Design}, \textbf{Operating Systems}, \textbf{ML}), and I have consistently performed well academically.
+    \item \textbf{Research Experience:} I have gained substantial research experience through two significant projects. \begin{itemize}
+		\label{prefetching}
+		\item As a research assistant under Prof. Alexandra Fedorova, I worked on \textbf{ML-based cache and page prefetching}, where I tried to predict the memory access patterns of applications to reduce latency. I started with training an LSTM model on collected memory traces of specific programs, to predict future memory accesses. While the LSTM model showed potential in relatively simple scenarios, it struggled with more complex patterns. To address this, I experimented with various architectures (Attention layer, MLP and transformer) and hyperparameters, ultimately improving the model's performance. This project provided me with valuable insights into the challenges of applying ML to system-level problems and how to customize models for specific tasks.
+		\label{vllm}
+		\item In another project focused on \textbf{vLLM memory management}, I explored optimizing GPU memory usage for large language models, discovering the unique characteristics of GPU memory access patterns compared to traditional OS-level management. This project is motivated by the nature of vLLM, where vLLM manages the memory of GPUs in blocks as virtual memory, which encouraged me to apply OS techniques learned from \hyperref[prefetching]{my previous project} to optimize memory allocation and scheduling. The initial tackle was to prefetch memory pages before they are needed, reducing latency during model inference. However, different from traditional OS, ML workloads do not have the same level of randomness in memory access patterns, making it unnecessary to predict which pages to prefetch. While working on this project, I found that the scheduling of memory requests led to some additional memory swap-in-swap-out overhead, which is not ideal for latency-sensitive applications. To address this, I explored various scheduling algorithms to optimize the order of memory requests, ultimately improving the overall performance of the system. The report can be found on \hyperlink{https://luckunately.github.io/courses/CPEN511/Final_report.pdf}{my GitHub} This project has deepened my understanding of memory management and scheduling in the context of ML workloads and has sparked my interest in further exploring this area.
+		\item These experiences have not only enhanced my \textbf{technical skills} but also taught me how to approach \textbf{complex problems} and work collaboratively in a \textbf{research setting}.
+	\end{itemize}
+	\label{Altera}
+    \item \textbf{Relevant Work Experience:} My current role as an {FPGA Soft IP Engineer} has given me practical experience in \textbf{hardware design} and \textbf{software stack for custom hardware}. I worked on large-scale traffic generator IP for testing efficiency of memory operations on the on-chip memory such as HBM and DDRRAM. I have gained knowledge with NoC interfaces, AXI protocol, and FPGA toolchains. This industry experience complements my {academic background} and {research skills}, making me well-prepared for the challenges of graduate study.
+    \item \textbf{Passion for Learning and Innovation:} I am deeply passionate about the field of {computer engineering} and am eager to explore {new ideas and technologies}. I am motivated to contribute to the \textbf{advancement of knowledge} and to make a meaningful impact in the field.
+    \item \textbf{Clear Research Interests:} I have a clear vision of my research interests, particularly in the areas of \textbf{computer architecture} and \textbf{ML acceleration}. This focus will allow me to make significant contributions to the field during my graduate studies.
 \end{itemize}
 
-All the above courses have given me a solid foundation in both hardware and software, which I believe is essential for the graduate study in \theDepartment{} at \theSchoolFullName{}.
-% \subsection*{Awards and Scholarships}
-% \begin{enumerate}
-%     \item I have received the Dean's Honour List for 3 years in a row, which is the recognition of my academic achievement at UBC.
-%     \item I also received the NSERC Undergraduate Student Research Award at the third year summer, which encouraged me to pursue research in the field of computer engineering. It is a funding that provides 4-month minimum wage for undergraduate students to work on research projects.
-% \end{enumerate}
-
-\subsection*{Work Experience}
-
-\subsubsection*{ML Prefetching for Page Faults: May 2024 -- April 2025} 
-\label{prefetching}
-I worked as a research assistant under Prof. Alexandra Fedorova after receiving an NSERC award, focusing on ML-based cache and page prefetching. My main task was to collect memory traces and adapt an LSTM model for page fault prediction, implemented in PyTorch and trained on a UBC GPU server. Results showed cache models perform poorly on page faults, highlighting distinct access patterns. We began exploring transformer-based models, but I paused the project for a full-time internship. 
-
-\subsubsection*{vLLM Memory Management: Jan 2024 -- April 2025}
-\label{vllm}
-I also worked on memory management for vLLM, a framework for efficient large language model inference in my \textbf{Advanced Computer Architecture} course. Initially, my goal was to optimize GPU memory usage with the techniques I learned in \hyperref[prefetching]{ML Prefetching for Page Faults} since the idea of vLLM is to manage GPU memory with virtual-memory-like techniques. However, I found that for GPU workloads, the memory access patterns are close to deterministic which is quite different from OS-level memory management. 
-
-\subsubsection*{FPGA Soft IP Engineer: May 2025 -- Present}
-\label{fpga}
-As an FPGA Soft IP Engineer in \textbf{Altera}, I am currently working on developing soft IP cores for FPGA platforms, more specifically focusing on the subsystems of HBM (High Bandwidth Memory). This role involves designing and optimizing hardware components for specific applications, leveraging my background in computer architecture and digital design. I am gaining hands-on experience with hardware description languages and FPGA development tools, further bridging the gap between software and hardware design.
 \end{document}

@@ -42,6 +42,12 @@
   \renewcommand{\familydefault}{\sfdefault}
 \fi
 
+\usepackage{microtype}
+\usepackage[none]{hyphenat}
+\sloppy
+\tolerance=1000
+\emergencystretch=10pt
+
 % Change the colours if you want to
 \definecolor{SlateGrey}{HTML}{2E2E2E}
 \definecolor{LightGrey}{HTML}{666666}
@@ -140,7 +146,7 @@
 % \AtBeginEnvironment{itemize}{\small}
 
 %% Set the left/right column width ratio to 6:4.
-\columnratio{0.7}
+\columnratio{0.75}
 
 % Start a 2-column paracol. Both the left and right columns will automatically
 % break across pages if things get too long.
@@ -149,8 +155,8 @@
 
 \cvevent{FPGA Soft IP Engineering Intern}{Altera}{May 2025 -- August 2026}{Toronto, ON}
 \begin{itemize}
-  \item Working on Test Engine IP in the HBM (High Bandwidth Memory) subsystem
-  \item Develop Feature, verify functionality and reduce resource usage of the Test Engine IP
+  \item Develop Feature, verify functionality and reduce resource usage of the Test Engine IP, which sends memory traffic to the on-chip memory (HBM, DDRRAM) through NoC interface on FPGA.
+  \item Collaborate with cross-functional teams to ensure seamless integration of the IP into larger FPGA designs, enhancing overall system performance and reliability.
 \end{itemize}
 
 \divider
@@ -158,20 +164,21 @@
 \cvevent{Student Research Asistant}{UBC}{April 2024 -- April 2025}{Vancouver, BC}
 \begin{itemize}
 \item Investigated supervised learning methods (LSTM, Transformer, etc.) for page prefetching using collected traces; achieved better results than heuristic algorithms (LEAP) on various workloads, with ongoing challenges in deployment and inference time.
-\item Supervision under: Shaurya Patel, Prof. Alexandra Fedorova.
+\item Supervision under: Shaurya Patel, Prof. Alexandra Fedorova in UBC Systopia Lab.
 \end{itemize}
 
 \cvsection{Projects}
 
-\cvevent{Evaluating Cache Scheduling Strategies for vLLM Inference}{}{January 2025 -- April 2025}{}
+\cvevent{Evaluating Cache Scheduling Strategies for vLLM Inference}{}{January 2025 -- April 2025}{Vancouver, BC}
 \begin{itemize}
   \item Experiment OS cache prefetching strategies to for vLLM inference.
   \item Explore adaptive watermark tuning techniques to optimize memory usage and scheduling.
+  \item Report avaliable at \href{https://luckunately.github.io/courses/CPEN511/Final_report.pdf}{\faGithub my GitHub}. 
 \end{itemize}
 
 \divider
 
-\cvevent{Capstone: Reinforcement Learning with SVT-AV1 Codec}{}{January 2025 -- August 2025}{}
+\cvevent{Capstone: Reinforcement Learning with SVT-AV1 Codec}{}{January 2025 -- August 2025}{Vancouver, BC}
 \begin{itemize}
   \item Used reinforcement learning to improve AV1 Codec constant bitrate mode by assigning Quantization Parameter (QP) offsets to superblocks within a frame, given a frame-level QP.
   \item Built an RL environment by exposing the C program API, enabling per-video optimization; generalization across different videos remains challenging.
@@ -179,10 +186,10 @@
 
 \divider
 
-\cvevent{Microsystem Design with Microprocessor}{}{Jan 2024 -- April 2024}{}
+\cvevent{Microsystem Design with Microprocessor}{}{Jan 2024 -- April 2024}{Vancouver, BC}
 \begin{itemize}
 \item Build {memory, data bus, various I/O} around a M68K CPU on FPGA. Interact with CPU using embedded C programming
-\item Implemented components including {DRAM controller, Cache Controller, SPI, Canbus, I2C, ADC/DAC}, and {Simple RTOS} usage with multi-threading and priority interrupts.
+\item Implemented components including {DRAM controller, Cache Controller, SPI, Canbus, I2C, ADC/DAC}, and {Simple RTOS} with multi-threading and priority interrupts.
 \item Integrate the above components with VGA and Voice modules, and map addresses accordingly both in RTL design and C programming to produce a Tetris game with the M68K CPU
 \end{itemize}
 
@@ -250,6 +257,8 @@
 
 \cvachievement{\faTrophy}{NSERC Awards}{Natrual Sciences and Engineering Research Council of Canada Undergraduate Student Research Award (USRA) for May 2024 - August 2024}
 
+\cvachievement{\faTrophy}{Dean's Honors List}{Academic Excellence Award 4 years in a row}
+
 % \divider
 
 % \cvachievement{\faHeartbeat}{Dean's Honors List}{Through out the academic journey in UBC}
@@ -261,15 +270,9 @@
 \cvsection{Skills}
 
 % C, Python, SystemVerilog
-\cvtag{C} \cvtag{Python} \cvtag{SystemVerilog} \\
-% ML, Pytorch
-\cvtag{Machine Learning} \cvtag{Pytorch} \\
-% OS, QEMU
-\cvtag{Operating Systems} \cvtag{QEMU} \\
-% Computer Architecture, Digital Logic Design
-\cvtag{Computer Architecture} \\ \cvtag{Digital Logic Design} \\
-% VLSI, Microprocessor Design
-\cvtag{VLSI} \cvtag{Microprocessor Design} \\
+\cvtag{SystemVerilog} \cvtag{C} \cvtag{Python} 
+\cvtag{tcl} \cvtag{Perl} \cvtag{Pytorch} \cvtag{QEMU} 
+
 
 % % Java, Python, C, C++
 % \cvtag{Java} \cvtag{Python} \cvtag{C} \cvtag{C++} \\
@@ -328,9 +331,9 @@
 
 \textbf{Course Highlights:}
 \begin{itemize}
-  \item \textbf{Computer Systems:} Computer Architecture, Digital \& Microsystem Design, Computing Systems, VLSI
+  \item \textbf{Compute Systems:} Computer Architecture, Digital \& Microsystem Design, Computing Systems, VLSI, Accelerator Design
   \item \textbf{Software:} Software Development, Data Structures \& Algorithms, Operating Systems
-  \item \textbf{Other:} Machine Learning, Error Control Coding, Abstract Math
+  \item \textbf{Other:} Machine Learning, Error Control Coding, Abstract Math, Video Codec
 \end{itemize}
 % \divider
 
